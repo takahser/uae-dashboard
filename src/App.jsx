@@ -102,7 +102,7 @@ export default function Dashboard() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("/data.json")
+    fetch(import.meta.env.BASE_URL + "data.json")
       .then((r) => r.json())
       .then(setRawData)
       .catch(() => setError("Failed to load data.json"));
