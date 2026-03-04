@@ -460,140 +460,185 @@ export default function Dashboard() {
         )}
 
         {/* ARSENAL & DEFENCE TAB */}
-        {activeTab === "arsenal" && (
+        {activeTab === "arsenal" && (() => {
+          const attackSystems = [
+            {
+              name: "Ballistic Missiles", sub: "MRBM", color: "#4DA6FF",
+              img: "https://upload.wikimedia.org/wikipedia/commons/8/8d/Kheibar_Shekan_%281%29.jpg",
+              desc: "High-speed projectiles arcing through the upper atmosphere. Iran's most destructive but costly weapon.",
+              types: "Kheibar Shekan, Emad, Fattah-1/2, Ghadr, Sejjil",
+              speed: 8500, range: 2500, warhead: 1500, cost: 2750, altitude: 150,
+              costLabel: "$500K–$5M", speedLabel: "Mach 7–13+", rangeLabel: "1,300–2,500km",
+            },
+            {
+              name: "Cruise Missiles", sub: "Subsonic Strike", color: "#E74C3C",
+              img: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Hoveyzeh_cruise_missile.jpg",
+              desc: "Jet-powered, low-altitude terrain-huggers that evade radar. Slower but stealthier.",
+              types: "Paveh, Hoveyzeh, Soumar",
+              speed: 900, range: 2000, warhead: 400, cost: 750, altitude: 0.05,
+              costLabel: "$500K–$1M", speedLabel: "~900 km/h", rangeLabel: "1,350–2,500km",
+            },
+            {
+              name: "Suicide Drones", sub: "Loitering Munitions", color: UAE_GOLD,
+              img: "https://upload.wikimedia.org/wikipedia/commons/e/ef/2023_IRGC_Aerospace_Force_achievements_Exhibition_in_Kermanshah_%28018%29.jpg",
+              desc: "Cheap GPS-guided kamikaze drones in massive swarms. Designed to exhaust expensive interceptor stocks.",
+              types: "Shahed-136, Shahed-131, Mohajer-6",
+              speed: 185, range: 2000, warhead: 50, cost: 35, altitude: 4,
+              costLabel: "$20K–$50K", speedLabel: "~185 km/h", rangeLabel: "900–2,000km",
+            },
+          ];
+          const defenceSystems = [
+            {
+              name: "THAAD", maker: "Lockheed Martin (US)", color: "#4DA6FF",
+              img: "https://upload.wikimedia.org/wikipedia/commons/4/45/The_first_of_two_Terminal_High_Altitude_Area_Defense_%28THAAD%29_interceptors_is_launched_during_a_successful_intercept_test_-_US_Army.jpg",
+              target: "Ballistic missiles", altitude: 150, range: 200, cost: 12,
+              costLabel: "$12M", desc: "Exo-atmospheric hit-to-kill. Sonic booms heard 100km away.",
+            },
+            {
+              name: "Patriot PAC-3", maker: "Raytheon (US)", color: INTERCEPTED,
+              img: "https://upload.wikimedia.org/wikipedia/commons/f/f8/Patriot_missile_launch_b.jpg",
+              target: "Ballistic + cruise", altitude: 40, range: 35, cost: 4,
+              costLabel: "$4–12M", desc: "Gulf workhorse. Lower-tier terminal phase interceptor.",
+            },
+            {
+              name: "Cheongung-II", maker: "LIG Nex1 (South Korea)", color: "#9B59B6",
+              img: "https://upload.wikimedia.org/wikipedia/commons/d/d1/M-SAM_Block-2_battery.jpg",
+              target: "Medium-range threats", altitude: 20, range: 40, cost: 2.5,
+              costLabel: "$2–3M", desc: "First-ever combat use. $3.5B UAE deal — proved itself here.",
+            },
+            {
+              name: "Barak MX", maker: "IAI (Israel)", color: "#E67E22",
+              img: "https://upload.wikimedia.org/wikipedia/commons/f/f6/Salon_du_Bourget_20090619_077.jpg",
+              target: "Multi-layer", altitude: 30, range: 150, cost: 1,
+              costLabel: "~$1M", desc: "Modular system via Abraham Accords. Drones to ballistic.",
+            },
+          ];
+          const comparisonData = [
+            { metric: "Speed", ballistic: 100, cruise: 10.6, drone: 2.2, unit: "% of Mach 13" },
+            { metric: "Range", ballistic: 100, cruise: 80, drone: 80, unit: "% of 2,500km" },
+            { metric: "Warhead", ballistic: 100, cruise: 26.7, drone: 3.3, unit: "% of 1,500kg" },
+            { metric: "Cost", ballistic: 100, cruise: 27.3, drone: 1.3, unit: "% of $5M" },
+          ];
+          const defenceCompData = defenceSystems.map(s => ({
+            name: s.name, altitude: s.altitude, range: s.range, cost: s.cost,
+          }));
+          return (
           <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 20 }}>
 
-            {/* ATTACK SYSTEMS */}
+            {/* ATTACK SYSTEMS — image cards */}
             <h3 style={{ margin: 0, fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>Iranian Attack Systems</h3>
-
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}>
-              {/* Ballistic Missiles */}
-              <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, borderTop: "3px solid #4DA6FF" }}>
-                <div style={{ fontSize: 16, fontWeight: 800, color: "#4DA6FF", fontFamily: "Georgia, serif", marginBottom: 4 }}>Ballistic Missiles</div>
-                <div style={{ fontSize: 10, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 1, marginBottom: 12 }}>Medium-Range Ballistic Missiles (MRBM)</div>
-                <div style={{ fontSize: 11, color: TEXT, lineHeight: 1.6 }}>
-                  <p style={{ margin: "0 0 8px" }}>High-speed projectiles that follow an arcing trajectory through the upper atmosphere. Iran's most destructive but expensive weapon class.</p>
-                  <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: 8, marginTop: 8 }}>
-                    <div style={{ color: SUBTEXT, marginBottom: 4, fontWeight: 600 }}>Key Types</div>
-                    <div>
-                      <span style={{ color: "#4DA6FF" }}>Kheibar Shekan</span> — Solid-fuel, &lt;20m accuracy, Mach 8–10<br/>
-                      <span style={{ color: "#4DA6FF" }}>Emad</span> — Maneuverable re-entry vehicle, 1,700km range<br/>
-                      <span style={{ color: "#4DA6FF" }}>Fattah-1/2</span> — Claimed hypersonic (Mach 13+), glide vehicle<br/>
-                      <span style={{ color: "#4DA6FF" }}>Ghadr</span> — Shahab-3 derivative, 1,950km range<br/>
-                      <span style={{ color: "#4DA6FF" }}>Sejjil</span> — Two-stage solid-fuel, 2,500km range
+              {attackSystems.map((w, i) => (
+                <div key={i} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, overflow: "hidden", borderTop: `3px solid ${w.color}` }}>
+                  <div style={{ height: 160, overflow: "hidden", position: "relative" }}>
+                    <img src={w.img} alt={w.name} style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.7)" }} />
+                    <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "20px 16px 12px", background: "linear-gradient(transparent, rgba(0,0,0,0.85))" }}>
+                      <div style={{ fontSize: 18, fontWeight: 800, color: w.color, fontFamily: "Georgia, serif" }}>{w.name}</div>
+                      <div style={{ fontSize: 9, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 1 }}>{w.sub}</div>
                     </div>
                   </div>
-                  <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: 8, marginTop: 8 }}>
-                    <div style={{ color: SUBTEXT, marginBottom: 4, fontWeight: 600 }}>Specifications</div>
-                    <div>Speed: Mach 7–13+ • Range: 1,300–2,500km</div>
-                    <div>Warhead: 550–1,500kg • Prep: 15min (solid) to hours (liquid)</div>
-                  </div>
-                  <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: 8, marginTop: 8 }}>
-                    <div style={{ color: SUBTEXT, marginBottom: 4, fontWeight: 600 }}>Cost per Unit</div>
-                    <div style={{ color: "#4DA6FF", fontWeight: 700, fontSize: 13 }}>$500K – $5M</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Cruise Missiles */}
-              <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, borderTop: "3px solid #E74C3C" }}>
-                <div style={{ fontSize: 16, fontWeight: 800, color: "#E74C3C", fontFamily: "Georgia, serif", marginBottom: 4 }}>Cruise Missiles</div>
-                <div style={{ fontSize: 10, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 1, marginBottom: 12 }}>Subsonic Low-Altitude Strike</div>
-                <div style={{ fontSize: 11, color: TEXT, lineHeight: 1.6 }}>
-                  <p style={{ margin: "0 0 8px" }}>Jet-powered missiles that fly at low altitude to evade radar detection. Slower than ballistic missiles but harder to detect due to terrain-hugging flight profiles.</p>
-                  <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: 8, marginTop: 8 }}>
-                    <div style={{ color: SUBTEXT, marginBottom: 4, fontWeight: 600 }}>Key Types</div>
-                    <div>
-                      <span style={{ color: "#E74C3C" }}>Paveh</span> — Longest-range (1,650km), Soumar family<br/>
-                      <span style={{ color: "#E74C3C" }}>Hoveyzeh</span> — All-weather, low-altitude evasion, 1,350km<br/>
-                      <span style={{ color: "#E74C3C" }}>Soumar</span> — Derived from Russian Kh-55, 2,000km+ range
+                  <div style={{ padding: "12px 16px 16px" }}>
+                    <div style={{ fontSize: 11, color: TEXT, lineHeight: 1.5, marginBottom: 10 }}>{w.desc}</div>
+                    <div style={{ fontSize: 10, color: SUBTEXT, marginBottom: 10 }}>Types: {w.types}</div>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 6, textAlign: "center" }}>
+                      <div style={{ background: "#0A0F1E", borderRadius: 6, padding: "8px 4px" }}>
+                        <div style={{ fontSize: 12, fontWeight: 800, color: w.color }}>{w.speedLabel}</div>
+                        <div style={{ fontSize: 8, color: SUBTEXT, marginTop: 2 }}>SPEED</div>
+                      </div>
+                      <div style={{ background: "#0A0F1E", borderRadius: 6, padding: "8px 4px" }}>
+                        <div style={{ fontSize: 12, fontWeight: 800, color: w.color }}>{w.rangeLabel}</div>
+                        <div style={{ fontSize: 8, color: SUBTEXT, marginTop: 2 }}>RANGE</div>
+                      </div>
+                      <div style={{ background: "#0A0F1E", borderRadius: 6, padding: "8px 4px" }}>
+                        <div style={{ fontSize: 12, fontWeight: 800, color: w.color }}>{w.costLabel}</div>
+                        <div style={{ fontSize: 8, color: SUBTEXT, marginTop: 2 }}>COST/UNIT</div>
+                      </div>
                     </div>
-                  </div>
-                  <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: 8, marginTop: 8 }}>
-                    <div style={{ color: SUBTEXT, marginBottom: 4, fontWeight: 600 }}>Specifications</div>
-                    <div>Speed: ~900 km/h (subsonic) • Range: 1,350–2,500km</div>
-                    <div>Warhead: 350–400kg • Flight: Low-altitude terrain following</div>
-                  </div>
-                  <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: 8, marginTop: 8 }}>
-                    <div style={{ color: SUBTEXT, marginBottom: 4, fontWeight: 600 }}>Cost per Unit</div>
-                    <div style={{ color: "#E74C3C", fontWeight: 700, fontSize: 13 }}>$500K – $1M</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Drones */}
-              <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, borderTop: `3px solid ${UAE_GOLD}` }}>
-                <div style={{ fontSize: 16, fontWeight: 800, color: UAE_GOLD, fontFamily: "Georgia, serif", marginBottom: 4 }}>Suicide Drones</div>
-                <div style={{ fontSize: 10, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 1, marginBottom: 12 }}>One-Way Attack / Loitering Munitions</div>
-                <div style={{ fontSize: 11, color: TEXT, lineHeight: 1.6 }}>
-                  <p style={{ margin: "0 0 8px" }}>Cheap, GPS-guided kamikaze drones launched in massive swarms to overwhelm air defences. Iran's primary attritional weapon — designed to exhaust expensive interceptor stocks.</p>
-                  <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: 8, marginTop: 8 }}>
-                    <div style={{ color: SUBTEXT, marginBottom: 4, fontWeight: 600 }}>Key Types</div>
-                    <div>
-                      <span style={{ color: UAE_GOLD }}>Shahed-136</span> — Primary weapon, 2,000km range, delta-wing<br/>
-                      <span style={{ color: UAE_GOLD }}>Shahed-131</span> — Smaller variant, 900km range, 15kg warhead<br/>
-                      <span style={{ color: UAE_GOLD }}>Mohajer-6</span> — Recoverable UCAV, 12hr endurance, ISR+strike
-                    </div>
-                  </div>
-                  <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: 8, marginTop: 8 }}>
-                    <div style={{ color: SUBTEXT, marginBottom: 4, fontWeight: 600 }}>Specifications</div>
-                    <div>Speed: ~185 km/h • Range: 900–2,000km</div>
-                    <div>Warhead: 15–50kg • Tactic: Mass swarm saturation</div>
-                  </div>
-                  <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: 8, marginTop: 8 }}>
-                    <div style={{ color: SUBTEXT, marginBottom: 4, fontWeight: 600 }}>Cost per Unit</div>
-                    <div style={{ color: UAE_GOLD, fontWeight: 700, fontSize: 13 }}>$20K – $50K</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* DEFENCE SYSTEMS */}
-            <h3 style={{ margin: "16px 0 0", fontSize: 13, color: INTERCEPTED, textTransform: "uppercase", letterSpacing: 2 }}>UAE / Allied Defence Systems</h3>
-
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-              {[
-                {
-                  name: "THAAD", maker: "Lockheed Martin (US)", color: "#4DA6FF",
-                  target: "Ballistic missiles (high-altitude, exo-atmospheric)",
-                  desc: "Terminal High Altitude Area Defense. Hit-to-kill kinetic interceptor that destroys ballistic missiles during their terminal descent phase at 40–150km altitude. Supersonic booms heard up to 100km away during intercepts.",
-                  specs: "Altitude: 40–150km • Range: 200km",
-                  cost: "$12M per interceptor",
-                },
-                {
-                  name: "Patriot PAC-3 MSE", maker: "Raytheon / Lockheed Martin (US)", color: INTERCEPTED,
-                  target: "Ballistic missiles, cruise missiles (lower tier)",
-                  desc: "Workhorse of Gulf air defence. Hit-to-kill terminal phase interceptor for lower-altitude ballistic missiles and cruise missiles. Enhanced version (MSE) has expanded engagement envelope.",
-                  specs: "Altitude: 15–40km • Range: 35km",
-                  cost: "$4M per interceptor (US) / ~$12M (export)",
-                },
-                {
-                  name: "Cheongung-II (M-SAM)", maker: "LIG Nex1 (South Korea)", color: "#9B59B6",
-                  target: "Medium-range threats, short-range ballistic missiles",
-                  desc: "First-ever combat deployment in UAE. Hit-to-kill medium-range air defence system. UAE purchased in a $3.5B deal — proved its capability in this conflict.",
-                  specs: "Altitude: 15–20km • Range: 40km",
-                  cost: "$2–3M per interceptor (est.)",
-                },
-                {
-                  name: "Barak MX", maker: "IAI (Israel)", color: "#E67E22",
-                  target: "Cruise missiles, drones, aircraft, short-range ballistic",
-                  desc: "Multi-layer modular defence system deployed to UAE post-Abraham Accords. Can engage threats from drones to short-range ballistic missiles depending on interceptor variant selected.",
-                  specs: "Altitude: Various • Range: 5–150km (modular)",
-                  cost: "~$1M per interceptor (est.)",
-                },
-              ].map((sys, i) => (
-                <div key={i} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, borderLeft: `3px solid ${sys.color}` }}>
-                  <div style={{ fontSize: 15, fontWeight: 800, color: sys.color, fontFamily: "Georgia, serif" }}>{sys.name}</div>
-                  <div style={{ fontSize: 10, color: SUBTEXT, marginBottom: 8 }}>{sys.maker}</div>
-                  <div style={{ fontSize: 10, color: UAE_GOLD, fontWeight: 600, marginBottom: 8 }}>Target: {sys.target}</div>
-                  <div style={{ fontSize: 11, color: TEXT, lineHeight: 1.5, marginBottom: 8 }}>{sys.desc}</div>
-                  <div style={{ fontSize: 10, color: SUBTEXT }}>{sys.specs}</div>
-                  <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: 8, marginTop: 8 }}>
-                    <span style={{ fontSize: 10, color: SUBTEXT }}>Interceptor cost: </span>
-                    <span style={{ fontSize: 12, color: IMPACTED, fontWeight: 700 }}>{sys.cost}</span>
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* ATTACK COMPARISON CHART */}
+            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+              <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>Attack Systems — Comparison</h3>
+              <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>Relative capability across speed, range, warhead, and cost (normalised to highest)</p>
+              <ResponsiveContainer width="100%" height={220}>
+                <BarChart data={comparisonData} barCategoryGap="30%">
+                  <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
+                  <XAxis dataKey="metric" tick={{ fill: TEXT, fontSize: 12 }} axisLine={false} />
+                  <YAxis domain={[0, 100]} tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} tickFormatter={v => `${v}%`} />
+                  <Tooltip content={<CustomTooltip />} formatter={(v) => [`${v.toFixed(1)}%`, ""]} />
+                  <Legend wrapperStyle={{ fontSize: 11 }} />
+                  <Bar dataKey="ballistic" name="Ballistic" fill="#4DA6FF" radius={[3, 3, 0, 0]} />
+                  <Bar dataKey="cruise" name="Cruise" fill="#E74C3C" radius={[3, 3, 0, 0]} />
+                  <Bar dataKey="drone" name="Drone" fill={UAE_GOLD} radius={[3, 3, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* DEFENCE SYSTEMS — image cards */}
+            <h3 style={{ margin: "8px 0 0", fontSize: 13, color: INTERCEPTED, textTransform: "uppercase", letterSpacing: 2 }}>UAE / Allied Defence Systems</h3>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 16 }}>
+              {defenceSystems.map((s, i) => (
+                <div key={i} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, overflow: "hidden", borderTop: `3px solid ${s.color}` }}>
+                  <div style={{ height: 120, overflow: "hidden", position: "relative" }}>
+                    <img src={s.img} alt={s.name} style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.65)" }} />
+                    <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "16px 12px 8px", background: "linear-gradient(transparent, rgba(0,0,0,0.85))" }}>
+                      <div style={{ fontSize: 14, fontWeight: 800, color: s.color, fontFamily: "Georgia, serif" }}>{s.name}</div>
+                      <div style={{ fontSize: 9, color: SUBTEXT }}>{s.maker}</div>
+                    </div>
+                  </div>
+                  <div style={{ padding: "10px 12px 14px" }}>
+                    <div style={{ fontSize: 10, color: UAE_GOLD, fontWeight: 600, marginBottom: 6 }}>{s.target}</div>
+                    <div style={{ fontSize: 10, color: TEXT, lineHeight: 1.4, marginBottom: 8 }}>{s.desc}</div>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 4, textAlign: "center" }}>
+                      <div style={{ background: "#0A0F1E", borderRadius: 5, padding: "6px 4px" }}>
+                        <div style={{ fontSize: 11, fontWeight: 800, color: s.color }}>{s.altitude}km</div>
+                        <div style={{ fontSize: 7, color: SUBTEXT }}>ALTITUDE</div>
+                      </div>
+                      <div style={{ background: "#0A0F1E", borderRadius: 5, padding: "6px 4px" }}>
+                        <div style={{ fontSize: 11, fontWeight: 800, color: IMPACTED }}>{s.costLabel}</div>
+                        <div style={{ fontSize: 7, color: SUBTEXT }}>PER SHOT</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* DEFENCE COMPARISON CHARTS */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+              <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+                <h3 style={{ margin: "0 0 4px", fontSize: 13, color: INTERCEPTED, textTransform: "uppercase", letterSpacing: 2 }}>Intercept Altitude (km)</h3>
+                <p style={{ margin: "0 0 12px", fontSize: 11, color: SUBTEXT }}>Maximum engagement altitude per system</p>
+                <ResponsiveContainer width="100%" height={180}>
+                  <BarChart data={defenceCompData} layout="vertical" barCategoryGap="30%">
+                    <CartesianGrid strokeDasharray="3 3" stroke={BORDER} horizontal={false} />
+                    <XAxis type="number" tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} tickFormatter={v => `${v}km`} />
+                    <YAxis type="category" dataKey="name" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} width={90} />
+                    <Tooltip content={<CustomTooltip />} formatter={(v) => [`${v}km`, "Altitude"]} />
+                    <Bar dataKey="altitude" name="Max Altitude" radius={[0, 4, 4, 0]}>
+                      {defenceCompData.map((_, j) => <Cell key={j} fill={defenceSystems[j].color} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+                <h3 style={{ margin: "0 0 4px", fontSize: 13, color: IMPACTED, textTransform: "uppercase", letterSpacing: 2 }}>Interceptor Cost ($M)</h3>
+                <p style={{ margin: "0 0 12px", fontSize: 11, color: SUBTEXT }}>Cost per single interceptor missile</p>
+                <ResponsiveContainer width="100%" height={180}>
+                  <BarChart data={defenceCompData} layout="vertical" barCategoryGap="30%">
+                    <CartesianGrid strokeDasharray="3 3" stroke={BORDER} horizontal={false} />
+                    <XAxis type="number" tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} tickFormatter={v => `$${v}M`} />
+                    <YAxis type="category" dataKey="name" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} width={90} />
+                    <Tooltip content={<CustomTooltip />} formatter={(v) => [`$${v}M`, "Cost"]} />
+                    <Bar dataKey="cost" name="Interceptor Cost" radius={[0, 4, 4, 0]}>
+                      {defenceCompData.map((_, j) => <Cell key={j} fill={IMPACTED} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
             </div>
 
             {/* COST ASYMMETRY */}
@@ -601,32 +646,25 @@ export default function Dashboard() {
               <h3 style={{ margin: "0 0 4px", fontSize: 13, color: IMPACTED, textTransform: "uppercase", letterSpacing: 2 }}>Cost Asymmetry</h3>
               <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>The economic disparity between attack and defence — Iran's attritional strategy</p>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}>
-                <div style={{ textAlign: "center", padding: 16, background: "#0A0F1E", borderRadius: 10 }}>
-                  <div style={{ fontSize: 10, color: SUBTEXT, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>Drones</div>
-                  <div style={{ fontSize: 11, color: TEXT, marginBottom: 4 }}>Attack: <span style={{ color: UAE_GOLD, fontWeight: 700 }}>$20K–$50K</span></div>
-                  <div style={{ fontSize: 11, color: TEXT, marginBottom: 8 }}>Defence: <span style={{ color: IMPACTED, fontWeight: 700 }}>$1M–$4M</span></div>
-                  <div style={{ fontSize: 20, fontWeight: 900, color: IMPACTED, fontFamily: "Georgia, serif" }}>20:1 — 200:1</div>
-                  <div style={{ fontSize: 10, color: SUBTEXT }}>cost disadvantage for defenders</div>
-                </div>
-                <div style={{ textAlign: "center", padding: 16, background: "#0A0F1E", borderRadius: 10 }}>
-                  <div style={{ fontSize: 10, color: SUBTEXT, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>Ballistic Missiles</div>
-                  <div style={{ fontSize: 11, color: TEXT, marginBottom: 4 }}>Attack: <span style={{ color: "#4DA6FF", fontWeight: 700 }}>$0.5M–$5M</span></div>
-                  <div style={{ fontSize: 11, color: TEXT, marginBottom: 8 }}>Defence: <span style={{ color: IMPACTED, fontWeight: 700 }}>$4M–$12M</span></div>
-                  <div style={{ fontSize: 20, fontWeight: 900, color: IMPACTED, fontFamily: "Georgia, serif" }}>4:1 — 12:1</div>
-                  <div style={{ fontSize: 10, color: SUBTEXT }}>cost disadvantage for defenders</div>
-                </div>
-                <div style={{ textAlign: "center", padding: 16, background: "#0A0F1E", borderRadius: 10 }}>
-                  <div style={{ fontSize: 10, color: SUBTEXT, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>Total Estimated</div>
-                  <div style={{ fontSize: 11, color: TEXT, marginBottom: 4 }}>Iran spent: <span style={{ color: UAE_GOLD, fontWeight: 700 }}>$220M–$800M</span></div>
-                  <div style={{ fontSize: 11, color: TEXT, marginBottom: 8 }}>UAE defence: <span style={{ color: IMPACTED, fontWeight: 700 }}>$1.5B–$5B</span></div>
-                  <div style={{ fontSize: 20, fontWeight: 900, color: IMPACTED, fontFamily: "Georgia, serif" }}>~$1B/day</div>
-                  <div style={{ fontSize: 10, color: SUBTEXT }}>estimated UAE daily defence cost</div>
-                </div>
+                {[
+                  { label: "Drones", atk: "$20K–$50K", atkC: UAE_GOLD, def: "$1M–$4M", ratio: "20:1 — 200:1" },
+                  { label: "Ballistic", atk: "$0.5M–$5M", atkC: "#4DA6FF", def: "$4M–$12M", ratio: "4:1 — 12:1" },
+                  { label: "Total (5 days)", atk: "$220M–$800M", atkC: UAE_GOLD, def: "$1.5B–$5B", ratio: "~$1B/day" },
+                ].map((c, i) => (
+                  <div key={i} style={{ textAlign: "center", padding: 16, background: "#0A0F1E", borderRadius: 10 }}>
+                    <div style={{ fontSize: 10, color: SUBTEXT, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>{c.label}</div>
+                    <div style={{ fontSize: 11, color: TEXT, marginBottom: 4 }}>Attack: <span style={{ color: c.atkC, fontWeight: 700 }}>{c.atk}</span></div>
+                    <div style={{ fontSize: 11, color: TEXT, marginBottom: 8 }}>Defence: <span style={{ color: IMPACTED, fontWeight: 700 }}>{c.def}</span></div>
+                    <div style={{ fontSize: 20, fontWeight: 900, color: IMPACTED, fontFamily: "Georgia, serif" }}>{c.ratio}</div>
+                    <div style={{ fontSize: 10, color: SUBTEXT }}>{i < 2 ? "cost disadvantage for defenders" : "estimated UAE daily defence cost"}</div>
+                  </div>
+                ))}
               </div>
             </div>
 
           </div>
-        )}
+          );
+        })()}
       </div>
 
       <div style={{ textAlign: "center", marginTop: 32, fontSize: 10, color: "#3A4A60" }}>
