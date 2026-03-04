@@ -647,16 +647,39 @@ export default function Dashboard() {
             </div>
 
             {/* COST ASYMMETRY */}
-            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 24, borderTop: `3px solid ${IMPACTED}` }}>
-              <h3 style={{ margin: "0 0 4px", fontSize: 13, color: IMPACTED, textTransform: "uppercase", letterSpacing: 2 }}>Cost Asymmetry</h3>
-              <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>The economic disparity between attack and defence — Iran's attritional strategy</p>
+            {(() => {
+              const AVG_BALLISTIC_COST = 2.75;
+              const AVG_CRUISE_COST = 0.75;
+              const AVG_DRONE_COST = 0.035;
+              const AVG_BALLISTIC_INTERCEPT = 8;
+              const AVG_CRUISE_INTERCEPT = 2.5;
+              const AVG_DRONE_INTERCEPT = 2.5;
+              const daily = rawData.daily;
+              let cumAtk = 0, cumDef = 0;
+              const costTimeline = daily.map(d => {
+                const atkDay = d.ballisticDetected * AVG_BALLISTIC_COST + d.cruiseDetected * AVG_CRUISE_COST + d.dronesDetected * AVG_DRONE_COST;
+                const defDay = d.ballisticIntercepted * AVG_BALLISTIC_INTERCEPT + d.cruiseIntercepted * AVG_CRUISE_INTERCEPT + d.dronesIntercepted * AVG_DRONE_INTERCEPT;
+                cumAtk += atkDay;
+                cumDef += defDay;
+                return { day: d.label, atkDay: Math.round(atkDay), defDay: Math.round(defDay), cumAtk: Math.round(cumAtk), cumDef: Math.round(cumDef) };
+              });
+              const perUnitData = [
+                { name: "Ballistic\nMissile", attack: AVG_BALLISTIC_COST, defence: AVG_BALLISTIC_INTERCEPT },
+                { name: "Cruise\nMissile", attack: AVG_CRUISE_COST, defence: AVG_CRUISE_INTERCEPT },
+                { name: "Drone", attack: AVG_DRONE_COST, defence: AVG_DRONE_INTERCEPT },
+              ];
+              return (
+              <>
+              <h3 style={{ margin: "8px 0 0", fontSize: 13, color: IMPACTED, textTransform: "uppercase", letterSpacing: 2 }}>Cost Asymmetry</h3>
+
+              {/* Summary cards */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}>
                 {[
                   { label: "Drones", atk: "$20K–$50K", atkC: UAE_GOLD, def: "$1M–$4M", ratio: "20:1 — 200:1" },
                   { label: "Ballistic", atk: "$0.5M–$5M", atkC: "#4DA6FF", def: "$4M–$12M", ratio: "4:1 — 12:1" },
-                  { label: "Total (5 days)", atk: "$220M–$800M", atkC: UAE_GOLD, def: "$1.5B–$5B", ratio: "~$1B/day" },
+                  { label: "Total (5 days)", atk: `~$${costTimeline[costTimeline.length-1]?.cumAtk}M`, atkC: UAE_GOLD, def: `~$${(costTimeline[costTimeline.length-1]?.cumDef/1000).toFixed(1)}B`, ratio: "~$1B/day" },
                 ].map((c, i) => (
-                  <div key={i} style={{ textAlign: "center", padding: 16, background: "#0A0F1E", borderRadius: 10 }}>
+                  <div key={i} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 10, textAlign: "center", padding: 16 }}>
                     <div style={{ fontSize: 10, color: SUBTEXT, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>{c.label}</div>
                     <div style={{ fontSize: 11, color: TEXT, marginBottom: 4 }}>Attack: <span style={{ color: c.atkC, fontWeight: 700 }}>{c.atk}</span></div>
                     <div style={{ fontSize: 11, color: TEXT, marginBottom: 8 }}>Defence: <span style={{ color: IMPACTED, fontWeight: 700 }}>{c.def}</span></div>
@@ -665,7 +688,71 @@ export default function Dashboard() {
                   </div>
                 ))}
               </div>
-            </div>
+
+              {/* Per-unit cost comparison */}
+              <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+                <h3 style={{ margin: "0 0 4px", fontSize: 13, color: IMPACTED, textTransform: "uppercase", letterSpacing: 2 }}>Cost per Unit: Attack vs Defence ($M)</h3>
+                <p style={{ margin: "0 0 12px", fontSize: 11, color: SUBTEXT }}>Average cost to launch one projectile vs cost to intercept it</p>
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart data={perUnitData} barCategoryGap="35%">
+                    <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
+                    <XAxis dataKey="name" tick={{ fill: TEXT, fontSize: 12 }} axisLine={false} />
+                    <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} tickFormatter={v => `$${v}M`} />
+                    <Tooltip content={<CustomTooltip />} formatter={(v) => [`$${v}M`, ""]} />
+                    <Legend wrapperStyle={{ fontSize: 11 }} />
+                    <Bar dataKey="attack" name="Iran (Attack)" fill={UAE_GOLD} radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="defence" name="UAE (Defence)" fill={IMPACTED} radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Daily cost comparison */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+                  <h3 style={{ margin: "0 0 4px", fontSize: 13, color: IMPACTED, textTransform: "uppercase", letterSpacing: 2 }}>Daily Cost: Attack vs Defence ($M)</h3>
+                  <p style={{ margin: "0 0 12px", fontSize: 11, color: SUBTEXT }}>Estimated spend per day by each side</p>
+                  <ResponsiveContainer width="100%" height={220}>
+                    <BarChart data={costTimeline} barCategoryGap="30%">
+                      <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
+                      <XAxis dataKey="day" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} />
+                      <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} tickFormatter={v => `$${v}M`} />
+                      <Tooltip content={<CustomTooltip />} formatter={(v) => [`$${v}M`, ""]} />
+                      <Legend wrapperStyle={{ fontSize: 11 }} />
+                      <Bar dataKey="atkDay" name="Iran (Attack)" fill={UAE_GOLD} radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="defDay" name="UAE (Defence)" fill={IMPACTED} radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+
+                <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+                  <h3 style={{ margin: "0 0 4px", fontSize: 13, color: IMPACTED, textTransform: "uppercase", letterSpacing: 2 }}>Cumulative Cost Over Time ($M)</h3>
+                  <p style={{ margin: "0 0 12px", fontSize: 11, color: SUBTEXT }}>Running total — the widening gap between attack and defence spending</p>
+                  <ResponsiveContainer width="100%" height={220}>
+                    <AreaChart data={costTimeline}>
+                      <defs>
+                        <linearGradient id="gradAtk" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor={UAE_GOLD} stopOpacity={0.3} />
+                          <stop offset="95%" stopColor={UAE_GOLD} stopOpacity={0} />
+                        </linearGradient>
+                        <linearGradient id="gradDef" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor={IMPACTED} stopOpacity={0.3} />
+                          <stop offset="95%" stopColor={IMPACTED} stopOpacity={0} />
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
+                      <XAxis dataKey="day" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} />
+                      <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} tickFormatter={v => v >= 1000 ? `$${(v/1000).toFixed(1)}B` : `$${v}M`} />
+                      <Tooltip content={<CustomTooltip />} formatter={(v) => [v >= 1000 ? `$${(v/1000).toFixed(2)}B` : `$${v}M`, ""]} />
+                      <Legend wrapperStyle={{ fontSize: 11 }} />
+                      <Area type="monotone" dataKey="cumAtk" name="Iran (Cumulative)" stroke={UAE_GOLD} fill="url(#gradAtk)" strokeWidth={2} dot={{ fill: UAE_GOLD, r: 4 }} />
+                      <Area type="monotone" dataKey="cumDef" name="UAE (Cumulative)" stroke={IMPACTED} fill="url(#gradDef)" strokeWidth={2} dot={{ fill: IMPACTED, r: 4 }} />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+              </>
+              );
+            })()}
 
           </div>
           );
