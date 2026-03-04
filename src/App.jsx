@@ -468,7 +468,7 @@ export default function Dashboard() {
               desc: "High-speed projectiles arcing through the upper atmosphere. Iran's most destructive but costly weapon.",
               types: "Kheibar Shekan, Emad, Fattah-1/2, Ghadr, Sejjil",
               speed: 8500, range: 2500, warhead: 1500, cost: 2750, altitude: 150,
-              costLabel: "$500K–$5M", speedLabel: "Mach 7–13+", rangeLabel: "1,300–2,500km",
+              costLabel: "$500K–$5M", speedLabel: "Mach 7–13+", rangeLabel: "1,300–2,500km", altLabel: "150–1,000km",
             },
             {
               name: "Cruise Missiles", sub: "Subsonic Strike", color: "#E74C3C",
@@ -476,7 +476,7 @@ export default function Dashboard() {
               desc: "Jet-powered, low-altitude terrain-huggers that evade radar. Slower but stealthier.",
               types: "Paveh, Hoveyzeh, Soumar",
               speed: 900, range: 2000, warhead: 400, cost: 750, altitude: 0.05,
-              costLabel: "$500K–$1M", speedLabel: "~900 km/h", rangeLabel: "1,350–2,500km",
+              costLabel: "$500K–$1M", speedLabel: "~900 km/h", rangeLabel: "1,350–2,500km", altLabel: "~50m",
             },
             {
               name: "Suicide Drones", sub: "Loitering Munitions", color: UAE_GOLD,
@@ -484,7 +484,7 @@ export default function Dashboard() {
               desc: "Cheap GPS-guided kamikaze drones in massive swarms. Designed to exhaust expensive interceptor stocks.",
               types: "Shahed-136, Shahed-131, Mohajer-6",
               speed: 185, range: 2000, warhead: 50, cost: 35, altitude: 4,
-              costLabel: "$20K–$50K", speedLabel: "~185 km/h", rangeLabel: "900–2,000km",
+              costLabel: "$20K–$50K", speedLabel: "~185 km/h", rangeLabel: "900–2,000km", altLabel: "1–4km",
             },
           ];
           const defenceSystems = [
@@ -514,10 +514,11 @@ export default function Dashboard() {
             },
           ];
           const comparisonData = [
-            { metric: "Speed", ballistic: 100, cruise: 10.6, drone: 2.2, unit: "% of Mach 13" },
-            { metric: "Range", ballistic: 100, cruise: 80, drone: 80, unit: "% of 2,500km" },
-            { metric: "Warhead", ballistic: 100, cruise: 26.7, drone: 3.3, unit: "% of 1,500kg" },
-            { metric: "Cost", ballistic: 100, cruise: 27.3, drone: 1.3, unit: "% of $5M" },
+            { metric: "Speed", ballistic: 100, cruise: 10.6, drone: 2.2 },
+            { metric: "Range", ballistic: 100, cruise: 80, drone: 80 },
+            { metric: "Altitude", ballistic: 100, cruise: 0.005, drone: 0.4 },
+            { metric: "Warhead", ballistic: 100, cruise: 26.7, drone: 3.3 },
+            { metric: "Cost", ballistic: 100, cruise: 27.3, drone: 1.3 },
           ];
           const defenceCompData = defenceSystems.map(s => ({
             name: s.name, altitude: s.altitude, range: s.range, cost: s.cost,
@@ -540,10 +541,14 @@ export default function Dashboard() {
                   <div style={{ padding: "12px 16px 16px" }}>
                     <div style={{ fontSize: 11, color: TEXT, lineHeight: 1.5, marginBottom: 10 }}>{w.desc}</div>
                     <div style={{ fontSize: 10, color: SUBTEXT, marginBottom: 10 }}>Types: {w.types}</div>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 6, textAlign: "center" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, textAlign: "center" }}>
                       <div style={{ background: "#0A0F1E", borderRadius: 6, padding: "8px 4px" }}>
                         <div style={{ fontSize: 12, fontWeight: 800, color: w.color }}>{w.speedLabel}</div>
                         <div style={{ fontSize: 8, color: SUBTEXT, marginTop: 2 }}>SPEED</div>
+                      </div>
+                      <div style={{ background: "#0A0F1E", borderRadius: 6, padding: "8px 4px" }}>
+                        <div style={{ fontSize: 12, fontWeight: 800, color: w.color }}>{w.altLabel}</div>
+                        <div style={{ fontSize: 8, color: SUBTEXT, marginTop: 2 }}>FLIGHT ALTITUDE</div>
                       </div>
                       <div style={{ background: "#0A0F1E", borderRadius: 6, padding: "8px 4px" }}>
                         <div style={{ fontSize: 12, fontWeight: 800, color: w.color }}>{w.rangeLabel}</div>
