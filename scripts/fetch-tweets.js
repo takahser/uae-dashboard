@@ -44,9 +44,9 @@ async function fetchNewTweets(userId, sinceId, bearerToken) {
   const data = await xGet(url, bearerToken);
   if (!data.data || data.data.length === 0) return [];
 
-  // Filter to only MOD attack-related tweets
+  // Filter to only MOD attack-related tweets (English + Arabic keywords)
   return data.data.filter((t) =>
-    /missile|drone|ballistic|cruise|intercept|attack|iranian/i.test(t.text)
+    /missile|drone|ballistic|cruise|intercept|attack|iranian|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i.test(t.text)
   );
 }
 
@@ -54,6 +54,7 @@ async function fetchNewTweets(userId, sinceId, bearerToken) {
 
 async function parseTweetWithClaude(tweetText, currentData, anthropicClient) {
   const prompt = `You are parsing an official UAE Ministry of Defence tweet about Iranian attacks.
+The tweet may be in English OR Arabic. If Arabic, translate and extract the numbers.
 Extract the CUMULATIVE totals (since start of attack) from this tweet and return ONLY valid JSON.
 
 Current known cumulative totals for reference:
@@ -66,7 +67,8 @@ ${tweetText}
 
 Return ONLY a JSON object with these exact fields (use null for any not mentioned):
 {
-  "hasCumulativeData": boolean,
+  "hasCumulativeData": boolean,  // true if tweet contains numeric attack statistics (daily or cumulative)
+  "hasNoStats": boolean,         // true if tweet is clearly NOT about statistics (press release, general statement, etc.)
   "cumulative": {
     "ballisticDetected": number|null,
     "ballisticIntercepted": number|null,
@@ -210,10 +212,12 @@ async function main() {
       if (parsed.hasCumulativeData) {
         updatedData = mergeData(updatedData, parsed, tweet);
         log(`✅ Updated data from tweet ${tweet.id}`);
-      } else {
-        log(`⏭ Tweet ${tweet.id} had no attack statistics, skipping.`);
-        // Still update lastTweetId so we don't reprocess it
+      } else if (parsed.hasNoStats) {
+        log(`⏭ Tweet ${tweet.id} has no statistics (non-data tweet), advancing.`);
         updatedData.lastTweetId = tweet.id;
+      } else {
+        log(`⚠️ Tweet ${tweet.id} might contain stats but parsing returned no data, will retry next run.`);
+        // Do NOT advance lastTweetId — we want to retry this tweet
       }
     } catch (err) {
       log(`⚠️ Failed to parse tweet ${tweet.id}: ${err.message}`);
