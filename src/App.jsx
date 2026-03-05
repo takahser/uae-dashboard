@@ -26,7 +26,7 @@ const DEBRIS_HIT = "#E67E22";
 const IMPACT_LOCATIONS = [
   { id: 1, name: "Palm Jumeirah / Fairmont Hotel", type: "drone_hit", date: "28 Feb", casualties: "4 injured", lat: 25.1425, lng: 55.1400, emirate: "Dubai" },
   { id: 2, name: "Dubai Intl Airport T3", type: "drone_hit", date: "28 Feb", casualties: "4 injured", lat: 25.2528, lng: 55.3644, emirate: "Dubai" },
-  { id: 3, name: "US Consulate Dubai", type: "drone_hit", date: "~3 Mar", casualties: "None", lat: 25.2500, lng: 55.2900, emirate: "Dubai" },
+  { id: 3, name: "US Consulate Dubai", type: "drone_hit", date: "~3 Mar", casualties: "None", lat: 25.2601, lng: 55.3091, emirate: "Dubai" },
   { id: 4, name: "Burj Al Arab", type: "debris", date: "28 Feb", casualties: "None", lat: 25.1413, lng: 55.1857, emirate: "Dubai" },
   { id: 5, name: "Jebel Ali Port", type: "debris", date: "28 Feb", casualties: "None", lat: 25.0050, lng: 55.0175, emirate: "Dubai" },
   { id: 6, name: "Zayed Intl Airport", type: "debris", date: "28 Feb", casualties: "1 killed, 7 injured", lat: 24.4267, lng: 54.6510, emirate: "Abu Dhabi" },
@@ -34,6 +34,18 @@ const IMPACT_LOCATIONS = [
   { id: 8, name: "Etihad Towers", type: "debris", date: "28 Feb-3 Mar", casualties: "None", lat: 24.4397, lng: 54.3605, emirate: "Abu Dhabi" },
   { id: 9, name: "Sharjah (general area)", type: "drone_hit", date: "1 Mar", casualties: "None", lat: 25.3488, lng: 55.4121, emirate: "Sharjah" },
 ];
+
+const STRATEGIC_SITES = [
+  { id: "s1", name: "Al Dhafra Air Base", type: "US/UAE Air Base", lat: 24.2482, lng: 54.5477 },
+  { id: "s2", name: "Al Minhad Air Base", type: "UK/AUS Air Base", lat: 25.0267, lng: 55.3696 },
+  { id: "s3", name: "US Embassy Abu Dhabi", type: "US Embassy", lat: 24.4539, lng: 54.3773 },
+  { id: "s4", name: "US Consulate Dubai", type: "US Consulate", lat: 25.2601, lng: 55.3091 },
+  { id: "s5", name: "French Embassy Abu Dhabi", type: "FR Embassy", lat: 24.4587, lng: 54.3218 },
+  { id: "s6", name: "British Embassy Abu Dhabi", type: "UK Embassy", lat: 24.4834, lng: 54.3512 },
+  { id: "s7", name: "Fujairah Naval Facility", type: "US Navy", lat: 25.1612, lng: 56.3658 },
+];
+
+const STRATEGIC_BLUE = "#3498DB";
 
 // Equirectangular projection: UAE bounds → SVG coords
 const UAE_LAT_MIN = 22.5, UAE_LAT_MAX = 26.2, UAE_LNG_MIN = 51.5, UAE_LNG_MAX = 56.5;
@@ -140,7 +152,13 @@ function buildDerivedData(raw) {
     drones: d.dronesDetected, total: d.total,
   }));
 
-  return { dailyData, cumulativeData, finalTotals, pieData, rateData, trendData,
+  const interceptorData = daily.map(d => ({
+    day: d.label,
+    intercepted: d.ballisticIntercepted + d.cruiseIntercepted + d.dronesIntercepted,
+    estimatedUsed: d.ballisticIntercepted * 2 + d.cruiseIntercepted * 1.5 + d.dronesIntercepted * 1,
+  }));
+
+  return { dailyData, cumulativeData, finalTotals, pieData, rateData, trendData, interceptorData,
            cumulative, totalDetected, totalIntercepted, totalImpacted, overallRate };
 }
 
@@ -176,6 +194,12 @@ export default function Dashboard() {
   const [selectedImpact, setSelectedImpact] = useState(null);
   const [rawData, setRawData] = useState(null);
   const [error, setError] = useState(null);
+  const [showDisclaimer, setShowDisclaimer] = useState(false);
+  const [showStrategicSites, setShowStrategicSites] = useState(true);
+  const [mapZoom, setMapZoom] = useState(1);
+  const [mapPan, setMapPan] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     fetch(import.meta.env.BASE_URL + "data.json")
@@ -187,7 +211,7 @@ export default function Dashboard() {
   if (error) return <div style={{ background: BG, color: IMPACTED, padding: 40, fontFamily: "monospace" }}>{error}</div>;
   if (!rawData) return <div style={{ background: BG, color: SUBTEXT, padding: 40, fontFamily: "monospace", minHeight: "100vh" }}>Loading...</div>;
 
-  const { dailyData, cumulativeData, finalTotals, pieData, rateData, trendData,
+  const { dailyData, cumulativeData, finalTotals, pieData, rateData, trendData, interceptorData,
           cumulative, totalDetected, totalIntercepted, totalImpacted, overallRate } = buildDerivedData(rawData);
 
   const lastUpdated = new Date(rawData.lastUpdated).toLocaleString("en-GB", {
@@ -219,6 +243,11 @@ export default function Dashboard() {
           opacity: 0.15
         }} />
         <div style={{ position: "relative" }}>
+          <a href="https://github.com/takahser/uae-dashboard" target="_blank" rel="noopener noreferrer"
+            style={{ position: "absolute", top: 0, right: 0, color: SUBTEXT, fontSize: 11, textDecoration: "none", display: "flex", alignItems: "center", gap: 5 }}>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
           <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 6 }}>
             <div style={{
               background: UAE_GREEN, borderRadius: "50%", width: 36, height: 36,
@@ -226,9 +255,21 @@ export default function Dashboard() {
               fontSize: 18, fontWeight: 900, color: "white", flexShrink: 0
             }}>🇦🇪</div>
             <div>
-              <div style={{ fontSize: 11, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 3, fontWeight: 600 }}>UAE Ministry of Defence</div>
+              <div style={{ fontSize: 11, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 3, fontWeight: 600, display: "flex", alignItems: "center", gap: 6 }}>
+                UAE Ministry of Defence
+                <span
+                  onClick={() => setShowDisclaimer(!showDisclaimer)}
+                  style={{ cursor: "pointer", fontSize: 10, color: SUBTEXT, border: `1px solid ${BORDER}`, borderRadius: "50%", width: 16, height: 16, display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0, position: "relative" }}
+                  title="Disclaimer"
+                >(i)</span>
+                {showDisclaimer && (
+                  <div style={{ position: "absolute", top: "100%", left: 50, zIndex: 20, marginTop: 4, background: "#0D1525", border: `1px solid ${BORDER}`, borderRadius: 8, padding: "10px 14px", fontSize: 11, color: SUBTEXT, maxWidth: 360, lineHeight: 1.5, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>
+                    This is an independent project using publicly available data from UAE Ministry of Defence (@modgovae). It is not affiliated with or endorsed by any government entity.
+                  </div>
+                )}
+              </div>
               <h1 style={{ margin: 0, fontSize: 20, fontWeight: 800, color: TEXT, fontFamily: "Georgia, serif", letterSpacing: -0.5 }}>
-                Iranian Attack Dashboard
+                Iran Missile Tracker
               </h1>
             </div>
           </div>
@@ -269,8 +310,34 @@ export default function Dashboard() {
         {/* LIVE INTEL TAB */}
         {activeTab === "intel" && (
           <div>
-            <div style={{ position: "relative", background: MAP_BG, border: `1px solid ${MAP_BORDER_COLOR}`, borderRadius: 12, overflow: "hidden" }}>
-              <svg viewBox={`0 0 ${SVG_W} ${SVG_H}`} style={{ width: "100%", height: "auto", display: "block" }}>
+            <div style={{ position: "relative", background: MAP_BG, border: `1px solid ${MAP_BORDER_COLOR}`, borderRadius: 12, overflow: "hidden" }}
+              onWheel={(e) => {
+                e.preventDefault();
+                const delta = e.deltaY > 0 ? -0.3 : 0.3;
+                setMapZoom(z => Math.min(5, Math.max(1, z + delta)));
+              }}
+              onMouseDown={(e) => {
+                if (mapZoom > 1) {
+                  setIsDragging(true);
+                  setDragStart({ x: e.clientX - mapPan.x, y: e.clientY - mapPan.y });
+                }
+              }}
+              onMouseMove={(e) => {
+                if (isDragging) {
+                  setMapPan({ x: e.clientX - dragStart.x, y: e.clientY - dragStart.y });
+                }
+              }}
+              onMouseUp={() => setIsDragging(false)}
+              onMouseLeave={() => setIsDragging(false)}
+            >
+              {/* Zoom controls */}
+              <div style={{ position: "absolute", top: 12, right: 12, zIndex: 10, display: "flex", flexDirection: "column", gap: 4 }}>
+                <button onClick={() => setMapZoom(z => Math.min(5, z + 0.5))} style={{ background: "#0D1525", border: `1px solid ${MAP_BORDER_COLOR}`, color: TEXT, width: 28, height: 28, borderRadius: 4, cursor: "pointer", fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>+</button>
+                <button onClick={() => setMapZoom(z => Math.max(1, z - 0.5))} style={{ background: "#0D1525", border: `1px solid ${MAP_BORDER_COLOR}`, color: TEXT, width: 28, height: 28, borderRadius: 4, cursor: "pointer", fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>-</button>
+                <button onClick={() => { setMapZoom(1); setMapPan({ x: 0, y: 0 }); }} style={{ background: "#0D1525", border: `1px solid ${MAP_BORDER_COLOR}`, color: SUBTEXT, width: 28, height: 28, borderRadius: 4, cursor: "pointer", fontSize: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>RST</button>
+              </div>
+              {mapZoom > 1 && <div style={{ position: "absolute", bottom: 8, left: 12, zIndex: 10, fontSize: 9, color: SUBTEXT, fontFamily: "monospace" }}>{mapZoom.toFixed(1)}x — drag to pan</div>}
+              <svg viewBox={`0 0 ${SVG_W} ${SVG_H}`} style={{ width: "100%", height: "auto", display: "block", cursor: mapZoom > 1 ? (isDragging ? "grabbing" : "grab") : "default" }}>
                 <defs>
                   {/* Grid pattern */}
                   <pattern id="mapGrid" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -307,6 +374,7 @@ export default function Dashboard() {
                   `}</style>
                 </defs>
 
+                <g transform={`translate(${mapPan.x / (SVG_W / 800) + SVG_W / 2 * (1 - mapZoom)}, ${mapPan.y / (SVG_H / 500) + SVG_H / 2 * (1 - mapZoom)}) scale(${mapZoom})`}>
                 {/* Background + grid + scanlines */}
                 <rect width={SVG_W} height={SVG_H} fill={MAP_BG} />
                 <rect width={SVG_W} height={SVG_H} fill="url(#mapGrid)" />
@@ -369,7 +437,7 @@ export default function Dashboard() {
 
                 {/* Legend */}
                 <g transform={`translate(${SVG_W - 170}, 16)`}>
-                  <rect x="-8" y="-8" width="165" height="50" rx="4" fill="#060A14" fillOpacity="0.85" stroke={MAP_BORDER_COLOR} strokeWidth="0.5" />
+                  <rect x="-8" y="-8" width="165" height={showStrategicSites ? 68 : 50} rx="4" fill="#060A14" fillOpacity="0.85" stroke={MAP_BORDER_COLOR} strokeWidth="0.5" />
                   <circle cx="6" cy="6" r="4" fill={DRONE_HIT} />
                   <text x="16" y="9" fill="#AAB8CC" fontSize="7" fontFamily="monospace">Direct drone/missile hit</text>
                   <circle cx="6" cy="22" r="4" fill={DEBRIS_HIT} />
@@ -377,6 +445,22 @@ export default function Dashboard() {
                   <circle cx="6" cy="38" r="3" fill="none" stroke={DRONE_HIT} strokeWidth="1" className="pulse-ring-fast" />
                   <circle cx="6" cy="38" r="2" fill={DRONE_HIT} />
                   <text x="16" y="41" fill="#AAB8CC" fontSize="7" fontFamily="monospace">Casualties reported</text>
+                  {showStrategicSites && <>
+                    <polygon points="6,50 10,54 6,58 2,54" fill={STRATEGIC_BLUE} />
+                    <text x="16" y="57" fill="#AAB8CC" fontSize="7" fontFamily="monospace">Military / diplomatic site</text>
+                  </>}
+                </g>
+
+                {/* Strategic sites */}
+                {showStrategicSites && STRATEGIC_SITES.map(site => {
+                  const { x, y } = toSVG(site.lat, site.lng);
+                  return (
+                    <g key={site.id}>
+                      <polygon points={`${x},${y-5} ${x+4},${y} ${x},${y+5} ${x-4},${y}`} fill={STRATEGIC_BLUE} opacity="0.85" />
+                      <polygon points={`${x},${y-5} ${x+4},${y} ${x},${y+5} ${x-4},${y}`} fill="none" stroke="#fff" strokeWidth="0.5" opacity="0.4" />
+                    </g>
+                  );
+                })}
                 </g>
               </svg>
 
@@ -433,8 +517,17 @@ export default function Dashboard() {
               </div>
             )}
 
+            {/* Strategic sites toggle */}
+            <div style={{ marginTop: 12, display: "flex", alignItems: "center", gap: 8 }}>
+              <label style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: 11, color: SUBTEXT, fontFamily: "monospace" }}>
+                <input type="checkbox" checked={showStrategicSites} onChange={(e) => setShowStrategicSites(e.target.checked)}
+                  style={{ accentColor: STRATEGIC_BLUE }} />
+                Show military / diplomatic sites
+              </label>
+            </div>
+
             {/* Info strip */}
-            <div style={{ display: "flex", gap: 12, marginTop: 16 }}>
+            <div style={{ display: "flex", gap: 12, marginTop: 12 }}>
               <StatCard label="Impact Sites" value="9" sub="Confirmed locations" color={DRONE_HIT} />
               <StatCard label="Emirates Hit" value="3 / 7" sub="Dubai, Abu Dhabi, Sharjah" color={DEBRIS_HIT} />
               <StatCard label="Direct Hits" value="5" sub="Drone / missile strikes" color={DRONE_HIT} />
@@ -488,7 +581,7 @@ export default function Dashboard() {
                 <BarChart data={rateData} barCategoryGap="35%">
                   <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
                   <XAxis dataKey="category" tick={{ fill: TEXT, fontSize: 12 }} axisLine={false} />
-                  <YAxis domain={[88, 100]} tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} tickFormatter={v => `${v}%`} />
+                  <YAxis domain={[0, 100]} tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} tickFormatter={v => `${v}%`} />
                   <Tooltip content={<CustomTooltip />} formatter={(v) => [`${v}%`, "Rate"]} />
                   <Bar dataKey="rate" name="Interception Rate" radius={[4, 4, 0, 0]}>
                     {rateData.map((entry, i) => (
@@ -712,6 +805,27 @@ export default function Dashboard() {
                 </div>
               </div>
             ))}
+
+            {/* Interceptors Used Per Day */}
+            <div style={{ gridColumn: "1 / -1", background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 24 }}>
+              <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>Interceptors Used Per Day</h3>
+              <p style={{ margin: "0 0 4px", fontSize: 11, color: SUBTEXT }}>Actual targets intercepted vs estimated interceptor missiles expended</p>
+              <p style={{ margin: "0 0 16px", fontSize: 10, color: "#556677", fontStyle: "italic" }}>Estimated — based on standard engagement doctrine (ballistic: 2 per target, cruise: 1.5, drone: 1)</p>
+              <ResponsiveContainer width="100%" height={260}>
+                <BarChart data={interceptorData} barCategoryGap="30%">
+                  <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
+                  <XAxis dataKey="day" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} />
+                  <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend wrapperStyle={{ fontSize: 11 }} />
+                  <Bar dataKey="intercepted" name="Targets Intercepted" fill={INTERCEPTED} radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="estimatedUsed" name="Est. Interceptors Used" fill="#9B59B6" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+              <div style={{ fontSize: 9, color: "#556677", marginTop: 8 }}>
+                Sources: shoot-look-shoot doctrine averages — ballistic (2 interceptors/target), cruise (1.5), drones (1)
+              </div>
+            </div>
           </div>
         )}
 
@@ -1017,6 +1131,12 @@ export default function Dashboard() {
 
       <div style={{ textAlign: "center", marginTop: 32, fontSize: 10, color: "#3A4A60" }}>
         Data sourced exclusively from official UAE Ministry of Defence statements (@modgovae) • Feb 28 – Mar 4, 2026
+        <br />
+        <a href="https://github.com/takahser/uae-dashboard" target="_blank" rel="noopener noreferrer"
+          style={{ color: "#3A4A60", textDecoration: "none", marginTop: 4, display: "inline-flex", alignItems: "center", gap: 4 }}>
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
       </div>
     </div>
   );
