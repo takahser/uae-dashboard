@@ -200,6 +200,7 @@ export default function Dashboard() {
   const [mapPan, setMapPan] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [selectedSite, setSelectedSite] = useState(null);
 
   useEffect(() => {
     fetch(import.meta.env.BASE_URL + "data.json")
@@ -235,12 +236,12 @@ export default function Dashboard() {
       <div style={{
         background: `linear-gradient(135deg, #060C1A 0%, #0C1830 50%, #060C1A 100%)`,
         borderBottom: `1px solid ${BORDER}`, padding: "24px 28px 20px",
-        position: "relative", overflow: "hidden"
+        position: "relative", overflow: "visible"
       }}>
         <div style={{
           position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
           backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 39px, #1A2840 39px, #1A2840 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, #1A2840 39px, #1A2840 40px)",
-          opacity: 0.15
+          opacity: 0.15, overflow: "hidden", pointerEvents: "none"
         }} />
         <div style={{ position: "relative" }}>
           <a href="https://github.com/takahser/uae-dashboard" target="_blank" rel="noopener noreferrer"
@@ -263,7 +264,7 @@ export default function Dashboard() {
                   title="Disclaimer"
                 >(i)</span>
                 {showDisclaimer && (
-                  <div style={{ position: "absolute", top: "100%", left: 50, zIndex: 20, marginTop: 4, background: "#0D1525", border: `1px solid ${BORDER}`, borderRadius: 8, padding: "10px 14px", fontSize: 11, color: SUBTEXT, maxWidth: 360, lineHeight: 1.5, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>
+                  <div style={{ position: "absolute", top: "100%", left: 50, zIndex: 100, marginTop: 4, background: "#0D1525", border: `1px solid ${BORDER}`, borderRadius: 8, padding: "10px 14px", fontSize: 11, color: SUBTEXT, maxWidth: 360, lineHeight: 1.5, fontWeight: 400, textTransform: "none", letterSpacing: 0, boxShadow: "0 4px 20px rgba(0,0,0,0.6)" }}>
                     This is an independent project using publicly available data from UAE Ministry of Defence (@modgovae). It is not affiliated with or endorsed by any government entity.
                   </div>
                 )}
@@ -454,10 +455,14 @@ export default function Dashboard() {
                 {/* Strategic sites */}
                 {showStrategicSites && STRATEGIC_SITES.map(site => {
                   const { x, y } = toSVG(site.lat, site.lng);
+                  const isSelected = selectedSite?.id === site.id;
                   return (
-                    <g key={site.id}>
-                      <polygon points={`${x},${y-5} ${x+4},${y} ${x},${y+5} ${x-4},${y}`} fill={STRATEGIC_BLUE} opacity="0.85" />
-                      <polygon points={`${x},${y-5} ${x+4},${y} ${x},${y+5} ${x-4},${y}`} fill="none" stroke="#fff" strokeWidth="0.5" opacity="0.4" />
+                    <g key={site.id}
+                      onClick={() => setSelectedSite(isSelected ? null : site)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <polygon points={`${x},${y-6} ${x+5},${y} ${x},${y+6} ${x-5},${y}`} fill={isSelected ? "#fff" : STRATEGIC_BLUE} opacity={isSelected ? 1 : 0.85} />
+                      <polygon points={`${x},${y-6} ${x+5},${y} ${x},${y+6} ${x-5},${y}`} fill="none" stroke="#fff" strokeWidth="0.5" opacity="0.5" />
                     </g>
                   );
                 })}
@@ -488,6 +493,33 @@ export default function Dashboard() {
                       <div style={{ color: hoveredImpact.casualties !== "None" ? "#E74C3C" : "#556677" }}>
                         CASUALTIES: {hoveredImpact.casualties.toUpperCase()}
                       </div>
+                    </div>
+                  </div>
+                );
+              })()}
+
+              {/* Selected strategic site tooltip */}
+              {selectedSite && (() => {
+                const { x, y } = toSVG(selectedSite.lat, selectedSite.lng);
+                const pctX = (x / SVG_W) * 100;
+                const pctY = (y / SVG_H) * 100;
+                return (
+                  <div style={{
+                    position: "absolute", left: `${pctX}%`, top: `${pctY}%`,
+                    transform: `translate(${pctX > 60 ? "-110%" : "10%"}, -50%)`,
+                    background: "#0B1420", border: `1px solid ${STRATEGIC_BLUE}`, borderRadius: 6,
+                    padding: "10px 14px", zIndex: 10,
+                    minWidth: 200, boxShadow: `0 0 20px ${STRATEGIC_BLUE}33`
+                  }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
+                      <div style={{ fontFamily: "monospace", fontSize: 10, color: STRATEGIC_BLUE, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1 }}>
+                        {selectedSite.name}
+                      </div>
+                      <button onClick={(e) => { e.stopPropagation(); setSelectedSite(null); }} style={{ background: "none", border: `1px solid ${BORDER}`, color: SUBTEXT, borderRadius: 4, padding: "1px 6px", cursor: "pointer", fontSize: 8 }}>X</button>
+                    </div>
+                    <div style={{ fontFamily: "monospace", fontSize: 9, color: "#8899BB", lineHeight: 1.6 }}>
+                      <div>TYPE: {selectedSite.type.toUpperCase()}</div>
+                      <div>COORDS: {selectedSite.lat.toFixed(4)}°N, {selectedSite.lng.toFixed(4)}°E</div>
                     </div>
                   </div>
                 );
