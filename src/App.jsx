@@ -181,7 +181,7 @@ const GCC_GEOGRAPHY = {
     name: "OMAN", color: "#0E1A2A", labelLat: 21.5, labelLng: 57.5,
     strategicSites: [
       { id: "om-s1", name: "Thumrait Air Base", type: "US/Oman Air Base", lat: 17.6660, lng: 54.0246 },
-      { id: "om-s2", name: "Muscat Intl Airport (Al Seeb)", type: "US/Oman Air Base", lat: 23.5933, lng: 58.2844 },
+      { id: "om-s2", name: "Al Musannah Air Base", type: "Oman/US Air Base", lat: 23.6406, lng: 57.4936 },
       { id: "om-s3", name: "Masirah Island Air Base", type: "US/Oman Air Base", lat: 20.6754, lng: 58.8905 },
       { id: "om-s4", name: "Duqm Naval Base & Drydock", type: "UK/US Naval Facility", lat: 19.6556, lng: 57.7040 },
       { id: "om-s5", name: "US Embassy Muscat", type: "US Embassy", lat: 23.6133, lng: 58.5915 },
