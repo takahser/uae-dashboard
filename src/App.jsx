@@ -49,6 +49,10 @@ const toSVG = makeToSVG(UAE_BOUNDS);
 const MAP_CONFIGS = {
   uae: {
     bounds: UAE_BOUNDS,
+    // Simplified UAE outline for use in the GCC-wide map
+    regions: [
+      { name: "UAE", labelLat: 24.0, labelLng: 54.0, pts: [[26.08,56.16],[25.60,56.36],[24.85,56.28],[24.08,56.02],[23.97,55.48],[23.77,55.57],[23.12,55.25],[22.70,55.21],[22.50,55.01],[23.00,52.00],[23.98,51.57],[24.36,51.58],[24.27,51.78],[24.00,52.32],[24.20,52.60],[24.06,53.87],[24.18,53.97],[24.15,54.11],[24.30,54.09],[24.42,54.26],[24.47,54.30],[24.45,54.61],[24.83,54.72],[24.98,55.01],[25.27,55.28],[25.31,55.45],[25.40,55.42],[25.51,55.52],[25.66,55.75],[25.74,55.89],[25.88,56.05],[26.07,56.09],[26.08,56.16]] },
+    ],
     title: "LIVE INTEL — UAE IMPACT MAP",
     subtitle: "CONFIRMED STRIKE LOCATIONS",
     impacts: [
@@ -320,8 +324,26 @@ export default function Dashboard() {
   const themeColor = isAllGCC ? UAE_GREEN : countryConf.color;
   const themeAccent = isAllGCC ? UAE_GOLD : countryConf.accent;
 
+  // When All GCC, aggregate stats across all countries
+  const derived = isAllGCC ? (() => {
+    const perCountry = COUNTRY_CONFIG.map(c => allData[c.code]).filter(Boolean).map(buildDerivedData);
+    const aggDetected = perCountry.reduce((s, d) => s + d.totalDetected, 0);
+    const aggIntercepted = perCountry.reduce((s, d) => s + d.totalIntercepted, 0);
+    const aggImpacted = perCountry.reduce((s, d) => s + d.totalImpacted, 0);
+    const aggRate = aggDetected > 0 ? +((aggIntercepted / aggDetected) * 100).toFixed(1) : null;
+    const aggSea = perCountry.reduce((s, d) => s + n(d.cumulative.ballisticSea), 0);
+    const aggKilled = perCountry.reduce((s, d) => s + n(d.cumulative.killed), 0);
+    const aggInjured = perCountry.reduce((s, d) => s + n(d.cumulative.injured), 0);
+    return {
+      ...buildDerivedData(rawData),
+      totalDetected: aggDetected, totalIntercepted: aggIntercepted, totalImpacted: aggImpacted,
+      overallRate: aggRate,
+      cumulative: { ...rawData.cumulative, ballisticSea: aggSea, killed: aggKilled, injured: aggInjured },
+    };
+  })() : buildDerivedData(rawData);
+
   const { dailyData, cumulativeData, finalTotals, pieData, rateData, trendData, interceptorData,
-          cumulative, totalDetected, totalIntercepted, totalImpacted, overallRate, hasDailyData } = buildDerivedData(rawData);
+          cumulative, totalDetected, totalIntercepted, totalImpacted, overallRate, hasDailyData } = derived;
 
   const lastUpdated = new Date(rawData.lastUpdated).toLocaleString("en-GB", {
     day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Dubai"
@@ -337,15 +359,14 @@ export default function Dashboard() {
     { id: "rates",       label: "Interception Rates" },
     { id: "arsenal",     label: "Arsenal & Defence" },
   ];
-  const tabs = isAllGCC ? [] : allTabs.filter(t => {
+  const tabs = isAllGCC ? [{ id: "intel", label: "Live Intel" }, { id: "comparison", label: "Comparison" }] : allTabs.filter(t => {
     if (t.needsUAE) return false; // reserved for future use
     if (t.needsDaily && !hasDailyData) return false;
     return true;
   });
 
   // Reset tab if current tab is not available
-  if (!isAllGCC && tabs.length > 0 && !tabs.find(t => t.id === activeTab)) {
-    // Can't call setState during render, but we can pick the first valid tab
+  if (tabs.length > 0 && !tabs.find(t => t.id === activeTab)) {
     const validTab = tabs[0].id;
     if (activeTab !== validTab) setTimeout(() => setActiveTab(validTab), 0);
   }
@@ -430,7 +451,7 @@ export default function Dashboard() {
       </div>
 
       {/* Tabs */}
-      {!isAllGCC && <div style={{ display: "flex", gap: 4, padding: "0 28px 20px", flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 4, padding: "0 28px 20px", flexWrap: "wrap" }}>
         {tabs.map(t => (
           <button key={t.id} onClick={() => setActiveTab(t.id)} style={{
             background: activeTab === t.id ? (themeAccent || UAE_GOLD) : "transparent",
@@ -441,12 +462,12 @@ export default function Dashboard() {
             transition: "all 0.15s"
           }}>{t.label}</button>
         ))}
-      </div>}
+      </div>
 
       <div style={{ padding: "0 28px" }}>
 
         {/* ALL GCC COMPARISON VIEW */}
-        {isAllGCC && (() => {
+        {isAllGCC && activeTab === "comparison" && (() => {
           const countryStats = COUNTRY_CONFIG.map(cc => {
             const d = allData[cc.code];
             if (!d) return null;
@@ -546,13 +567,29 @@ export default function Dashboard() {
         })()}
 
         {/* LIVE INTEL TAB */}
-        {activeTab === "intel" && !isAllGCC && (() => {
-          const mapConf = MAP_CONFIGS[selectedCountry] || MAP_CONFIGS.uae;
+        {activeTab === "intel" && (() => {
+          // Unified map for All GCC, or per-country map
+          const GCC_BOUNDS = { latMin: 22.0, latMax: 30.5, lngMin: 46.0, lngMax: 57.0 };
+          const mapConf = isAllGCC ? { bounds: GCC_BOUNDS, title: "LIVE INTEL — GCC THEATRE MAP", subtitle: "ALL CONFIRMED STRIKE LOCATIONS" } : (MAP_CONFIGS[selectedCountry] || MAP_CONFIGS.uae);
           const proj = makeToSVG(mapConf.bounds);
-          const impacts = mapConf.impacts || [];
-          const sites = mapConf.strategicSites || [];
-          const regions = selectedCountry === "uae" ? UAE_EMIRATES : (mapConf.regions || []);
-          const isUAE = selectedCountry === "uae";
+          // Merge all country impacts/sites for All GCC view
+          const impacts = isAllGCC
+            ? Object.values(MAP_CONFIGS).flatMap((mc, ci) => (mc.impacts || []).map(imp => ({ ...imp, id: `${ci}-${imp.id}`, _country: COUNTRY_CONFIG[ci]?.flag })))
+            : (mapConf.impacts || []);
+          const sites = isAllGCC
+            ? Object.values(MAP_CONFIGS).flatMap((mc, ci) => (mc.strategicSites || []).map(s => ({ ...s, id: `${ci}-${s.id}` })))
+            : (mapConf.strategicSites || []);
+          // Merge all regions for All GCC using raw pts re-projected to GCC bounds
+          const allGCCRegions = isAllGCC
+            ? Object.values(MAP_CONFIGS).flatMap(mc =>
+                (mc.regions || []).map(r => ({
+                  ...r,
+                  path: "M" + r.pts.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z",
+                }))
+              )
+            : [];
+          const regions = isAllGCC ? allGCCRegions : (selectedCountry === "uae" ? UAE_EMIRATES : (mapConf.regions || []));
+          const isUAE = selectedCountry === "uae" && !isAllGCC;
           // Generate region paths dynamically for non-UAE
           const regionPaths = isUAE ? regions : regions.map(r => ({
             ...r,
