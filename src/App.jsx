@@ -68,11 +68,8 @@ const MAP_CONFIGS = {
     ],
     strategicSites: [
       { id: "s1", name: "Al Dhafra Air Base", type: "US/UAE Air Base", lat: 24.2482, lng: 54.5477 },
-      { id: "s2", name: "Al Minhad Air Base", type: "UK/AUS Air Base", lat: 25.0267, lng: 55.3696 },
       { id: "s3", name: "US Embassy Abu Dhabi", type: "US Embassy", lat: 24.4539, lng: 54.3773 },
       { id: "s4", name: "US Consulate Dubai", type: "US Consulate", lat: 25.2601, lng: 55.3091 },
-      { id: "s5", name: "French Embassy Abu Dhabi", type: "FR Embassy", lat: 24.4587, lng: 54.3218 },
-      { id: "s6", name: "British Embassy Abu Dhabi", type: "UK Embassy", lat: 24.4834, lng: 54.3512 },
       { id: "s7", name: "Fujairah Naval Facility", type: "US Navy", lat: 25.1612, lng: 56.3658 },
     ],
   },
@@ -137,7 +134,6 @@ const MAP_CONFIGS = {
       { id: "s1", name: "NSA Bahrain (US 5th Fleet)", type: "US Naval Base", lat: 26.2400, lng: 50.6100 },
       { id: "s2", name: "Isa Air Base", type: "Bahrain/US Air Base", lat: 25.9182, lng: 50.5906 },
       { id: "s3", name: "US Embassy Manama", type: "US Embassy", lat: 26.2280, lng: 50.5830 },
-      { id: "s4", name: "UK Naval Support Facility", type: "UK Naval Base", lat: 26.1700, lng: 50.6200 },
     ],
   },
 };
@@ -150,10 +146,8 @@ const GCC_GEOGRAPHY = {
     name: "SAUDI ARABIA", color: "#0E1A2A", labelLat: 24.5, labelLng: 45.0,
     strategicSites: [
       { id: "sa-s1", name: "Prince Sultan Air Base", type: "US Air Base", lat: 24.0625, lng: 47.5806 },
-      { id: "sa-s2", name: "King Abdulaziz AB (Dhahran)", type: "Saudi/US Air Base", lat: 26.2653, lng: 50.1522 },
       { id: "sa-s3", name: "US Embassy Riyadh", type: "US Embassy", lat: 24.7468, lng: 46.6527 },
       { id: "sa-s4", name: "US Consulate Jeddah", type: "US Consulate", lat: 21.5433, lng: 39.1728 },
-      { id: "sa-s5", name: "King Fahd Naval Base (Jubail)", type: "Saudi Naval Base", lat: 27.0047, lng: 49.6582 },
       { id: "sa-s6", name: "Eskan Village", type: "US Military Housing", lat: 24.5953, lng: 46.7116 },
       { id: "sa-s7", name: "THAAD Battery (Yanbu)", type: "US THAAD", lat: 24.0890, lng: 38.0634 },
       { id: "sa-s8", name: "Israeli Embassy Riyadh", type: "IL Embassy", lat: 24.7300, lng: 46.6700 },
@@ -181,11 +175,9 @@ const GCC_GEOGRAPHY = {
     name: "OMAN", color: "#0E1A2A", labelLat: 21.5, labelLng: 57.5,
     strategicSites: [
       { id: "om-s1", name: "Thumrait Air Base", type: "US/Oman Air Base", lat: 17.6660, lng: 54.0246 },
-      { id: "om-s2", name: "Al Musannah Air Base", type: "Oman/US Air Base", lat: 23.6406, lng: 57.4936 },
+      { id: "om-s2", name: "Al Musannah Air Base", type: "US/Oman Air Base", lat: 23.6406, lng: 57.4936 },
       { id: "om-s3", name: "Masirah Island Air Base", type: "US/Oman Air Base", lat: 20.6754, lng: 58.8905 },
-      { id: "om-s4", name: "Duqm Naval Base & Drydock", type: "UK/US Naval Facility", lat: 19.6556, lng: 57.7040 },
       { id: "om-s5", name: "US Embassy Muscat", type: "US Embassy", lat: 23.6133, lng: 58.5915 },
-      { id: "om-s6", name: "Port of Salalah", type: "Strategic Port", lat: 16.9400, lng: 54.0050 },
     ],
     pts: [
       // Musandam peninsula (Strait of Hormuz)
@@ -987,7 +979,7 @@ export default function Dashboard() {
                   <text x="16" y="41" fill="#AAB8CC" fontSize="7" fontFamily="monospace">Casualties reported</text>
                   {showStrategicSites && <>
                     <polygon points="6,50 10,54 6,58 2,54" fill={STRATEGIC_BLUE} />
-                    <text x="16" y="57" fill="#AAB8CC" fontSize="7" fontFamily="monospace">Military / diplomatic site</text>
+                    <text x="16" y="57" fill="#AAB8CC" fontSize="7" fontFamily="monospace">US / Israeli military / diplomatic</text>
                   </>}
                 </g>
 
