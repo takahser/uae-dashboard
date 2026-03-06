@@ -148,6 +148,16 @@ const GCC_GEOGRAPHY = {
   // Sea background: the entire SVG is water-colored; land polygons are drawn on top
   saudiArabia: {
     name: "SAUDI ARABIA", color: "#0E1A2A", labelLat: 24.5, labelLng: 45.0,
+    strategicSites: [
+      { id: "sa-s1", name: "Prince Sultan Air Base", type: "US Air Base", lat: 24.0625, lng: 47.5806 },
+      { id: "sa-s2", name: "King Abdulaziz AB (Dhahran)", type: "Saudi/US Air Base", lat: 26.2653, lng: 50.1522 },
+      { id: "sa-s3", name: "US Embassy Riyadh", type: "US Embassy", lat: 24.7468, lng: 46.6527 },
+      { id: "sa-s4", name: "US Consulate Jeddah", type: "US Consulate", lat: 21.5433, lng: 39.1728 },
+      { id: "sa-s5", name: "King Fahd Naval Base (Jubail)", type: "Saudi Naval Base", lat: 27.0047, lng: 49.6582 },
+      { id: "sa-s6", name: "Eskan Village", type: "US Military Housing", lat: 24.5953, lng: 46.7116 },
+      { id: "sa-s7", name: "THAAD Battery (Yanbu)", type: "US THAAD", lat: 24.0890, lng: 38.0634 },
+      { id: "sa-s8", name: "Israeli Embassy Riyadh", type: "IL Embassy", lat: 24.7300, lng: 46.6700 },
+    ],
     pts: [
       // Red Sea coast (north to south)
       [29.5,34.8],[28.0,35.2],[27.0,36.7],[25.5,37.2],[24.5,37.5],[23.5,38.5],[22.0,39.0],[20.5,39.5],[19.0,40.0],[17.5,41.0],[16.5,42.5],
@@ -169,6 +179,14 @@ const GCC_GEOGRAPHY = {
   },
   oman: {
     name: "OMAN", color: "#0E1A2A", labelLat: 21.5, labelLng: 57.5,
+    strategicSites: [
+      { id: "om-s1", name: "Thumrait Air Base", type: "US/Oman Air Base", lat: 17.6660, lng: 54.0246 },
+      { id: "om-s2", name: "Muscat Intl Airport (Al Seeb)", type: "US/Oman Air Base", lat: 23.5933, lng: 58.2844 },
+      { id: "om-s3", name: "Masirah Island Air Base", type: "US/Oman Air Base", lat: 20.6754, lng: 58.8905 },
+      { id: "om-s4", name: "Duqm Naval Base & Drydock", type: "UK/US Naval Facility", lat: 19.6556, lng: 57.7040 },
+      { id: "om-s5", name: "US Embassy Muscat", type: "US Embassy", lat: 23.6133, lng: 58.5915 },
+      { id: "om-s6", name: "Port of Salalah", type: "Strategic Port", lat: 16.9400, lng: 54.0050 },
+    ],
     pts: [
       // Musandam peninsula (Strait of Hormuz)
       [26.35,56.30],[26.20,56.50],[26.10,56.65],[25.90,56.60],[25.75,56.56],[25.59,56.36],[25.35,56.45],[25.22,56.57],[25.10,56.42],[24.85,56.50],[24.60,56.65],[24.40,56.55],
@@ -217,8 +235,8 @@ const GCC_GEOGRAPHY = {
       [30.5,48.0],[30.0,48.8],
       // Iran border north
       [31.0,47.5],[31.5,47.0],[32.0,46.0],[32.5,45.5],[33.0,45.5],[33.5,45.5],[34.0,45.5],[34.5,46.0],[35.0,46.5],[35.5,46.0],[36.0,45.5],[36.5,45.5],
-      // Turkey border
-      [37.0,45.5],[37.5,45.5],[38.0,44.5],[37.5,43.5],[37.5,42.5],
+      // Turkey border (shared points)
+      [37.0,45.5],[37.5,45.0],[37.5,44.5],[37.5,43.5],[37.5,42.5],
       // Syria border
       [37.0,42.0],[36.5,42.0],[36.0,41.5],[35.5,41.0],[35.0,41.0],[34.5,41.0],[34.0,41.0],[33.5,41.0],
       // Jordan/Saudi border south
@@ -296,11 +314,11 @@ const GCC_GEOGRAPHY = {
       // Off-map north (extends well above map edge)
       [42.0,34.0],[42.0,36.0],[42.0,38.0],[42.0,40.0],[42.0,42.0],[42.0,44.0],[42.0,46.0],[42.0,48.0],
       // Iran/Armenia border
-      [39.5,48.0],[39.5,47.0],[39.0,46.0],[38.5,45.5],[38.0,44.5],[37.5,44.5],
-      // Iraq border
-      [37.5,43.5],[38.0,44.5],[37.5,42.5],[37.0,42.0],
+      [39.5,48.0],[39.5,47.0],[39.0,46.0],[38.5,45.5],[38.0,44.5],
+      // Iraq border (shared points, reverse of Iraq's Turkey border)
+      [37.5,45.0],[37.5,44.5],[37.5,43.5],[37.5,42.5],
       // Syria border
-      [37.5,42.0],[37.5,41.0],[37.5,40.0],[37.5,39.0],[37.5,38.0],[37.5,37.0],[37.0,36.5]
+      [37.0,42.0],[37.5,42.0],[37.5,41.0],[37.5,40.0],[37.5,39.0],[37.5,38.0],[37.5,37.0],[37.0,36.5]
     ],
   },
   egypt: {
@@ -797,7 +815,10 @@ export default function Dashboard() {
             ? Object.values(MAP_CONFIGS).flatMap((mc, ci) => (mc.impacts || []).map(imp => ({ ...imp, id: `${ci}-${imp.id}`, _country: COUNTRY_CONFIG[ci]?.flag })))
             : (mapConf.impacts || []);
           const sites = isAllGCC
-            ? Object.values(MAP_CONFIGS).flatMap((mc, ci) => (mc.strategicSites || []).map(s => ({ ...s, id: `${ci}-${s.id}` })))
+            ? [
+                ...Object.values(MAP_CONFIGS).flatMap((mc, ci) => (mc.strategicSites || []).map(s => ({ ...s, id: `${ci}-${s.id}` }))),
+                ...Object.values(GCC_GEOGRAPHY).flatMap(geo => (geo.strategicSites || []))
+              ]
             : (mapConf.strategicSites || []);
           // Merge all regions for All GCC using raw pts re-projected to GCC bounds
           const allGCCRegions = isAllGCC
