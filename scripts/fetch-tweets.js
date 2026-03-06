@@ -18,21 +18,21 @@ const COUNTRIES = [
     code: "qatar",
     file: "data-qatar.json",
     source: "MOD_Qatar",
-    userId: "2735aborte", // @MOD_Qatar — replace with real ID when available
+    userId: null, // resolve at runtime
     keywords: /missile|drone|ballistic|cruise|intercept|attack|iranian|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i,
   },
   {
     code: "kuwait",
     file: "data-kuwait.json",
     source: "MOD_KW",
-    userId: null, // resolve at runtime until we know it
+    userId: "282194628", // @MOD_KW
     keywords: /missile|drone|ballistic|cruise|intercept|attack|iranian|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i,
   },
   {
     code: "bahrain",
     file: "data-bahrain.json",
     source: "BDF_Bahrain",
-    userId: null, // resolve at runtime until we know it
+    userId: "491055921", // @BDF_Bahrain
     keywords: /missile|drone|ballistic|cruise|intercept|attack|iranian|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i,
   },
 ];
@@ -81,8 +81,10 @@ async function fetchNewTweets(userId, sinceId, keywords, bearerToken) {
     }
   }
 
-  // Filter to only attack-related tweets
-  const tweets = data.data.filter((t) => keywords.test(t.text));
+  // Filter to attack-related tweets by keywords OR if tweet has images (stats often posted as images)
+  const tweets = data.data.filter((t) =>
+    keywords.test(t.text) || (t.attachments?.media_keys?.length > 0)
+  );
   return { tweets, media };
 }
 
