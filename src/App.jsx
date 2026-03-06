@@ -142,6 +142,37 @@ const MAP_CONFIGS = {
   },
 };
 
+// Simplified geography for the All GCC theatre map (Arabian Peninsula + Iran)
+// Coordinates are [lat, lng] pairs forming simplified country outlines
+const GCC_GEOGRAPHY = {
+  // Sea background: the entire SVG is water-colored; land polygons are drawn on top
+  saudiArabia: {
+    name: "SAUDI ARABIA", color: "#0E1A2A", labelLat: 24.5, labelLng: 45.0,
+    pts: [[32.0,39.0],[29.5,34.8],[28.0,35.2],[27.0,36.7],[25.5,37.2],[24.5,37.5],[23.5,38.5],[22.0,39.0],[20.5,39.5],[19.0,40.0],[17.5,41.0],[16.5,42.5],[16.0,43.0],[16.5,43.5],[17.0,43.5],[17.5,44.0],[17.8,45.0],[18.0,46.0],[19.0,48.0],[19.5,49.5],[20.0,50.5],[20.5,51.0],[21.5,51.5],[22.0,52.0],[22.5,55.0],[22.7,55.2],[23.0,52.0],[23.98,51.57],[24.36,51.58],[24.27,51.78],[24.00,52.32],[24.20,52.60],[24.06,53.87],[24.07,54.0],[24.15,54.11],[24.30,54.09],[24.42,54.26],[24.47,54.30],[24.63,54.42],[24.83,54.72],[24.98,55.01],[25.09,55.15],[25.27,55.28],[25.31,55.45],[25.40,55.42],[25.38,55.30],[25.38,55.22],[25.29,55.17],[25.26,55.10],[25.20,55.10],[25.00,55.05],[25.12,54.93],[25.26,54.80],[25.40,54.65],[25.58,54.47],[25.80,54.20],[26.10,54.0],[26.40,53.70],[26.70,53.2],[27.00,52.0],[27.10,51.5],[27.08,51.15],[27.00,50.8],[27.05,50.5],[27.00,50.3],[26.50,50.20],[26.40,50.15],[26.10,50.01],[26.00,50.05],[25.80,50.15],[25.55,50.20],[25.40,50.30],[25.30,50.50],[25.20,50.55],[25.05,50.45],[24.95,50.40],[24.80,50.50],[24.70,50.58],[24.60,50.45],[24.50,50.30],[24.30,50.10],[24.10,49.80],[24.00,49.50],[24.00,49.0],[24.50,48.50],[25.00,48.00],[25.50,47.80],[26.00,47.50],[26.50,47.30],[27.00,47.80],[27.50,48.00],[28.00,48.40],[28.50,48.50],[28.55,47.70],[28.55,47.43],[28.67,47.45],[29.10,47.00],[29.35,47.00],[29.50,47.40],[30.00,47.00],[30.20,47.20],[30.10,47.70],[30.08,48.00],[29.98,48.15],[29.50,48.45],[29.10,48.42],[29.00,48.15],[28.92,47.95],[28.95,47.68],[29.10,47.45],[29.38,47.70],[29.58,47.45],[29.80,47.70],[30.10,47.70],[30.35,47.80],[30.50,47.72],[30.50,46.50],[31.00,46.0],[31.50,44.0],[31.80,42.0],[32.0,39.0]],
+  },
+  oman: {
+    name: "OMAN", color: "#0E1A2A", labelLat: 22.0, labelLng: 57.5,
+    pts: [[26.35,56.30],[26.20,56.50],[26.10,56.65],[25.90,56.60],[25.75,56.56],[25.59,56.36],[25.35,56.45],[25.22,56.57],[25.10,56.42],[24.85,56.50],[24.60,56.65],[24.40,56.55],[24.08,56.02],[24.24,55.95],[24.23,55.78],[24.70,55.82],[24.95,55.88],[25.00,55.98],[25.15,55.98],[25.25,55.99],[25.30,55.96],[25.37,56.00],[25.39,55.98],[25.43,56.05],[25.50,56.10],[25.55,56.20],[25.65,56.30],[25.80,56.33],[25.85,56.40],[25.95,56.38],[26.07,56.09],[26.08,56.16],[26.10,56.25],[26.35,56.30]],
+  },
+  omanSouth: {
+    name: "", color: "#0E1A2A",
+    pts: [[22.0,59.8],[22.5,59.8],[23.0,59.5],[23.5,58.8],[24.0,58.0],[24.2,57.5],[24.5,57.0],[24.6,56.8],[24.4,56.55],[24.08,56.02],[23.97,55.48],[23.77,55.57],[23.12,55.25],[22.70,55.21],[22.50,55.01],[22.0,55.0],[21.5,55.0],[20.5,55.5],[20.0,56.5],[19.5,57.5],[20.0,58.0],[20.5,58.5],[21.0,59.0],[21.5,59.5],[22.0,59.8]],
+  },
+  iran: {
+    name: "IRAN", color: "#1A1020", labelLat: 29.5, labelLng: 53.0,
+    pts: [[30.5,48.0],[30.0,48.8],[29.8,49.3],[29.5,50.0],[29.0,50.5],[28.5,50.8],[28.0,51.0],[27.8,51.5],[27.5,52.0],[27.2,52.5],[27.0,53.0],[26.8,53.5],[26.5,54.0],[26.3,54.3],[26.2,54.8],[26.0,55.0],[25.8,55.5],[25.6,56.0],[25.5,56.5],[25.3,57.0],[25.5,57.5],[25.8,58.0],[26.2,58.5],[26.5,59.0],[27.0,59.5],[27.5,59.8],[28.0,59.8],[29.0,59.8],[30.0,59.8],[31.0,59.8],[32.0,59.8],[33.0,59.0],[34.0,58.5],[34.5,57.5],[35.0,56.0],[35.5,54.5],[36.0,53.0],[36.5,52.0],[37.0,50.0],[36.5,49.0],[36.0,48.5],[35.5,48.0],[35.0,47.5],[34.5,46.5],[34.0,46.0],[33.5,45.5],[33.0,45.0],[32.5,45.0],[32.0,45.5],[31.5,46.0],[31.0,47.0],[30.5,48.0]],
+  },
+  iraq: {
+    name: "IRAQ", color: "#0E1A2A", labelLat: 33.0, labelLng: 44.0,
+    pts: [[30.5,48.0],[31.0,47.0],[31.5,46.0],[32.0,45.5],[32.5,45.0],[33.0,45.0],[33.5,44.0],[34.0,43.0],[34.5,42.5],[35.0,42.0],[36.0,42.0],[37.0,42.5],[37.5,43.0],[37.0,44.0],[36.5,44.5],[36.0,45.5],[35.5,46.0],[35.0,47.0],[34.5,47.5],[34.0,48.0],[33.5,48.0],[33.0,47.5],[32.0,47.5],[31.0,47.5],[30.5,48.0]],
+  },
+  yemen: {
+    name: "YEMEN", color: "#0E1A2A", labelLat: 15.5, labelLng: 47.0,
+    pts: [[19.0,52.0],[19.5,51.5],[19.0,49.5],[18.0,48.5],[17.5,46.0],[17.0,44.5],[16.5,43.5],[16.0,43.0],[15.0,43.0],[13.5,43.5],[12.5,43.5],[12.5,44.0],[13.0,45.0],[13.5,46.5],[14.0,48.0],[14.5,49.5],[15.0,50.5],[15.5,51.5],[16.0,52.5],[16.5,53.0],[17.0,53.5],[18.0,53.5],[19.0,52.0]],
+  },
+};
+const GCC_COVERED_COUNTRIES = new Set(["UAE", "QATAR", "KUWAIT", "BAHRAIN"]);
+
 // UAE emirate boundary paths from GADM/OpenStreetMap data (simplified with Douglas-Peucker)
 // Source: github.com/wjdanalharthi/MENA_GeoJSON (GADM boundaries)
 const UAE_EMIRATES = [
@@ -569,7 +600,7 @@ export default function Dashboard() {
         {/* LIVE INTEL TAB */}
         {activeTab === "intel" && (() => {
           // Unified map for All GCC, or per-country map
-          const GCC_BOUNDS = { latMin: 22.0, latMax: 30.5, lngMin: 46.0, lngMax: 57.0 };
+          const GCC_BOUNDS = { latMin: 12.0, latMax: 37.5, lngMin: 34.0, lngMax: 60.0 };
           const mapConf = isAllGCC ? { bounds: GCC_BOUNDS, title: "LIVE INTEL — GCC THEATRE MAP", subtitle: "ALL CONFIRMED STRIKE LOCATIONS" } : (MAP_CONFIGS[selectedCountry] || MAP_CONFIGS.uae);
           const proj = makeToSVG(mapConf.bounds);
           // Merge all country impacts/sites for All GCC view
@@ -664,19 +695,33 @@ export default function Dashboard() {
                 </defs>
 
                 <g transform={`translate(${mapPan.x / (SVG_W / 800) + SVG_W / 2 * (1 - mapZoom)}, ${mapPan.y / (SVG_H / 500) + SVG_H / 2 * (1 - mapZoom)}) scale(${mapZoom})`}>
-                <rect width={SVG_W} height={SVG_H} fill={MAP_BG} />
+                {/* Base: dark sea for All GCC, dark bg for single country */}
+                <rect width={SVG_W} height={SVG_H} fill={isAllGCC ? "#040810" : MAP_BG} />
+                {isAllGCC && <rect width={SVG_W} height={SVG_H} fill="#061020" opacity="0.8" />}
                 <rect width={SVG_W} height={SVG_H} fill="url(#mapGrid)" />
                 <rect width={SVG_W} height={SVG_H} fill="url(#scanLines)" />
 
-                {/* Region polygons */}
+                {/* Background geography (All GCC only): surrounding countries in grey/muted */}
+                {isAllGCC && Object.entries(GCC_GEOGRAPHY).map(([key, geo]) => {
+                  const geoPath = "M" + geo.pts.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z";
+                  return <g key={key}>
+                    <path d={geoPath} fill={geo.color} stroke="#1A2840" strokeWidth="0.8" opacity="0.95" />
+                    {geo.name && geo.labelLat && (() => {
+                      const { x, y } = proj(geo.labelLat, geo.labelLng);
+                      return <text x={x} y={y} fill="#334466" fontSize={key === "iran" ? "10" : "8"} fontFamily="monospace" textAnchor="middle" fontWeight="600" letterSpacing="2">{geo.name}</text>;
+                    })()}
+                  </g>;
+                })}
+
+                {/* Covered country regions (GCC members) */}
                 {regionPaths.map((e, i) => (
-                  <path key={`${e.name}-${i}`} d={e.path} fill={MAP_LAND} stroke={MAP_BORDER_COLOR} strokeWidth="1.2" opacity="0.9" />
+                  <path key={`${e.name}-${i}`} d={e.path} fill={isAllGCC ? "#0F2038" : MAP_LAND} stroke={isAllGCC ? "#1E4060" : MAP_BORDER_COLOR} strokeWidth={isAllGCC ? "1.5" : "1.2"} opacity="0.95" />
                 ))}
 
                 {/* Region labels */}
                 {regionPaths.filter(e => e.labelLat > 0).map((e, i) => {
                   const { x, y } = proj(e.labelLat, e.labelLng);
-                  return <text key={`lbl-${e.name}-${i}`} x={x} y={y} fill="#2A4A70" fontSize="7" fontFamily="monospace" textAnchor="middle" fontWeight="600" letterSpacing="1.5">{e.name}</text>;
+                  return <text key={`lbl-${e.name}-${i}`} x={x} y={y} fill={isAllGCC ? "#4488BB" : "#2A4A70"} fontSize={isAllGCC ? "6" : "7"} fontFamily="monospace" textAnchor="middle" fontWeight="600" letterSpacing="1.5">{e.name}</text>;
                 })}
 
                 {/* Coordinate ticks */}
