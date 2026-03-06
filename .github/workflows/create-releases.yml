@@ -7,74 +7,82 @@ permissions:
   contents: write
 
 jobs:
-  releases:
+  release-v01:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: softprops/action-gh-release@v2
         with:
-          fetch-depth: 0
+          tag_name: v0.1
+          target_commitish: 52b54c35914a5d9cddd85488649dc6e190aafea6
+          name: "v0.1 — Initial Release"
+          body: |
+            Initial release of the UAE Iran Missile Tracker.
 
-      - name: Create v0.1
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh release create v0.1 \
-            --target 52b54c35914a5d9cddd85488649dc6e190aafea6 \
-            --title "v0.1 — Initial Release" \
-            --notes "Initial release of the UAE Iran Missile Tracker.
+            - Interactive dashboard with Overview, Trends, Daily, Cumulative, and Interception Rate tabs
+            - Data sourced from UAE Ministry of Defence (@modgovae) tweets
+            - Automated tweet fetching + Claude-powered parsing via GitHub Actions (every 30 min)
+            - GitHub Pages deployment
 
-          - Interactive dashboard with Overview, Trends, Daily, Cumulative, and Interception Rate tabs
-          - Data sourced from UAE Ministry of Defence (@modgovae) tweets
-          - Automated tweet fetching + Claude-powered parsing via GitHub Actions (every 30 min)
-          - GitHub Pages deployment"
+  release-v02:
+    needs: release-v01
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v0.2
+          target_commitish: 236e8c2d6d958782e096cae7404c16af302ca2e9
+          name: "v0.2 — Live Intel Map & Arsenal"
+          body: |
+            Major feature update with intel map and weapons reference.
 
-      - name: Create v0.2
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh release create v0.2 \
-            --target 236e8c2d6d958782e096cae7404c16af302ca2e9 \
-            --title "v0.2 — Live Intel Map & Arsenal" \
-            --notes "Major feature update with intel map and weapons reference.
+            - Live Intel tab: zoomable SVG map with 9 confirmed UAE impact locations
+            - Military/diplomatic strategic sites overlay (toggle)
+            - Arsenal & Defence tab: Iranian attack systems vs UAE/allied defence systems with images and specs
+            - Cost asymmetry analysis (attack vs defence spending per day/cumulative)
+            - Interceptor usage estimation charts
+            - Disclaimer, GitHub links, and UI polish
 
-          - Live Intel tab: zoomable SVG map with 9 confirmed UAE impact locations
-          - Military/diplomatic strategic sites overlay (toggle)
-          - Arsenal & Defence tab: Iranian attack systems vs UAE/allied defence systems with images and specs
-          - Cost asymmetry analysis (attack vs defence spending per day/cumulative)
-          - Interceptor usage estimation charts
-          - Disclaimer, GitHub links, and UI polish"
+  release-v021:
+    needs: release-v02
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v0.2.1
+          target_commitish: 204555a9e613c691deff09c168503f77980f2980
+          name: "v0.2.1 — March 5 Data & Fixes"
+          body: |
+            Patch release with new data and bug fixes.
 
-      - name: Create v0.2.1
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh release create v0.2.1 \
-            --target 204555a9e613c691deff09c168503f77980f2980 \
-            --title "v0.2.1 — March 5 Data & Fixes" \
-            --notes "Patch release with new data and bug fixes.
+            - Add March 5 attack data
+            - Fix tweet parser for improved accuracy
+            - Fix deploy pipeline reliability
+            - Fix disclaimer tooltip visibility
+            - Make strategic sites clickable
+            - Fix update-data workflow (pull --rebase before push)
 
-          - Add March 5 attack data
-          - Fix tweet parser for improved accuracy
-          - Fix deploy pipeline reliability
-          - Fix disclaimer tooltip visibility
-          - Make strategic sites clickable
-          - Fix update-data workflow (pull --rebase before push)"
+  release-v03:
+    needs: release-v021
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v0.3
+          target_commitish: 56be90c
+          name: "v0.3 — Multi-Country GCC Expansion"
+          make_latest: "true"
+          body: |
+            Expand from UAE-only to a full GCC missile tracker.
 
-      - name: Create v0.3
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh release create v0.3 \
-            --target ed01b46 \
-            --title "v0.3 — Multi-Country GCC Expansion" \
-            --latest \
-            --notes "Expand from UAE-only to a full GCC missile tracker.
-
-          - Country selector: UAE, Qatar, Kuwait, Bahrain + All GCC comparison view
-          - Per-country data files with seeded cumulative attack statistics
-          - All GCC dashboard: grouped bar charts, interception rate comparison, detailed table
-          - Fetch script: multi-account support, image/media parsing via Claude Vision, error isolation per country
-          - Sparse data handling for countries with incomplete breakdowns (null-safe)
-          - Dynamic theming (colors, accents) per country
-          - CI schedule reduced to every 2 hours (Twitter rate limit aware)
-          - Google Analytics integration"
+            - Country selector: UAE, Qatar, Kuwait, Bahrain + All GCC comparison view
+            - Per-country data files with seeded cumulative attack statistics
+            - All GCC dashboard: grouped bar charts, interception rate comparison, detailed table
+            - Fetch script: multi-account support, image/media parsing via Claude Vision, error isolation per country
+            - Sparse data handling for countries with incomplete breakdowns (null-safe)
+            - Dynamic theming (colors, accents) per country
+            - CI schedule reduced to every 2 hours (Twitter rate limit aware)
+            - Google Analytics integration
