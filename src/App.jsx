@@ -30,38 +30,113 @@ const MAP_GRID = "#0D2040";
 const DRONE_HIT = "#C0392B";
 const DEBRIS_HIT = "#E67E22";
 
-const IMPACT_LOCATIONS = [
-  { id: 1, name: "Palm Jumeirah / Fairmont Hotel", type: "drone_hit", date: "28 Feb", casualties: "4 injured", lat: 25.1425, lng: 55.1400, emirate: "Dubai" },
-  { id: 2, name: "Dubai Intl Airport T3", type: "drone_hit", date: "28 Feb", casualties: "4 injured", lat: 25.2528, lng: 55.3644, emirate: "Dubai" },
-  { id: 3, name: "US Consulate Dubai", type: "drone_hit", date: "~3 Mar", casualties: "None", lat: 25.2601, lng: 55.3091, emirate: "Dubai" },
-  { id: 4, name: "Burj Al Arab", type: "debris", date: "28 Feb", casualties: "None", lat: 25.1413, lng: 55.1857, emirate: "Dubai" },
-  { id: 5, name: "Jebel Ali Port", type: "debris", date: "28 Feb", casualties: "None", lat: 25.0050, lng: 55.0175, emirate: "Dubai" },
-  { id: 6, name: "Zayed Intl Airport", type: "debris", date: "28 Feb", casualties: "1 killed, 7 injured", lat: 24.4267, lng: 54.6510, emirate: "Abu Dhabi" },
-  { id: 7, name: "Camp de la Paix (French Naval Base)", type: "drone_hit", date: "1-2 Mar", casualties: "None", lat: 24.4475, lng: 54.3500, emirate: "Abu Dhabi" },
-  { id: 8, name: "Etihad Towers", type: "debris", date: "28 Feb-3 Mar", casualties: "None", lat: 24.4397, lng: 54.3605, emirate: "Abu Dhabi" },
-  { id: 9, name: "Sharjah (general area)", type: "drone_hit", date: "1 Mar", casualties: "None", lat: 25.3488, lng: 55.4121, emirate: "Sharjah" },
-];
-
-const STRATEGIC_SITES = [
-  { id: "s1", name: "Al Dhafra Air Base", type: "US/UAE Air Base", lat: 24.2482, lng: 54.5477 },
-  { id: "s2", name: "Al Minhad Air Base", type: "UK/AUS Air Base", lat: 25.0267, lng: 55.3696 },
-  { id: "s3", name: "US Embassy Abu Dhabi", type: "US Embassy", lat: 24.4539, lng: 54.3773 },
-  { id: "s4", name: "US Consulate Dubai", type: "US Consulate", lat: 25.2601, lng: 55.3091 },
-  { id: "s5", name: "French Embassy Abu Dhabi", type: "FR Embassy", lat: 24.4587, lng: 54.3218 },
-  { id: "s6", name: "British Embassy Abu Dhabi", type: "UK Embassy", lat: 24.4834, lng: 54.3512 },
-  { id: "s7", name: "Fujairah Naval Facility", type: "US Navy", lat: 25.1612, lng: 56.3658 },
-];
-
 const STRATEGIC_BLUE = "#3498DB";
 
-// Equirectangular projection: UAE bounds → SVG coords
-const UAE_LAT_MIN = 22.5, UAE_LAT_MAX = 26.2, UAE_LNG_MIN = 51.5, UAE_LNG_MAX = 56.5;
+// Equirectangular projection: configurable bounds → SVG coords
 const SVG_W = 800, SVG_H = 500;
-function toSVG(lat, lng) {
-  const x = ((lng - UAE_LNG_MIN) / (UAE_LNG_MAX - UAE_LNG_MIN)) * SVG_W;
-  const y = ((UAE_LAT_MAX - lat) / (UAE_LAT_MAX - UAE_LAT_MIN)) * SVG_H;
-  return { x, y };
+function makeToSVG(bounds) {
+  return (lat, lng) => ({
+    x: ((lng - bounds.lngMin) / (bounds.lngMax - bounds.lngMin)) * SVG_W,
+    y: ((bounds.latMax - lat) / (bounds.latMax - bounds.latMin)) * SVG_H,
+  });
 }
+
+// Default UAE bounds (also used for path generation)
+const UAE_BOUNDS = { latMin: 22.5, latMax: 26.2, lngMin: 51.5, lngMax: 56.5 };
+const toSVG = makeToSVG(UAE_BOUNDS);
+
+// Per-country map configurations
+const MAP_CONFIGS = {
+  uae: {
+    bounds: UAE_BOUNDS,
+    title: "LIVE INTEL — UAE IMPACT MAP",
+    subtitle: "CONFIRMED STRIKE LOCATIONS",
+    impacts: [
+      { id: 1, name: "Palm Jumeirah / Fairmont Hotel", type: "drone_hit", date: "28 Feb", casualties: "4 injured", lat: 25.1425, lng: 55.1400, region: "Dubai" },
+      { id: 2, name: "Dubai Intl Airport T3", type: "drone_hit", date: "28 Feb", casualties: "4 injured", lat: 25.2528, lng: 55.3644, region: "Dubai" },
+      { id: 3, name: "US Consulate Dubai", type: "drone_hit", date: "~3 Mar", casualties: "None", lat: 25.2601, lng: 55.3091, region: "Dubai" },
+      { id: 4, name: "Burj Al Arab", type: "debris", date: "28 Feb", casualties: "None", lat: 25.1413, lng: 55.1857, region: "Dubai" },
+      { id: 5, name: "Jebel Ali Port", type: "debris", date: "28 Feb", casualties: "None", lat: 25.0050, lng: 55.0175, region: "Dubai" },
+      { id: 6, name: "Zayed Intl Airport", type: "debris", date: "28 Feb", casualties: "1 killed, 7 injured", lat: 24.4267, lng: 54.6510, region: "Abu Dhabi" },
+      { id: 7, name: "Camp de la Paix (French Naval Base)", type: "drone_hit", date: "1-2 Mar", casualties: "None", lat: 24.4475, lng: 54.3500, region: "Abu Dhabi" },
+      { id: 8, name: "Etihad Towers", type: "debris", date: "28 Feb-3 Mar", casualties: "None", lat: 24.4397, lng: 54.3605, region: "Abu Dhabi" },
+      { id: 9, name: "Sharjah (general area)", type: "drone_hit", date: "1 Mar", casualties: "None", lat: 25.3488, lng: 55.4121, region: "Sharjah" },
+    ],
+    strategicSites: [
+      { id: "s1", name: "Al Dhafra Air Base", type: "US/UAE Air Base", lat: 24.2482, lng: 54.5477 },
+      { id: "s2", name: "Al Minhad Air Base", type: "UK/AUS Air Base", lat: 25.0267, lng: 55.3696 },
+      { id: "s3", name: "US Embassy Abu Dhabi", type: "US Embassy", lat: 24.4539, lng: 54.3773 },
+      { id: "s4", name: "US Consulate Dubai", type: "US Consulate", lat: 25.2601, lng: 55.3091 },
+      { id: "s5", name: "French Embassy Abu Dhabi", type: "FR Embassy", lat: 24.4587, lng: 54.3218 },
+      { id: "s6", name: "British Embassy Abu Dhabi", type: "UK Embassy", lat: 24.4834, lng: 54.3512 },
+      { id: "s7", name: "Fujairah Naval Facility", type: "US Navy", lat: 25.1612, lng: 56.3658 },
+    ],
+  },
+  qatar: {
+    bounds: { latMin: 24.4, latMax: 26.3, lngMin: 50.6, lngMax: 52.0 },
+    title: "LIVE INTEL — QATAR IMPACT MAP",
+    subtitle: "CONFIRMED STRIKE LOCATIONS",
+    regions: [
+      { name: "QATAR", labelLat: 25.3, labelLng: 51.2, pts: [[26.15,51.25],[26.10,51.58],[25.80,51.61],[25.60,51.53],[25.40,51.58],[25.20,51.56],[24.95,51.40],[24.56,51.28],[24.55,51.03],[24.70,50.85],[24.87,50.82],[25.10,50.80],[25.38,50.76],[25.60,50.82],[25.82,50.87],[26.05,51.02],[26.15,51.25]] },
+    ],
+    impacts: [
+      { id: 1, name: "Al Udeid Air Base (vicinity)", type: "drone_hit", date: "28 Feb", casualties: "None", lat: 25.1173, lng: 51.3150, region: "Al Rayyan" },
+      { id: 2, name: "Doha West (residential)", type: "debris", date: "28 Feb", casualties: "3 injured", lat: 25.2800, lng: 51.4000, region: "Doha" },
+      { id: 3, name: "Lusail area", type: "drone_hit", date: "2 Mar", casualties: "None", lat: 25.4200, lng: 51.4900, region: "Lusail" },
+      { id: 4, name: "Hamad Intl Airport (perimeter)", type: "debris", date: "5 Mar", casualties: "None", lat: 25.2731, lng: 51.6081, region: "Doha" },
+      { id: 5, name: "Ras Laffan Industrial Area", type: "drone_hit", date: "4 Mar", casualties: "4 injured", lat: 25.9300, lng: 51.5300, region: "Al Khor" },
+      { id: 6, name: "Dukhan Oil Fields", type: "drone_hit", date: "5 Mar", casualties: "None", lat: 25.4300, lng: 50.7800, region: "Dukhan" },
+    ],
+    strategicSites: [
+      { id: "s1", name: "Al Udeid Air Base", type: "US/Qatar Air Base", lat: 25.1173, lng: 51.3150 },
+      { id: "s2", name: "US Embassy Doha", type: "US Embassy", lat: 25.3134, lng: 51.4722 },
+      { id: "s3", name: "Camp As Sayliyah", type: "US Army Base", lat: 25.2800, lng: 51.3300 },
+    ],
+  },
+  kuwait: {
+    bounds: { latMin: 28.5, latMax: 30.2, lngMin: 46.5, lngMax: 48.6 },
+    title: "LIVE INTEL — KUWAIT IMPACT MAP",
+    subtitle: "CONFIRMED STRIKE LOCATIONS",
+    regions: [
+      { name: "KUWAIT", labelLat: 29.3, labelLng: 47.5, pts: [[30.10,47.70],[30.00,48.00],[29.86,48.05],[29.36,48.40],[29.10,48.42],[29.00,48.15],[28.80,48.10],[28.55,47.70],[28.55,47.43],[28.67,47.45],[29.10,47.00],[29.35,47.00],[29.35,47.15],[29.57,47.45],[29.80,47.70],[30.10,47.70]] },
+    ],
+    impacts: [
+      { id: 1, name: "Ali Al Salem Air Base (vicinity)", type: "drone_hit", date: "1 Mar", casualties: "None", lat: 29.3467, lng: 47.5208, region: "Al Jahra" },
+      { id: 2, name: "Kuwait City South", type: "debris", date: "1 Mar", casualties: "7 injured", lat: 29.3400, lng: 47.9900, region: "Kuwait City" },
+      { id: 3, name: "Arifjan Camp (perimeter)", type: "drone_hit", date: "3 Mar", casualties: "None", lat: 28.9300, lng: 48.0800, region: "Ahmadi" },
+      { id: 4, name: "Mina al-Ahmadi Refinery", type: "debris", date: "3 Mar", casualties: "1 killed, 12 injured", lat: 29.0700, lng: 48.1300, region: "Ahmadi" },
+      { id: 5, name: "Bubiyan Island radar", type: "drone_hit", date: "1 Mar", casualties: "None", lat: 29.7800, lng: 48.2500, region: "Bubiyan" },
+    ],
+    strategicSites: [
+      { id: "s1", name: "Ali Al Salem Air Base", type: "US/Kuwait Air Base", lat: 29.3467, lng: 47.5208 },
+      { id: "s2", name: "Camp Arifjan", type: "US Army Base", lat: 28.9300, lng: 48.0800 },
+      { id: "s3", name: "Camp Buehring", type: "US Army Base", lat: 29.5600, lng: 47.5400 },
+      { id: "s4", name: "US Embassy Kuwait", type: "US Embassy", lat: 29.2600, lng: 47.9400 },
+    ],
+  },
+  bahrain: {
+    bounds: { latMin: 25.7, latMax: 26.4, lngMin: 50.2, lngMax: 50.9 },
+    title: "LIVE INTEL — BAHRAIN IMPACT MAP",
+    subtitle: "CONFIRMED STRIKE LOCATIONS",
+    regions: [
+      { name: "BAHRAIN", labelLat: 26.05, labelLng: 50.55, pts: [[26.24,50.45],[26.27,50.55],[26.24,50.65],[26.14,50.70],[26.00,50.65],[25.90,50.62],[25.80,50.55],[25.79,50.45],[25.85,50.38],[25.97,50.35],[26.07,50.37],[26.18,50.40],[26.24,50.45]] },
+      { name: "MUHARRAQ", labelLat: 26.26, labelLng: 50.62, pts: [[26.28,50.58],[26.30,50.63],[26.27,50.67],[26.22,50.67],[26.20,50.62],[26.22,50.57],[26.28,50.58]] },
+    ],
+    impacts: [
+      { id: 1, name: "NSA Bahrain (vicinity)", type: "drone_hit", date: "28 Feb", casualties: "None", lat: 26.2400, lng: 50.6100, region: "Juffair" },
+      { id: 2, name: "Bahrain Intl Airport area", type: "debris", date: "1 Mar", casualties: "1 killed", lat: 26.2708, lng: 50.6336, region: "Muharraq" },
+      { id: 3, name: "Isa Air Base", type: "drone_hit", date: "2 Mar", casualties: "None", lat: 25.9182, lng: 50.5906, region: "Isa Town" },
+      { id: 4, name: "Manama Diplomatic Quarter", type: "debris", date: "4 Mar", casualties: "None", lat: 26.2300, lng: 50.5800, region: "Manama" },
+      { id: 5, name: "Sitra Industrial Area", type: "drone_hit", date: "5 Mar", casualties: "None", lat: 26.1500, lng: 50.6400, region: "Sitra" },
+    ],
+    strategicSites: [
+      { id: "s1", name: "NSA Bahrain (US 5th Fleet)", type: "US Naval Base", lat: 26.2400, lng: 50.6100 },
+      { id: "s2", name: "Isa Air Base", type: "Bahrain/US Air Base", lat: 25.9182, lng: 50.5906 },
+      { id: "s3", name: "US Embassy Manama", type: "US Embassy", lat: 26.2280, lng: 50.5830 },
+      { id: "s4", name: "UK Naval Support Facility", type: "UK Naval Base", lat: 26.1700, lng: 50.6200 },
+    ],
+  },
+};
 
 // UAE emirate boundary paths from GADM/OpenStreetMap data (simplified with Douglas-Peucker)
 // Source: github.com/wjdanalharthi/MENA_GeoJSON (GADM boundaries)
@@ -254,7 +329,7 @@ export default function Dashboard() {
   const dayCount = rawData.daily.length;
 
   const allTabs = [
-    { id: "intel",       label: "Live Intel",          needsUAE: true },
+    { id: "intel",       label: "Live Intel" },
     { id: "overview",    label: "Overview" },
     { id: "trends",      label: "Trend Lines",         needsDaily: true },
     { id: "daily",       label: "Daily Attacks",        needsDaily: true },
@@ -263,7 +338,7 @@ export default function Dashboard() {
     { id: "arsenal",     label: "Arsenal & Defence" },
   ];
   const tabs = isAllGCC ? [] : allTabs.filter(t => {
-    if (t.needsUAE && selectedCountry !== "uae") return false;
+    if (t.needsUAE) return false; // reserved for future use
     if (t.needsDaily && !hasDailyData) return false;
     return true;
   });
@@ -330,7 +405,7 @@ export default function Dashboard() {
       {/* Country selector */}
       <div style={{ display: "flex", gap: 8, padding: "16px 28px 0", flexWrap: "wrap" }}>
         {[{ code: "all", name: "All GCC", flag: "🌐" }, ...COUNTRY_CONFIG].map(c => (
-          <button key={c.code} onClick={() => { setSelectedCountry(c.code); if (c.code !== "uae" && activeTab === "intel") setActiveTab("overview"); }}
+          <button key={c.code} onClick={() => { setSelectedCountry(c.code); setHoveredImpact(null); setSelectedImpact(null); setSelectedSite(null); }}
             style={{
               background: selectedCountry === c.code ? (c.color || UAE_GREEN) : "transparent",
               color: selectedCountry === c.code ? "#fff" : SUBTEXT,
@@ -471,7 +546,30 @@ export default function Dashboard() {
         })()}
 
         {/* LIVE INTEL TAB */}
-        {activeTab === "intel" && (
+        {activeTab === "intel" && !isAllGCC && (() => {
+          const mapConf = MAP_CONFIGS[selectedCountry] || MAP_CONFIGS.uae;
+          const proj = makeToSVG(mapConf.bounds);
+          const impacts = mapConf.impacts || [];
+          const sites = mapConf.strategicSites || [];
+          const regions = selectedCountry === "uae" ? UAE_EMIRATES : (mapConf.regions || []);
+          const isUAE = selectedCountry === "uae";
+          // Generate region paths dynamically for non-UAE
+          const regionPaths = isUAE ? regions : regions.map(r => ({
+            ...r,
+            path: "M" + r.pts.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z",
+          }));
+          const bnd = mapConf.bounds;
+          const lngTicks = [];
+          for (let lng = Math.ceil(bnd.lngMin); lng <= Math.floor(bnd.lngMax); lng++) lngTicks.push(lng);
+          const latTicks = [];
+          for (let lat = Math.ceil(bnd.latMin); lat <= Math.floor(bnd.latMax); lat++) latTicks.push(lat);
+          const directHits = impacts.filter(i => i.type === "drone_hit").length;
+          const debrisHits = impacts.filter(i => i.type === "debris").length;
+          const withCasualties = impacts.filter(i => i.casualties !== "None");
+          const totalKIA = withCasualties.reduce((s, i) => { const m = i.casualties.match(/(\d+)\s*killed/); return s + (m ? +m[1] : 0); }, 0);
+          const totalWIA = withCasualties.reduce((s, i) => { const m = i.casualties.match(/(\d+)\s*injured/); return s + (m ? +m[1] : 0); }, 0);
+          const uniqueRegions = [...new Set(impacts.map(i => i.region))];
+          return (
           <div>
             <div style={{ position: "relative", background: MAP_BG, border: `1px solid ${MAP_BORDER_COLOR}`, borderRadius: 12, overflow: "hidden" }}
               onWheel={(e) => {
@@ -502,15 +600,12 @@ export default function Dashboard() {
               {mapZoom > 1 && <div style={{ position: "absolute", bottom: 8, left: 12, zIndex: 10, fontSize: 9, color: SUBTEXT, fontFamily: "monospace" }}>{mapZoom.toFixed(1)}x — drag to pan</div>}
               <svg viewBox={`0 0 ${SVG_W} ${SVG_H}`} style={{ width: "100%", height: "auto", display: "block", cursor: mapZoom > 1 ? (isDragging ? "grabbing" : "grab") : "default" }}>
                 <defs>
-                  {/* Grid pattern */}
                   <pattern id="mapGrid" width="40" height="40" patternUnits="userSpaceOnUse">
                     <path d="M 40 0 L 0 0 0 40" fill="none" stroke={MAP_GRID} strokeWidth="0.5" opacity="0.4" />
                   </pattern>
-                  {/* Scan lines */}
                   <pattern id="scanLines" width="4" height="4" patternUnits="userSpaceOnUse">
                     <line x1="0" y1="0" x2="4" y2="0" stroke="#0A3060" strokeWidth="0.5" opacity="0.15" />
                   </pattern>
-                  {/* Glow filters */}
                   <filter id="glowRed" x="-50%" y="-50%" width="200%" height="200%">
                     <feGaussianBlur stdDeviation="3" result="blur" />
                     <feFlood floodColor={DRONE_HIT} floodOpacity="0.6" />
@@ -524,47 +619,39 @@ export default function Dashboard() {
                     <feMerge><feMergeNode /><feMergeNode in="SourceGraphic" /></feMerge>
                   </filter>
                   <style>{`
-                    @keyframes pulse {
-                      0% { r: 5; opacity: 0.8; }
-                      100% { r: 18; opacity: 0; }
-                    }
-                    @keyframes pulseFast {
-                      0% { r: 5; opacity: 0.9; }
-                      100% { r: 24; opacity: 0; }
-                    }
+                    @keyframes pulse { 0% { r: 5; opacity: 0.8; } 100% { r: 18; opacity: 0; } }
+                    @keyframes pulseFast { 0% { r: 5; opacity: 0.9; } 100% { r: 24; opacity: 0; } }
                     .pulse-ring { animation: pulse 2s ease-out infinite; }
                     .pulse-ring-fast { animation: pulseFast 1.4s ease-out infinite; }
                   `}</style>
                 </defs>
 
                 <g transform={`translate(${mapPan.x / (SVG_W / 800) + SVG_W / 2 * (1 - mapZoom)}, ${mapPan.y / (SVG_H / 500) + SVG_H / 2 * (1 - mapZoom)}) scale(${mapZoom})`}>
-                {/* Background + grid + scanlines */}
                 <rect width={SVG_W} height={SVG_H} fill={MAP_BG} />
                 <rect width={SVG_W} height={SVG_H} fill="url(#mapGrid)" />
                 <rect width={SVG_W} height={SVG_H} fill="url(#scanLines)" />
 
-                {/* Emirate polygons */}
-                {UAE_EMIRATES.map((e, i) => (
+                {/* Region polygons */}
+                {regionPaths.map((e, i) => (
                   <path key={`${e.name}-${i}`} d={e.path} fill={MAP_LAND} stroke={MAP_BORDER_COLOR} strokeWidth="1.2" opacity="0.9" />
                 ))}
 
-                {/* Emirate labels */}
-                {UAE_EMIRATES.filter(e => e.labelLat > 0).map((e, i) => {
-                  const { x, y } = toSVG(e.labelLat, e.labelLng);
+                {/* Region labels */}
+                {regionPaths.filter(e => e.labelLat > 0).map((e, i) => {
+                  const { x, y } = proj(e.labelLat, e.labelLng);
                   return <text key={`lbl-${e.name}-${i}`} x={x} y={y} fill="#2A4A70" fontSize="7" fontFamily="monospace" textAnchor="middle" fontWeight="600" letterSpacing="1.5">{e.name}</text>;
                 })}
 
-                {/* Coordinate ticks - longitude */}
-                {[52, 53, 54, 55, 56].map(lng => {
-                  const { x } = toSVG(UAE_LAT_MIN, lng);
+                {/* Coordinate ticks */}
+                {lngTicks.map(lng => {
+                  const { x } = proj(bnd.latMin, lng);
                   return <g key={`lng-${lng}`}>
                     <line x1={x} y1={SVG_H - 12} x2={x} y2={SVG_H} stroke="#1A3050" strokeWidth="0.5" />
                     <text x={x} y={SVG_H - 3} fill="#1A3050" fontSize="6" fontFamily="monospace" textAnchor="middle">{lng}°E</text>
                   </g>;
                 })}
-                {/* Coordinate ticks - latitude */}
-                {[23, 24, 25, 26].map(lat => {
-                  const { y } = toSVG(lat, UAE_LNG_MIN);
+                {latTicks.map(lat => {
+                  const { y } = proj(lat, bnd.lngMin);
                   return <g key={`lat-${lat}`}>
                     <line x1={0} y1={y} x2={12} y2={y} stroke="#1A3050" strokeWidth="0.5" />
                     <text x={14} y={y + 2} fill="#1A3050" fontSize="6" fontFamily="monospace">{lat}°N</text>
@@ -572,8 +659,8 @@ export default function Dashboard() {
                 })}
 
                 {/* Impact markers */}
-                {IMPACT_LOCATIONS.map(loc => {
-                  const { x, y } = toSVG(loc.lat, loc.lng);
+                {impacts.map(loc => {
+                  const { x, y } = proj(loc.lat, loc.lng);
                   const color = loc.type === "drone_hit" ? DRONE_HIT : DEBRIS_HIT;
                   const hasCasualties = loc.casualties !== "None";
                   const filterId = loc.type === "drone_hit" ? "glowRed" : "glowOrange";
@@ -584,10 +671,8 @@ export default function Dashboard() {
                       onClick={() => setSelectedImpact(selectedImpact?.id === loc.id ? null : loc)}
                       style={{ cursor: "pointer" }}
                     >
-                      {/* Pulse ring */}
                       <circle cx={x} cy={y} fill="none" stroke={color} strokeWidth="1.5"
                         className={hasCasualties ? "pulse-ring-fast" : "pulse-ring"} />
-                      {/* Marker dot */}
                       <circle cx={x} cy={y} r="4" fill={color} filter={`url(#${filterId})`} />
                       <circle cx={x} cy={y} r="1.5" fill="#fff" opacity="0.8" />
                     </g>
@@ -595,8 +680,8 @@ export default function Dashboard() {
                 })}
 
                 {/* Map title overlay */}
-                <text x="16" y="22" fill={UAE_GOLD} fontSize="10" fontFamily="monospace" fontWeight="700" letterSpacing="2">LIVE INTEL — UAE IMPACT MAP</text>
-                <text x="16" y="34" fill="#2A5A80" fontSize="7" fontFamily="monospace">CONFIRMED STRIKE LOCATIONS • FEB 28 – MAR 4, 2026</text>
+                <text x="16" y="22" fill={themeAccent} fontSize="10" fontFamily="monospace" fontWeight="700" letterSpacing="2">{mapConf.title}</text>
+                <text x="16" y="34" fill="#2A5A80" fontSize="7" fontFamily="monospace">{mapConf.subtitle} • FEB 28, 2026 –</text>
 
                 {/* Legend */}
                 <g transform={`translate(${SVG_W - 170}, 16)`}>
@@ -615,8 +700,8 @@ export default function Dashboard() {
                 </g>
 
                 {/* Strategic sites */}
-                {showStrategicSites && STRATEGIC_SITES.map(site => {
-                  const { x, y } = toSVG(site.lat, site.lng);
+                {showStrategicSites && sites.map(site => {
+                  const { x, y } = proj(site.lat, site.lng);
                   const isSelected = selectedSite?.id === site.id;
                   return (
                     <g key={site.id}
@@ -633,7 +718,7 @@ export default function Dashboard() {
 
               {/* Hover tooltip */}
               {hoveredImpact && (() => {
-                const { x, y } = toSVG(hoveredImpact.lat, hoveredImpact.lng);
+                const { x, y } = proj(hoveredImpact.lat, hoveredImpact.lng);
                 const pctX = (x / SVG_W) * 100;
                 const pctY = (y / SVG_H) * 100;
                 const color = hoveredImpact.type === "drone_hit" ? DRONE_HIT : DEBRIS_HIT;
@@ -651,7 +736,7 @@ export default function Dashboard() {
                     <div style={{ fontFamily: "monospace", fontSize: 9, color: "#8899BB", lineHeight: 1.6 }}>
                       <div>TYPE: {hoveredImpact.type === "drone_hit" ? "DIRECT HIT" : "DEBRIS/SHRAPNEL"}</div>
                       <div>DATE: {hoveredImpact.date.toUpperCase()}</div>
-                      <div>EMIRATE: {hoveredImpact.emirate.toUpperCase()}</div>
+                      <div>REGION: {(hoveredImpact.region || hoveredImpact.emirate || "").toUpperCase()}</div>
                       <div style={{ color: hoveredImpact.casualties !== "None" ? "#E74C3C" : "#556677" }}>
                         CASUALTIES: {hoveredImpact.casualties.toUpperCase()}
                       </div>
@@ -662,7 +747,7 @@ export default function Dashboard() {
 
               {/* Selected strategic site tooltip */}
               {selectedSite && (() => {
-                const { x, y } = toSVG(selectedSite.lat, selectedSite.lng);
+                const { x, y } = proj(selectedSite.lat, selectedSite.lng);
                 const pctX = (x / SVG_W) * 100;
                 const pctY = (y / SVG_H) * 100;
                 return (
@@ -695,14 +780,14 @@ export default function Dashboard() {
                 borderRadius: 8, padding: "14px 20px", fontFamily: "monospace"
               }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                  <span style={{ color: UAE_GOLD, fontSize: 10, fontWeight: 700, letterSpacing: 2 }}>INTEL BRIEFING — IMPACT SITE #{selectedImpact.id}</span>
+                  <span style={{ color: themeAccent, fontSize: 10, fontWeight: 700, letterSpacing: 2 }}>INTEL BRIEFING — IMPACT SITE #{selectedImpact.id}</span>
                   <button onClick={() => setSelectedImpact(null)} style={{ background: "none", border: `1px solid ${BORDER}`, color: SUBTEXT, borderRadius: 4, padding: "2px 8px", cursor: "pointer", fontSize: 9 }}>CLOSE</button>
                 </div>
                 <div style={{ fontSize: 13, color: "#33CC77", fontWeight: 700, marginBottom: 6 }}>{selectedImpact.name}</div>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 12, fontSize: 9, color: "#8899BB" }}>
-                  <div><div style={{ color: "#556677", marginBottom: 2 }}>WEAPON</div><div style={{ color: TEXT }}>{selectedImpact.type === "drone_hit" ? "Shahed drone / missile" : "Shrapnel / debris"}</div></div>
+                  <div><div style={{ color: "#556677", marginBottom: 2 }}>WEAPON</div><div style={{ color: TEXT }}>{selectedImpact.type === "drone_hit" ? "Drone / missile" : "Shrapnel / debris"}</div></div>
                   <div><div style={{ color: "#556677", marginBottom: 2 }}>DATE</div><div style={{ color: TEXT }}>{selectedImpact.date}</div></div>
-                  <div><div style={{ color: "#556677", marginBottom: 2 }}>EMIRATE</div><div style={{ color: TEXT }}>{selectedImpact.emirate}</div></div>
+                  <div><div style={{ color: "#556677", marginBottom: 2 }}>REGION</div><div style={{ color: TEXT }}>{selectedImpact.region || selectedImpact.emirate}</div></div>
                   <div><div style={{ color: "#556677", marginBottom: 2 }}>CASUALTIES</div><div style={{ color: selectedImpact.casualties !== "None" ? "#E74C3C" : TEXT }}>{selectedImpact.casualties}</div></div>
                 </div>
                 <div style={{ fontSize: 9, color: "#556677", marginTop: 8 }}>
@@ -722,15 +807,15 @@ export default function Dashboard() {
 
             {/* Info strip */}
             <div style={{ display: "flex", gap: 12, marginTop: 12 }}>
-              <StatCard label="Impact Sites" value="9" sub="Confirmed locations" color={DRONE_HIT} />
-              <StatCard label="Emirates Hit" value="3 / 7" sub="Dubai, Abu Dhabi, Sharjah" color={DEBRIS_HIT} />
-              <StatCard label="Direct Hits" value="5" sub="Drone / missile strikes" color={DRONE_HIT} />
-              <StatCard label="Debris Impacts" value="4" sub="Shrapnel / interception debris" color={DEBRIS_HIT} />
-              <StatCard label="KIA" value="1" sub="Zayed Intl Airport" color="#E74C3C" />
-              <StatCard label="WIA" value="15" sub="Across 3 sites" color="#E67E22" />
+              <StatCard label="Impact Sites" value={impacts.length} sub="Confirmed locations" color={DRONE_HIT} />
+              <StatCard label="Regions Hit" value={uniqueRegions.length} sub={uniqueRegions.slice(0, 3).join(", ")} color={DEBRIS_HIT} />
+              <StatCard label="Direct Hits" value={directHits} sub="Drone / missile strikes" color={DRONE_HIT} />
+              <StatCard label="Debris Impacts" value={debrisHits} sub="Shrapnel / interception debris" color={DEBRIS_HIT} />
+              {totalKIA > 0 && <StatCard label="KIA" value={totalKIA} sub="" color="#E74C3C" />}
+              {totalWIA > 0 && <StatCard label="WIA" value={totalWIA} sub="" color="#E67E22" />}
             </div>
           </div>
-        )}
+        ); })()}
 
         {/* OVERVIEW TAB */}
         {activeTab === "overview" && (
