@@ -185,22 +185,26 @@ const GCC_GEOGRAPHY = {
     ],
   },
   iran: {
-    name: "IRAN", color: "#1A1020", labelLat: 32.0, labelLng: 53.0,
+    name: "IRAN", color: "#1A1020", labelLat: 33.0, labelLng: 53.0,
     pts: [
       // Shatt al-Arab / Iraq border
       [30.5,48.0],[30.0,48.8],
-      // Persian Gulf coast (west to east) — stays above lat ~27
+      // Persian Gulf coast (west to east)
       [29.8,49.3],[29.5,50.0],[29.0,50.5],[28.9,50.8],[28.5,51.3],[28.0,51.8],[27.8,52.3],[27.5,52.8],[27.3,53.5],[27.1,54.0],[27.0,54.5],[26.8,55.0],
-      // Strait of Hormuz — stays above lat ~26.8 (Qeshm/Bandar Abbas)
+      // Strait of Hormuz (Qeshm/Bandar Abbas)
       [26.7,55.5],[26.6,55.8],[26.5,56.0],[26.6,56.3],[27.2,56.3],[27.1,56.8],
       // Gulf of Oman coast east
       [26.5,57.3],[26.2,57.8],[25.8,58.5],[25.5,59.0],[25.3,59.8],[25.2,60.0],
       // Eastern border north (Pakistan/Afghanistan/Turkmenistan)
-      [26.0,60.0],[27.0,60.0],[28.5,60.0],[30.0,60.0],[31.5,60.0],[33.0,60.0],[34.5,60.0],[36.0,60.0],[38.0,60.0],[39.0,60.0],
-      // Northern border west (Caspian/Turkey)
-      [39.0,58.0],[39.0,56.0],[39.0,54.0],[39.0,52.0],[39.0,50.0],[39.0,48.0],
-      // Turkey/Iraq border area
-      [38.0,46.0],[37.5,45.5],[37.0,45.5],[36.5,45.5],
+      [26.0,60.0],[27.0,60.0],[28.5,60.0],[30.0,60.0],[31.5,60.0],[33.0,60.0],[34.5,60.0],[36.0,60.0],[37.5,60.0],[39.0,60.0],
+      // Turkmenistan border / Caspian
+      [40.0,58.0],[40.5,56.0],[40.0,54.0],[39.5,52.5],[38.5,52.0],
+      // Caspian Sea coast (south shore)
+      [37.5,51.5],[37.0,50.5],[37.5,50.0],[38.0,49.5],[38.5,49.0],[38.5,48.5],
+      // Azerbaijan/Armenia border
+      [39.5,48.0],[39.5,47.0],[39.0,46.0],[38.5,45.5],
+      // Turkey border
+      [38.0,44.5],[37.5,44.5],[37.5,45.5],[37.0,45.5],[36.5,45.5],
       // Iraq border south
       [36.0,45.5],[35.5,46.0],[35.0,46.5],[34.5,46.0],[34.0,45.5],
       [33.5,45.5],[33.0,45.5],[32.5,45.5],[32.0,46.0],[31.5,47.0],[31.0,47.5],[30.5,48.0]
@@ -285,14 +289,14 @@ const GCC_GEOGRAPHY = {
     ],
   },
   turkey: {
-    name: "TURKEY", color: "#0E1A2A", labelLat: 38.0, labelLng: 38.0,
+    name: "TURKEY", color: "#0E1A2A", labelLat: 39.5, labelLng: 37.0,
     pts: [
       // Syria border (Mediterranean to Iraq)
       [37.0,36.5],[36.5,36.2],[36.2,36.0],[36.0,35.8],[35.8,35.8],[34.7,35.8],[34.7,34.0],
-      // Off-map north
-      [39.0,34.0],[39.0,36.0],[39.0,38.0],[39.0,40.0],[39.0,42.0],[39.0,44.0],[39.0,46.0],
-      // Iran border
-      [38.0,46.0],[37.5,45.5],
+      // Off-map north (extends well above map edge)
+      [42.0,34.0],[42.0,36.0],[42.0,38.0],[42.0,40.0],[42.0,42.0],[42.0,44.0],[42.0,46.0],[42.0,48.0],
+      // Iran/Armenia border
+      [39.5,48.0],[39.5,47.0],[39.0,46.0],[38.5,45.5],[38.0,44.5],[37.5,44.5],
       // Iraq border
       [37.5,43.5],[38.0,44.5],[37.5,42.5],[37.0,42.0],
       // Syria border
@@ -785,7 +789,7 @@ export default function Dashboard() {
         {/* LIVE INTEL TAB */}
         {activeTab === "intel" && (() => {
           // Unified map for All GCC, or per-country map
-          const GCC_BOUNDS = { latMin: 10.0, latMax: 39.0, lngMin: 33.0, lngMax: 60.0 };
+          const GCC_BOUNDS = { latMin: 10.0, latMax: 41.0, lngMin: 33.0, lngMax: 60.0 };
           const mapConf = isAllGCC ? { bounds: GCC_BOUNDS, title: "LIVE INTEL — GCC THEATRE MAP", subtitle: "ALL CONFIRMED STRIKE LOCATIONS" } : (MAP_CONFIGS[selectedCountry] || MAP_CONFIGS.uae);
           const proj = makeToSVG(mapConf.bounds);
           // Merge all country impacts/sites for All GCC view
