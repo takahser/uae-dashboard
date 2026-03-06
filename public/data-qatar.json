@@ -1,0 +1,81 @@
+{
+  "lastUpdated": "2026-03-05T21:00:00Z",
+  "sources": {
+    "MOD_Qatar": { "lastTweetId": null }
+  },
+  "cumulative": {
+    "ballisticDetected": 115,
+    "ballisticIntercepted": 111,
+    "ballisticSea": 3,
+    "ballisticImpacted": 1,
+    "cruiseDetected": 3,
+    "cruiseIntercepted": 3,
+    "cruiseSea": 0,
+    "cruiseImpacted": 0,
+    "dronesDetected": 43,
+    "dronesIntercepted": 28,
+    "dronesSea": 0,
+    "dronesImpacted": 15,
+    "killed": 0,
+    "injured": 16,
+    "notes": "2 Su-24 jets shot down"
+  },
+  "daily": [
+    {
+      "date": "2026-02-28",
+      "label": "28 Feb",
+      "ballisticDetected": 65,
+      "ballisticIntercepted": 63,
+      "ballisticSea": 2,
+      "ballisticImpacted": 0,
+      "cruiseDetected": 0,
+      "cruiseIntercepted": 0,
+      "dronesDetected": 12,
+      "dronesIntercepted": 8,
+      "dronesImpacted": 4,
+      "total": 77
+    },
+    {
+      "date": "2026-03-02",
+      "label": "2 Mar",
+      "ballisticDetected": 7,
+      "ballisticIntercepted": 6,
+      "ballisticSea": 1,
+      "ballisticImpacted": 0,
+      "cruiseDetected": 0,
+      "cruiseIntercepted": 0,
+      "dronesDetected": 5,
+      "dronesIntercepted": 3,
+      "dronesImpacted": 2,
+      "total": 12
+    },
+    {
+      "date": "2026-03-04",
+      "label": "4 Mar",
+      "ballisticDetected": 0,
+      "ballisticIntercepted": 0,
+      "ballisticSea": 0,
+      "ballisticImpacted": 0,
+      "cruiseDetected": 2,
+      "cruiseIntercepted": 2,
+      "dronesDetected": 10,
+      "dronesIntercepted": 6,
+      "dronesImpacted": 4,
+      "total": 12
+    },
+    {
+      "date": "2026-03-05",
+      "label": "5 Mar",
+      "ballisticDetected": 14,
+      "ballisticIntercepted": 13,
+      "ballisticSea": 0,
+      "ballisticImpacted": 1,
+      "cruiseDetected": 1,
+      "cruiseIntercepted": 1,
+      "dronesDetected": 4,
+      "dronesIntercepted": 2,
+      "dronesImpacted": 2,
+      "total": 19
+    }
+  ]
+}

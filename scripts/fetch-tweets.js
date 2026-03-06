@@ -4,9 +4,38 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA_PATH = path.join(__dirname, "../public/data.json");
-const MODGOVAE_USER_ID = "272→ we'll resolve this at runtime";
-const MODGOVAE_USERNAME = "modgovae";
+
+// ── Country config with hardcoded user IDs to save API calls ────────────────
+const COUNTRIES = [
+  {
+    code: "uae",
+    file: "data-uae.json",
+    source: "modgovae",
+    userId: "495832726", // @modgovae
+    keywords: /missile|drone|ballistic|cruise|intercept|attack|iranian|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i,
+  },
+  {
+    code: "qatar",
+    file: "data-qatar.json",
+    source: "MOD_Qatar",
+    userId: "2735aborte", // @MOD_Qatar — replace with real ID when available
+    keywords: /missile|drone|ballistic|cruise|intercept|attack|iranian|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i,
+  },
+  {
+    code: "kuwait",
+    file: "data-kuwait.json",
+    source: "MOD_KW",
+    userId: null, // resolve at runtime until we know it
+    keywords: /missile|drone|ballistic|cruise|intercept|attack|iranian|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i,
+  },
+  {
+    code: "bahrain",
+    file: "data-bahrain.json",
+    source: "BDF_Bahrain",
+    userId: null, // resolve at runtime until we know it
+    keywords: /missile|drone|ballistic|cruise|intercept|attack|iranian|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i,
+  },
+];
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -25,37 +54,48 @@ async function xGet(url, bearerToken) {
   return res.json();
 }
 
-// ── Resolve @modgovae user ID ───────────────────────────────────────────────
+// ── Resolve user ID by username (only if not hardcoded) ───────────────────
 
-async function getUserId(bearerToken) {
+async function getUserId(username, bearerToken) {
   const data = await xGet(
-    `https://api.twitter.com/2/users/by/username/${MODGOVAE_USERNAME}`,
+    `https://api.twitter.com/2/users/by/username/${username}`,
     bearerToken
   );
   return data.data.id;
 }
 
-// ── Fetch tweets since lastTweetId ─────────────────────────────────────────
+// ── Fetch tweets since lastTweetId with media expansions ──────────────────
 
-async function fetchNewTweets(userId, sinceId, bearerToken) {
-  let url = `https://api.twitter.com/2/users/${userId}/tweets?max_results=10&tweet.fields=created_at,text`;
+async function fetchNewTweets(userId, sinceId, keywords, bearerToken) {
+  let url = `https://api.twitter.com/2/users/${userId}/tweets?max_results=10&tweet.fields=created_at,text,attachments&expansions=attachments.media_keys&media.fields=url,type`;
   if (sinceId) url += `&since_id=${sinceId}`;
 
   const data = await xGet(url, bearerToken);
-  if (!data.data || data.data.length === 0) return [];
+  if (!data.data || data.data.length === 0) return { tweets: [], media: {} };
 
-  // Filter to only MOD attack-related tweets (English + Arabic keywords)
-  return data.data.filter((t) =>
-    /missile|drone|ballistic|cruise|intercept|attack|iranian|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i.test(t.text)
-  );
+  // Build media lookup
+  const media = {};
+  if (data.includes?.media) {
+    for (const m of data.includes.media) {
+      media[m.media_key] = m;
+    }
+  }
+
+  // Filter to only attack-related tweets
+  const tweets = data.data.filter((t) => keywords.test(t.text));
+  return { tweets, media };
 }
 
-// ── Parse tweet with Claude ────────────────────────────────────────────────
+// ── Parse tweet with Claude (text + optional image) ───────────────────────
 
-async function parseTweetWithClaude(tweetText, currentData, anthropicClient) {
-  const prompt = `You are parsing an official UAE Ministry of Defence tweet about Iranian attacks.
+async function parseTweetWithClaude(tweetText, imageUrls, currentData, countryCode, anthropicClient) {
+  const prompt = `You are parsing an official ${countryCode.toUpperCase()} Ministry of Defence tweet about Iranian attacks.
 The tweet may be in English OR Arabic. If Arabic, translate and extract the numbers.
 Extract the CUMULATIVE totals (since start of attack) from this tweet and return ONLY valid JSON.
+
+Note: Some countries may not distinguish between missile types or may use different categories.
+If the tweet only mentions generic "missiles" without specifying ballistic/cruise, put the count in ballisticDetected/ballisticIntercepted.
+If data is truly not available for a field, use null.
 
 Current known cumulative totals for reference:
 ${JSON.stringify(currentData.cumulative, null, 2)}
@@ -67,8 +107,8 @@ ${tweetText}
 
 Return ONLY a JSON object with these exact fields (use null for any not mentioned):
 {
-  "hasCumulativeData": boolean,  // true if tweet contains numeric attack statistics (daily or cumulative)
-  "hasNoStats": boolean,         // true if tweet is clearly NOT about statistics (press release, general statement, etc.)
+  "hasCumulativeData": boolean,
+  "hasNoStats": boolean,
   "cumulative": {
     "ballisticDetected": number|null,
     "ballisticIntercepted": number|null,
@@ -99,21 +139,31 @@ Return ONLY a JSON object with these exact fields (use null for any not mentione
   "date": "YYYY-MM-DD"
 }`;
 
+  // Build message content with text + optional images
+  const content = [{ type: "text", text: prompt }];
+  if (imageUrls && imageUrls.length > 0) {
+    for (const url of imageUrls) {
+      content.push({
+        type: "image",
+        source: { type: "url", url },
+      });
+    }
+  }
+
   const message = await anthropicClient.messages.create({
     model: "claude-sonnet-4-20250514",
     max_tokens: 1000,
-    messages: [{ role: "user", content: prompt }],
+    messages: [{ role: "user", content }],
   });
 
   const raw = message.content[0].text.trim();
-  // Strip any accidental markdown fences
   const clean = raw.replace(/```json|```/g, "").trim();
   return JSON.parse(clean);
 }
 
-// ── Merge parsed data into data.json ──────────────────────────────────────
+// ── Merge parsed data into country data ───────────────────────────────────
 
-function mergeData(currentData, parsed, tweet) {
+function mergeData(currentData, parsed, tweet, sourceName) {
   const updated = JSON.parse(JSON.stringify(currentData)); // deep clone
 
   // Update cumulative totals — only overwrite with non-null values
@@ -155,15 +205,87 @@ function mergeData(currentData, parsed, tweet) {
       updated.daily[existingIdx] = dailyEntry;
     } else {
       updated.daily.push(dailyEntry);
-      // Keep sorted by date
       updated.daily.sort((a, b) => new Date(a.date) - new Date(b.date));
     }
   }
 
   updated.lastUpdated = new Date().toISOString();
-  updated.lastTweetId = tweet.id;
+  // Update source-specific lastTweetId
+  if (!updated.sources) updated.sources = {};
+  if (!updated.sources[sourceName]) updated.sources[sourceName] = {};
+  updated.sources[sourceName].lastTweetId = tweet.id;
 
   return updated;
+}
+
+// ── Process a single country ──────────────────────────────────────────────
+
+async function processCountry(country, bearerToken, anthropic) {
+  const dataPath = path.join(__dirname, "../public", country.file);
+
+  // Load country data
+  const currentData = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
+  const sinceId = currentData.sources?.[country.source]?.lastTweetId || null;
+  log(`[${country.code}] Loaded ${country.file}. Last tweet ID: ${sinceId}`);
+
+  // Resolve user ID if not hardcoded
+  let userId = country.userId;
+  if (!userId) {
+    userId = await getUserId(country.source, bearerToken);
+    log(`[${country.code}] Resolved @${country.source} user ID: ${userId}`);
+  }
+
+  // Fetch new tweets with media
+  const { tweets, media } = await fetchNewTweets(userId, sinceId, country.keywords, bearerToken);
+  log(`[${country.code}] Found ${tweets.length} new relevant tweet(s)`);
+
+  if (tweets.length === 0) {
+    log(`[${country.code}] Nothing to update.`);
+    return;
+  }
+
+  // Process each tweet oldest-first
+  let updatedData = currentData;
+  for (const tweet of tweets.reverse()) {
+    log(`[${country.code}] Parsing tweet ${tweet.id}: "${tweet.text.slice(0, 80)}..."`);
+    try {
+      // Extract image URLs from tweet media
+      const imageUrls = [];
+      if (tweet.attachments?.media_keys) {
+        for (const key of tweet.attachments.media_keys) {
+          const m = media[key];
+          if (m && m.type === "photo" && m.url) {
+            imageUrls.push(m.url);
+          }
+        }
+      }
+
+      const parsed = await parseTweetWithClaude(
+        tweet.text,
+        imageUrls,
+        updatedData,
+        country.code,
+        anthropic
+      );
+      if (parsed.hasCumulativeData) {
+        updatedData = mergeData(updatedData, parsed, tweet, country.source);
+        log(`[${country.code}] Updated data from tweet ${tweet.id}`);
+      } else if (parsed.hasNoStats) {
+        log(`[${country.code}] Tweet ${tweet.id} has no statistics, advancing.`);
+        if (!updatedData.sources) updatedData.sources = {};
+        if (!updatedData.sources[country.source]) updatedData.sources[country.source] = {};
+        updatedData.sources[country.source].lastTweetId = tweet.id;
+      } else {
+        log(`[${country.code}] Tweet ${tweet.id} might contain stats but parsing returned no data, will retry next run.`);
+      }
+    } catch (err) {
+      log(`[${country.code}] Failed to parse tweet ${tweet.id}: ${err.message}`);
+    }
+  }
+
+  // Write updated data
+  fs.writeFileSync(dataPath, JSON.stringify(updatedData, null, 2));
+  log(`[${country.code}] ${country.file} updated successfully.`);
 }
 
 // ── Main ───────────────────────────────────────────────────────────────────
@@ -178,55 +300,17 @@ async function main() {
 
   const anthropic = new Anthropic({ apiKey: anthropicKey });
 
-  // Load current data
-  const currentData = JSON.parse(fs.readFileSync(DATA_PATH, "utf-8"));
-  log(`Loaded data.json. Last tweet ID: ${currentData.lastTweetId}`);
-
-  // Resolve user ID
-  const userId = await getUserId(bearerToken);
-  log(`Resolved @modgovae user ID: ${userId}`);
-
-  // Fetch new tweets
-  const tweets = await fetchNewTweets(
-    userId,
-    currentData.lastTweetId,
-    bearerToken
-  );
-  log(`Found ${tweets.length} new relevant tweet(s)`);
-
-  if (tweets.length === 0) {
-    log("Nothing to update.");
-    return;
-  }
-
-  // Process each tweet oldest-first
-  let updatedData = currentData;
-  for (const tweet of tweets.reverse()) {
-    log(`Parsing tweet ${tweet.id}: "${tweet.text.slice(0, 80)}..."`);
+  // Process each country independently — one failure doesn't block others
+  for (const country of COUNTRIES) {
     try {
-      const parsed = await parseTweetWithClaude(
-        tweet.text,
-        updatedData,
-        anthropic
-      );
-      if (parsed.hasCumulativeData) {
-        updatedData = mergeData(updatedData, parsed, tweet);
-        log(`✅ Updated data from tweet ${tweet.id}`);
-      } else if (parsed.hasNoStats) {
-        log(`⏭ Tweet ${tweet.id} has no statistics (non-data tweet), advancing.`);
-        updatedData.lastTweetId = tweet.id;
-      } else {
-        log(`⚠️ Tweet ${tweet.id} might contain stats but parsing returned no data, will retry next run.`);
-        // Do NOT advance lastTweetId — we want to retry this tweet
-      }
+      await processCountry(country, bearerToken, anthropic);
     } catch (err) {
-      log(`⚠️ Failed to parse tweet ${tweet.id}: ${err.message}`);
+      log(`[${country.code}] ERROR: ${err.message}`);
+      // Continue to next country
     }
   }
 
-  // Write updated data
-  fs.writeFileSync(DATA_PATH, JSON.stringify(updatedData, null, 2));
-  log("✅ data.json updated successfully.");
+  log("Done processing all countries.");
 }
 
 main().catch((err) => {

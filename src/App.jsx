@@ -6,6 +6,13 @@ import {
 
 const UAE_GREEN = "#00732F";
 const UAE_GOLD = "#CF9B1A";
+
+const COUNTRY_CONFIG = [
+  { code: "uae", name: "UAE", flag: "\u{1F1E6}\u{1F1EA}", file: "data-uae.json", color: "#00732F", accent: "#CF9B1A", source: "@modgovae" },
+  { code: "qatar", name: "Qatar", flag: "\u{1F1F6}\u{1F1E6}", file: "data-qatar.json", color: "#8A1538", accent: "#FFFFFF", source: "@MOD_Qatar" },
+  { code: "kuwait", name: "Kuwait", flag: "\u{1F1F0}\u{1F1FC}", file: "data-kuwait.json", color: "#007A3D", accent: "#CE1126", source: "@MOD_KW" },
+  { code: "bahrain", name: "Bahrain", flag: "\u{1F1E7}\u{1F1ED}", file: "data-bahrain.json", color: "#CE1126", accent: "#FFFFFF", source: "@BDF_Bahrain" },
+];
 const INTERCEPTED = "#00A86B";
 const IMPACTED = "#C0392B";
 const SEA = "#2980B9";
@@ -101,65 +108,77 @@ const UAE_EMIRATES = [
   })() },
 ];
 
+// Safe number helper: treat null/undefined as 0 for math
+const n = (v) => (v == null ? 0 : v);
+
 function buildDerivedData(raw) {
   const { cumulative, daily } = raw;
+  const c = cumulative;
 
-  const dailyData = daily.map((d, i) => ({
+  const hasDailyData = daily && daily.length > 0;
+
+  const dailyData = hasDailyData ? daily.map((d, i) => ({
     day: d.label, label: `Day ${i + 1}`,
-    ballistic: d.ballisticDetected, drones: d.dronesDetected, cruise: d.cruiseDetected,
-    ballisticIntercepted: d.ballisticIntercepted, droneIntercepted: d.dronesIntercepted,
-    droneImpact: d.dronesImpacted, ballisticSea: d.ballisticSea,
-  }));
+    ballistic: n(d.ballisticDetected), drones: n(d.dronesDetected), cruise: n(d.cruiseDetected),
+    ballisticIntercepted: n(d.ballisticIntercepted), droneIntercepted: n(d.dronesIntercepted),
+    droneImpact: n(d.dronesImpacted), ballisticSea: n(d.ballisticSea),
+  })) : [];
 
   let runDetected = 0, runIntercepted = 0, runImpacted = 0;
-  const cumulativeData = daily.map((d) => {
-    runDetected    += d.ballisticDetected + d.cruiseDetected + d.dronesDetected;
-    runIntercepted += d.ballisticIntercepted + d.cruiseIntercepted + d.dronesIntercepted;
-    runImpacted    += (d.ballisticImpacted || 0) + d.dronesImpacted;
+  const cumulativeData = hasDailyData ? daily.map((d) => {
+    runDetected    += n(d.ballisticDetected) + n(d.cruiseDetected) + n(d.dronesDetected);
+    runIntercepted += n(d.ballisticIntercepted) + n(d.cruiseIntercepted) + n(d.dronesIntercepted);
+    runImpacted    += n(d.ballisticImpacted) + n(d.dronesImpacted);
     return { day: d.label, totalDetected: runDetected, totalIntercepted: runIntercepted, impacted: runImpacted };
-  });
+  }) : [];
 
-  const totalIntercepted = cumulative.ballisticIntercepted + cumulative.cruiseIntercepted + cumulative.dronesIntercepted;
-  const totalDetected    = cumulative.ballisticDetected + cumulative.cruiseDetected + cumulative.dronesDetected;
-  const totalImpacted    = (cumulative.ballisticImpacted || 0) + cumulative.dronesImpacted;
+  // For countries like Bahrain that report "missiles intercepted" without ballistic/cruise split
+  const missilesIntercepted = n(c.missilesIntercepted);
+  const totalIntercepted = n(c.ballisticIntercepted) + n(c.cruiseIntercepted) + n(c.dronesIntercepted) + missilesIntercepted;
+  const totalDetected    = n(c.ballisticDetected) + n(c.cruiseDetected) + n(c.dronesDetected) + missilesIntercepted;
+  const totalImpacted    = n(c.ballisticImpacted) + n(c.dronesImpacted);
 
   const finalTotals = [
-    { name: "Ballistic\nMissiles", detected: cumulative.ballisticDetected, intercepted: cumulative.ballisticIntercepted, sea: cumulative.ballisticSea, impacted: cumulative.ballisticImpacted },
-    { name: "Cruise\nMissiles",    detected: cumulative.cruiseDetected,    intercepted: cumulative.cruiseIntercepted,    sea: 0, impacted: cumulative.cruiseImpacted },
-    { name: "Drones\n(UAVs)",      detected: cumulative.dronesDetected,    intercepted: cumulative.dronesIntercepted,    sea: 0, impacted: cumulative.dronesImpacted },
+    { name: "Ballistic\nMissiles", detected: n(c.ballisticDetected), intercepted: n(c.ballisticIntercepted), sea: n(c.ballisticSea), impacted: n(c.ballisticImpacted) },
+    { name: "Cruise\nMissiles",    detected: n(c.cruiseDetected),    intercepted: n(c.cruiseIntercepted),    sea: 0, impacted: n(c.cruiseImpacted) },
+    { name: "Drones\n(UAVs)",      detected: n(c.dronesDetected),    intercepted: n(c.dronesIntercepted),    sea: 0, impacted: n(c.dronesImpacted) },
   ];
+  // Add missiles row for countries that don't split types
+  if (missilesIntercepted > 0) {
+    finalTotals.unshift({ name: "Missiles\n(unspec.)", detected: missilesIntercepted, intercepted: missilesIntercepted, sea: 0, impacted: 0 });
+  }
 
   const pieData = [
-    { name: "Intercepted",        value: totalIntercepted,         color: INTERCEPTED },
-    { name: "Fell in Sea",        value: cumulative.ballisticSea,  color: SEA },
-    { name: "Impacted Territory", value: totalImpacted,            color: IMPACTED },
-  ];
+    { name: "Intercepted",        value: totalIntercepted,  color: INTERCEPTED },
+    { name: "Fell in Sea",        value: n(c.ballisticSea), color: SEA },
+    { name: "Impacted Territory", value: totalImpacted,     color: IMPACTED },
+  ].filter(d => d.value > 0);
 
-  const ballisticRate = +((cumulative.ballisticIntercepted / cumulative.ballisticDetected) * 100).toFixed(1);
-  const cruiseRate    = cumulative.cruiseDetected > 0 ? +((cumulative.cruiseIntercepted / cumulative.cruiseDetected) * 100).toFixed(1) : 100;
-  const droneRate     = +((cumulative.dronesIntercepted / cumulative.dronesDetected) * 100).toFixed(1);
-  const overallRate   = +((totalIntercepted / totalDetected) * 100).toFixed(1);
+  const ballisticRate = n(c.ballisticDetected) > 0 ? +((n(c.ballisticIntercepted) / n(c.ballisticDetected)) * 100).toFixed(1) : null;
+  const cruiseRate    = n(c.cruiseDetected) > 0 ? +((n(c.cruiseIntercepted) / n(c.cruiseDetected)) * 100).toFixed(1) : null;
+  const droneRate     = n(c.dronesDetected) > 0 ? +((n(c.dronesIntercepted) / n(c.dronesDetected)) * 100).toFixed(1) : null;
+  const overallRate   = totalDetected > 0 ? +((totalIntercepted / totalDetected) * 100).toFixed(1) : null;
 
   const rateData = [
-    { category: "Ballistic\nMissiles", rate: ballisticRate },
-    { category: "Cruise\nMissiles",    rate: cruiseRate },
-    { category: "Drones",              rate: droneRate },
-    { category: "Overall",             rate: overallRate },
-  ];
+    ballisticRate !== null && { category: "Ballistic\nMissiles", rate: ballisticRate },
+    cruiseRate !== null && { category: "Cruise\nMissiles",    rate: cruiseRate },
+    droneRate !== null && { category: "Drones",              rate: droneRate },
+    overallRate !== null && { category: "Overall",             rate: overallRate },
+  ].filter(Boolean);
 
-  const trendData = daily.map((d) => ({
-    day: d.label, ballistic: d.ballisticDetected, cruise: d.cruiseDetected,
-    drones: d.dronesDetected, total: d.total,
-  }));
+  const trendData = hasDailyData ? daily.map((d) => ({
+    day: d.label, ballistic: n(d.ballisticDetected), cruise: n(d.cruiseDetected),
+    drones: n(d.dronesDetected), total: n(d.total),
+  })) : [];
 
-  const interceptorData = daily.map(d => ({
+  const interceptorData = hasDailyData ? daily.map(d => ({
     day: d.label,
-    intercepted: d.ballisticIntercepted + d.cruiseIntercepted + d.dronesIntercepted,
-    estimatedUsed: d.ballisticIntercepted * 2 + d.cruiseIntercepted * 1.5 + d.dronesIntercepted * 1,
-  }));
+    intercepted: n(d.ballisticIntercepted) + n(d.cruiseIntercepted) + n(d.dronesIntercepted),
+    estimatedUsed: n(d.ballisticIntercepted) * 2 + n(d.cruiseIntercepted) * 1.5 + n(d.dronesIntercepted) * 1,
+  })) : [];
 
   return { dailyData, cumulativeData, finalTotals, pieData, rateData, trendData, interceptorData,
-           cumulative, totalDetected, totalIntercepted, totalImpacted, overallRate };
+           cumulative: c, totalDetected, totalIntercepted, totalImpacted, overallRate, hasDailyData };
 }
 
 const CustomTooltip = ({ active, payload, label }) => {
@@ -192,7 +211,8 @@ export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("intel");
   const [hoveredImpact, setHoveredImpact] = useState(null);
   const [selectedImpact, setSelectedImpact] = useState(null);
-  const [rawData, setRawData] = useState(null);
+  const [allData, setAllData] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState("uae");
   const [error, setError] = useState(null);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
   const [showStrategicSites, setShowStrategicSites] = useState(true);
@@ -203,32 +223,57 @@ export default function Dashboard() {
   const [selectedSite, setSelectedSite] = useState(null);
 
   useEffect(() => {
-    fetch(import.meta.env.BASE_URL + "data.json")
-      .then((r) => r.json())
-      .then(setRawData)
-      .catch(() => setError("Failed to load data.json"));
+    const base = import.meta.env.BASE_URL;
+    Promise.all(
+      COUNTRY_CONFIG.map(c =>
+        fetch(base + c.file).then(r => r.ok ? r.json() : null).catch(() => null)
+      )
+    ).then(results => {
+      const data = {};
+      COUNTRY_CONFIG.forEach((c, i) => { if (results[i]) data[c.code] = results[i]; });
+      if (Object.keys(data).length === 0) { setError("Failed to load data files"); return; }
+      setAllData(data);
+    });
   }, []);
 
   if (error) return <div style={{ background: BG, color: IMPACTED, padding: 40, fontFamily: "monospace" }}>{error}</div>;
-  if (!rawData) return <div style={{ background: BG, color: SUBTEXT, padding: 40, fontFamily: "monospace", minHeight: "100vh" }}>Loading...</div>;
+  if (!allData) return <div style={{ background: BG, color: SUBTEXT, padding: 40, fontFamily: "monospace", minHeight: "100vh" }}>Loading...</div>;
+
+  const isAllGCC = selectedCountry === "all";
+  const countryConf = COUNTRY_CONFIG.find(c => c.code === selectedCountry) || COUNTRY_CONFIG[0];
+  const rawData = isAllGCC ? allData.uae : (allData[selectedCountry] || allData.uae);
+  const themeColor = isAllGCC ? UAE_GREEN : countryConf.color;
+  const themeAccent = isAllGCC ? UAE_GOLD : countryConf.accent;
 
   const { dailyData, cumulativeData, finalTotals, pieData, rateData, trendData, interceptorData,
-          cumulative, totalDetected, totalIntercepted, totalImpacted, overallRate } = buildDerivedData(rawData);
+          cumulative, totalDetected, totalIntercepted, totalImpacted, overallRate, hasDailyData } = buildDerivedData(rawData);
 
   const lastUpdated = new Date(rawData.lastUpdated).toLocaleString("en-GB", {
     day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Dubai"
   });
   const dayCount = rawData.daily.length;
 
-  const tabs = [
-    { id: "intel",       label: "Live Intel" },
+  const allTabs = [
+    { id: "intel",       label: "Live Intel",          needsUAE: true },
     { id: "overview",    label: "Overview" },
-    { id: "trends",      label: "Trend Lines" },
-    { id: "daily",       label: "Daily Attacks" },
-    { id: "cumulative",  label: "Cumulative" },
+    { id: "trends",      label: "Trend Lines",         needsDaily: true },
+    { id: "daily",       label: "Daily Attacks",        needsDaily: true },
+    { id: "cumulative",  label: "Cumulative",           needsDaily: true },
     { id: "rates",       label: "Interception Rates" },
     { id: "arsenal",     label: "Arsenal & Defence" },
   ];
+  const tabs = isAllGCC ? [] : allTabs.filter(t => {
+    if (t.needsUAE && selectedCountry !== "uae") return false;
+    if (t.needsDaily && !hasDailyData) return false;
+    return true;
+  });
+
+  // Reset tab if current tab is not available
+  if (!isAllGCC && tabs.length > 0 && !tabs.find(t => t.id === activeTab)) {
+    // Can't call setState during render, but we can pick the first valid tab
+    const validTab = tabs[0].id;
+    if (activeTab !== validTab) setTimeout(() => setActiveTab(validTab), 0);
+  }
 
   return (
     <div style={{ background: BG, minHeight: "100vh", color: TEXT, fontFamily: "'Trebuchet MS', sans-serif", padding: "0 0 40px" }}>
@@ -251,13 +296,13 @@ export default function Dashboard() {
           </a>
           <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 6 }}>
             <div style={{
-              background: UAE_GREEN, borderRadius: "50%", width: 36, height: 36,
+              background: themeColor, borderRadius: "50%", width: 36, height: 36,
               display: "flex", alignItems: "center", justifyContent: "center",
               fontSize: 18, fontWeight: 900, color: "white", flexShrink: 0
-            }}>🇦🇪</div>
+            }}>{isAllGCC ? "GCC" : countryConf.flag}</div>
             <div>
-              <div style={{ fontSize: 11, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 3, fontWeight: 600, display: "flex", alignItems: "center", gap: 6 }}>
-                UAE Ministry of Defence
+              <div style={{ fontSize: 11, color: themeAccent, textTransform: "uppercase", letterSpacing: 3, fontWeight: 600, display: "flex", alignItems: "center", gap: 6 }}>
+                {isAllGCC ? "GCC Coalition Defence" : `${countryConf.name} Ministry of Defence`}
                 <span
                   onClick={() => setShowDisclaimer(!showDisclaimer)}
                   style={{ cursor: "pointer", fontSize: 10, color: SUBTEXT, border: `1px solid ${BORDER}`, borderRadius: "50%", width: 16, height: 16, display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0, position: "relative" }}
@@ -275,38 +320,155 @@ export default function Dashboard() {
             </div>
           </div>
           <div style={{ display: "flex", gap: 20, fontSize: 11, color: SUBTEXT }}>
-            <span>📅 28 Feb 2026 — Day {dayCount}</span>
-            <span>📡 Source: @modgovae official statements</span>
-            <span style={{ color: UAE_GOLD }}>⚡ Updated: {lastUpdated} GST</span>
+            <span>📅 28 Feb 2026{dayCount > 0 ? ` — Day ${dayCount}` : ""}</span>
+            <span>📡 Source: {isAllGCC ? "Multiple MoD accounts" : `${countryConf.source} official statements`}</span>
+            <span style={{ color: themeAccent }}>⚡ Updated: {lastUpdated} GST</span>
           </div>
         </div>
       </div>
 
+      {/* Country selector */}
+      <div style={{ display: "flex", gap: 8, padding: "16px 28px 0", flexWrap: "wrap" }}>
+        {[{ code: "all", name: "All GCC", flag: "🌐" }, ...COUNTRY_CONFIG].map(c => (
+          <button key={c.code} onClick={() => { setSelectedCountry(c.code); if (c.code !== "uae" && activeTab === "intel") setActiveTab("overview"); }}
+            style={{
+              background: selectedCountry === c.code ? (c.color || UAE_GREEN) : "transparent",
+              color: selectedCountry === c.code ? "#fff" : SUBTEXT,
+              border: `1px solid ${selectedCountry === c.code ? (c.color || UAE_GREEN) : BORDER}`,
+              borderRadius: 20, padding: "6px 16px", cursor: "pointer",
+              fontSize: 12, fontWeight: selectedCountry === c.code ? 700 : 500,
+              transition: "all 0.15s", display: "flex", alignItems: "center", gap: 6
+            }}>
+            <span>{c.flag}</span> {c.name}
+          </button>
+        ))}
+      </div>
+
       {/* Stat cards */}
       <div style={{ display: "flex", gap: 12, padding: "20px 28px", flexWrap: "wrap" }}>
-        <StatCard label="Total Detected" value={totalDetected.toLocaleString()} sub="Missiles + drones" color={UAE_GOLD} />
-        <StatCard label="Intercepted" value={totalIntercepted.toLocaleString()} sub={`${overallRate}% success rate`} color={INTERCEPTED} />
+        <StatCard label="Total Detected" value={totalDetected.toLocaleString()} sub="Missiles + drones" color={themeAccent || UAE_GOLD} />
+        <StatCard label="Intercepted" value={totalIntercepted.toLocaleString()} sub={overallRate != null ? `${overallRate}% success rate` : "Rate N/A"} color={INTERCEPTED} />
         <StatCard label="Impacted Territory" value={totalImpacted.toLocaleString()} sub="Drones + missiles landed" color={IMPACTED} />
-        <StatCard label="Fell in Sea" value={cumulative.ballisticSea.toLocaleString()} sub="Ballistic missiles only" color={SEA} />
-        <StatCard label="Killed" value={cumulative.killed} sub="Pakistani, Nepali, Bangladeshi" color="#E74C3C" />
-        <StatCard label="Injured" value={cumulative.injured} sub="16+ nationalities" color="#E67E22" />
+        {n(cumulative.ballisticSea) > 0 && <StatCard label="Fell in Sea" value={n(cumulative.ballisticSea).toLocaleString()} sub="Ballistic missiles only" color={SEA} />}
+        {n(cumulative.killed) > 0 && <StatCard label="Killed" value={cumulative.killed} sub="" color="#E74C3C" />}
+        {cumulative.injured != null && <StatCard label="Injured" value={cumulative.injured} sub="" color="#E67E22" />}
       </div>
 
       {/* Tabs */}
-      <div style={{ display: "flex", gap: 4, padding: "0 28px 20px" }}>
+      {!isAllGCC && <div style={{ display: "flex", gap: 4, padding: "0 28px 20px", flexWrap: "wrap" }}>
         {tabs.map(t => (
           <button key={t.id} onClick={() => setActiveTab(t.id)} style={{
-            background: activeTab === t.id ? UAE_GOLD : "transparent",
-            color: activeTab === t.id ? "#000" : SUBTEXT,
-            border: `1px solid ${activeTab === t.id ? UAE_GOLD : BORDER}`,
+            background: activeTab === t.id ? (themeAccent || UAE_GOLD) : "transparent",
+            color: activeTab === t.id ? (themeAccent === "#FFFFFF" ? themeColor : "#000") : SUBTEXT,
+            border: `1px solid ${activeTab === t.id ? (themeAccent || UAE_GOLD) : BORDER}`,
             borderRadius: 6, padding: "7px 16px", cursor: "pointer",
             fontSize: 12, fontWeight: activeTab === t.id ? 700 : 500,
             transition: "all 0.15s"
           }}>{t.label}</button>
         ))}
-      </div>
+      </div>}
 
       <div style={{ padding: "0 28px" }}>
+
+        {/* ALL GCC COMPARISON VIEW */}
+        {isAllGCC && (() => {
+          const countryStats = COUNTRY_CONFIG.map(cc => {
+            const d = allData[cc.code];
+            if (!d) return null;
+            const bd = buildDerivedData(d);
+            return { ...cc, ...bd };
+          }).filter(Boolean);
+          const compData = countryStats.map(cs => ({
+            name: cs.flag + " " + cs.name,
+            detected: cs.totalDetected,
+            intercepted: cs.totalIntercepted,
+            impacted: cs.totalImpacted,
+            rate: cs.overallRate,
+          }));
+          return (
+            <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 20 }}>
+              {/* Per-country stat cards */}
+              <div style={{ display: "grid", gridTemplateColumns: `repeat(${countryStats.length}, 1fr)`, gap: 16 }}>
+                {countryStats.map(cs => (
+                  <div key={cs.code} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, borderTop: `3px solid ${cs.color}` }}>
+                    <div style={{ fontSize: 24, marginBottom: 4 }}>{cs.flag}</div>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: TEXT, marginBottom: 12 }}>{cs.name}</div>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                      <div><div style={{ fontSize: 20, fontWeight: 800, color: cs.accent || UAE_GOLD, fontFamily: "Georgia, serif" }}>{cs.totalDetected.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>Detected</div></div>
+                      <div><div style={{ fontSize: 20, fontWeight: 800, color: INTERCEPTED, fontFamily: "Georgia, serif" }}>{cs.totalIntercepted.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>Intercepted</div></div>
+                      <div><div style={{ fontSize: 20, fontWeight: 800, color: IMPACTED, fontFamily: "Georgia, serif" }}>{cs.totalImpacted.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>Impacted</div></div>
+                      <div><div style={{ fontSize: 20, fontWeight: 800, color: cs.overallRate != null && cs.overallRate >= 95 ? INTERCEPTED : "#E67E22", fontFamily: "Georgia, serif" }}>{cs.overallRate != null ? `${cs.overallRate}%` : "N/A"}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>Success Rate</div></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Grouped bar chart */}
+              <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+                <h3 style={{ margin: "0 0 16px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>Detected / Intercepted / Impacted by Country</h3>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={compData} barCategoryGap="25%">
+                    <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
+                    <XAxis dataKey="name" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} />
+                    <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend wrapperStyle={{ fontSize: 11 }} />
+                    <Bar dataKey="detected" name="Detected" fill="#1A3A5C" radius={[3, 3, 0, 0]} />
+                    <Bar dataKey="intercepted" name="Intercepted" fill={INTERCEPTED} radius={[3, 3, 0, 0]} />
+                    <Bar dataKey="impacted" name="Impacted" fill={IMPACTED} radius={[3, 3, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Interception rate comparison */}
+              <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+                <h3 style={{ margin: "0 0 16px", fontSize: 13, color: INTERCEPTED, textTransform: "uppercase", letterSpacing: 2 }}>Interception Rate Comparison</h3>
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart data={compData.filter(d => d.rate != null)} barCategoryGap="35%">
+                    <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
+                    <XAxis dataKey="name" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} />
+                    <YAxis domain={[0, 100]} tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} tickFormatter={v => `${v}%`} />
+                    <Tooltip content={<CustomTooltip />} formatter={(v) => [`${v}%`, "Rate"]} />
+                    <Bar dataKey="rate" name="Interception Rate" radius={[4, 4, 0, 0]}>
+                      {compData.filter(d => d.rate != null).map((_, i) => (
+                        <Cell key={i} fill={COUNTRY_CONFIG[i]?.color || INTERCEPTED} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Breakdown table */}
+              <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, overflow: "auto" }}>
+                <h3 style={{ margin: "0 0 16px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>Detailed Breakdown</h3>
+                <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
+                  <thead>
+                    <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
+                      {["Country", "Ballistic", "Cruise", "Drones", "Total Detected", "Intercepted", "Impacted", "Killed", "Injured"].map(h => (
+                        <th key={h} style={{ padding: "8px 10px", textAlign: "left", color: SUBTEXT, fontSize: 10, textTransform: "uppercase", letterSpacing: 1 }}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {countryStats.map(cs => (
+                      <tr key={cs.code} style={{ borderBottom: `1px solid ${BORDER}` }}>
+                        <td style={{ padding: "10px", color: TEXT, fontWeight: 600 }}>{cs.flag} {cs.name}</td>
+                        <td style={{ padding: "10px", color: TEXT }}>{n(cs.cumulative.ballisticDetected) || "—"}</td>
+                        <td style={{ padding: "10px", color: TEXT }}>{n(cs.cumulative.cruiseDetected) || "—"}</td>
+                        <td style={{ padding: "10px", color: TEXT }}>{n(cs.cumulative.dronesDetected) || "—"}</td>
+                        <td style={{ padding: "10px", color: themeAccent, fontWeight: 700 }}>{cs.totalDetected.toLocaleString()}</td>
+                        <td style={{ padding: "10px", color: INTERCEPTED, fontWeight: 700 }}>{cs.totalIntercepted.toLocaleString()}</td>
+                        <td style={{ padding: "10px", color: IMPACTED, fontWeight: 700 }}>{cs.totalImpacted.toLocaleString()}</td>
+                        <td style={{ padding: "10px", color: "#E74C3C" }}>{n(cs.cumulative.killed) || "—"}</td>
+                        <td style={{ padding: "10px", color: "#E67E22" }}>{cs.cumulative.injured != null ? cs.cumulative.injured : "—"}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          );
+        })()}
 
         {/* LIVE INTEL TAB */}
         {activeTab === "intel" && (
@@ -816,20 +978,20 @@ export default function Dashboard() {
         )}
 
         {/* RATES TAB */}
-        {activeTab === "rates" && (
+        {activeTab === "rates" && !isAllGCC && (
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
             {[
-              { label: "Ballistic Missiles", intercepted: 175, total: 189, rate: 92.6, color: "#2980B9" },
-              { label: "Cruise Missiles", intercepted: 8, total: 8, rate: 100, color: UAE_GOLD },
-              { label: "Drones (UAVs)", intercepted: 876, total: 941, rate: 93.1, color: INTERCEPTED },
-              { label: "Overall", intercepted: 1059, total: 1138, rate: 93.1, color: "#9B59B6" },
-            ].map((item, i) => (
+              n(cumulative.ballisticDetected) > 0 && { label: "Ballistic Missiles", intercepted: n(cumulative.ballisticIntercepted), total: n(cumulative.ballisticDetected), rate: rateData.find(r => r.category.includes("Ballistic"))?.rate, color: "#2980B9" },
+              n(cumulative.cruiseDetected) > 0 && { label: "Cruise Missiles", intercepted: n(cumulative.cruiseIntercepted), total: n(cumulative.cruiseDetected), rate: rateData.find(r => r.category.includes("Cruise"))?.rate, color: UAE_GOLD },
+              n(cumulative.dronesDetected) > 0 && { label: "Drones (UAVs)", intercepted: n(cumulative.dronesIntercepted), total: n(cumulative.dronesDetected), rate: rateData.find(r => r.category === "Drones")?.rate, color: INTERCEPTED },
+              { label: "Overall", intercepted: totalIntercepted, total: totalDetected, rate: overallRate, color: "#9B59B6" },
+            ].filter(Boolean).map((item, i) => (
               <div key={i} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 24 }}>
                 <div style={{ fontSize: 12, color: SUBTEXT, textTransform: "uppercase", letterSpacing: 2, marginBottom: 8 }}>{item.label}</div>
-                <div style={{ fontSize: 44, fontWeight: 900, color: item.color, fontFamily: "Georgia, serif", lineHeight: 1 }}>{item.rate}%</div>
+                <div style={{ fontSize: 44, fontWeight: 900, color: item.color, fontFamily: "Georgia, serif", lineHeight: 1 }}>{item.rate != null ? `${item.rate}%` : "N/A"}</div>
                 <div style={{ fontSize: 11, color: SUBTEXT, marginTop: 6 }}>interception rate</div>
                 <div style={{ marginTop: 16, background: "#0A0F1E", borderRadius: 6, height: 8, overflow: "hidden" }}>
-                  <div style={{ height: "100%", width: `${item.rate}%`, background: item.color, borderRadius: 6, transition: "width 0.8s ease" }} />
+                  <div style={{ height: "100%", width: `${item.rate || 0}%`, background: item.color, borderRadius: 6, transition: "width 0.8s ease" }} />
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", marginTop: 8, fontSize: 11, color: SUBTEXT }}>
                   <span>✅ {item.intercepted.toLocaleString()} intercepted</span>
@@ -1056,11 +1218,11 @@ export default function Dashboard() {
               const AVG_BALLISTIC_INTERCEPT = 8;
               const AVG_CRUISE_INTERCEPT = 2.5;
               const AVG_DRONE_INTERCEPT = 2.5;
-              const daily = rawData.daily;
+              const daily = rawData.daily || [];
               let cumAtk = 0, cumDef = 0;
               const costTimeline = daily.map(d => {
-                const atkDay = d.ballisticDetected * AVG_BALLISTIC_COST + d.cruiseDetected * AVG_CRUISE_COST + d.dronesDetected * AVG_DRONE_COST;
-                const defDay = d.ballisticIntercepted * AVG_BALLISTIC_INTERCEPT + d.cruiseIntercepted * AVG_CRUISE_INTERCEPT + d.dronesIntercepted * AVG_DRONE_INTERCEPT;
+                const atkDay = n(d.ballisticDetected) * AVG_BALLISTIC_COST + n(d.cruiseDetected) * AVG_CRUISE_COST + n(d.dronesDetected) * AVG_DRONE_COST;
+                const defDay = n(d.ballisticIntercepted) * AVG_BALLISTIC_INTERCEPT + n(d.cruiseIntercepted) * AVG_CRUISE_INTERCEPT + n(d.dronesIntercepted) * AVG_DRONE_INTERCEPT;
                 cumAtk += atkDay;
                 cumDef += defDay;
                 return { day: d.label, atkDay: Math.round(atkDay), defDay: Math.round(defDay), cumAtk: Math.round(cumAtk), cumDef: Math.round(cumDef) };
@@ -1162,7 +1324,7 @@ export default function Dashboard() {
       </div>
 
       <div style={{ textAlign: "center", marginTop: 32, fontSize: 10, color: "#3A4A60" }}>
-        Data sourced exclusively from official UAE Ministry of Defence statements (@modgovae) • Feb 28 – Mar 4, 2026
+        Data sourced from official GCC Ministry of Defence statements • Feb 28, 2026 –
         <br />
         <a href="https://github.com/takahser/uae-dashboard" target="_blank" rel="noopener noreferrer"
           style={{ color: "#3A4A60", textDecoration: "none", marginTop: 4, display: "inline-flex", alignItems: "center", gap: 4 }}>

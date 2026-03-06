@@ -2,14 +2,14 @@ name: Update Attack Data
 
 on:
   schedule:
-    - cron: "*/30 * * * *"   # every 30 minutes
+    - cron: "0 */2 * * *"   # every 2 hours (rate limit aware for 4 countries)
   workflow_dispatch:           # allow manual trigger from GitHub UI
 
 jobs:
   update:
     runs-on: ubuntu-latest
     permissions:
-      contents: write          # needed to commit data.json back to repo
+      contents: write          # needed to commit data files back to repo
 
     steps:
       - name: Checkout repo
@@ -30,11 +30,11 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: node scripts/fetch-tweets.js
 
-      - name: Commit updated data.json (if changed)
+      - name: Commit updated data files (if changed)
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/data.json
+          git add public/data-*.json
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
