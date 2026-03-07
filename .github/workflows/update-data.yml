@@ -14,6 +14,11 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          ref: main            # always use latest main
+
+      - name: Pull latest main
+        run: git pull origin main
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -34,8 +39,6 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # Pull latest before staging to reduce conflicts
-          git pull --rebase origin main || git rebase --abort
           git add public/data-*.json
           if git diff --cached --quiet; then
             echo "No changes to commit."
