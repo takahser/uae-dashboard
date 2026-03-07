@@ -34,11 +34,12 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Pull latest before staging to reduce conflicts
+          git pull --rebase origin main || git rebase --abort
           git add public/data-*.json
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
             git commit -m "chore: update attack data"
-            git pull --rebase origin main
             git push
           fi
