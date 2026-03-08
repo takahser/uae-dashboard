@@ -35,6 +35,13 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: node scripts/fetch-tweets.js
 
+      - name: Fetch DXB flight data
+        env:
+          OPENSKY_CLIENT_ID: ${{ secrets.OPENSKY_CLIENT_ID }}
+          OPENSKY_CLIENT_SECRET: ${{ secrets.OPENSKY_CLIENT_SECRET }}
+        run: node scripts/fetch-flights.js
+        continue-on-error: true
+
       - name: Commit updated data files (if changed)
         run: |
           git config user.name  "github-actions[bot]"

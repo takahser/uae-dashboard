@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
-  LineChart, Line, AreaChart, Area, PieChart, Pie, Cell,
+  LineChart, Line, AreaChart, Area, PieChart, Pie, Cell, ComposedChart,
 } from "recharts";
+import { createT } from "./i18n";
 
 const UAE_GREEN = "#00732F";
 const UAE_GOLD = "#CF9B1A";
@@ -31,6 +32,7 @@ const DRONE_HIT = "#C0392B";
 const DEBRIS_HIT = "#E67E22";
 
 const STRATEGIC_BLUE = "#3498DB";
+const DESAL_CYAN = "#00BCD4";
 
 // Equirectangular projection: configurable bounds → SVG coords
 const SVG_W = 800, SVG_H = 500;
@@ -76,6 +78,12 @@ const MAP_CONFIGS = {
       { id: "s3", name: "US Embassy Abu Dhabi", type: "US Embassy", lat: 24.4539, lng: 54.3773 },
       { id: "s4", name: "US Consulate Dubai", type: "US Consulate", lat: 25.2601, lng: 55.3091 },
       { id: "s7", name: "Fujairah Naval Facility", type: "US Navy", lat: 25.1612, lng: 56.3658 },
+      { id: "d1", name: "Jebel Ali Desal", type: "Desalination", siteType: "desal", lat: 25.0597, lng: 55.1172 },
+      { id: "d2", name: "Taweelah Desal", type: "Desalination", siteType: "desal", lat: 24.7680, lng: 54.6873 },
+      { id: "d3", name: "Fujairah Desal (Qidfa)", type: "Desalination", siteType: "desal", lat: 25.3141, lng: 56.3728 },
+      { id: "d4", name: "Umm Al Nar Desal", type: "Desalination", siteType: "desal", lat: 24.4348, lng: 54.4876 },
+      { id: "d5", name: "Shuweihat Desal", type: "Desalination", siteType: "desal", lat: 24.1650, lng: 52.5680 },
+      { id: "d6", name: "Al Mirfa Desal", type: "Desalination", siteType: "desal", lat: 24.1210, lng: 53.4470 },
     ],
   },
   qatar: {
@@ -97,6 +105,9 @@ const MAP_CONFIGS = {
       { id: "s1", name: "Al Udeid Air Base", type: "US/Qatar Air Base", lat: 25.1173, lng: 51.3150 },
       { id: "s2", name: "US Embassy Doha", type: "US Embassy", lat: 25.3134, lng: 51.4722 },
       { id: "s3", name: "Camp As Sayliyah", type: "US Army Base", lat: 25.2800, lng: 51.3300 },
+      { id: "d1", name: "Ras Abu Fontas Desal", type: "Desalination", siteType: "desal", lat: 25.2058, lng: 51.6174 },
+      { id: "d2", name: "Umm Al Houl Desal", type: "Desalination", siteType: "desal", lat: 25.1146, lng: 51.6115 },
+      { id: "d3", name: "Ras Laffan Desal", type: "Desalination", siteType: "desal", lat: 25.8545, lng: 51.5367 },
     ],
   },
   kuwait: {
@@ -118,6 +129,10 @@ const MAP_CONFIGS = {
       { id: "s2", name: "Camp Arifjan", type: "US Army Base", lat: 28.9300, lng: 48.0800 },
       { id: "s3", name: "Camp Buehring", type: "US Army Base", lat: 29.5600, lng: 47.5400 },
       { id: "s4", name: "US Embassy Kuwait", type: "US Embassy", lat: 29.2600, lng: 47.9400 },
+      { id: "d1", name: "Az-Zour South Desal", type: "Desalination", siteType: "desal", lat: 28.7088, lng: 48.3656 },
+      { id: "d2", name: "Doha East Desal", type: "Desalination", siteType: "desal", lat: 29.3682, lng: 47.7963 },
+      { id: "d3", name: "Shuwaikh Desal", type: "Desalination", siteType: "desal", lat: 29.3515, lng: 47.9402 },
+      { id: "d4", name: "Sabiya Desal", type: "Desalination", siteType: "desal", lat: 29.5670, lng: 48.1710 },
     ],
   },
   bahrain: {
@@ -142,6 +157,8 @@ const MAP_CONFIGS = {
       { id: "s1", name: "NSA Bahrain (US 5th Fleet)", type: "US Naval Base", lat: 26.2400, lng: 50.6100 },
       { id: "s2", name: "Isa Air Base", type: "Bahrain/US Air Base", lat: 25.9182, lng: 50.5906 },
       { id: "s3", name: "US Embassy Manama", type: "US Embassy", lat: 26.2280, lng: 50.5830 },
+      { id: "d1", name: "Al Hidd Desal", type: "Desalination", siteType: "desal", lat: 26.2223, lng: 50.6621 },
+      { id: "d2", name: "Al Dur Desal", type: "Desalination", siteType: "desal", lat: 25.9714, lng: 50.6076 },
     ],
   },
 };
@@ -159,6 +176,11 @@ const GCC_GEOGRAPHY = {
       { id: "sa-s6", name: "Eskan Village", type: "US Military Housing", lat: 24.5953, lng: 46.7116 },
       { id: "sa-s7", name: "THAAD Battery (Yanbu)", type: "US THAAD", lat: 24.0890, lng: 38.0634 },
       { id: "sa-s8", name: "Israeli Embassy Riyadh", type: "IL Embassy", lat: 24.7300, lng: 46.6700 },
+      { id: "sa-d1", name: "Jubail Desal (SWCC)", type: "Desalination", siteType: "desal", lat: 26.9100, lng: 49.7690 },
+      { id: "sa-d2", name: "Ras Al-Khair Desal", type: "Desalination", siteType: "desal", lat: 27.4558, lng: 49.3002 },
+      { id: "sa-d3", name: "Shoaiba Desal", type: "Desalination", siteType: "desal", lat: 20.6801, lng: 39.5232 },
+      { id: "sa-d4", name: "Yanbu Desal", type: "Desalination", siteType: "desal", lat: 23.9745, lng: 38.2148 },
+      { id: "sa-d5", name: "Al Khobar Desal", type: "Desalination", siteType: "desal", lat: 26.2794, lng: 50.2083 },
     ],
     pts: [
       // Red Sea coast (north to south)
@@ -186,6 +208,10 @@ const GCC_GEOGRAPHY = {
       { id: "om-s2", name: "Al Musannah Air Base", type: "US/Oman Air Base", lat: 23.6406, lng: 57.4936 },
       { id: "om-s3", name: "Masirah Island Air Base", type: "US/Oman Air Base", lat: 20.6754, lng: 58.8905 },
       { id: "om-s5", name: "US Embassy Muscat", type: "US Embassy", lat: 23.6133, lng: 58.5915 },
+      { id: "om-d1", name: "Barka Desal", type: "Desalination", siteType: "desal", lat: 23.7074, lng: 57.9845 },
+      { id: "om-d2", name: "Sohar Desal", type: "Desalination", siteType: "desal", lat: 24.4724, lng: 56.6334 },
+      { id: "om-d3", name: "Sur Desal", type: "Desalination", siteType: "desal", lat: 22.5667, lng: 59.5289 },
+      { id: "om-d4", name: "Ghubrah Desal (Muscat)", type: "Desalination", siteType: "desal", lat: 23.6031, lng: 58.4164 },
     ],
     pts: [
       // Musandam peninsula (Strait of Hormuz)
@@ -204,6 +230,13 @@ const GCC_GEOGRAPHY = {
   },
   iran: {
     name: "IRAN", color: "#1A1020", labelLat: 33.0, labelLng: 53.0,
+    strategicSites: [
+      { id: "ir-d1", name: "Bandar Abbas Desal", type: "Desalination", siteType: "desal", lat: 27.1837, lng: 56.2774 },
+      { id: "ir-d2", name: "Bushehr Desal", type: "Desalination", siteType: "desal", lat: 28.9684, lng: 50.8385 },
+      { id: "ir-d3", name: "Kish Island Desal", type: "Desalination", siteType: "desal", lat: 26.5320, lng: 53.9660 },
+      { id: "ir-d4", name: "Qeshm Island Desal", type: "Desalination", siteType: "desal", lat: 26.8330, lng: 56.0000 },
+      { id: "ir-d5", name: "Chabahar Desal", type: "Desalination", siteType: "desal", lat: 25.4500, lng: 60.3833 },
+    ],
     pts: [
       // Shatt al-Arab / Iraq border
       [30.5,48.0],[30.0,48.8],
@@ -388,7 +421,25 @@ const UAE_EMIRATES = [
     return "M" + pts.map(([lat,lng]) => { const {x,y} = toSVG(lat,lng); return `${x},${y}`; }).join(" L") + " Z";
   })() },
   { name: "DUBAI", labelLat: 25.15, labelLng: 55.22, path: (() => {
-    const pts = [[25.01,55.05],[25.27,55.28],[25.23,55.35],[25.19,55.33],[25.22,55.36],[25.28,55.30],[25.31,55.45],[25.19,55.62],[25.05,55.66],[24.98,55.62],[24.90,55.66],[24.72,55.68],[24.61,55.46],[24.60,55.16],[24.98,55.01],[25.02,55.04],[24.97,55.05],[24.99,55.08],[25.01,55.05]];
+    const pts = [
+      // NW coast (Deira)
+      [25.27,55.28],
+      // Northern/Eastern borders
+      [25.23,55.35],[25.19,55.33],[25.22,55.36],[25.28,55.30],[25.31,55.45],
+      [25.19,55.62],[25.05,55.66],[24.98,55.62],[24.90,55.66],[24.72,55.68],
+      [24.61,55.46],[24.60,55.16],
+      // SW border to coast (Abu Dhabi border)
+      [24.98,55.01],
+      // Palm Jebel Ali
+      [24.98,54.98],[25.00,54.96],[25.02,54.97],[25.02,55.00],
+      // Coast to Dubai Marina
+      [25.04,55.04],[25.07,55.08],[25.09,55.11],
+      // Palm Jumeirah (crescent shape)
+      [25.10,55.10],[25.10,55.07],[25.12,55.06],[25.14,55.07],[25.15,55.10],
+      // Coast to Deira
+      [25.16,55.14],[25.19,55.18],[25.22,55.22],[25.25,55.25],
+      [25.27,55.28],
+    ];
     return "M" + pts.map(([lat,lng]) => { const {x,y} = toSVG(lat,lng); return `${x},${y}`; }).join(" L") + " Z";
   })() },
   { name: "SHARJAH", labelLat: 25.35, labelLng: 55.50, path: (() => {
@@ -538,6 +589,10 @@ export default function Dashboard() {
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [selectedSite, setSelectedSite] = useState(null);
+  const [lang, setLang] = useState("en");
+  const [flightData, setFlightData] = useState(null);
+  const t = createT(lang);
+  const isRTL = lang === "ar";
 
   useEffect(() => {
     const base = import.meta.env.BASE_URL;
@@ -551,6 +606,8 @@ export default function Dashboard() {
       if (Object.keys(data).length === 0) { setError("Failed to load data files"); return; }
       setAllData(data);
     });
+    // Load flight data
+    fetch(base + "data-flights-dxb.json").then(r => r.ok ? r.json() : null).then(d => setFlightData(d)).catch(() => {});
   }, []);
 
   if (error) return <div style={{ background: BG, color: IMPACTED, padding: 40, fontFamily: "monospace" }}>{error}</div>;
@@ -589,16 +646,17 @@ export default function Dashboard() {
   const dayCount = rawData.daily.length;
 
   const allTabs = [
-    { id: "intel",       label: "Live Intel" },
-    { id: "overview",    label: "Overview" },
-    { id: "trends",      label: "Trend Lines",         needsDaily: true },
-    { id: "daily",       label: "Daily Attacks",        needsDaily: true },
-    { id: "cumulative",  label: "Cumulative",           needsDaily: true },
-    { id: "rates",       label: "Interception Rates" },
-    { id: "arsenal",     label: "Arsenal & Defence" },
+    { id: "intel",       label: t("tab.intel") },
+    { id: "overview",    label: t("tab.overview") },
+    { id: "trends",      label: t("tab.trends"),         needsDaily: true },
+    { id: "daily",       label: t("tab.daily"),           needsDaily: true },
+    { id: "cumulative",  label: t("tab.cumulative"),      needsDaily: true },
+    { id: "rates",       label: t("tab.rates") },
+    { id: "arsenal",     label: t("tab.arsenal") },
+    { id: "flights",    label: t("tab.flights"),        needsUAE: true },
   ];
-  const tabs = isAllGCC ? [{ id: "intel", label: "Live Intel" }, { id: "comparison", label: "Comparison" }] : allTabs.filter(t => {
-    if (t.needsUAE) return false; // reserved for future use
+  const tabs = isAllGCC ? [{ id: "intel", label: t("tab.intel") }, { id: "comparison", label: t("tab.comparison") }] : allTabs.filter(t => {
+    if (t.needsUAE && selectedCountry !== "uae") return false;
     if (t.needsDaily && !hasDailyData) return false;
     return true;
   });
@@ -610,7 +668,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div style={{ background: BG, minHeight: "100vh", color: TEXT, fontFamily: "'Trebuchet MS', sans-serif", padding: "0 0 40px" }}>
+    <div dir={isRTL ? "rtl" : "ltr"} style={{ background: BG, minHeight: "100vh", color: TEXT, fontFamily: isRTL ? "'Segoe UI', 'Tahoma', sans-serif" : "'Trebuchet MS', sans-serif", padding: "0 0 40px", overflowX: "hidden" }}>
       {/* Header */}
       <div style={{
         background: `linear-gradient(135deg, #060C1A 0%, #0C1830 50%, #060C1A 100%)`,
@@ -623,11 +681,17 @@ export default function Dashboard() {
           opacity: 0.15, overflow: "hidden", pointerEvents: "none"
         }} />
         <div style={{ position: "relative" }}>
-          <a href="https://github.com/takahser/uae-dashboard" target="_blank" rel="noopener noreferrer"
-            style={{ position: "absolute", top: 0, right: 0, color: SUBTEXT, fontSize: 11, textDecoration: "none", display: "flex", alignItems: "center", gap: 5 }}>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-            GitHub
-          </a>
+          <div style={{ position: "absolute", top: 0, [isRTL ? "left" : "right"]: 0, display: "flex", alignItems: "center", gap: 10 }}>
+            <button onClick={() => setLang(lang === "en" ? "ar" : "en")}
+              style={{ background: "transparent", border: `1px solid ${BORDER}`, color: SUBTEXT, borderRadius: 4, padding: "3px 10px", cursor: "pointer", fontSize: 11, fontWeight: 600, letterSpacing: 0.5 }}>
+              {t("lang.switch")}
+            </button>
+            <a href="https://github.com/takahser/uae-dashboard" target="_blank" rel="noopener noreferrer"
+              style={{ color: SUBTEXT, fontSize: 11, textDecoration: "none", display: "flex", alignItems: "center", gap: 5 }}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              GitHub
+            </a>
+          </div>
           <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 6 }}>
             <div style={{
               background: themeColor, borderRadius: "50%", width: 36, height: 36,
@@ -636,34 +700,34 @@ export default function Dashboard() {
             }}>{isAllGCC ? "GCC" : countryConf.flag}</div>
             <div>
               <div style={{ fontSize: 11, color: themeAccent, textTransform: "uppercase", letterSpacing: 3, fontWeight: 600, display: "flex", alignItems: "center", gap: 6 }}>
-                {isAllGCC ? "GCC Coalition Defence" : `${countryConf.name} Ministry of Defence`}
+                {isAllGCC ? t("header.coalition") : t("header.mod", { country: countryConf.name })}
                 <span
                   onClick={() => setShowDisclaimer(!showDisclaimer)}
                   style={{ cursor: "pointer", fontSize: 10, color: SUBTEXT, border: `1px solid ${BORDER}`, borderRadius: "50%", width: 16, height: 16, display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0, position: "relative" }}
-                  title="Disclaimer"
+                  title={t("header.disclaimer")}
                 >(i)</span>
                 {showDisclaimer && (
-                  <div style={{ position: "absolute", top: "100%", left: 50, zIndex: 100, marginTop: 4, background: "#0D1525", border: `1px solid ${BORDER}`, borderRadius: 8, padding: "10px 14px", fontSize: 11, color: SUBTEXT, maxWidth: 360, lineHeight: 1.5, fontWeight: 400, textTransform: "none", letterSpacing: 0, boxShadow: "0 4px 20px rgba(0,0,0,0.6)" }}>
-                    This is an independent project using publicly available data from UAE Ministry of Defence (@modgovae). It is not affiliated with or endorsed by any government entity.
+                  <div style={{ position: "absolute", top: "100%", [isRTL ? "right" : "left"]: 50, zIndex: 100, marginTop: 4, background: "#0D1525", border: `1px solid ${BORDER}`, borderRadius: 8, padding: "10px 14px", fontSize: 11, color: SUBTEXT, maxWidth: 360, lineHeight: 1.5, fontWeight: 400, textTransform: "none", letterSpacing: 0, boxShadow: "0 4px 20px rgba(0,0,0,0.6)" }}>
+                    {t("header.disclaimerText")}
                   </div>
                 )}
               </div>
-              <h1 style={{ margin: 0, fontSize: 20, fontWeight: 800, color: TEXT, fontFamily: "Georgia, serif", letterSpacing: -0.5 }}>
-                Iran Missile Tracker
+              <h1 style={{ margin: 0, fontSize: 20, fontWeight: 800, color: TEXT, fontFamily: isRTL ? "'Segoe UI', sans-serif" : "Georgia, serif", letterSpacing: -0.5 }}>
+                {t("header.title")}
               </h1>
             </div>
           </div>
           <div style={{ display: "flex", gap: 20, fontSize: 11, color: SUBTEXT }}>
-            <span>📅 28 Feb 2026{dayCount > 0 ? ` — Day ${dayCount}` : ""}</span>
-            <span>📡 Source: {isAllGCC ? "Multiple MoD accounts" : `${countryConf.source} official statements`}</span>
-            <span style={{ color: themeAccent }}>⚡ Updated: {lastUpdated} GST</span>
+            <span>📅 28 Feb 2026{dayCount > 0 ? ` — ${t("header.day", { count: dayCount })}` : ""}</span>
+            <span>📡 {t("header.source")} {isAllGCC ? t("header.multiSource") : `${countryConf.source} ${t("header.officialStatements")}`}</span>
+            <span style={{ color: themeAccent }}>⚡ {t("header.updated")} {lastUpdated} GST</span>
           </div>
         </div>
       </div>
 
       {/* Country selector */}
       <div style={{ display: "flex", gap: 8, padding: "16px 28px 0", flexWrap: "wrap" }}>
-        {[{ code: "all", name: "All GCC", flag: "🌐" }, ...COUNTRY_CONFIG].map(c => (
+        {[{ code: "all", name: t("country.allGcc"), flag: "🌐" }, ...COUNTRY_CONFIG.map(c => ({ ...c, name: t(`country.${c.code}`) }))].map(c => (
           <button key={c.code} onClick={() => { setSelectedCountry(c.code); setHoveredImpact(null); setSelectedImpact(null); setSelectedSite(null); }}
             style={{
               background: selectedCountry === c.code ? (c.color || UAE_GREEN) : "transparent",
@@ -680,12 +744,12 @@ export default function Dashboard() {
 
       {/* Stat cards */}
       <div style={{ display: "flex", gap: 12, padding: "20px 28px", flexWrap: "wrap" }}>
-        <StatCard label="Total Detected" value={totalDetected.toLocaleString()} sub="Missiles + drones" color={themeAccent || UAE_GOLD} />
-        <StatCard label="Intercepted" value={totalIntercepted.toLocaleString()} sub={overallRate != null ? `${overallRate}% success rate` : "Rate N/A"} color={INTERCEPTED} />
-        <StatCard label="Impacted Territory" value={totalImpacted.toLocaleString()} sub="Drones + missiles landed" color={IMPACTED} />
-        {n(cumulative.ballisticSea) > 0 && <StatCard label="Fell in Sea" value={n(cumulative.ballisticSea).toLocaleString()} sub="Ballistic missiles only" color={SEA} />}
-        {n(cumulative.killed) > 0 && <StatCard label="Killed" value={cumulative.killed} sub="" color="#E74C3C" />}
-        {cumulative.injured != null && <StatCard label="Injured" value={cumulative.injured} sub="" color="#E67E22" />}
+        <StatCard label={t("stat.totalDetected")} value={totalDetected.toLocaleString()} sub={t("stat.totalDetectedSub")} color={themeAccent || UAE_GOLD} />
+        <StatCard label={t("stat.intercepted")} value={totalIntercepted.toLocaleString()} sub={overallRate != null ? `${overallRate}% ${t("stat.successRate")}` : t("stat.rateNA")} color={INTERCEPTED} />
+        <StatCard label={t("stat.impacted")} value={totalImpacted.toLocaleString()} sub={t("stat.impactedSub")} color={IMPACTED} />
+        {n(cumulative.ballisticSea) > 0 && <StatCard label={t("stat.sea")} value={n(cumulative.ballisticSea).toLocaleString()} sub={t("stat.seaSub")} color={SEA} />}
+        {n(cumulative.killed) > 0 && <StatCard label={t("stat.killed")} value={cumulative.killed} sub="" color="#E74C3C" />}
+        {cumulative.injured != null && <StatCard label={t("stat.injured")} value={cumulative.injured} sub="" color="#E67E22" />}
       </div>
 
       {/* Tabs */}
@@ -722,16 +786,16 @@ export default function Dashboard() {
           return (
             <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 20 }}>
               {/* Per-country stat cards */}
-              <div style={{ display: "grid", gridTemplateColumns: `repeat(${countryStats.length}, 1fr)`, gap: 16 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 16 }}>
                 {countryStats.map(cs => (
                   <div key={cs.code} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, borderTop: `3px solid ${cs.color}` }}>
                     <div style={{ fontSize: 24, marginBottom: 4 }}>{cs.flag}</div>
                     <div style={{ fontSize: 14, fontWeight: 700, color: TEXT, marginBottom: 12 }}>{cs.name}</div>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-                      <div><div style={{ fontSize: 20, fontWeight: 800, color: cs.accent || UAE_GOLD, fontFamily: "Georgia, serif" }}>{cs.totalDetected.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>Detected</div></div>
-                      <div><div style={{ fontSize: 20, fontWeight: 800, color: INTERCEPTED, fontFamily: "Georgia, serif" }}>{cs.totalIntercepted.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>Intercepted</div></div>
-                      <div><div style={{ fontSize: 20, fontWeight: 800, color: IMPACTED, fontFamily: "Georgia, serif" }}>{cs.totalImpacted.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>Impacted</div></div>
-                      <div><div style={{ fontSize: 20, fontWeight: 800, color: cs.overallRate != null && cs.overallRate >= 95 ? INTERCEPTED : "#E67E22", fontFamily: "Georgia, serif" }}>{cs.overallRate != null ? `${cs.overallRate}%` : "N/A"}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>Success Rate</div></div>
+                      <div><div style={{ fontSize: 20, fontWeight: 800, color: cs.accent || UAE_GOLD, fontFamily: "Georgia, serif" }}>{cs.totalDetected.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>{t("comp.detected")}</div></div>
+                      <div><div style={{ fontSize: 20, fontWeight: 800, color: INTERCEPTED, fontFamily: "Georgia, serif" }}>{cs.totalIntercepted.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>{t("comp.intercepted")}</div></div>
+                      <div><div style={{ fontSize: 20, fontWeight: 800, color: IMPACTED, fontFamily: "Georgia, serif" }}>{cs.totalImpacted.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>{t("comp.impacted")}</div></div>
+                      <div><div style={{ fontSize: 20, fontWeight: 800, color: cs.overallRate != null && cs.overallRate >= 95 ? INTERCEPTED : "#E67E22", fontFamily: "Georgia, serif" }}>{cs.overallRate != null ? `${cs.overallRate}%` : "N/A"}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>{t("comp.successRate")}</div></div>
                     </div>
                   </div>
                 ))}
@@ -739,7 +803,7 @@ export default function Dashboard() {
 
               {/* Grouped bar chart */}
               <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
-                <h3 style={{ margin: "0 0 16px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>Detected / Intercepted / Impacted by Country</h3>
+                <h3 style={{ margin: "0 0 16px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("comp.byCountryTitle")}</h3>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={compData} barCategoryGap="25%">
                     <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
@@ -747,16 +811,16 @@ export default function Dashboard() {
                     <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend wrapperStyle={{ fontSize: 11 }} />
-                    <Bar dataKey="detected" name="Detected" fill="#1A3A5C" radius={[3, 3, 0, 0]} />
-                    <Bar dataKey="intercepted" name="Intercepted" fill={INTERCEPTED} radius={[3, 3, 0, 0]} />
-                    <Bar dataKey="impacted" name="Impacted" fill={IMPACTED} radius={[3, 3, 0, 0]} />
+                    <Bar dataKey="detected" name={t("comp.detected")} fill="#1A3A5C" radius={[3, 3, 0, 0]} />
+                    <Bar dataKey="intercepted" name={t("comp.intercepted")} fill={INTERCEPTED} radius={[3, 3, 0, 0]} />
+                    <Bar dataKey="impacted" name={t("comp.impacted")} fill={IMPACTED} radius={[3, 3, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
 
               {/* Interception rate comparison */}
               <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
-                <h3 style={{ margin: "0 0 16px", fontSize: 13, color: INTERCEPTED, textTransform: "uppercase", letterSpacing: 2 }}>Interception Rate Comparison</h3>
+                <h3 style={{ margin: "0 0 16px", fontSize: 13, color: INTERCEPTED, textTransform: "uppercase", letterSpacing: 2 }}>{t("comp.rateTitle")}</h3>
                 <ResponsiveContainer width="100%" height={200}>
                   <BarChart data={compData.filter(d => d.rate != null)} barCategoryGap="35%">
                     <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
@@ -774,11 +838,11 @@ export default function Dashboard() {
 
               {/* Breakdown table */}
               <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, overflow: "auto" }}>
-                <h3 style={{ margin: "0 0 16px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>Detailed Breakdown</h3>
+                <h3 style={{ margin: "0 0 16px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("comp.tableTitle")}</h3>
                 <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
                   <thead>
                     <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
-                      {["Country", "Ballistic", "Cruise", "Drones", "Total Detected", "Intercepted", "Impacted", "Killed", "Injured"].map(h => (
+                      {[t("comp.country"), t("comp.ballistic"), t("comp.cruise"), t("comp.drones"), t("comp.totalDetected"), t("comp.intercepted2"), t("comp.impacted2"), t("comp.killed"), t("comp.injured")].map(h => (
                         <th key={h} style={{ padding: "8px 10px", textAlign: "left", color: SUBTEXT, fontSize: 10, textTransform: "uppercase", letterSpacing: 1 }}>{h}</th>
                       ))}
                     </tr>
@@ -976,18 +1040,21 @@ export default function Dashboard() {
                 <text x="16" y="34" fill="#2A5A80" fontSize="7" fontFamily="monospace">{mapConf.subtitle} • FEB 28, 2026 –</text>
 
                 {/* Legend */}
-                <g transform={`translate(${SVG_W - 170}, 16)`}>
-                  <rect x="-8" y="-8" width="165" height={showStrategicSites ? 68 : 50} rx="4" fill="#060A14" fillOpacity="0.85" stroke={MAP_BORDER_COLOR} strokeWidth="0.5" />
+                <g transform={`translate(${SVG_W - 195}, 16)`}>
+                  <rect x="-8" y="-8" width="190" height={showStrategicSites ? 84 : 50} rx="4" fill="#060A14" fillOpacity="0.85" stroke={MAP_BORDER_COLOR} strokeWidth="0.5" />
                   <circle cx="6" cy="6" r="4" fill={DRONE_HIT} />
-                  <text x="16" y="9" fill="#AAB8CC" fontSize="7" fontFamily="monospace">Direct drone/missile hit</text>
+                  <text x="16" y="9" fill="#AAB8CC" fontSize="7" fontFamily="monospace">{t("intel.directHit")}</text>
                   <circle cx="6" cy="22" r="4" fill={DEBRIS_HIT} />
-                  <text x="16" y="25" fill="#AAB8CC" fontSize="7" fontFamily="monospace">Debris / shrapnel</text>
+                  <text x="16" y="25" fill="#AAB8CC" fontSize="7" fontFamily="monospace">{t("intel.debris")}</text>
                   <circle cx="6" cy="38" r="3" fill="none" stroke={DRONE_HIT} strokeWidth="1" className="pulse-ring-fast" />
                   <circle cx="6" cy="38" r="2" fill={DRONE_HIT} />
-                  <text x="16" y="41" fill="#AAB8CC" fontSize="7" fontFamily="monospace">Casualties reported</text>
+                  <text x="16" y="41" fill="#AAB8CC" fontSize="7" fontFamily="monospace">{t("intel.casualties")}</text>
                   {showStrategicSites && <>
                     <polygon points="6,50 10,54 6,58 2,54" fill={STRATEGIC_BLUE} />
-                    <text x="16" y="57" fill="#AAB8CC" fontSize="7" fontFamily="monospace">US / Israeli military / diplomatic</text>
+                    <text x="16" y="57" fill="#AAB8CC" fontSize="7" fontFamily="monospace">{t("intel.strategic")}</text>
+                    <circle cx="6" cy="70" r="4" fill="none" stroke={DESAL_CYAN} strokeWidth="1.5" />
+                    <circle cx="6" cy="70" r="1.5" fill={DESAL_CYAN} />
+                    <text x="16" y="73" fill="#AAB8CC" fontSize="7" fontFamily="monospace">{t("intel.desalination")}</text>
                   </>}
                 </g>
 
@@ -995,13 +1062,20 @@ export default function Dashboard() {
                 {showStrategicSites && sites.map(site => {
                   const { x, y } = proj(site.lat, site.lng);
                   const isSelected = selectedSite?.id === site.id;
+                  const isDesal = site.siteType === "desal";
+                  const siteColor = isDesal ? DESAL_CYAN : STRATEGIC_BLUE;
                   return (
                     <g key={site.id}
                       onClick={() => setSelectedSite(isSelected ? null : site)}
                       style={{ cursor: "pointer" }}
                     >
-                      <polygon points={`${x},${y-6} ${x+5},${y} ${x},${y+6} ${x-5},${y}`} fill={isSelected ? "#fff" : STRATEGIC_BLUE} opacity={isSelected ? 1 : 0.85} />
-                      <polygon points={`${x},${y-6} ${x+5},${y} ${x},${y+6} ${x-5},${y}`} fill="none" stroke="#fff" strokeWidth="0.5" opacity="0.5" />
+                      {isDesal ? <>
+                        <circle cx={x} cy={y} r={isSelected ? 5 : 4} fill="none" stroke={isSelected ? "#fff" : siteColor} strokeWidth="1.5" opacity={isSelected ? 1 : 0.85} />
+                        <circle cx={x} cy={y} r="1.5" fill={isSelected ? "#fff" : siteColor} opacity={isSelected ? 1 : 0.85} />
+                      </> : <>
+                        <polygon points={`${x},${y-6} ${x+5},${y} ${x},${y+6} ${x-5},${y}`} fill={isSelected ? "#fff" : siteColor} opacity={isSelected ? 1 : 0.85} />
+                        <polygon points={`${x},${y-6} ${x+5},${y} ${x},${y+6} ${x-5},${y}`} fill="none" stroke="#fff" strokeWidth="0.5" opacity="0.5" />
+                      </>}
                     </g>
                   );
                 })}
@@ -1026,11 +1100,11 @@ export default function Dashboard() {
                       {hoveredImpact.name}
                     </div>
                     <div style={{ fontFamily: "monospace", fontSize: 9, color: "#8899BB", lineHeight: 1.6 }}>
-                      <div>TYPE: {hoveredImpact.type === "drone_hit" ? "DIRECT HIT" : "DEBRIS/SHRAPNEL"}</div>
-                      <div>DATE: {hoveredImpact.date.toUpperCase()}</div>
-                      <div>REGION: {(hoveredImpact.region || hoveredImpact.emirate || "").toUpperCase()}</div>
+                      <div>{t("intel.type")} {hoveredImpact.type === "drone_hit" ? t("intel.directHitLabel") : t("intel.debrisLabel")}</div>
+                      <div>{t("intel.date")} {hoveredImpact.date.toUpperCase()}</div>
+                      <div>{t("intel.region")} {(hoveredImpact.region || hoveredImpact.emirate || "").toUpperCase()}</div>
                       <div style={{ color: hoveredImpact.casualties !== "None" ? "#E74C3C" : "#556677" }}>
-                        CASUALTIES: {hoveredImpact.casualties.toUpperCase()}
+                        {t("intel.casualtiesLabel")} {hoveredImpact.casualties.toUpperCase()}
                       </div>
                     </div>
                   </div>
@@ -1042,23 +1116,24 @@ export default function Dashboard() {
                 const { x, y } = proj(selectedSite.lat, selectedSite.lng);
                 const pctX = (x / SVG_W) * 100;
                 const pctY = (y / SVG_H) * 100;
+                const sColor = selectedSite.siteType === "desal" ? DESAL_CYAN : STRATEGIC_BLUE;
                 return (
                   <div style={{
                     position: "absolute", left: `${pctX}%`, top: `${pctY}%`,
                     transform: `translate(${pctX > 60 ? "-110%" : "10%"}, -50%)`,
-                    background: "#0B1420", border: `1px solid ${STRATEGIC_BLUE}`, borderRadius: 6,
+                    background: "#0B1420", border: `1px solid ${sColor}`, borderRadius: 6,
                     padding: "10px 14px", zIndex: 10,
-                    minWidth: 200, boxShadow: `0 0 20px ${STRATEGIC_BLUE}33`
+                    minWidth: 200, boxShadow: `0 0 20px ${sColor}33`
                   }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
-                      <div style={{ fontFamily: "monospace", fontSize: 10, color: STRATEGIC_BLUE, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1 }}>
+                      <div style={{ fontFamily: "monospace", fontSize: 10, color: sColor, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1 }}>
                         {selectedSite.name}
                       </div>
                       <button onClick={(e) => { e.stopPropagation(); setSelectedSite(null); }} style={{ background: "none", border: `1px solid ${BORDER}`, color: SUBTEXT, borderRadius: 4, padding: "1px 6px", cursor: "pointer", fontSize: 8 }}>X</button>
                     </div>
                     <div style={{ fontFamily: "monospace", fontSize: 9, color: "#8899BB", lineHeight: 1.6 }}>
-                      <div>TYPE: {selectedSite.type.toUpperCase()}</div>
-                      <div>COORDS: {selectedSite.lat.toFixed(4)}°N, {selectedSite.lng.toFixed(4)}°E</div>
+                      <div>{t("intel.type")} {selectedSite.type.toUpperCase()}</div>
+                      <div>{t("intel.coords")} {selectedSite.lat.toFixed(4)}°N, {selectedSite.lng.toFixed(4)}°E</div>
                     </div>
                   </div>
                 );
@@ -1072,15 +1147,15 @@ export default function Dashboard() {
                 borderRadius: 8, padding: "14px 20px", fontFamily: "monospace"
               }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                  <span style={{ color: themeAccent, fontSize: 10, fontWeight: 700, letterSpacing: 2 }}>INTEL BRIEFING — IMPACT SITE #{selectedImpact.id}</span>
-                  <button onClick={() => setSelectedImpact(null)} style={{ background: "none", border: `1px solid ${BORDER}`, color: SUBTEXT, borderRadius: 4, padding: "2px 8px", cursor: "pointer", fontSize: 9 }}>CLOSE</button>
+                  <span style={{ color: themeAccent, fontSize: 10, fontWeight: 700, letterSpacing: 2 }}>{t("intel.briefing", { id: selectedImpact.id })}</span>
+                  <button onClick={() => setSelectedImpact(null)} style={{ background: "none", border: `1px solid ${BORDER}`, color: SUBTEXT, borderRadius: 4, padding: "2px 8px", cursor: "pointer", fontSize: 9 }}>{t("intel.close")}</button>
                 </div>
                 <div style={{ fontSize: 13, color: "#33CC77", fontWeight: 700, marginBottom: 6 }}>{selectedImpact.name}</div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 12, fontSize: 9, color: "#8899BB" }}>
-                  <div><div style={{ color: "#556677", marginBottom: 2 }}>WEAPON</div><div style={{ color: TEXT }}>{selectedImpact.type === "drone_hit" ? "Drone / missile" : "Shrapnel / debris"}</div></div>
-                  <div><div style={{ color: "#556677", marginBottom: 2 }}>DATE</div><div style={{ color: TEXT }}>{selectedImpact.date}</div></div>
-                  <div><div style={{ color: "#556677", marginBottom: 2 }}>REGION</div><div style={{ color: TEXT }}>{selectedImpact.region || selectedImpact.emirate}</div></div>
-                  <div><div style={{ color: "#556677", marginBottom: 2 }}>CASUALTIES</div><div style={{ color: selectedImpact.casualties !== "None" ? "#E74C3C" : TEXT }}>{selectedImpact.casualties}</div></div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 12, fontSize: 9, color: "#8899BB" }}>
+                  <div><div style={{ color: "#556677", marginBottom: 2 }}>{t("intel.weapon")}</div><div style={{ color: TEXT }}>{selectedImpact.type === "drone_hit" ? t("intel.weaponDirect") : t("intel.weaponDebris")}</div></div>
+                  <div><div style={{ color: "#556677", marginBottom: 2 }}>{t("intel.date")}</div><div style={{ color: TEXT }}>{selectedImpact.date}</div></div>
+                  <div><div style={{ color: "#556677", marginBottom: 2 }}>{t("intel.region")}</div><div style={{ color: TEXT }}>{selectedImpact.region || selectedImpact.emirate}</div></div>
+                  <div><div style={{ color: "#556677", marginBottom: 2 }}>{t("intel.casualtiesLabel")}</div><div style={{ color: selectedImpact.casualties !== "None" ? "#E74C3C" : TEXT }}>{selectedImpact.casualties}</div></div>
                 </div>
                 <div style={{ fontSize: 9, color: "#556677", marginTop: 8 }}>
                   COORDS: {selectedImpact.lat.toFixed(4)}°N, {selectedImpact.lng.toFixed(4)}°E
@@ -1093,29 +1168,29 @@ export default function Dashboard() {
               <label style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: 11, color: SUBTEXT, fontFamily: "monospace" }}>
                 <input type="checkbox" checked={showStrategicSites} onChange={(e) => setShowStrategicSites(e.target.checked)}
                   style={{ accentColor: STRATEGIC_BLUE }} />
-                Show military / diplomatic sites
+                {t("intel.showSites")}
               </label>
             </div>
 
             {/* Info strip */}
-            <div style={{ display: "flex", gap: 12, marginTop: 12 }}>
-              <StatCard label="Impact Sites" value={impacts.length} sub="Confirmed locations" color={DRONE_HIT} />
-              <StatCard label="Regions Hit" value={uniqueRegions.length} sub={uniqueRegions.slice(0, 3).join(", ")} color={DEBRIS_HIT} />
-              <StatCard label="Direct Hits" value={directHits} sub="Drone / missile strikes" color={DRONE_HIT} />
-              <StatCard label="Debris Impacts" value={debrisHits} sub="Shrapnel / interception debris" color={DEBRIS_HIT} />
-              {totalKIA > 0 && <StatCard label="KIA" value={totalKIA} sub="" color="#E74C3C" />}
-              {totalWIA > 0 && <StatCard label="WIA" value={totalWIA} sub="" color="#E67E22" />}
+            <div style={{ display: "flex", gap: 12, marginTop: 12, flexWrap: "wrap" }}>
+              <StatCard label={t("intel.impactSites")} value={impacts.length} sub={t("intel.confirmedLocations")} color={DRONE_HIT} />
+              <StatCard label={t("intel.regionsHit")} value={uniqueRegions.length} sub={uniqueRegions.slice(0, 3).join(", ")} color={DEBRIS_HIT} />
+              <StatCard label={t("intel.directHits")} value={directHits} sub={t("intel.directHitDesc")} color={DRONE_HIT} />
+              <StatCard label={t("intel.debrisImpacts")} value={debrisHits} sub={t("intel.debrisDesc")} color={DEBRIS_HIT} />
+              {totalKIA > 0 && <StatCard label={t("intel.kia")} value={totalKIA} sub="" color="#E74C3C" />}
+              {totalWIA > 0 && <StatCard label={t("intel.wia")} value={totalWIA} sub="" color="#E67E22" />}
             </div>
           </div>
         ); })()}
 
         {/* OVERVIEW TAB */}
         {activeTab === "overview" && (
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 20 }}>
 
             {/* Pie chart */}
             <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
-              <h3 style={{ margin: "0 0 16px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>All Projectiles — Final Outcome</h3>
+              <h3 style={{ margin: "0 0 16px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("overview.pieTitle")}</h3>
               <ResponsiveContainer width="100%" height={240}>
                 <PieChart>
                   <Pie data={pieData} cx="50%" cy="50%" innerRadius={60} outerRadius={95}
@@ -1130,7 +1205,7 @@ export default function Dashboard() {
 
             {/* Category breakdown bar */}
             <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
-              <h3 style={{ margin: "0 0 16px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>Totals by Category</h3>
+              <h3 style={{ margin: "0 0 16px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("overview.categoryTitle")}</h3>
               <ResponsiveContainer width="100%" height={240}>
                 <BarChart data={finalTotals} layout="vertical" barCategoryGap="30%">
                   <CartesianGrid strokeDasharray="3 3" stroke={BORDER} horizontal={false} />
@@ -1138,16 +1213,16 @@ export default function Dashboard() {
                   <YAxis type="category" dataKey="name" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} width={70} />
                   <Tooltip content={<CustomTooltip />} />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
-                  <Bar dataKey="detected" name="Detected" fill="#1A3A5C" radius={[0, 3, 3, 0]} />
-                  <Bar dataKey="intercepted" name="Intercepted" fill={INTERCEPTED} radius={[0, 3, 3, 0]} />
-                  <Bar dataKey="impacted" name="Impacted Territory" fill={IMPACTED} radius={[0, 3, 3, 0]} />
+                  <Bar dataKey="detected" name={t("chart.detected")} fill="#1A3A5C" radius={[0, 3, 3, 0]} />
+                  <Bar dataKey="intercepted" name={t("chart.intercepted")} fill={INTERCEPTED} radius={[0, 3, 3, 0]} />
+                  <Bar dataKey="impacted" name={t("chart.impacted")} fill={IMPACTED} radius={[0, 3, 3, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
 
             {/* Interception rates */}
             <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, gridColumn: "1 / -1" }}>
-              <h3 style={{ margin: "0 0 16px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>Interception Rate by Category (%)</h3>
+              <h3 style={{ margin: "0 0 16px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("overview.rateTitle")}</h3>
               <ResponsiveContainer width="100%" height={180}>
                 <BarChart data={rateData} barCategoryGap="35%">
                   <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
@@ -1169,8 +1244,8 @@ export default function Dashboard() {
         {activeTab === "trends" && (
           <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 20 }}>
             <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 24 }}>
-              <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>Daily Incoming by Category + Total</h3>
-              <p style={{ margin: "0 0 24px", fontSize: 11, color: SUBTEXT }}>Projectiles detected per day — all categories tracked individually alongside total</p>
+              <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("trends.title")}</h3>
+              <p style={{ margin: "0 0 24px", fontSize: 11, color: SUBTEXT }}>{t("trends.subtitle")}</p>
               <ResponsiveContainer width="100%" height={380}>
                 <LineChart data={trendData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                   <defs>
@@ -1189,28 +1264,28 @@ export default function Dashboard() {
 
                   {/* Total — thick white, prominent */}
                   <Line
-                    type="monotone" dataKey="total" name="Total (All)"
+                    type="monotone" dataKey="total" name={t("trends.totalAll")}
                     stroke="#FFFFFF" strokeWidth={3} strokeDasharray="6 3"
                     dot={{ fill: "#FFFFFF", r: 6, strokeWidth: 2, stroke: BG }}
                     activeDot={{ r: 8, fill: "#FFFFFF" }}
                   />
                   {/* Drones */}
                   <Line
-                    type="monotone" dataKey="drones" name="Drones (UAVs)"
+                    type="monotone" dataKey="drones" name={t("trends.dronesUAV")}
                     stroke={UAE_GOLD} strokeWidth={2}
                     dot={{ fill: UAE_GOLD, r: 5, strokeWidth: 2, stroke: BG }}
                     activeDot={{ r: 7 }}
                   />
                   {/* Ballistic */}
                   <Line
-                    type="monotone" dataKey="ballistic" name="Ballistic Missiles"
+                    type="monotone" dataKey="ballistic" name={t("trends.ballisticMissiles")}
                     stroke="#4DA6FF" strokeWidth={2}
                     dot={{ fill: "#4DA6FF", r: 5, strokeWidth: 2, stroke: BG }}
                     activeDot={{ r: 7 }}
                   />
                   {/* Cruise */}
                   <Line
-                    type="monotone" dataKey="cruise" name="Cruise Missiles"
+                    type="monotone" dataKey="cruise" name={t("trends.cruiseMissiles")}
                     stroke="#E74C3C" strokeWidth={2}
                     dot={{ fill: "#E74C3C", r: 5, strokeWidth: 2, stroke: BG }}
                     activeDot={{ r: 7 }}
@@ -1220,7 +1295,7 @@ export default function Dashboard() {
             </div>
 
             {/* Annotation cards below */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 12 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))", gap: 12 }}>
               {trendData.map((d, i) => (
                 <div key={i} style={{
                   background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 10,
@@ -1229,12 +1304,12 @@ export default function Dashboard() {
                 }}>
                   <div style={{ fontSize: 11, color: UAE_GOLD, fontWeight: 700, marginBottom: 8, textTransform: "uppercase", letterSpacing: 1 }}>{d.day}</div>
                   <div style={{ fontSize: 22, fontWeight: 800, color: TEXT, fontFamily: "Georgia, serif" }}>{d.total}</div>
-                  <div style={{ fontSize: 10, color: SUBTEXT, marginBottom: 8 }}>total incoming</div>
-                  <div style={{ fontSize: 10, color: "#4DA6FF" }}>🚀 {d.ballistic} ballistic</div>
-                  <div style={{ fontSize: 10, color: UAE_GOLD }}>🚁 {d.drones} drones</div>
-                  {d.cruise > 0 && <div style={{ fontSize: 10, color: "#E74C3C" }}>✈️ {d.cruise} cruise</div>}
-                  {i === 0 && <div style={{ fontSize: 9, color: IMPACTED, marginTop: 6, fontWeight: 600 }}>⚠️ Peak day</div>}
-                  {i === 4 && <div style={{ fontSize: 9, color: INTERCEPTED, marginTop: 6, fontWeight: 600 }}>↓ Lowest total</div>}
+                  <div style={{ fontSize: 10, color: SUBTEXT, marginBottom: 8 }}>{t("trends.totalIncoming")}</div>
+                  <div style={{ fontSize: 10, color: "#4DA6FF" }}>🚀 {d.ballistic} {t("trends.ballistic")}</div>
+                  <div style={{ fontSize: 10, color: UAE_GOLD }}>🚁 {d.drones} {t("trends.drones")}</div>
+                  {d.cruise > 0 && <div style={{ fontSize: 10, color: "#E74C3C" }}>✈️ {d.cruise} {t("trends.cruise")}</div>}
+                  {i === 0 && <div style={{ fontSize: 9, color: IMPACTED, marginTop: 6, fontWeight: 600 }}>⚠️ {t("trends.peakDay")}</div>}
+                  {i === 4 && <div style={{ fontSize: 9, color: INTERCEPTED, marginTop: 6, fontWeight: 600 }}>↓ {t("trends.lowestDay")}</div>}
                 </div>
               ))}
             </div>
@@ -1243,10 +1318,10 @@ export default function Dashboard() {
 
         {/* DAILY TAB */}
         {activeTab === "daily" && (
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 20 }}>
             <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
-              <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>Daily Ballistic Missiles</h3>
-              <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>Detected per day — attack intensity declining</p>
+              <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("daily.ballisticTitle")}</h3>
+              <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>{t("daily.ballisticSub")}</p>
               <ResponsiveContainer width="100%" height={220}>
                 <BarChart data={dailyData} barCategoryGap="35%">
                   <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
@@ -1254,15 +1329,15 @@ export default function Dashboard() {
                   <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} />
                   <Tooltip content={<CustomTooltip />} />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
-                  <Bar dataKey="ballisticIntercepted" name="Intercepted" fill={INTERCEPTED} radius={[3, 3, 0, 0]} stackId="a" />
-                  <Bar dataKey="ballisticSea" name="Fell in Sea" fill={SEA} radius={[3, 3, 0, 0]} stackId="a" />
+                  <Bar dataKey="ballisticIntercepted" name={t("chart.intercepted")} fill={INTERCEPTED} radius={[3, 3, 0, 0]} stackId="a" />
+                  <Bar dataKey="ballisticSea" name={t("chart.sea")} fill={SEA} radius={[3, 3, 0, 0]} stackId="a" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
 
             <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
-              <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>Daily Drones (UAVs)</h3>
-              <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>Intercepted vs impacted territory</p>
+              <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("daily.dronesTitle")}</h3>
+              <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>{t("daily.dronesSub")}</p>
               <ResponsiveContainer width="100%" height={220}>
                 <BarChart data={dailyData} barCategoryGap="35%">
                   <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
@@ -1270,15 +1345,15 @@ export default function Dashboard() {
                   <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} />
                   <Tooltip content={<CustomTooltip />} />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
-                  <Bar dataKey="droneIntercepted" name="Intercepted" fill={INTERCEPTED} radius={[3, 3, 0, 0]} stackId="a" />
-                  <Bar dataKey="droneImpact" name="Impacted Territory" fill={IMPACTED} radius={[3, 3, 0, 0]} stackId="a" />
+                  <Bar dataKey="droneIntercepted" name={t("chart.intercepted")} fill={INTERCEPTED} radius={[3, 3, 0, 0]} stackId="a" />
+                  <Bar dataKey="droneImpact" name={t("chart.impacted")} fill={IMPACTED} radius={[3, 3, 0, 0]} stackId="a" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
 
             <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, gridColumn: "1 / -1" }}>
-              <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>Total Daily Incoming (All Categories)</h3>
-              <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>Ballistic missiles + drones + cruise missiles per day</p>
+              <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("daily.totalTitle")}</h3>
+              <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>{t("daily.totalSub")}</p>
               <ResponsiveContainer width="100%" height={200}>
                 <AreaChart data={dailyData}>
                   <defs>
@@ -1296,8 +1371,8 @@ export default function Dashboard() {
                   <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} />
                   <Tooltip content={<CustomTooltip />} />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
-                  <Area type="monotone" dataKey="ballistic" name="Ballistic Missiles" stroke="#2980B9" fill="url(#colorBallistic)" strokeWidth={2} />
-                  <Area type="monotone" dataKey="drones" name="Drones" stroke={UAE_GOLD} fill="url(#colorDrones)" strokeWidth={2} />
+                  <Area type="monotone" dataKey="ballistic" name={t("trends.ballisticMissiles")} stroke="#2980B9" fill="url(#colorBallistic)" strokeWidth={2} />
+                  <Area type="monotone" dataKey="drones" name={t("trends.drones")} stroke={UAE_GOLD} fill="url(#colorDrones)" strokeWidth={2} />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
@@ -1308,8 +1383,8 @@ export default function Dashboard() {
         {activeTab === "cumulative" && (
           <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 20 }}>
             <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
-              <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>Running Total — Detected vs Intercepted</h3>
-              <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>Gap between lines = projectiles that reached/hit territory or sea</p>
+              <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("cumul.title")}</h3>
+              <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>{t("cumul.subtitle")}</p>
               <ResponsiveContainer width="100%" height={280}>
                 <AreaChart data={cumulativeData}>
                   <defs>
@@ -1327,16 +1402,16 @@ export default function Dashboard() {
                   <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} />
                   <Tooltip content={<CustomTooltip />} />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
-                  <Area type="monotone" dataKey="totalDetected" name="Total Detected" stroke="#2980B9" fill="url(#gradDetected)" strokeWidth={2} dot={{ fill: "#2980B9", r: 4 }} />
-                  <Area type="monotone" dataKey="totalIntercepted" name="Total Intercepted" stroke={INTERCEPTED} fill="url(#gradIntercepted)" strokeWidth={2} dot={{ fill: INTERCEPTED, r: 4 }} />
-                  <Area type="monotone" dataKey="impacted" name="Impacted Territory" stroke={IMPACTED} fill="none" strokeWidth={2} strokeDasharray="5 3" dot={{ fill: IMPACTED, r: 4 }} />
+                  <Area type="monotone" dataKey="totalDetected" name={t("cumul.detected")} stroke="#2980B9" fill="url(#gradDetected)" strokeWidth={2} dot={{ fill: "#2980B9", r: 4 }} />
+                  <Area type="monotone" dataKey="totalIntercepted" name={t("cumul.intercepted")} stroke={INTERCEPTED} fill="url(#gradIntercepted)" strokeWidth={2} dot={{ fill: INTERCEPTED, r: 4 }} />
+                  <Area type="monotone" dataKey="impacted" name={t("cumul.impacted")} stroke={IMPACTED} fill="none" strokeWidth={2} strokeDasharray="5 3" dot={{ fill: IMPACTED, r: 4 }} />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
 
             <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
-              <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>Cumulative Impacted Territory</h3>
-              <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>Projectiles that penetrated UAE airspace and landed</p>
+              <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("cumul.impactedTitle")}</h3>
+              <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>{t("cumul.impactedSub")}</p>
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={cumulativeData} barCategoryGap="40%">
                   <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
@@ -1356,7 +1431,7 @@ export default function Dashboard() {
 
         {/* RATES TAB */}
         {activeTab === "rates" && !isAllGCC && (
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
             {[
               n(cumulative.ballisticDetected) > 0 && { label: "Ballistic Missiles", intercepted: n(cumulative.ballisticIntercepted), total: n(cumulative.ballisticDetected), rate: rateData.find(r => r.category.includes("Ballistic"))?.rate, color: "#2980B9" },
               n(cumulative.cruiseDetected) > 0 && { label: "Cruise Missiles", intercepted: n(cumulative.cruiseIntercepted), total: n(cumulative.cruiseDetected), rate: rateData.find(r => r.category.includes("Cruise"))?.rate, color: UAE_GOLD },
@@ -1366,22 +1441,22 @@ export default function Dashboard() {
               <div key={i} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 24 }}>
                 <div style={{ fontSize: 12, color: SUBTEXT, textTransform: "uppercase", letterSpacing: 2, marginBottom: 8 }}>{item.label}</div>
                 <div style={{ fontSize: 44, fontWeight: 900, color: item.color, fontFamily: "Georgia, serif", lineHeight: 1 }}>{item.rate != null ? `${item.rate}%` : "N/A"}</div>
-                <div style={{ fontSize: 11, color: SUBTEXT, marginTop: 6 }}>interception rate</div>
+                <div style={{ fontSize: 11, color: SUBTEXT, marginTop: 6 }}>{t("rates.interceptionRate")}</div>
                 <div style={{ marginTop: 16, background: "#0A0F1E", borderRadius: 6, height: 8, overflow: "hidden" }}>
                   <div style={{ height: "100%", width: `${item.rate || 0}%`, background: item.color, borderRadius: 6, transition: "width 0.8s ease" }} />
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", marginTop: 8, fontSize: 11, color: SUBTEXT }}>
-                  <span>✅ {item.intercepted.toLocaleString()} intercepted</span>
-                  <span>📡 {item.total.toLocaleString()} detected</span>
+                  <span>✅ {t("rates.intercepted", { count: item.intercepted.toLocaleString() })}</span>
+                  <span>📡 {t("rates.detected", { count: item.total.toLocaleString() })}</span>
                 </div>
               </div>
             ))}
 
             {/* Interceptors Used Per Day */}
             <div style={{ gridColumn: "1 / -1", background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 24 }}>
-              <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>Interceptors Used Per Day</h3>
-              <p style={{ margin: "0 0 4px", fontSize: 11, color: SUBTEXT }}>Actual targets intercepted vs estimated interceptor missiles expended</p>
-              <p style={{ margin: "0 0 16px", fontSize: 10, color: "#556677", fontStyle: "italic" }}>Estimated — based on standard engagement doctrine (ballistic: 2 per target, cruise: 1.5, drone: 1)</p>
+              <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("rates.interceptorsTitle")}</h3>
+              <p style={{ margin: "0 0 4px", fontSize: 11, color: SUBTEXT }}>{t("rates.interceptorsSub")}</p>
+              <p style={{ margin: "0 0 16px", fontSize: 10, color: "#556677", fontStyle: "italic" }}>{t("rates.interceptorsNote")}</p>
               <ResponsiveContainer width="100%" height={260}>
                 <BarChart data={interceptorData} barCategoryGap="30%">
                   <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
@@ -1389,12 +1464,12 @@ export default function Dashboard() {
                   <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} />
                   <Tooltip content={<CustomTooltip />} />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
-                  <Bar dataKey="intercepted" name="Targets Intercepted" fill={INTERCEPTED} radius={[4, 4, 0, 0]} />
-                  <Bar dataKey="estimatedUsed" name="Est. Interceptors Used" fill="#9B59B6" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="intercepted" name={t("rates.targetsIntercepted")} fill={INTERCEPTED} radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="estimatedUsed" name={t("rates.estInterceptors")} fill="#9B59B6" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
               <div style={{ fontSize: 9, color: "#556677", marginTop: 8 }}>
-                Sources: shoot-look-shoot doctrine averages — ballistic (2 interceptors/target), cruise (1.5), drones (1)
+                {t("rates.sourceNote")}
               </div>
             </div>
           </div>
@@ -1468,8 +1543,8 @@ export default function Dashboard() {
           <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 20 }}>
 
             {/* ATTACK SYSTEMS — image cards */}
-            <h3 style={{ margin: 0, fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>Iranian Attack Systems</h3>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}>
+            <h3 style={{ margin: 0, fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("arsenal.iranTitle")}</h3>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 16 }}>
               {attackSystems.map((w, i) => (
                 <div key={i} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, overflow: "hidden", borderTop: `3px solid ${w.color}` }}>
                   <div style={{ height: 160, overflow: "hidden", position: "relative" }}>
@@ -1507,8 +1582,8 @@ export default function Dashboard() {
 
             {/* ATTACK COMPARISON CHART */}
             <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
-              <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>Attack Systems — Comparison</h3>
-              <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>Relative capability across speed, range, warhead, and cost (normalised to highest)</p>
+              <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("arsenal.compTitle")}</h3>
+              <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>{t("arsenal.compSub")}</p>
               <ResponsiveContainer width="100%" height={220}>
                 <BarChart data={comparisonData} barCategoryGap="30%">
                   <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
@@ -1524,8 +1599,8 @@ export default function Dashboard() {
             </div>
 
             {/* DEFENCE SYSTEMS — image cards */}
-            <h3 style={{ margin: "8px 0 0", fontSize: 13, color: INTERCEPTED, textTransform: "uppercase", letterSpacing: 2 }}>UAE / Allied Defence Systems</h3>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 16 }}>
+            <h3 style={{ margin: "8px 0 0", fontSize: 13, color: INTERCEPTED, textTransform: "uppercase", letterSpacing: 2 }}>{t("arsenal.defenceTitle")}</h3>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
               {defenceSystems.map((s, i) => (
                 <div key={i} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, overflow: "hidden", borderTop: `3px solid ${s.color}` }}>
                   <div style={{ height: 120, overflow: "hidden", position: "relative" }}>
@@ -1554,10 +1629,10 @@ export default function Dashboard() {
             </div>
 
             {/* DEFENCE COMPARISON CHARTS */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 16 }}>
               <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
-                <h3 style={{ margin: "0 0 4px", fontSize: 13, color: INTERCEPTED, textTransform: "uppercase", letterSpacing: 2 }}>Intercept Altitude (km)</h3>
-                <p style={{ margin: "0 0 12px", fontSize: 11, color: SUBTEXT }}>Maximum engagement altitude per system</p>
+                <h3 style={{ margin: "0 0 4px", fontSize: 13, color: INTERCEPTED, textTransform: "uppercase", letterSpacing: 2 }}>{t("chart.interceptAltitude")}</h3>
+                <p style={{ margin: "0 0 12px", fontSize: 11, color: SUBTEXT }}>{t("chart.altitudeSub")}</p>
                 <ResponsiveContainer width="100%" height={180}>
                   <BarChart data={defenceCompData} layout="vertical" barCategoryGap="30%">
                     <CartesianGrid strokeDasharray="3 3" stroke={BORDER} horizontal={false} />
@@ -1571,8 +1646,8 @@ export default function Dashboard() {
                 </ResponsiveContainer>
               </div>
               <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
-                <h3 style={{ margin: "0 0 4px", fontSize: 13, color: IMPACTED, textTransform: "uppercase", letterSpacing: 2 }}>Interceptor Cost ($M)</h3>
-                <p style={{ margin: "0 0 12px", fontSize: 11, color: SUBTEXT }}>Cost per single interceptor missile</p>
+                <h3 style={{ margin: "0 0 4px", fontSize: 13, color: IMPACTED, textTransform: "uppercase", letterSpacing: 2 }}>{t("chart.interceptorCost")}</h3>
+                <p style={{ margin: "0 0 12px", fontSize: 11, color: SUBTEXT }}>{t("chart.costSub")}</p>
                 <ResponsiveContainer width="100%" height={180}>
                   <BarChart data={defenceCompData} layout="vertical" barCategoryGap="30%">
                     <CartesianGrid strokeDasharray="3 3" stroke={BORDER} horizontal={false} />
@@ -1611,10 +1686,10 @@ export default function Dashboard() {
               ];
               return (
               <>
-              <h3 style={{ margin: "8px 0 0", fontSize: 13, color: IMPACTED, textTransform: "uppercase", letterSpacing: 2 }}>Cost Asymmetry</h3>
+              <h3 style={{ margin: "8px 0 0", fontSize: 13, color: IMPACTED, textTransform: "uppercase", letterSpacing: 2 }}>{t("cost.title")}</h3>
 
               {/* Summary cards */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 16 }}>
                 {[
                   { label: "Drones", atk: "$20K–$50K", atkC: UAE_GOLD, def: "$1M–$4M", ratio: "20:1 — 200:1" },
                   { label: "Ballistic", atk: "$0.5M–$5M", atkC: "#4DA6FF", def: "$4M–$12M", ratio: "4:1 — 12:1" },
@@ -1622,18 +1697,18 @@ export default function Dashboard() {
                 ].map((c, i) => (
                   <div key={i} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 10, textAlign: "center", padding: 16 }}>
                     <div style={{ fontSize: 10, color: SUBTEXT, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>{c.label}</div>
-                    <div style={{ fontSize: 11, color: TEXT, marginBottom: 4 }}>Attack: <span style={{ color: c.atkC, fontWeight: 700 }}>{c.atk}</span></div>
-                    <div style={{ fontSize: 11, color: TEXT, marginBottom: 8 }}>Defence: <span style={{ color: IMPACTED, fontWeight: 700 }}>{c.def}</span></div>
+                    <div style={{ fontSize: 11, color: TEXT, marginBottom: 4 }}>{t("cost.attack")} <span style={{ color: c.atkC, fontWeight: 700 }}>{c.atk}</span></div>
+                    <div style={{ fontSize: 11, color: TEXT, marginBottom: 8 }}>{t("cost.defence")} <span style={{ color: IMPACTED, fontWeight: 700 }}>{c.def}</span></div>
                     <div style={{ fontSize: 20, fontWeight: 900, color: IMPACTED, fontFamily: "Georgia, serif" }}>{c.ratio}</div>
-                    <div style={{ fontSize: 10, color: SUBTEXT }}>{i < 2 ? "cost disadvantage for defenders" : "estimated UAE daily defence cost"}</div>
+                    <div style={{ fontSize: 10, color: SUBTEXT }}>{i < 2 ? t("cost.disadvantage") : t("cost.dailyCost")}</div>
                   </div>
                 ))}
               </div>
 
               {/* Per-unit cost comparison */}
               <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
-                <h3 style={{ margin: "0 0 4px", fontSize: 13, color: IMPACTED, textTransform: "uppercase", letterSpacing: 2 }}>Cost per Unit: Attack vs Defence ($M)</h3>
-                <p style={{ margin: "0 0 12px", fontSize: 11, color: SUBTEXT }}>Average cost to launch one projectile vs cost to intercept it</p>
+                <h3 style={{ margin: "0 0 4px", fontSize: 13, color: IMPACTED, textTransform: "uppercase", letterSpacing: 2 }}>{t("chart.costPerUnit")}</h3>
+                <p style={{ margin: "0 0 12px", fontSize: 11, color: SUBTEXT }}>{t("chart.costPerUnitSub")}</p>
                 <ResponsiveContainer width="100%" height={200}>
                   <BarChart data={perUnitData} barCategoryGap="35%">
                     <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
@@ -1641,17 +1716,17 @@ export default function Dashboard() {
                     <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} tickFormatter={v => `$${v}M`} />
                     <Tooltip content={<CustomTooltip />} formatter={(v) => [`$${v}M`, ""]} />
                     <Legend wrapperStyle={{ fontSize: 11 }} />
-                    <Bar dataKey="attack" name="Iran (Attack)" fill={UAE_GOLD} radius={[4, 4, 0, 0]} />
-                    <Bar dataKey="defence" name="UAE (Defence)" fill={IMPACTED} radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="attack" name={t("cost.iranAttack")} fill={UAE_GOLD} radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="defence" name={t("cost.uaeDefence")} fill={IMPACTED} radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
 
               {/* Daily cost comparison */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 16 }}>
                 <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
-                  <h3 style={{ margin: "0 0 4px", fontSize: 13, color: IMPACTED, textTransform: "uppercase", letterSpacing: 2 }}>Daily Cost: Attack vs Defence ($M)</h3>
-                  <p style={{ margin: "0 0 12px", fontSize: 11, color: SUBTEXT }}>Estimated spend per day by each side</p>
+                  <h3 style={{ margin: "0 0 4px", fontSize: 13, color: IMPACTED, textTransform: "uppercase", letterSpacing: 2 }}>{t("cost.dailyTitle")}</h3>
+                  <p style={{ margin: "0 0 12px", fontSize: 11, color: SUBTEXT }}>{t("cost.dailySub")}</p>
                   <ResponsiveContainer width="100%" height={220}>
                     <BarChart data={costTimeline} barCategoryGap="30%">
                       <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
@@ -1659,15 +1734,15 @@ export default function Dashboard() {
                       <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} tickFormatter={v => `$${v}M`} />
                       <Tooltip content={<CustomTooltip />} formatter={(v) => [`$${v}M`, ""]} />
                       <Legend wrapperStyle={{ fontSize: 11 }} />
-                      <Bar dataKey="atkDay" name="Iran (Attack)" fill={UAE_GOLD} radius={[4, 4, 0, 0]} />
-                      <Bar dataKey="defDay" name="UAE (Defence)" fill={IMPACTED} radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="atkDay" name={t("cost.iranAttack")} fill={UAE_GOLD} radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="defDay" name={t("cost.uaeDefence")} fill={IMPACTED} radius={[4, 4, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
 
                 <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
-                  <h3 style={{ margin: "0 0 4px", fontSize: 13, color: IMPACTED, textTransform: "uppercase", letterSpacing: 2 }}>Cumulative Cost Over Time ($M)</h3>
-                  <p style={{ margin: "0 0 12px", fontSize: 11, color: SUBTEXT }}>Running total — the widening gap between attack and defence spending</p>
+                  <h3 style={{ margin: "0 0 4px", fontSize: 13, color: IMPACTED, textTransform: "uppercase", letterSpacing: 2 }}>{t("cost.cumulTitle")}</h3>
+                  <p style={{ margin: "0 0 12px", fontSize: 11, color: SUBTEXT }}>{t("cost.cumulSub")}</p>
                   <ResponsiveContainer width="100%" height={220}>
                     <AreaChart data={costTimeline}>
                       <defs>
@@ -1685,8 +1760,8 @@ export default function Dashboard() {
                       <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} tickFormatter={v => v >= 1000 ? `$${(v/1000).toFixed(1)}B` : `$${v}M`} />
                       <Tooltip content={<CustomTooltip />} formatter={(v) => [v >= 1000 ? `$${(v/1000).toFixed(2)}B` : `$${v}M`, ""]} />
                       <Legend wrapperStyle={{ fontSize: 11 }} />
-                      <Area type="monotone" dataKey="cumAtk" name="Iran (Cumulative)" stroke={UAE_GOLD} fill="url(#gradAtk)" strokeWidth={2} dot={{ fill: UAE_GOLD, r: 4 }} />
-                      <Area type="monotone" dataKey="cumDef" name="UAE (Cumulative)" stroke={IMPACTED} fill="url(#gradDef)" strokeWidth={2} dot={{ fill: IMPACTED, r: 4 }} />
+                      <Area type="monotone" dataKey="cumAtk" name={t("cost.iranCumul")} stroke={UAE_GOLD} fill="url(#gradAtk)" strokeWidth={2} dot={{ fill: UAE_GOLD, r: 4 }} />
+                      <Area type="monotone" dataKey="cumDef" name={t("cost.uaeCumul")} stroke={IMPACTED} fill="url(#gradDef)" strokeWidth={2} dot={{ fill: IMPACTED, r: 4 }} />
                     </AreaChart>
                   </ResponsiveContainer>
                 </div>
@@ -1700,8 +1775,162 @@ export default function Dashboard() {
         })()}
       </div>
 
+      {activeTab === "flights" && (() => {
+        if (!flightData) return <div style={{ padding: 40, textAlign: "center", color: SUBTEXT }}>{t("flights.noData")}</div>;
+
+        const FLIGHT_GREEN = "#2ECC71";
+        const FLIGHT_AMBER = "#F39C12";
+        const FLIGHT_RED = "#E74C3C";
+        const FLIGHT_BLUE = "#3498DB";
+
+        const baseline = flightData.baselineDailyAvg;
+        const daily = flightData.daily || [];
+
+        // Split into pre-conflict and conflict periods
+        const conflictStart = "2026-02-28";
+        const preConflictDays = daily.filter(d => d.date < conflictStart);
+        const conflictDays = daily.filter(d => d.date >= conflictStart);
+
+        // Chart data for main timeline
+        const chartData = daily.map(d => ({
+          date: d.date.slice(5), // "02-18" → "02-18"
+          label: new Date(d.date + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "short" }),
+          total: d.total,
+          departures: d.departures,
+          arrivals: d.arrivals,
+          baseline: baseline.total,
+          capacity: d.total > 0 ? Math.round((d.total / baseline.total) * 100) : 0,
+        }));
+
+        // Latest day stats
+        const latest = conflictDays.length > 0 ? conflictDays[conflictDays.length - 1] : null;
+        const latestCapacity = latest ? Math.round((latest.total / baseline.total) * 100) : 0;
+
+        // Regional breakdown for latest conflict day vs baseline
+        const REGION_KEYS = ["Middle East", "Europe", "South Asia", "Asia-Pacific", "Africa", "Americas"];
+        const regionI18n = {
+          "Middle East": t("flights.middleEast"), "Europe": t("flights.europe"),
+          "South Asia": t("flights.southAsia"), "Asia-Pacific": t("flights.asiaPacific"),
+          "Africa": t("flights.africa"), "Americas": t("flights.americas"),
+        };
+        const regionColors = {
+          "Middle East": "#F39C12", "Europe": "#3498DB", "South Asia": "#2ECC71",
+          "Asia-Pacific": "#9B59B6", "Africa": "#E67E22", "Americas": "#E74C3C",
+        };
+
+        const regionalChartData = REGION_KEYS.map(r => ({
+          region: regionI18n[r] || r,
+          baseline: baseline.regions[r] || 0,
+          current: latest ? (latest.regions[r] || 0) : 0,
+          color: regionColors[r],
+        }));
+
+        // Regional time series
+        const regionalTimeSeries = REGION_KEYS.map(r => ({
+          key: r,
+          label: regionI18n[r] || r,
+          color: regionColors[r],
+          data: daily.map(d => ({
+            label: new Date(d.date + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "short" }),
+            value: d.regions[r] || 0,
+            baseline: baseline.regions[r] || 0,
+          })),
+        }));
+
+        return (
+          <div style={{ padding: "0 20px" }}>
+            {/* Title */}
+            <div style={{ marginBottom: 20 }}>
+              <h2 style={{ margin: 0, fontSize: 18, fontWeight: 700, color: TEXT }}>{t("flights.title")}</h2>
+              <div style={{ fontSize: 12, color: SUBTEXT, marginTop: 4 }}>{t("flights.subtitle")}</div>
+            </div>
+
+            {/* Summary stat cards */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 12, marginBottom: 24 }}>
+              <StatCard label={t("flights.preConflict")} value={baseline.total.toLocaleString()} sub={t("flights.flightsPerDay")} color={FLIGHT_GREEN} />
+              <StatCard label={t("flights.total") + (latest ? ` (${new Date(latest.date + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "short" })})` : "")} value={latest ? latest.total.toLocaleString() : "—"} sub={latest ? `${t("flights.departures")}: ${latest.departures} / ${t("flights.arrivals")}: ${latest.arrivals}` : ""} color={latestCapacity > 50 ? FLIGHT_AMBER : FLIGHT_RED} />
+              <StatCard label={t("flights.currentCapacity")} value={`${latestCapacity}%`} sub={`${t("flights.baseline")}: 100%`} color={latestCapacity > 50 ? FLIGHT_AMBER : FLIGHT_RED} />
+            </div>
+
+            {/* Main chart: daily flights vs baseline */}
+            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: 20, marginBottom: 24 }}>
+              <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: TEXT }}>{t("flights.total")} — DXB</h3>
+              <ResponsiveContainer width="100%" height={300}>
+                <ComposedChart data={chartData} barCategoryGap="15%">
+                  <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
+                  <XAxis dataKey="label" tick={{ fill: TEXT, fontSize: 10 }} axisLine={false} interval={0} angle={-45} textAnchor="end" height={50} />
+                  <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend wrapperStyle={{ fontSize: 11 }} />
+                  <Bar dataKey="departures" name={t("flights.departures")} fill={FLIGHT_BLUE} stackId="flights" radius={[0, 0, 0, 0]} />
+                  <Bar dataKey="arrivals" name={t("flights.arrivals")} fill={FLIGHT_GREEN} stackId="flights" radius={[4, 4, 0, 0]} />
+                  <Line type="monotone" dataKey="baseline" name={t("flights.baseline")} stroke={FLIGHT_AMBER} strokeWidth={2} strokeDasharray="6 3" dot={false} legendType="line" />
+                </ComposedChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Capacity % chart */}
+            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: 20, marginBottom: 24 }}>
+              <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: TEXT }}>{t("flights.capacity")} %</h3>
+              <ResponsiveContainer width="100%" height={200}>
+                <AreaChart data={chartData}>
+                  <defs>
+                    <linearGradient id="gradCap" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor={FLIGHT_AMBER} stopOpacity={0.4} />
+                      <stop offset="95%" stopColor={FLIGHT_AMBER} stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
+                  <XAxis dataKey="label" tick={{ fill: TEXT, fontSize: 10 }} axisLine={false} interval={0} angle={-45} textAnchor="end" height={50} />
+                  <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} domain={[0, 110]} tickFormatter={v => `${v}%`} />
+                  <Tooltip content={<CustomTooltip />} formatter={(v) => [`${v}%`, ""]} />
+                  <Area type="monotone" dataKey="capacity" name={t("flights.capacity")} stroke={FLIGHT_AMBER} fill="url(#gradCap)" strokeWidth={2} dot={{ fill: FLIGHT_AMBER, r: 3 }} />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Regional comparison bar chart */}
+            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: 20, marginBottom: 24 }}>
+              <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: TEXT }}>{t("flights.regionalTitle")}</h3>
+              <ResponsiveContainer width="100%" height={250}>
+                <BarChart data={regionalChartData} layout="vertical" barCategoryGap="20%">
+                  <CartesianGrid strokeDasharray="3 3" stroke={BORDER} horizontal={false} />
+                  <XAxis type="number" tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} />
+                  <YAxis type="category" dataKey="region" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} width={100} />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend wrapperStyle={{ fontSize: 11 }} />
+                  <Bar dataKey="baseline" name={t("flights.baseline")} fill={FLIGHT_GREEN} opacity={0.5} radius={[0, 4, 4, 0]} />
+                  <Bar dataKey="current" name={latest ? new Date(latest.date + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "Current"} fill={FLIGHT_BLUE} radius={[0, 4, 4, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Regional time series - small multiples */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 16, marginBottom: 24 }}>
+              {regionalTimeSeries.filter(r => r.data.some(d => d.value > 0 || d.baseline > 0)).map(r => (
+                <div key={r.key} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: 16 }}>
+                  <h4 style={{ margin: "0 0 12px", fontSize: 13, fontWeight: 600, color: r.color }}>{r.label}</h4>
+                  <ResponsiveContainer width="100%" height={150}>
+                    <ComposedChart data={r.data} barCategoryGap="15%">
+                      <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
+                      <XAxis dataKey="label" tick={{ fill: TEXT, fontSize: 9 }} axisLine={false} interval={2} />
+                      <YAxis tick={{ fill: SUBTEXT, fontSize: 9 }} axisLine={false} />
+                      <Tooltip content={<CustomTooltip />} />
+                      <Bar dataKey="value" name={t("flights.total")} fill={r.color} radius={[3, 3, 0, 0]} />
+                      <Line type="monotone" dataKey="baseline" name={t("flights.baseline")} stroke={FLIGHT_AMBER} strokeWidth={1.5} strokeDasharray="4 2" dot={false} />
+                    </ComposedChart>
+                  </ResponsiveContainer>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ fontSize: 10, color: "#3A4A60", textAlign: "center" }}>{t("flights.source")}</div>
+          </div>
+        );
+      })()}
+
       <div style={{ textAlign: "center", marginTop: 32, fontSize: 10, color: "#3A4A60" }}>
-        Data sourced from official GCC Ministry of Defence statements • Feb 28, 2026 –
+        {t("footer.text")}
         <br />
         <a href="https://github.com/takahser/uae-dashboard" target="_blank" rel="noopener noreferrer"
           style={{ color: "#3A4A60", textDecoration: "none", marginTop: 4, display: "inline-flex", alignItems: "center", gap: 4 }}>
