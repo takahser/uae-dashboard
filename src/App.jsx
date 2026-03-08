@@ -65,6 +65,11 @@ const MAP_CONFIGS = {
       { id: 7, name: "Camp de la Paix (French Naval Base)", type: "drone_hit", date: "1-2 Mar", casualties: "None", lat: 24.4475, lng: 54.3500, region: "Abu Dhabi" },
       { id: 8, name: "Etihad Towers", type: "debris", date: "28 Feb-3 Mar", casualties: "None", lat: 24.4397, lng: 54.3605, region: "Abu Dhabi" },
       { id: 9, name: "Sharjah (general area)", type: "drone_hit", date: "1 Mar", casualties: "None", lat: 25.3488, lng: 55.4121, region: "Sharjah" },
+      { id: 10, name: "23 Marina Tower (Dubai Marina)", type: "drone_hit", date: "7 Mar", casualties: "1 killed", lat: 25.0920, lng: 55.1380, region: "Dubai" },
+      { id: 11, name: "Al Dhafra Air Base", type: "drone_hit", date: "7 Mar", casualties: "None", lat: 24.2482, lng: 54.5477, region: "Abu Dhabi" },
+      { id: 12, name: "Barsha area (debris on vehicle)", type: "debris", date: "7 Mar", casualties: "1 killed", lat: 25.1050, lng: 55.2000, region: "Dubai" },
+      { id: 13, name: "Al Minhad Air Base", type: "drone_hit", date: "28 Feb", casualties: "None", lat: 25.0267, lng: 55.3696, region: "Dubai" },
+      { id: 14, name: "Corniche / Bateen area", type: "debris", date: "28 Feb", casualties: "None", lat: 24.4650, lng: 54.3300, region: "Abu Dhabi" },
     ],
     strategicSites: [
       { id: "s1", name: "Al Dhafra Air Base", type: "US/UAE Air Base", lat: 24.2482, lng: 54.5477 },
@@ -81,7 +86,7 @@ const MAP_CONFIGS = {
       { name: "QATAR", labelLat: 25.3, labelLng: 51.2, pts: [[26.15,51.25],[26.10,51.58],[25.80,51.61],[25.60,51.53],[25.40,51.58],[25.20,51.56],[24.95,51.40],[24.56,51.28],[24.55,51.03],[24.70,50.85],[24.87,50.82],[25.10,50.80],[25.38,50.76],[25.60,50.82],[25.82,50.87],[26.05,51.02],[26.15,51.25]] },
     ],
     impacts: [
-      { id: 1, name: "Al Udeid Air Base (vicinity)", type: "drone_hit", date: "28 Feb", casualties: "None", lat: 25.1173, lng: 51.3150, region: "Al Rayyan" },
+      { id: 1, name: "Al Udeid Air Base (direct hit)", type: "drone_hit", date: "28 Feb", casualties: "None", lat: 25.1173, lng: 51.3150, region: "Al Rayyan" },
       { id: 2, name: "Doha West (residential)", type: "debris", date: "28 Feb", casualties: "3 injured", lat: 25.2800, lng: 51.4000, region: "Doha" },
       { id: 3, name: "Lusail area", type: "drone_hit", date: "2 Mar", casualties: "None", lat: 25.4200, lng: 51.4900, region: "Lusail" },
       { id: 4, name: "Hamad Intl Airport (perimeter)", type: "debris", date: "5 Mar", casualties: "None", lat: 25.2731, lng: 51.6081, region: "Doha" },
@@ -129,6 +134,9 @@ const MAP_CONFIGS = {
       { id: 3, name: "Isa Air Base", type: "drone_hit", date: "2 Mar", casualties: "None", lat: 25.9182, lng: 50.5906, region: "Isa Town" },
       { id: 4, name: "Manama Diplomatic Quarter", type: "debris", date: "4 Mar", casualties: "None", lat: 26.2300, lng: 50.5800, region: "Manama" },
       { id: 5, name: "Sitra Industrial Area", type: "drone_hit", date: "5 Mar", casualties: "None", lat: 26.1500, lng: 50.6400, region: "Sitra" },
+      { id: 6, name: "Mina Salman Port (MT Stena Imperative)", type: "drone_hit", date: "2 Mar", casualties: "2 injured", lat: 26.2100, lng: 50.6000, region: "Manama" },
+      { id: 7, name: "Ma'ameer Industrial Area", type: "drone_hit", date: "5 Mar", casualties: "None", lat: 26.0400, lng: 50.5200, region: "Ma'ameer" },
+      { id: 8, name: "Water desalination plant", type: "drone_hit", date: "8 Mar", casualties: "None", lat: 26.1000, lng: 50.5600, region: "Sitra" },
     ],
     strategicSites: [
       { id: "s1", name: "NSA Bahrain (US 5th Fleet)", type: "US Naval Base", lat: 26.2400, lng: 50.6100 },
