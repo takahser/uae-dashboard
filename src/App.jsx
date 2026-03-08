@@ -479,7 +479,7 @@ const UAE_EMIRATES = [
 // Safe number helper: treat null/undefined as 0 for math
 const n = (v) => (v == null ? 0 : v);
 
-function buildDerivedData(raw) {
+function buildDerivedData(raw, t) {
   const { cumulative, daily } = raw;
   const c = cumulative;
 
@@ -506,20 +506,20 @@ function buildDerivedData(raw) {
   const totalDetected    = n(c.ballisticDetected) + n(c.cruiseDetected) + n(c.dronesDetected) + missilesIntercepted;
   const totalImpacted    = n(c.ballisticImpacted) + n(c.dronesImpacted);
 
+  const _t = t || (k => k);
   const finalTotals = [
-    { name: "Ballistic\nMissiles", detected: n(c.ballisticDetected), intercepted: n(c.ballisticIntercepted), sea: n(c.ballisticSea), impacted: n(c.ballisticImpacted) },
-    { name: "Cruise\nMissiles",    detected: n(c.cruiseDetected),    intercepted: n(c.cruiseIntercepted),    sea: 0, impacted: n(c.cruiseImpacted) },
-    { name: "Drones\n(UAVs)",      detected: n(c.dronesDetected),    intercepted: n(c.dronesIntercepted),    sea: 0, impacted: n(c.dronesImpacted) },
+    { name: _t("chart.ballisticMissiles"), detected: n(c.ballisticDetected), intercepted: n(c.ballisticIntercepted), sea: n(c.ballisticSea), impacted: n(c.ballisticImpacted) },
+    { name: _t("chart.cruiseMissiles"),    detected: n(c.cruiseDetected),    intercepted: n(c.cruiseIntercepted),    sea: 0, impacted: n(c.cruiseImpacted) },
+    { name: _t("chart.drones"),            detected: n(c.dronesDetected),    intercepted: n(c.dronesIntercepted),    sea: 0, impacted: n(c.dronesImpacted) },
   ];
-  // Add missiles row for countries that don't split types
   if (missilesIntercepted > 0) {
-    finalTotals.unshift({ name: "Missiles\n(unspec.)", detected: missilesIntercepted, intercepted: missilesIntercepted, sea: 0, impacted: 0 });
+    finalTotals.unshift({ name: _t("chart.missilesUnspec"), detected: missilesIntercepted, intercepted: missilesIntercepted, sea: 0, impacted: 0 });
   }
 
   const pieData = [
-    { name: "Intercepted",        value: totalIntercepted,  color: INTERCEPTED },
-    { name: "Fell in Sea",        value: n(c.ballisticSea), color: SEA },
-    { name: "Impacted Territory", value: totalImpacted,     color: IMPACTED },
+    { name: _t("chart.intercepted"), value: totalIntercepted,  color: INTERCEPTED },
+    { name: _t("chart.sea"),         value: n(c.ballisticSea), color: SEA },
+    { name: _t("chart.impacted"),    value: totalImpacted,     color: IMPACTED },
   ].filter(d => d.value > 0);
 
   const ballisticRate = n(c.ballisticDetected) > 0 ? +((n(c.ballisticIntercepted) / n(c.ballisticDetected)) * 100).toFixed(1) : null;
@@ -528,10 +528,10 @@ function buildDerivedData(raw) {
   const overallRate   = totalDetected > 0 ? +((totalIntercepted / totalDetected) * 100).toFixed(1) : null;
 
   const rateData = [
-    ballisticRate !== null && { category: "Ballistic\nMissiles", rate: ballisticRate },
-    cruiseRate !== null && { category: "Cruise\nMissiles",    rate: cruiseRate },
-    droneRate !== null && { category: "Drones",              rate: droneRate },
-    overallRate !== null && { category: "Overall",             rate: overallRate },
+    ballisticRate !== null && { category: _t("chart.ballisticMissiles"), rate: ballisticRate },
+    cruiseRate !== null && { category: _t("chart.cruiseMissiles"),    rate: cruiseRate },
+    droneRate !== null && { category: _t("chart.drones"),              rate: droneRate },
+    overallRate !== null && { category: _t("chart.overall"),             rate: overallRate },
   ].filter(Boolean);
 
   const trendData = hasDailyData ? daily.map((d) => ({
@@ -621,7 +621,7 @@ export default function Dashboard() {
 
   // When All GCC, aggregate stats across all countries
   const derived = isAllGCC ? (() => {
-    const perCountry = COUNTRY_CONFIG.map(c => allData[c.code]).filter(Boolean).map(buildDerivedData);
+    const perCountry = COUNTRY_CONFIG.map(c => allData[c.code]).filter(Boolean).map(d => buildDerivedData(d, t));
     const aggDetected = perCountry.reduce((s, d) => s + d.totalDetected, 0);
     const aggIntercepted = perCountry.reduce((s, d) => s + d.totalIntercepted, 0);
     const aggImpacted = perCountry.reduce((s, d) => s + d.totalImpacted, 0);
@@ -630,12 +630,12 @@ export default function Dashboard() {
     const aggKilled = perCountry.reduce((s, d) => s + n(d.cumulative.killed), 0);
     const aggInjured = perCountry.reduce((s, d) => s + n(d.cumulative.injured), 0);
     return {
-      ...buildDerivedData(rawData),
+      ...buildDerivedData(rawData, t),
       totalDetected: aggDetected, totalIntercepted: aggIntercepted, totalImpacted: aggImpacted,
       overallRate: aggRate,
       cumulative: { ...rawData.cumulative, ballisticSea: aggSea, killed: aggKilled, injured: aggInjured },
     };
-  })() : buildDerivedData(rawData);
+  })() : buildDerivedData(rawData, t);
 
   const { dailyData, cumulativeData, finalTotals, pieData, rateData, trendData, interceptorData,
           cumulative, totalDetected, totalIntercepted, totalImpacted, overallRate, hasDailyData } = derived;
@@ -718,7 +718,7 @@ export default function Dashboard() {
             </div>
           </div>
           <div style={{ display: "flex", gap: 20, fontSize: 11, color: SUBTEXT }}>
-            <span>📅 28 Feb 2026{dayCount > 0 ? ` — ${t("header.day", { count: dayCount })}` : ""}</span>
+            <span>📅 {(() => { const now = new Date(); const conflictStart = new Date("2026-02-28T00:00:00+04:00"); const dayNum = Math.floor((now - conflictStart) / 86400000) + 1; const dateStr = now.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Dubai" }); return `${dateStr}${dayNum > 0 ? ` — ${t("header.day", { count: dayNum })}` : ""}`; })()}</span>
             <span>📡 {t("header.source")} {isAllGCC ? t("header.multiSource") : `${countryConf.source} ${t("header.officialStatements")}`}</span>
             <span style={{ color: themeAccent }}>⚡ {t("header.updated")} {lastUpdated} GST</span>
           </div>
@@ -773,7 +773,7 @@ export default function Dashboard() {
           const countryStats = COUNTRY_CONFIG.map(cc => {
             const d = allData[cc.code];
             if (!d) return null;
-            const bd = buildDerivedData(d);
+            const bd = buildDerivedData(d, t);
             return { ...cc, ...bd };
           }).filter(Boolean);
           const compData = countryStats.map(cs => ({
@@ -1193,8 +1193,8 @@ export default function Dashboard() {
               <h3 style={{ margin: "0 0 16px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("overview.pieTitle")}</h3>
               <ResponsiveContainer width="100%" height={240}>
                 <PieChart>
-                  <Pie data={pieData} cx="50%" cy="50%" innerRadius={60} outerRadius={95}
-                    dataKey="value" paddingAngle={3} label={({ name, percent }) => `${name} ${(percent * 100).toFixed(1)}%`}
+                  <Pie data={pieData} cx="50%" cy="50%" innerRadius={50} outerRadius={80}
+                    dataKey="value" paddingAngle={3} label={({ name, percent, x, y, midAngle }) => { const RADIAN = Math.PI / 180; const radius = 105; const sx = 200 + radius * Math.cos(-midAngle * RADIAN); const sy = 120 + radius * Math.sin(-midAngle * RADIAN); return <text x={sx} y={sy} fill={TEXT} textAnchor={sx > 200 ? "start" : "end"} dominantBaseline="central" fontSize={10}>{`${name} ${(percent * 100).toFixed(1)}%`}</text>; }}
                     labelLine={{ stroke: SUBTEXT, strokeWidth: 1 }} fontSize={11} fill={TEXT}>
                     {pieData.map((entry, i) => <Cell key={i} fill={entry.color} stroke="none" />)}
                   </Pie>
@@ -1210,7 +1210,7 @@ export default function Dashboard() {
                 <BarChart data={finalTotals} layout="vertical" barCategoryGap="30%">
                   <CartesianGrid strokeDasharray="3 3" stroke={BORDER} horizontal={false} />
                   <XAxis type="number" tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} />
-                  <YAxis type="category" dataKey="name" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} width={70} />
+                  <YAxis type="category" dataKey="name" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} width={isRTL ? 100 : 70} />
                   <Tooltip content={<CustomTooltip />} />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
                   <Bar dataKey="detected" name={t("chart.detected")} fill="#1A3A5C" radius={[0, 3, 3, 0]} />
@@ -1223,10 +1223,10 @@ export default function Dashboard() {
             {/* Interception rates */}
             <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, gridColumn: "1 / -1" }}>
               <h3 style={{ margin: "0 0 16px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("overview.rateTitle")}</h3>
-              <ResponsiveContainer width="100%" height={180}>
+              <ResponsiveContainer width="100%" height={isRTL ? 220 : 180}>
                 <BarChart data={rateData} barCategoryGap="35%">
                   <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
-                  <XAxis dataKey="category" tick={{ fill: TEXT, fontSize: 12 }} axisLine={false} />
+                  <XAxis dataKey="category" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} interval={0} angle={isRTL ? -30 : 0} textAnchor={isRTL ? "end" : "middle"} height={isRTL ? 60 : 30} />
                   <YAxis domain={[0, 100]} tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} tickFormatter={v => `${v}%`} />
                   <Tooltip content={<CustomTooltip />} formatter={(v) => [`${v}%`, "Rate"]} />
                   <Bar dataKey="rate" name="Interception Rate" radius={[4, 4, 0, 0]}>

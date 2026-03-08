@@ -111,6 +111,10 @@ const translations = {
     "chart.impacted": "Impacted Territory",
     "chart.detected": "Detected",
     "chart.overall": "Overall",
+    "chart.ballisticMissiles": "Ballistic\nMissiles",
+    "chart.cruiseMissiles": "Cruise\nMissiles",
+    "chart.drones": "Drones",
+    "chart.missilesUnspec": "Missiles\n(unspec.)",
 
     // Trends
     "trends.title": "Daily Incoming by Category + Total",
@@ -371,6 +375,10 @@ const translations = {
     "chart.impacted": "أصابت الأراضي",
     "chart.detected": "تم رصدها",
     "chart.overall": "الإجمالي",
+    "chart.ballisticMissiles": "صواريخ\nباليستية",
+    "chart.cruiseMissiles": "صواريخ\nكروز",
+    "chart.drones": "طائرات مسيّرة",
+    "chart.missilesUnspec": "صواريخ\n(غير محدد)",
 
     // Trends
     "trends.title": "الوارد اليومي حسب الفئة + الإجمالي",
