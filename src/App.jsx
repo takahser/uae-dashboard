@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
-  LineChart, Line, AreaChart, Area, PieChart, Pie, Cell, ComposedChart,
+  LineChart, Line, AreaChart, Area, PieChart, Pie, Cell, ComposedChart, ReferenceLine,
 } from "recharts";
 import { createT } from "./i18n";
 
@@ -766,7 +766,7 @@ export default function Dashboard() {
         ))}
       </div>
 
-      <div style={{ padding: "0 28px" }}>
+      <div dir="ltr" style={{ padding: "0 28px" }}>
 
         {/* ALL GCC COMPARISON VIEW */}
         {isAllGCC && activeTab === "comparison" && (() => {
@@ -1191,10 +1191,11 @@ export default function Dashboard() {
             {/* Pie chart */}
             <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
               <h3 style={{ margin: "0 0 16px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("overview.pieTitle")}</h3>
-              <ResponsiveContainer width="100%" height={240}>
+              <ResponsiveContainer width="100%" height={260}>
                 <PieChart>
-                  <Pie data={pieData} cx="50%" cy="50%" innerRadius={50} outerRadius={80}
-                    dataKey="value" paddingAngle={3} label={({ name, percent, x, y, midAngle }) => { const RADIAN = Math.PI / 180; const radius = 105; const sx = 200 + radius * Math.cos(-midAngle * RADIAN); const sy = 120 + radius * Math.sin(-midAngle * RADIAN); return <text x={sx} y={sy} fill={TEXT} textAnchor={sx > 200 ? "start" : "end"} dominantBaseline="central" fontSize={10}>{`${name} ${(percent * 100).toFixed(1)}%`}</text>; }}
+                  <Pie data={pieData} cx="50%" cy="50%" innerRadius={45} outerRadius={75}
+                    dataKey="value" paddingAngle={3}
+                    label={({ cx, cy, midAngle, outerRadius: or, name, percent }) => { const RADIAN = Math.PI / 180; const r = or + 25; const x = cx + r * Math.cos(-midAngle * RADIAN); const y = cy + r * Math.sin(-midAngle * RADIAN); return <text x={x} y={y} fill={TEXT} textAnchor={x > cx ? "start" : "end"} dominantBaseline="central" fontSize={10}>{`${name} ${(percent * 100).toFixed(1)}%`}</text>; }}
                     labelLine={{ stroke: SUBTEXT, strokeWidth: 1 }} fontSize={11} fill={TEXT}>
                     {pieData.map((entry, i) => <Cell key={i} fill={entry.color} stroke="none" />)}
                   </Pie>
@@ -1210,7 +1211,7 @@ export default function Dashboard() {
                 <BarChart data={finalTotals} layout="vertical" barCategoryGap="30%">
                   <CartesianGrid strokeDasharray="3 3" stroke={BORDER} horizontal={false} />
                   <XAxis type="number" tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} />
-                  <YAxis type="category" dataKey="name" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} width={isRTL ? 100 : 70} />
+                  <YAxis type="category" dataKey="name" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} width={isRTL ? 100 : 80} />
                   <Tooltip content={<CustomTooltip />} />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
                   <Bar dataKey="detected" name={t("chart.detected")} fill="#1A3A5C" radius={[0, 3, 3, 0]} />
@@ -1223,10 +1224,10 @@ export default function Dashboard() {
             {/* Interception rates */}
             <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, gridColumn: "1 / -1" }}>
               <h3 style={{ margin: "0 0 16px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("overview.rateTitle")}</h3>
-              <ResponsiveContainer width="100%" height={isRTL ? 220 : 180}>
+              <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={rateData} barCategoryGap="35%">
                   <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
-                  <XAxis dataKey="category" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} interval={0} angle={isRTL ? -30 : 0} textAnchor={isRTL ? "end" : "middle"} height={isRTL ? 60 : 30} />
+                  <XAxis dataKey="category" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} interval={0} height={50} />
                   <YAxis domain={[0, 100]} tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} tickFormatter={v => `${v}%`} />
                   <Tooltip content={<CustomTooltip />} formatter={(v) => [`${v}%`, "Rate"]} />
                   <Bar dataKey="rate" name="Interception Rate" radius={[4, 4, 0, 0]}>
@@ -1637,7 +1638,7 @@ export default function Dashboard() {
                   <BarChart data={defenceCompData} layout="vertical" barCategoryGap="30%">
                     <CartesianGrid strokeDasharray="3 3" stroke={BORDER} horizontal={false} />
                     <XAxis type="number" tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} tickFormatter={v => `${v}km`} />
-                    <YAxis type="category" dataKey="name" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} width={90} />
+                    <YAxis type="category" dataKey="name" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} width={100} />
                     <Tooltip content={<CustomTooltip />} formatter={(v) => [`${v}km`, "Altitude"]} />
                     <Bar dataKey="altitude" name="Max Altitude" radius={[0, 4, 4, 0]}>
                       {defenceCompData.map((_, j) => <Cell key={j} fill={defenceSystems[j].color} />)}
@@ -1652,7 +1653,7 @@ export default function Dashboard() {
                   <BarChart data={defenceCompData} layout="vertical" barCategoryGap="30%">
                     <CartesianGrid strokeDasharray="3 3" stroke={BORDER} horizontal={false} />
                     <XAxis type="number" tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} tickFormatter={v => `$${v}M`} />
-                    <YAxis type="category" dataKey="name" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} width={90} />
+                    <YAxis type="category" dataKey="name" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} width={100} />
                     <Tooltip content={<CustomTooltip />} formatter={(v) => [`$${v}M`, "Cost"]} />
                     <Bar dataKey="cost" name="Interceptor Cost" radius={[0, 4, 4, 0]}>
                       {defenceCompData.map((_, j) => <Cell key={j} fill={IMPACTED} />)}
@@ -1792,8 +1793,9 @@ export default function Dashboard() {
         const conflictDays = daily.filter(d => d.date >= conflictStart);
 
         // Chart data for main timeline
+        const conflictStartLabel = new Date(conflictStart + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "short" });
         const chartData = daily.map(d => ({
-          date: d.date.slice(5), // "02-18" → "02-18"
+          date: d.date.slice(5),
           label: new Date(d.date + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "short" }),
           total: d.total,
           departures: d.departures,
@@ -1862,6 +1864,7 @@ export default function Dashboard() {
                   <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} />
                   <Tooltip content={<CustomTooltip />} />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
+                  <ReferenceLine x={conflictStartLabel} stroke={FLIGHT_RED} strokeDasharray="4 2" strokeWidth={1.5} label={{ value: "Conflict start", position: "top", fill: FLIGHT_RED, fontSize: 9 }} />
                   <Bar dataKey="departures" name={t("flights.departures")} fill={FLIGHT_BLUE} stackId="flights" radius={[0, 0, 0, 0]} />
                   <Bar dataKey="arrivals" name={t("flights.arrivals")} fill={FLIGHT_GREEN} stackId="flights" radius={[4, 4, 0, 0]} />
                   <Line type="monotone" dataKey="baseline" name={t("flights.baseline")} stroke={FLIGHT_AMBER} strokeWidth={2} strokeDasharray="6 3" dot={false} legendType="line" />
@@ -1884,6 +1887,7 @@ export default function Dashboard() {
                   <XAxis dataKey="label" tick={{ fill: TEXT, fontSize: 10 }} axisLine={false} interval={0} angle={-45} textAnchor="end" height={50} />
                   <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} domain={[0, 110]} tickFormatter={v => `${v}%`} />
                   <Tooltip content={<CustomTooltip />} formatter={(v) => [`${v}%`, ""]} />
+                  <ReferenceLine x={conflictStartLabel} stroke={FLIGHT_RED} strokeDasharray="4 2" strokeWidth={1.5} />
                   <Area type="monotone" dataKey="capacity" name={t("flights.capacity")} stroke={FLIGHT_AMBER} fill="url(#gradCap)" strokeWidth={2} dot={{ fill: FLIGHT_AMBER, r: 3 }} />
                 </AreaChart>
               </ResponsiveContainer>
