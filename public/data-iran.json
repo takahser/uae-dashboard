@@ -1,0 +1,102 @@
+{
+  "lastUpdated": "2026-03-08T18:00:00Z",
+  "type": "strikesReceived",
+  "cumulative": {
+    "totalStrikes": 4000,
+    "sorties": 1600,
+    "killed": 1332,
+    "civilianKilled": 1000,
+    "childrenKilled": 181,
+    "militaryKilled": 2100,
+    "injured": 4500,
+    "targetsDestroyed": 300,
+    "launchersDisabled": 300,
+    "aircraftDestroyed": 45,
+    "navalVesselsDestroyed": 12,
+    "notes": "US Operation Epic Fury + Israeli Operation Roaring Lion"
+  },
+  "daily": [
+    {
+      "date": "2026-02-28",
+      "label": "28 Feb",
+      "strikes": 900,
+      "killed": 200,
+      "events": "Operation Epic Fury begins. Khamenei assassinated. ~900 strikes in first 12 hours targeting IRGC, air defenses, drone sites, airfields, missile sites, naval facilities, nuclear facilities."
+    },
+    {
+      "date": "2026-03-01",
+      "label": "1 Mar",
+      "strikes": 800,
+      "killed": 350,
+      "events": "Most intense day. B-2 stealth bombers strike hardened missile facilities. ~160 killed at girls' school in Minab (near naval base). Chief of Staff Mousavi and former president Ahmadinejad killed."
+    },
+    {
+      "date": "2026-03-02",
+      "label": "2 Mar",
+      "strikes": 700,
+      "killed": 200,
+      "events": "IRGC Malek-Ashtar building in Tehran destroyed. Hezbollah enters conflict. Iran death toll reaches 555."
+    },
+    {
+      "date": "2026-03-03",
+      "label": "3 Mar",
+      "strikes": 600,
+      "killed": 150,
+      "events": "IRIB (state broadcaster) in Tehran struck. Assembly of Experts gathering in Qom struck by Israeli Air Force. IAEA confirms damage at Natanz nuclear facility. ~4,000 targets struck total."
+    },
+    {
+      "date": "2026-03-04",
+      "label": "4 Mar",
+      "strikes": 350,
+      "killed": 120,
+      "events": "Israel at 1,600 strike sorties. Iran death toll surpasses 1,000. ~2,100 military personnel estimated killed."
+    },
+    {
+      "date": "2026-03-05",
+      "label": "5 Mar",
+      "strikes": 250,
+      "killed": 100,
+      "events": "Iran's president apologizes to neighbors, announces ceasefire toward Gulf states unless attacks originate from their territory."
+    },
+    {
+      "date": "2026-03-06",
+      "label": "6 Mar",
+      "strikes": 200,
+      "killed": 80,
+      "events": "Israeli Air Force strikes 400+ targets, drops ~1,465 munitions on regime military sites. Tehran pounded."
+    },
+    {
+      "date": "2026-03-07",
+      "label": "7 Mar",
+      "strikes": 120,
+      "killed": 80,
+      "events": "Continued strikes on military infrastructure across western and central Iran."
+    },
+    {
+      "date": "2026-03-08",
+      "label": "8 Mar",
+      "strikes": 80,
+      "killed": 52,
+      "events": "Israel strikes Iranian oil facilities for first time: Aghdasieh oil warehouse, Tehran refinery, Shahran oil depot, Karaj oil depot. Toxic smoke blankets Tehran. Mojtaba Khamenei named new Supreme Leader."
+    }
+  ],
+  "keyTargets": [
+    { "name": "Khamenei's Compound", "type": "leadership", "city": "Tehran", "status": "destroyed", "date": "28 Feb", "lat": 35.7000, "lng": 51.4200 },
+    { "name": "IRGC Malek-Ashtar Building", "type": "military", "city": "Tehran", "status": "destroyed", "date": "2 Mar", "lat": 35.7150, "lng": 51.3900 },
+    { "name": "IRIB State Broadcaster HQ", "type": "government", "city": "Tehran", "status": "destroyed", "date": "3 Mar", "lat": 35.7100, "lng": 51.4100 },
+    { "name": "Natanz Nuclear Facility", "type": "nuclear", "city": "Isfahan", "status": "damaged", "date": "3 Mar", "lat": 33.7250, "lng": 51.7270 },
+    { "name": "Isfahan Nuclear Complex", "type": "nuclear", "city": "Isfahan", "status": "damaged", "date": "28 Feb", "lat": 32.6500, "lng": 51.6800 },
+    { "name": "Assembly of Experts (Qom)", "type": "leadership", "city": "Qom", "status": "destroyed", "date": "3 Mar", "lat": 34.6350, "lng": 50.8800 },
+    { "name": "Konarak Airbase", "type": "military", "city": "Konarak", "status": "destroyed", "date": "28 Feb", "lat": 25.4400, "lng": 60.3600 },
+    { "name": "Konarak Naval Base", "type": "naval", "city": "Konarak", "status": "damaged", "date": "28 Feb", "lat": 25.3500, "lng": 60.3700 },
+    { "name": "Bandar Abbas Military Port", "type": "naval", "city": "Bandar Abbas", "status": "damaged", "date": "28 Feb", "lat": 27.1900, "lng": 56.2700 },
+    { "name": "Shohada Base", "type": "military", "city": "Urmia", "status": "damaged", "date": "1 Mar", "lat": 37.5500, "lng": 45.0700 },
+    { "name": "Aghdasieh Oil Warehouse", "type": "oil", "city": "Tehran", "status": "destroyed", "date": "8 Mar", "lat": 35.7900, "lng": 51.4700 },
+    { "name": "Tehran Refinery", "type": "oil", "city": "Tehran", "status": "destroyed", "date": "8 Mar", "lat": 35.6200, "lng": 51.4300 },
+    { "name": "Shahran Oil Depot", "type": "oil", "city": "Tehran", "status": "destroyed", "date": "8 Mar", "lat": 35.7600, "lng": 51.2800 },
+    { "name": "Karaj Oil Depot", "type": "oil", "city": "Karaj", "status": "destroyed", "date": "8 Mar", "lat": 35.8400, "lng": 50.9700 },
+    { "name": "Minab (school struck)", "type": "civilian", "city": "Minab", "status": "destroyed", "date": "1 Mar", "lat": 27.1000, "lng": 57.0800 },
+    { "name": "Khatam-al-Anbia Hospital", "type": "civilian", "city": "Tehran", "status": "damaged", "date": "2 Mar", "lat": 35.7300, "lng": 51.3800 },
+    { "name": "Lavisan 2/Mojdeh Complex", "type": "nuclear", "city": "Tehran", "status": "destroyed", "date": "28 Feb", "lat": 35.7500, "lng": 51.5000 }
+  ]
+}

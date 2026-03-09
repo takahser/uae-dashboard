@@ -14,6 +14,7 @@ const COUNTRY_CONFIG = [
   { code: "kuwait", name: "Kuwait", flag: "\u{1F1F0}\u{1F1FC}", file: "data-kuwait.json", color: "#007A3D", accent: "#CE1126", source: "@MOD_KW" },
   { code: "bahrain", name: "Bahrain", flag: "\u{1F1E7}\u{1F1ED}", file: "data-bahrain.json", color: "#CE1126", accent: "#FFFFFF", source: "@BDF_Bahrain" },
 ];
+const IRAN_CONFIG = { code: "iran", name: "Iran", flag: "\u{1F1EE}\u{1F1F7}", file: "data-iran.json", color: "#DA0000", accent: "#FFFFFF", source: "OSINT" };
 const INTERCEPTED = "#00A86B";
 const IMPACTED = "#C0392B";
 const SEA = "#2980B9";
@@ -606,18 +607,223 @@ export default function Dashboard() {
       if (Object.keys(data).length === 0) { setError("Failed to load data files"); return; }
       setAllData(data);
     });
-    // Load flight data
+    // Load flight data + Iran data
     fetch(base + "data-flights-dxb.json").then(r => r.ok ? r.json() : null).then(d => setFlightData(d)).catch(() => {});
+    fetch(base + IRAN_CONFIG.file).then(r => r.ok ? r.json() : null).then(d => { if (d) setAllData(prev => prev ? { ...prev, iran: d } : prev); }).catch(() => {});
   }, []);
 
   if (error) return <div style={{ background: BG, color: IMPACTED, padding: 40, fontFamily: "monospace" }}>{error}</div>;
   if (!allData) return <div style={{ background: BG, color: SUBTEXT, padding: 40, fontFamily: "monospace", minHeight: "100vh" }}>Loading...</div>;
 
   const isAllGCC = selectedCountry === "all";
-  const countryConf = COUNTRY_CONFIG.find(c => c.code === selectedCountry) || COUNTRY_CONFIG[0];
-  const rawData = isAllGCC ? allData.uae : (allData[selectedCountry] || allData.uae);
+  const isIran = selectedCountry === "iran";
+  const countryConf = isIran ? IRAN_CONFIG : (COUNTRY_CONFIG.find(c => c.code === selectedCountry) || COUNTRY_CONFIG[0]);
+  const rawData = isIran ? (allData.iran || allData.uae) : (isAllGCC ? allData.uae : (allData[selectedCountry] || allData.uae));
   const themeColor = isAllGCC ? UAE_GREEN : countryConf.color;
   const themeAccent = isAllGCC ? UAE_GOLD : countryConf.accent;
+
+  // Iran view — completely different data structure
+  if (isIran && allData.iran) {
+    const iranData = allData.iran;
+    const c = iranData.cumulative;
+    const daily = iranData.daily || [];
+    const targets = iranData.keyTargets || [];
+    const lastUpdated = new Date(iranData.lastUpdated).toLocaleString("en-GB", {
+      day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Dubai"
+    });
+
+    // Chart data
+    const strikeChartData = daily.map(d => ({
+      day: d.label, strikes: d.strikes, killed: d.killed,
+    }));
+    const cumulativeChartData = daily.reduce((acc, d, i) => {
+      const prev = i > 0 ? acc[i - 1] : { cumStrikes: 0, cumKilled: 0 };
+      acc.push({ day: d.label, cumStrikes: prev.cumStrikes + d.strikes, cumKilled: prev.cumKilled + d.killed });
+      return acc;
+    }, []);
+
+    // Target type breakdown
+    const targetTypes = {};
+    targets.forEach(t => { targetTypes[t.type] = (targetTypes[t.type] || 0) + 1; });
+    const targetTypeData = Object.entries(targetTypes).map(([type, count]) => ({ name: type, value: count }));
+    const TARGET_COLORS = { leadership: "#E74C3C", military: "#3498DB", nuclear: "#F39C12", naval: "#2980B9", government: "#9B59B6", oil: "#E67E22", civilian: "#95A5A6" };
+
+    // Iran map config
+    const iranGeo = GCC_GEOGRAPHY.iran;
+    const iranBounds = { latMin: 25.0, latMax: 40.0, lngMin: 44.0, lngMax: 63.0 };
+    const iranToSVG = makeToSVG(iranBounds);
+
+    return (
+      <div dir={isRTL ? "rtl" : "ltr"} style={{ background: BG, minHeight: "100vh", color: TEXT, fontFamily: isRTL ? "'Segoe UI', 'Tahoma', sans-serif" : "'Trebuchet MS', sans-serif", padding: "0 0 40px", overflowX: "hidden" }}>
+        {/* Header */}
+        <div style={{ background: `linear-gradient(135deg, #1A0000 0%, #2A0A0A 50%, #1A0000 100%)`, borderBottom: `1px solid ${BORDER}`, padding: "24px 28px 20px", position: "relative" }}>
+          <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 39px, #401010 39px, #401010 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, #401010 39px, #401010 40px)", opacity: 0.15, pointerEvents: "none" }} />
+          <div style={{ position: "relative" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <span style={{ fontSize: 32 }}>🇮🇷</span>
+              <div>
+                <h1 style={{ margin: 0, fontSize: 20, fontWeight: 800, color: TEXT, fontFamily: isRTL ? "'Segoe UI', sans-serif" : "Georgia, serif" }}>
+                  {t("iran.title")}
+                </h1>
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: 20, fontSize: 11, color: SUBTEXT, marginTop: 8 }}>
+              <span style={{ color: "#DA0000" }}>⚡ {t("header.updated")} {lastUpdated} GST</span>
+              <span>📡 {t("iran.source")}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Country selector */}
+        <div style={{ display: "flex", gap: 8, padding: "16px 28px 0", flexWrap: "wrap" }}>
+          {[{ code: "all", name: t("country.allGcc"), flag: "🌐" }, ...COUNTRY_CONFIG.map(c => ({ ...c, name: t(`country.${c.code}`) })), { code: "_sep" }, { ...IRAN_CONFIG, name: t("country.iran") }].map(c => (
+            c.code === "_sep" ? <div key="_sep" style={{ width: 1, background: BORDER, margin: "4px 4px" }} /> :
+            <button key={c.code} onClick={() => { setSelectedCountry(c.code); setHoveredImpact(null); setSelectedImpact(null); setSelectedSite(null); }}
+              style={{
+                background: selectedCountry === c.code ? (c.color || UAE_GREEN) : "transparent",
+                color: selectedCountry === c.code ? "#fff" : SUBTEXT,
+                border: `1px solid ${selectedCountry === c.code ? (c.color || UAE_GREEN) : BORDER}`,
+                borderRadius: 20, padding: "6px 16px", cursor: "pointer",
+                fontSize: 12, fontWeight: selectedCountry === c.code ? 700 : 500,
+                transition: "all 0.15s", display: "flex", alignItems: "center", gap: 6
+              }}>
+              <span>{c.flag}</span> {c.name}
+            </button>
+          ))}
+        </div>
+
+        {/* Stat cards */}
+        <div style={{ display: "flex", gap: 12, padding: "20px 28px", flexWrap: "wrap" }}>
+          <StatCard label={t("iran.totalStrikes")} value={n(c.totalStrikes).toLocaleString()} sub={t("iran.usIsrael")} color="#DA0000" />
+          <StatCard label={t("iran.sorties")} value={n(c.sorties).toLocaleString()} sub={t("iran.sortiesSub")} color="#F39C12" />
+          <StatCard label={t("iran.killed")} value={n(c.killed).toLocaleString()} sub={`${t("iran.civilian")}: ~${n(c.civilianKilled).toLocaleString()}`} color="#E74C3C" />
+          <StatCard label={t("iran.injured")} value={n(c.injured).toLocaleString()} sub="" color="#E67E22" />
+          <StatCard label={t("iran.launchersDisabled")} value={n(c.launchersDisabled).toLocaleString()} sub={t("iran.launchersSub")} color="#3498DB" />
+        </div>
+
+        <div dir="ltr" style={{ padding: "0 28px" }}>
+          {/* Daily strikes chart */}
+          <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, marginBottom: 20 }}>
+            <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: "#DA0000" }}>{t("iran.dailyStrikes")}</h3>
+            <ResponsiveContainer width="100%" height={280}>
+              <ComposedChart data={strikeChartData} barCategoryGap="20%">
+                <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
+                <XAxis dataKey="day" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} />
+                <YAxis yAxisId="left" tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} />
+                <YAxis yAxisId="right" orientation="right" tick={{ fill: "#E74C3C", fontSize: 10 }} axisLine={false} />
+                <Tooltip content={<CustomTooltip />} />
+                <Legend wrapperStyle={{ fontSize: 11 }} />
+                <Bar yAxisId="left" dataKey="strikes" name={t("iran.strikes")} fill="#DA0000" radius={[4, 4, 0, 0]} opacity={0.85} />
+                <Line yAxisId="right" type="monotone" dataKey="killed" name={t("iran.killed")} stroke="#E74C3C" strokeWidth={2} dot={{ fill: "#E74C3C", r: 3 }} />
+              </ComposedChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Cumulative chart */}
+          <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, marginBottom: 20 }}>
+            <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: "#DA0000" }}>{t("iran.cumulativeTitle")}</h3>
+            <ResponsiveContainer width="100%" height={250}>
+              <AreaChart data={cumulativeChartData}>
+                <defs>
+                  <linearGradient id="gradIranStrikes" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#DA0000" stopOpacity={0.4} />
+                    <stop offset="95%" stopColor="#DA0000" stopOpacity={0} />
+                  </linearGradient>
+                  <linearGradient id="gradIranKilled" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#E74C3C" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="#E74C3C" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
+                <XAxis dataKey="day" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} />
+                <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} />
+                <Tooltip content={<CustomTooltip />} />
+                <Legend wrapperStyle={{ fontSize: 11 }} />
+                <Area type="monotone" dataKey="cumStrikes" name={t("iran.cumStrikes")} stroke="#DA0000" fill="url(#gradIranStrikes)" strokeWidth={2} dot={{ fill: "#DA0000", r: 3 }} />
+                <Area type="monotone" dataKey="cumKilled" name={t("iran.cumKilled")} stroke="#E74C3C" fill="url(#gradIranKilled)" strokeWidth={2} dot={{ fill: "#E74C3C", r: 3 }} />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Target type breakdown + map side by side */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 20, marginBottom: 20 }}>
+            {/* Target type pie */}
+            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+              <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: "#F39C12" }}>{t("iran.targetBreakdown")}</h3>
+              <ResponsiveContainer width="100%" height={250}>
+                <PieChart>
+                  <Pie data={targetTypeData} cx="50%" cy="50%" innerRadius={45} outerRadius={75} dataKey="value" paddingAngle={3}
+                    label={({ cx, cy, midAngle, outerRadius: or, name, value }) => { const RADIAN = Math.PI / 180; const r = or + 20; const x = cx + r * Math.cos(-midAngle * RADIAN); const y = cy + r * Math.sin(-midAngle * RADIAN); return <text x={x} y={y} fill={TEXT} textAnchor={x > cx ? "start" : "end"} dominantBaseline="central" fontSize={10}>{`${name} (${value})`}</text>; }}
+                    labelLine={{ stroke: SUBTEXT, strokeWidth: 1 }}>
+                    {targetTypeData.map((entry, i) => <Cell key={i} fill={TARGET_COLORS[entry.name] || SUBTEXT} stroke="none" />)}
+                  </Pie>
+                  <Tooltip content={<CustomTooltip />} />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Strike map */}
+            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+              <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: "#DA0000" }}>{t("iran.strikeMap")}</h3>
+              <svg viewBox={`0 0 ${SVG_W} ${SVG_H}`} style={{ width: "100%", background: MAP_BG, borderRadius: 8 }}>
+                {/* Iran outline */}
+                {iranGeo && <polygon points={iranGeo.pts.map(([lat, lng]) => { const p = iranToSVG(lat, lng); return `${p.x},${p.y}`; }).join(" ")} fill={MAP_LAND} stroke={MAP_BORDER_COLOR} strokeWidth={1} />}
+                {/* Strike markers */}
+                {targets.map((tgt, i) => {
+                  const p = iranToSVG(tgt.lat, tgt.lng);
+                  const color = TARGET_COLORS[tgt.type] || "#E74C3C";
+                  return (
+                    <g key={i}>
+                      <circle cx={p.x} cy={p.y} r={5} fill={color} opacity={0.7} stroke={color} strokeWidth={1} />
+                      <circle cx={p.x} cy={p.y} r={8} fill="none" stroke={color} strokeWidth={0.5} opacity={0.4} />
+                      {tgt.city === "Tehran" ? null : <text x={p.x + 10} y={p.y + 3} fill={TEXT} fontSize={7} opacity={0.7}>{tgt.city}</text>}
+                    </g>
+                  );
+                })}
+                {/* Tehran label (cluster) */}
+                {(() => { const tp = iranToSVG(35.7, 51.42); return <text x={tp.x + 20} y={tp.y - 15} fill="#E74C3C" fontSize={9} fontWeight={700}>Tehran</text>; })()}
+                {/* Legend */}
+                {Object.entries(TARGET_COLORS).map(([type, color], i) => (
+                  <g key={type} transform={`translate(10, ${SVG_H - 20 - (Object.keys(TARGET_COLORS).length - 1 - i) * 14})`}>
+                    <circle cx={4} cy={-3} r={3} fill={color} />
+                    <text x={12} y={0} fill={TEXT} fontSize={7} opacity={0.7}>{type}</text>
+                  </g>
+                ))}
+              </svg>
+            </div>
+          </div>
+
+          {/* Daily event timeline */}
+          <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, marginBottom: 20 }}>
+            <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: "#F39C12" }}>{t("iran.timeline")}</h3>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {daily.map((d, i) => (
+                <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start", borderLeft: `2px solid #DA0000`, paddingLeft: 16 }}>
+                  <div style={{ minWidth: 60 }}>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: "#DA0000" }}>{d.label}</div>
+                    <div style={{ fontSize: 10, color: SUBTEXT }}>{d.strikes} {t("iran.strikes")}</div>
+                    <div style={{ fontSize: 10, color: "#E74C3C" }}>{d.killed} {t("iran.killedLabel")}</div>
+                  </div>
+                  <div style={{ fontSize: 11, color: TEXT, lineHeight: 1.5 }}>{d.events}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div style={{ textAlign: "center", marginTop: 32, fontSize: 10, color: "#3A4A60" }}>
+          {t("footer.text")}
+          <br />
+          <a href="https://github.com/takahser/uae-dashboard" target="_blank" rel="noopener noreferrer"
+            style={{ color: "#3A4A60", textDecoration: "none", marginTop: 4, display: "inline-flex", alignItems: "center", gap: 4 }}>
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   // When All GCC, aggregate stats across all countries
   const derived = isAllGCC ? (() => {
@@ -727,7 +933,9 @@ export default function Dashboard() {
 
       {/* Country selector */}
       <div style={{ display: "flex", gap: 8, padding: "16px 28px 0", flexWrap: "wrap" }}>
-        {[{ code: "all", name: t("country.allGcc"), flag: "🌐" }, ...COUNTRY_CONFIG.map(c => ({ ...c, name: t(`country.${c.code}`) }))].map(c => (
+        {[{ code: "all", name: t("country.allGcc"), flag: "🌐" }, ...COUNTRY_CONFIG.map(c => ({ ...c, name: t(`country.${c.code}`) })), { code: "_sep" }, { ...IRAN_CONFIG, name: t("country.iran") }].map(c => (
+          c.code === "_sep" ? <div key="_sep" style={{ width: 1, background: BORDER, margin: "4px 4px" }} /> :
+
           <button key={c.code} onClick={() => { setSelectedCountry(c.code); setHoveredImpact(null); setSelectedImpact(null); setSelectedSite(null); }}
             style={{
               background: selectedCountry === c.code ? (c.color || UAE_GREEN) : "transparent",
