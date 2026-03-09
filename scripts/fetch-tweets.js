@@ -12,28 +12,28 @@ const COUNTRIES = [
     file: "data-uae.json",
     source: "modgovae",
     userId: "495832726", // @modgovae
-    keywords: /missile|drone|ballistic|cruise|intercept|attack|iranian|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i,
+    keywords: /missile|drone|UAV|ballistic|cruise|intercept|defen[cs]e|attack|iranian|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i,
   },
   {
     code: "qatar",
     file: "data-qatar.json",
     source: "MOD_Qatar",
     userId: null, // resolve at runtime
-    keywords: /missile|drone|ballistic|cruise|intercept|attack|iranian|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i,
+    keywords: /missile|drone|UAV|ballistic|cruise|intercept|defen[cs]e|attack|iranian|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i,
   },
   {
     code: "kuwait",
     file: "data-kuwait.json",
     source: "MOD_KW",
     userId: "282194628", // @MOD_KW
-    keywords: /missile|drone|ballistic|cruise|intercept|attack|iranian|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i,
+    keywords: /missile|drone|UAV|ballistic|cruise|intercept|defen[cs]e|attack|iranian|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i,
   },
   {
     code: "bahrain",
     file: "data-bahrain.json",
     source: "BDF_Bahrain",
     userId: "491055921", // @BDF_Bahrain
-    keywords: /missile|drone|ballistic|cruise|intercept|attack|iranian|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i,
+    keywords: /missile|drone|UAV|ballistic|cruise|intercept|defen[cs]e|attack|iranian|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i,
   },
 ];
 
@@ -51,7 +51,11 @@ async function xGet(url, bearerToken) {
     const body = await res.text();
     throw new Error(`X API error ${res.status}: ${body}`);
   }
-  return res.json();
+  const json = await res.json();
+  if (json.errors) {
+    log(`WARNING: X API returned errors: ${JSON.stringify(json.errors)}`);
+  }
+  return json;
 }
 
 // ── Resolve user ID by username (only if not hardcoded) ───────────────────
@@ -67,22 +71,36 @@ async function getUserId(username, bearerToken) {
 // ── Fetch tweets since lastTweetId with media expansions ──────────────────
 
 async function fetchNewTweets(userId, sinceId, keywords, bearerToken) {
-  let url = `https://api.twitter.com/2/users/${userId}/tweets?max_results=10&tweet.fields=created_at,text,attachments&expansions=attachments.media_keys&media.fields=url,type`;
-  if (sinceId) url += `&since_id=${sinceId}`;
+  const baseUrl = `https://api.twitter.com/2/users/${userId}/tweets?max_results=100&tweet.fields=created_at,text,attachments&expansions=attachments.media_keys&media.fields=url,type`;
 
-  const data = await xGet(url, bearerToken);
-  if (!data.data || data.data.length === 0) return { tweets: [], media: {} };
-
-  // Build media lookup
+  let allTweets = [];
   const media = {};
-  if (data.includes?.media) {
-    for (const m of data.includes.media) {
-      media[m.media_key] = m;
+  let paginationToken = null;
+
+  // Paginate through all tweets since sinceId
+  do {
+    let url = baseUrl;
+    if (sinceId) url += `&since_id=${sinceId}`;
+    if (paginationToken) url += `&pagination_token=${paginationToken}`;
+
+    const data = await xGet(url, bearerToken);
+    if (!data.data || data.data.length === 0) break;
+
+    // Build media lookup
+    if (data.includes?.media) {
+      for (const m of data.includes.media) {
+        media[m.media_key] = m;
+      }
     }
-  }
+
+    allTweets = allTweets.concat(data.data);
+    paginationToken = data.meta?.next_token || null;
+
+    log(`  Fetched ${data.data.length} tweets (total so far: ${allTweets.length})${paginationToken ? ", fetching next page..." : ""}`);
+  } while (paginationToken);
 
   // Filter to attack-related tweets by keywords OR if tweet has images (stats often posted as images)
-  const tweets = data.data.filter((t) =>
+  const tweets = allTweets.filter((t) =>
     keywords.test(t.text) || (t.attachments?.media_keys?.length > 0)
   );
   return { tweets, media };
