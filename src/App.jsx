@@ -597,19 +597,22 @@ export default function Dashboard() {
 
   useEffect(() => {
     const base = import.meta.env.BASE_URL;
+    const allFiles = [
+      ...COUNTRY_CONFIG.map(c => ({ code: c.code, file: c.file })),
+      { code: "iran", file: IRAN_CONFIG.file },
+    ];
     Promise.all(
-      COUNTRY_CONFIG.map(c =>
+      allFiles.map(c =>
         fetch(base + c.file).then(r => r.ok ? r.json() : null).catch(() => null)
       )
     ).then(results => {
       const data = {};
-      COUNTRY_CONFIG.forEach((c, i) => { if (results[i]) data[c.code] = results[i]; });
+      allFiles.forEach((c, i) => { if (results[i]) data[c.code] = results[i]; });
       if (Object.keys(data).length === 0) { setError("Failed to load data files"); return; }
       setAllData(data);
     });
-    // Load flight data + Iran data
+    // Load flight data
     fetch(base + "data-flights-dxb.json").then(r => r.ok ? r.json() : null).then(d => setFlightData(d)).catch(() => {});
-    fetch(base + IRAN_CONFIG.file).then(r => r.ok ? r.json() : null).then(d => { if (d) setAllData(prev => prev ? { ...prev, iran: d } : prev); }).catch(() => {});
   }, []);
 
   if (error) return <div style={{ background: BG, color: IMPACTED, padding: 40, fontFamily: "monospace" }}>{error}</div>;
