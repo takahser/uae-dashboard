@@ -116,7 +116,7 @@ const MAP_CONFIGS = {
     title: "LIVE INTEL — KUWAIT IMPACT MAP",
     subtitle: "CONFIRMED STRIKE LOCATIONS",
     regions: [
-      { name: "KUWAIT", labelLat: 29.3, labelLng: 47.5, pts: [[30.10,47.70],[30.00,48.00],[29.86,48.05],[29.36,48.40],[29.10,48.42],[29.00,48.15],[28.80,48.10],[28.55,47.70],[28.55,47.43],[28.67,47.45],[29.10,47.00],[29.35,47.00],[29.35,47.15],[29.57,47.45],[29.80,47.70],[30.10,47.70]] },
+      { name: "KUWAIT", labelLat: 29.3, labelLng: 47.5, pts: [[30.10,47.70],[30.00,48.00],[29.86,48.05],[29.36,48.40],[29.10,48.42],[29.00,48.15],[28.75,48.40],[28.55,48.05],[28.55,47.70],[28.55,47.43],[28.67,47.45],[29.10,47.00],[29.35,47.00],[29.35,47.15],[29.57,47.45],[29.80,47.70],[30.10,47.70]] },
     ],
     impacts: [
       { id: 1, name: "Ali Al Salem Air Base (vicinity)", type: "drone_hit", date: "1 Mar", casualties: "None", lat: 29.3467, lng: 47.5208, region: "Al Jahra" },
@@ -177,11 +177,11 @@ const GCC_GEOGRAPHY = {
       { id: "sa-s6", name: "Eskan Village", type: "US Military Housing", lat: 24.5953, lng: 46.7116 },
       { id: "sa-s7", name: "THAAD Battery (Yanbu)", type: "US THAAD", lat: 24.0890, lng: 38.0634 },
       { id: "sa-s8", name: "Israeli Embassy Riyadh", type: "IL Embassy", lat: 24.7300, lng: 46.6700 },
-      { id: "sa-d1", name: "Jubail Desal (SWCC)", type: "Desalination", siteType: "desal", lat: 26.9540, lng: 49.5700 },
-      { id: "sa-d2", name: "Ras Al-Khair Desal", type: "Desalination", siteType: "desal", lat: 27.1500, lng: 49.2200 },
-      { id: "sa-d3", name: "Shoaiba Desal", type: "Desalination", siteType: "desal", lat: 20.7100, lng: 39.4800 },
-      { id: "sa-d4", name: "Yanbu Desal", type: "Desalination", siteType: "desal", lat: 24.0900, lng: 38.0500 },
-      { id: "sa-d5", name: "Al Khobar Desal", type: "Desalination", siteType: "desal", lat: 26.3200, lng: 50.1500 },
+      { id: "sa-d1", name: "Jubail Desal (SWCC)", type: "Desalination", siteType: "desal", lat: 27.0110, lng: 49.6580 },
+      { id: "sa-d2", name: "Ras Al-Khair Desal", type: "Desalination", siteType: "desal", lat: 27.4800, lng: 49.2300 },
+      { id: "sa-d3", name: "Shoaiba Desal", type: "Desalination", siteType: "desal", lat: 21.4200, lng: 39.2500 },
+      { id: "sa-d4", name: "Yanbu Desal", type: "Desalination", siteType: "desal", lat: 24.0890, lng: 38.0650 },
+      { id: "sa-d5", name: "Al Khobar Desal", type: "Desalination", siteType: "desal", lat: 26.2800, lng: 50.2100 },
     ],
     pts: [
       // Red Sea coast (north to south)
@@ -192,8 +192,8 @@ const GCC_GEOGRAPHY = {
       [20.5,55.0],[21.5,55.0],[22.0,55.0],[22.50,55.01],
       // Saudi-UAE border (tripoint northwest through Rub al Khali to Qatar)
       [23.00,52.00],[23.98,51.57],[24.36,51.58],
-      // Persian Gulf coast (south to north)
-      [24.00,49.50],[24.00,49.0],[24.50,48.50],[25.00,48.00],[25.50,47.80],[26.00,47.50],[26.50,47.30],[27.00,47.80],[27.50,48.00],[28.00,48.40],[28.50,48.50],
+      // Persian Gulf coast (south to north — includes Dammam/Jubail bulge)
+      [24.70,50.80],[25.00,50.70],[25.30,50.55],[25.70,50.40],[26.10,50.30],[26.50,50.15],[27.00,49.95],[27.40,49.30],[27.80,48.80],[28.20,48.55],[28.50,48.50],
       // Kuwait border area
       [28.55,47.70],[28.55,47.43],[28.67,47.45],[29.10,47.00],[29.35,47.00],
       // Iraq/Jordan border north
@@ -1087,7 +1087,10 @@ export default function Dashboard() {
           const proj = makeToSVG(mapConf.bounds);
           // Merge all country impacts/sites for All GCC view
           const impacts = isAllGCC
-            ? Object.values(MAP_CONFIGS).flatMap((mc, ci) => (mc.impacts || []).map(imp => ({ ...imp, id: `${ci}-${imp.id}`, _country: COUNTRY_CONFIG[ci]?.flag })))
+            ? [
+                ...Object.values(MAP_CONFIGS).flatMap((mc, ci) => (mc.impacts || []).map(imp => ({ ...imp, id: `${ci}-${imp.id}`, _country: COUNTRY_CONFIG[ci]?.flag }))),
+                ...((allData.iran?.keyTargets || []).map((t, i) => ({ id: `iran-${i}`, name: t.name, type: "direct_hit", date: t.date, casualties: t.status, lat: t.lat, lng: t.lng, region: t.city, _country: IRAN_CONFIG.flag, _iran: true }))),
+              ]
             : (mapConf.impacts || []);
           const sites = isAllGCC
             ? [
@@ -1228,9 +1231,9 @@ export default function Dashboard() {
                 {/* Impact markers */}
                 {impacts.map(loc => {
                   const { x, y } = proj(loc.lat, loc.lng);
-                  const color = loc.type === "drone_hit" ? DRONE_HIT : DEBRIS_HIT;
+                  const color = loc._iran ? "#DA0000" : loc.type === "drone_hit" ? DRONE_HIT : DEBRIS_HIT;
                   const hasCasualties = loc.casualties !== "None";
-                  const filterId = loc.type === "drone_hit" ? "glowRed" : "glowOrange";
+                  const filterId = loc._iran ? "glowRed" : loc.type === "drone_hit" ? "glowRed" : "glowOrange";
                   return (
                     <g key={loc.id}
                       onMouseEnter={() => setHoveredImpact(loc)}
@@ -1252,7 +1255,7 @@ export default function Dashboard() {
 
                 {/* Legend */}
                 <g transform={`translate(${SVG_W - 195}, 16)`}>
-                  <rect x="-8" y="-8" width="190" height={showStrategicSites ? 84 : 50} rx="4" fill="#060A14" fillOpacity="0.85" stroke={MAP_BORDER_COLOR} strokeWidth="0.5" />
+                  <rect x="-8" y="-8" width="190" height={showStrategicSites ? (isAllGCC ? 100 : 84) : (isAllGCC ? 66 : 50)} rx="4" fill="#060A14" fillOpacity="0.85" stroke={MAP_BORDER_COLOR} strokeWidth="0.5" />
                   <circle cx="6" cy="6" r="4" fill={DRONE_HIT} />
                   <text x="16" y="9" fill="#AAB8CC" fontSize="7" fontFamily="monospace">{t("intel.directHit")}</text>
                   <circle cx="6" cy="22" r="4" fill={DEBRIS_HIT} />
@@ -1260,12 +1263,16 @@ export default function Dashboard() {
                   <circle cx="6" cy="38" r="3" fill="none" stroke={DRONE_HIT} strokeWidth="1" className="pulse-ring-fast" />
                   <circle cx="6" cy="38" r="2" fill={DRONE_HIT} />
                   <text x="16" y="41" fill="#AAB8CC" fontSize="7" fontFamily="monospace">{t("intel.casualties")}</text>
+                  {isAllGCC && <>
+                    <circle cx="6" cy="54" r="4" fill="#DA0000" />
+                    <text x="16" y="57" fill="#AAB8CC" fontSize="7" fontFamily="monospace">IRAN STRIKE (US/IL)</text>
+                  </>}
                   {showStrategicSites && <>
-                    <polygon points="6,50 10,54 6,58 2,54" fill={STRATEGIC_BLUE} />
-                    <text x="16" y="57" fill="#AAB8CC" fontSize="7" fontFamily="monospace">{t("intel.strategic")}</text>
-                    <circle cx="6" cy="70" r="4" fill="none" stroke={DESAL_CYAN} strokeWidth="1.5" />
-                    <circle cx="6" cy="70" r="1.5" fill={DESAL_CYAN} />
-                    <text x="16" y="73" fill="#AAB8CC" fontSize="7" fontFamily="monospace">{t("intel.desalination")}</text>
+                    <polygon points={isAllGCC ? "6,66 10,70 6,74 2,70" : "6,50 10,54 6,58 2,54"} fill={STRATEGIC_BLUE} />
+                    <text x="16" y={isAllGCC ? 73 : 57} fill="#AAB8CC" fontSize="7" fontFamily="monospace">{t("intel.strategic")}</text>
+                    <circle cx="6" cy={isAllGCC ? 86 : 70} r="4" fill="none" stroke={DESAL_CYAN} strokeWidth="1.5" />
+                    <circle cx="6" cy={isAllGCC ? 86 : 70} r="1.5" fill={DESAL_CYAN} />
+                    <text x="16" y={isAllGCC ? 89 : 73} fill="#AAB8CC" fontSize="7" fontFamily="monospace">{t("intel.desalination")}</text>
                   </>}
                 </g>
 
@@ -1298,7 +1305,7 @@ export default function Dashboard() {
                 const { x, y } = proj(hoveredImpact.lat, hoveredImpact.lng);
                 const pctX = (x / SVG_W) * 100;
                 const pctY = (y / SVG_H) * 100;
-                const color = hoveredImpact.type === "drone_hit" ? DRONE_HIT : DEBRIS_HIT;
+                const color = hoveredImpact._iran ? "#DA0000" : hoveredImpact.type === "drone_hit" ? DRONE_HIT : DEBRIS_HIT;
                 return (
                   <div style={{
                     position: "absolute", left: `${pctX}%`, top: `${pctY}%`,
@@ -1311,7 +1318,7 @@ export default function Dashboard() {
                       {hoveredImpact.name}
                     </div>
                     <div style={{ fontFamily: "monospace", fontSize: 9, color: "#8899BB", lineHeight: 1.6 }}>
-                      <div>{t("intel.type")} {hoveredImpact.type === "drone_hit" ? t("intel.directHitLabel") : t("intel.debrisLabel")}</div>
+                      <div>{t("intel.type")} {hoveredImpact._iran ? "IRAN STRIKE (US/IL)" : hoveredImpact.type === "drone_hit" ? t("intel.directHitLabel") : t("intel.debrisLabel")}</div>
                       <div>{t("intel.date")} {hoveredImpact.date.toUpperCase()}</div>
                       <div>{t("intel.region")} {(hoveredImpact.region || hoveredImpact.emirate || "").toUpperCase()}</div>
                       <div style={{ color: hoveredImpact.casualties !== "None" ? "#E74C3C" : "#556677" }}>
