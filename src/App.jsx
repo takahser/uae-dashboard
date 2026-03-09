@@ -176,11 +176,11 @@ const GCC_GEOGRAPHY = {
       { id: "sa-s6", name: "Eskan Village", type: "US Military Housing", lat: 24.5953, lng: 46.7116 },
       { id: "sa-s7", name: "THAAD Battery (Yanbu)", type: "US THAAD", lat: 24.0890, lng: 38.0634 },
       { id: "sa-s8", name: "Israeli Embassy Riyadh", type: "IL Embassy", lat: 24.7300, lng: 46.6700 },
-      { id: "sa-d1", name: "Jubail Desal (SWCC)", type: "Desalination", siteType: "desal", lat: 26.9100, lng: 49.7690 },
-      { id: "sa-d2", name: "Ras Al-Khair Desal", type: "Desalination", siteType: "desal", lat: 27.4558, lng: 49.3002 },
-      { id: "sa-d3", name: "Shoaiba Desal", type: "Desalination", siteType: "desal", lat: 20.6801, lng: 39.5232 },
-      { id: "sa-d4", name: "Yanbu Desal", type: "Desalination", siteType: "desal", lat: 23.9745, lng: 38.2148 },
-      { id: "sa-d5", name: "Al Khobar Desal", type: "Desalination", siteType: "desal", lat: 26.2794, lng: 50.2083 },
+      { id: "sa-d1", name: "Jubail Desal (SWCC)", type: "Desalination", siteType: "desal", lat: 26.9540, lng: 49.5700 },
+      { id: "sa-d2", name: "Ras Al-Khair Desal", type: "Desalination", siteType: "desal", lat: 27.1500, lng: 49.2200 },
+      { id: "sa-d3", name: "Shoaiba Desal", type: "Desalination", siteType: "desal", lat: 20.7100, lng: 39.4800 },
+      { id: "sa-d4", name: "Yanbu Desal", type: "Desalination", siteType: "desal", lat: 24.0900, lng: 38.0500 },
+      { id: "sa-d5", name: "Al Khobar Desal", type: "Desalination", siteType: "desal", lat: 26.3200, lng: 50.1500 },
     ],
     pts: [
       // Red Sea coast (north to south)
