@@ -1,21 +1,21 @@
 {
-  "lastUpdated": "2026-03-08T22:06:03.849Z",
+  "lastUpdated": "2026-03-09T10:19:09.207Z",
   "sources": {
     "BDF_Bahrain": {
-      "lastTweetId": "2030746935661846537"
+      "lastTweetId": "2030930052318126222"
     }
   },
   "cumulative": {
-    "ballisticDetected": 95,
-    "ballisticIntercepted": 95,
+    "ballisticDetected": 102,
+    "ballisticIntercepted": 102,
     "ballisticSea": null,
     "ballisticImpacted": null,
     "cruiseDetected": null,
     "cruiseIntercepted": null,
     "cruiseSea": null,
     "cruiseImpacted": null,
-    "dronesDetected": 164,
-    "dronesIntercepted": 164,
+    "dronesDetected": 171,
+    "dronesIntercepted": 171,
     "dronesSea": null,
     "dronesImpacted": null,
     "missilesIntercepted": 75,
@@ -110,6 +110,20 @@
       "dronesIntercepted": 0,
       "dronesImpacted": 0,
       "total": 0
+    },
+    {
+      "date": "2026-03-09",
+      "label": "9 Mar",
+      "ballisticDetected": 7,
+      "ballisticIntercepted": 7,
+      "ballisticSea": 0,
+      "ballisticImpacted": 0,
+      "cruiseDetected": 0,
+      "cruiseIntercepted": 0,
+      "dronesDetected": 7,
+      "dronesIntercepted": 7,
+      "dronesImpacted": 0,
+      "total": 14
     }
   ]
 }
