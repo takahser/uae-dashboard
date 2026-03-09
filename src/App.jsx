@@ -1434,10 +1434,10 @@ export default function Dashboard() {
         {activeTab === "rates" && !isAllGCC && (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
             {[
-              n(cumulative.ballisticDetected) > 0 && { label: "Ballistic Missiles", intercepted: n(cumulative.ballisticIntercepted), total: n(cumulative.ballisticDetected), rate: rateData.find(r => r.category.includes("Ballistic"))?.rate, color: "#2980B9" },
-              n(cumulative.cruiseDetected) > 0 && { label: "Cruise Missiles", intercepted: n(cumulative.cruiseIntercepted), total: n(cumulative.cruiseDetected), rate: rateData.find(r => r.category.includes("Cruise"))?.rate, color: UAE_GOLD },
-              n(cumulative.dronesDetected) > 0 && { label: "Drones (UAVs)", intercepted: n(cumulative.dronesIntercepted), total: n(cumulative.dronesDetected), rate: rateData.find(r => r.category === "Drones")?.rate, color: INTERCEPTED },
-              { label: "Overall", intercepted: totalIntercepted, total: totalDetected, rate: overallRate, color: "#9B59B6" },
+              n(cumulative.ballisticDetected) > 0 && { label: t("chart.ballisticMissiles"), intercepted: n(cumulative.ballisticIntercepted), total: n(cumulative.ballisticDetected), rate: +((n(cumulative.ballisticIntercepted) / n(cumulative.ballisticDetected)) * 100).toFixed(1), color: "#2980B9" },
+              n(cumulative.cruiseDetected) > 0 && { label: t("chart.cruiseMissiles"), intercepted: n(cumulative.cruiseIntercepted), total: n(cumulative.cruiseDetected), rate: +((n(cumulative.cruiseIntercepted) / n(cumulative.cruiseDetected)) * 100).toFixed(1), color: UAE_GOLD },
+              n(cumulative.dronesDetected) > 0 && { label: t("chart.drones"), intercepted: n(cumulative.dronesIntercepted), total: n(cumulative.dronesDetected), rate: +((n(cumulative.dronesIntercepted) / n(cumulative.dronesDetected)) * 100).toFixed(1), color: INTERCEPTED },
+              { label: t("chart.overall"), intercepted: totalIntercepted, total: totalDetected, rate: overallRate, color: "#9B59B6" },
             ].filter(Boolean).map((item, i) => (
               <div key={i} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 24 }}>
                 <div style={{ fontSize: 12, color: SUBTEXT, textTransform: "uppercase", letterSpacing: 2, marginBottom: 8 }}>{item.label}</div>
