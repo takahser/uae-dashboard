@@ -1,19 +1,19 @@
 {
   "airport": "OMDB",
   "airportName": "Dubai International (DXB)",
-  "lastUpdated": "2026-03-09T01:01:59.934535+00:00",
+  "lastUpdated": "2026-03-10T06:08:53.506Z",
   "baselineDailyAvg": {
-    "total": 1188,
-    "departures": 580,
-    "arrivals": 608,
+    "total": 1065,
+    "departures": 522,
+    "arrivals": 542,
     "regions": {
-      "South Asia": 120,
-      "Europe": 284,
-      "Unknown": 558,
-      "Asia-Pacific": 62,
-      "Americas": 31,
-      "Middle East": 108,
-      "Africa": 24,
+      "South Asia": 103,
+      "Europe": 253,
+      "Unknown": 509,
+      "Asia-Pacific": 55,
+      "Americas": 28,
+      "Middle East": 95,
+      "Africa": 20,
       "Other": 2
     }
   },
@@ -279,6 +279,21 @@
       "total": 2,
       "regions": {
         "Unknown": 2
+      }
+    },
+    {
+      "date": "2026-03-09",
+      "departures": 558,
+      "arrivals": 573,
+      "total": 1131,
+      "regions": {
+        "Asia-Pacific": 122,
+        "Africa": 114,
+        "South Asia": 269,
+        "Middle East": 223,
+        "Europe": 368,
+        "Americas": 34,
+        "Other": 1
       }
     }
   ]

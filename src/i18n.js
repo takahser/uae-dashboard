@@ -54,7 +54,7 @@ const translations = {
     "tab.flights": "Flights",
 
     // Flights tab
-    "flights.title": "DXB Airport Flight Tracker",
+    "flights.title": "UAE Airport Flight Tracker",
     "flights.subtitle": "Daily operated flights vs pre-conflict baseline",
     "flights.baseline": "Pre-conflict baseline",
     "flights.capacity": "Capacity",
@@ -341,7 +341,7 @@ const translations = {
     "tab.flights": "الرحلات",
 
     // Flights tab
-    "flights.title": "متتبع رحلات مطار دبي الدولي",
+    "flights.title": "متتبع رحلات المطارات الإماراتية",
     "flights.subtitle": "الرحلات اليومية مقابل خط الأساس قبل النزاع",
     "flights.baseline": "خط الأساس قبل النزاع",
     "flights.capacity": "السعة",

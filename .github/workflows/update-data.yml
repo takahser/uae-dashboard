@@ -36,11 +36,15 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: node scripts/fetch-tweets.js
 
-      - name: Fetch DXB flight data
+      - name: Fetch DXB flight data (OpenSky)
         env:
           OPENSKY_CLIENT_ID: ${{ secrets.OPENSKY_CLIENT_ID }}
           OPENSKY_CLIENT_SECRET: ${{ secrets.OPENSKY_CLIENT_SECRET }}
         run: node scripts/fetch-flights.js
+        continue-on-error: true
+
+      - name: Fetch flight data via FR24 (DXB, DWC, AUH)
+        run: node scripts/fetch-flights-fr24.js
         continue-on-error: true
 
       - name: Commit updated data files (if changed)

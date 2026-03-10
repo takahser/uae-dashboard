@@ -592,6 +592,9 @@ export default function Dashboard() {
   const [selectedSite, setSelectedSite] = useState(null);
   const [lang, setLang] = useState("en");
   const [flightData, setFlightData] = useState(null);
+  const [flightDataDwc, setFlightDataDwc] = useState(null);
+  const [flightDataAuh, setFlightDataAuh] = useState(null);
+  const [selectedAirport, setSelectedAirport] = useState("DXB");
   const t = createT(lang);
   const isRTL = lang === "ar";
 
@@ -611,8 +614,10 @@ export default function Dashboard() {
       if (Object.keys(data).length === 0) { setError("Failed to load data files"); return; }
       setAllData(data);
     });
-    // Load flight data
+    // Load flight data for all airports
     fetch(base + "data-flights-dxb.json").then(r => r.ok ? r.json() : null).then(d => setFlightData(d)).catch(() => {});
+    fetch(base + "data-flights-dwc.json").then(r => r.ok ? r.json() : null).then(d => setFlightDataDwc(d)).catch(() => {});
+    fetch(base + "data-flights-auh.json").then(r => r.ok ? r.json() : null).then(d => setFlightDataAuh(d)).catch(() => {});
   }, []);
 
   if (error) return <div style={{ background: BG, color: IMPACTED, padding: 40, fontFamily: "monospace" }}>{error}</div>;
@@ -1995,15 +2000,32 @@ export default function Dashboard() {
       </div>
 
       {activeTab === "flights" && (() => {
-        if (!flightData) return <div style={{ padding: 40, textAlign: "center", color: SUBTEXT }}>{t("flights.noData")}</div>;
+        const airportDataMap = { DXB: flightData, DWC: flightDataDwc, AUH: flightDataAuh };
+        const currentFlightData = airportDataMap[selectedAirport];
+
+        if (!currentFlightData) return (
+          <div style={{ padding: "0 20px" }}>
+            {/* Airport sub-tabs */}
+            <div style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap" }}>
+              {["DXB", "DWC", "AUH"].map(code => (
+                <button key={code} onClick={() => setSelectedAirport(code)} style={{
+                  padding: "6px 16px", borderRadius: 6, border: `1px solid ${BORDER}`, cursor: "pointer", fontSize: 13, fontWeight: 600,
+                  background: selectedAirport === code ? ACCENT : "transparent",
+                  color: selectedAirport === code ? "#fff" : TEXT,
+                }}>{code}</button>
+              ))}
+            </div>
+            <div style={{ padding: 40, textAlign: "center", color: SUBTEXT }}>{t("flights.noData")}</div>
+          </div>
+        );
 
         const FLIGHT_GREEN = "#2ECC71";
         const FLIGHT_AMBER = "#F39C12";
         const FLIGHT_RED = "#E74C3C";
         const FLIGHT_BLUE = "#3498DB";
 
-        const baseline = flightData.baselineDailyAvg;
-        const daily = flightData.daily || [];
+        const baseline = currentFlightData.baselineDailyAvg;
+        const daily = currentFlightData.daily || [];
 
         // Split into pre-conflict and conflict periods
         const conflictStart = "2026-02-28";
@@ -2019,12 +2041,12 @@ export default function Dashboard() {
           departures: d.departures,
           arrivals: d.arrivals,
           baseline: baseline.total,
-          capacity: d.total > 0 ? Math.round((d.total / baseline.total) * 100) : 0,
+          capacity: d.total > 0 && baseline.total > 0 ? Math.round((d.total / baseline.total) * 100) : 0,
         }));
 
         // Latest day stats
         const latest = conflictDays.length > 0 ? conflictDays[conflictDays.length - 1] : null;
-        const latestCapacity = latest ? Math.round((latest.total / baseline.total) * 100) : 0;
+        const latestCapacity = latest && baseline.total > 0 ? Math.round((latest.total / baseline.total) * 100) : 0;
 
         // Regional breakdown for latest conflict day vs baseline
         const REGION_KEYS = ["Middle East", "Europe", "South Asia", "Asia-Pacific", "Africa", "Americas"];
@@ -2060,9 +2082,20 @@ export default function Dashboard() {
         return (
           <div style={{ padding: "0 20px" }}>
             {/* Title */}
-            <div style={{ marginBottom: 20 }}>
+            <div style={{ marginBottom: 12 }}>
               <h2 style={{ margin: 0, fontSize: 18, fontWeight: 700, color: TEXT }}>{t("flights.title")}</h2>
               <div style={{ fontSize: 12, color: SUBTEXT, marginTop: 4 }}>{t("flights.subtitle")}</div>
+            </div>
+
+            {/* Airport sub-tabs */}
+            <div style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap" }}>
+              {["DXB", "DWC", "AUH"].map(code => (
+                <button key={code} onClick={() => setSelectedAirport(code)} style={{
+                  padding: "6px 16px", borderRadius: 6, border: `1px solid ${BORDER}`, cursor: "pointer", fontSize: 13, fontWeight: 600,
+                  background: selectedAirport === code ? ACCENT : "transparent",
+                  color: selectedAirport === code ? "#fff" : TEXT,
+                }}>{code}</button>
+              ))}
             </div>
 
             {/* Summary stat cards */}
@@ -2074,7 +2107,7 @@ export default function Dashboard() {
 
             {/* Main chart: daily flights vs baseline */}
             <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: 20, marginBottom: 24 }}>
-              <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: TEXT }}>{t("flights.total")} — DXB</h3>
+              <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: TEXT }}>{t("flights.total")} — {selectedAirport}</h3>
               <ResponsiveContainer width="100%" height={300}>
                 <ComposedChart data={chartData} barCategoryGap="15%">
                   <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
@@ -2146,7 +2179,7 @@ export default function Dashboard() {
               ))}
             </div>
 
-            <div style={{ fontSize: 10, color: "#3A4A60", textAlign: "center" }}>{t("flights.source")}</div>
+            <div style={{ fontSize: 10, color: "#3A4A60", textAlign: "center" }}>{t("flights.source")} / Flightradar24</div>
           </div>
         );
       })()}
