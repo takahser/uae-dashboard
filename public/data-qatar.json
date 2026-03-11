@@ -1,23 +1,23 @@
 {
-  "lastUpdated": "2026-03-09T14:22:39.529Z",
+  "lastUpdated": "2026-03-10T21:00:00Z",
   "sources": {
     "MOD_Qatar": {
       "lastTweetId": "2031602654103876063"
     }
   },
   "cumulative": {
-    "ballisticDetected": 17,
-    "ballisticIntercepted": 17,
+    "ballisticDetected": 26,
+    "ballisticIntercepted": 25,
     "ballisticSea": 3,
-    "ballisticImpacted": 0,
-    "cruiseDetected": 3,
-    "cruiseIntercepted": 3,
+    "ballisticImpacted": 1,
+    "cruiseDetected": 5,
+    "cruiseIntercepted": 5,
     "cruiseSea": 0,
     "cruiseImpacted": 0,
-    "dronesDetected": 6,
-    "dronesIntercepted": 6,
+    "dronesDetected": 27,
+    "dronesIntercepted": 17,
     "dronesSea": 0,
-    "dronesImpacted": 0,
+    "dronesImpacted": 10,
     "killed": 0,
     "injured": 0,
     "notes": "2 Su-24 jets shot down"
@@ -78,6 +78,76 @@
       "dronesIntercepted": 2,
       "dronesImpacted": 2,
       "total": 19
+    },
+    {
+      "date": "2026-03-06",
+      "label": "6 Mar",
+      "ballisticDetected": 3,
+      "ballisticIntercepted": 3,
+      "ballisticSea": 0,
+      "ballisticImpacted": 0,
+      "cruiseDetected": 1,
+      "cruiseIntercepted": 1,
+      "dronesDetected": 5,
+      "dronesIntercepted": 3,
+      "dronesImpacted": 2,
+      "total": 9
+    },
+    {
+      "date": "2026-03-07",
+      "label": "7 Mar",
+      "ballisticDetected": 2,
+      "ballisticIntercepted": 2,
+      "ballisticSea": 0,
+      "ballisticImpacted": 0,
+      "cruiseDetected": 1,
+      "cruiseIntercepted": 1,
+      "dronesDetected": 6,
+      "dronesIntercepted": 4,
+      "dronesImpacted": 2,
+      "total": 9
+    },
+    {
+      "date": "2026-03-08",
+      "label": "8 Mar",
+      "ballisticDetected": 2,
+      "ballisticIntercepted": 2,
+      "ballisticSea": 0,
+      "ballisticImpacted": 0,
+      "cruiseDetected": 0,
+      "cruiseIntercepted": 0,
+      "dronesDetected": 4,
+      "dronesIntercepted": 2,
+      "dronesImpacted": 2,
+      "total": 6
+    },
+    {
+      "date": "2026-03-09",
+      "label": "9 Mar",
+      "ballisticDetected": 1,
+      "ballisticIntercepted": 1,
+      "ballisticSea": 0,
+      "ballisticImpacted": 0,
+      "cruiseDetected": 0,
+      "cruiseIntercepted": 0,
+      "dronesDetected": 3,
+      "dronesIntercepted": 2,
+      "dronesImpacted": 1,
+      "total": 4
+    },
+    {
+      "date": "2026-03-10",
+      "label": "10 Mar",
+      "ballisticDetected": 1,
+      "ballisticIntercepted": 0,
+      "ballisticSea": 0,
+      "ballisticImpacted": 1,
+      "cruiseDetected": 0,
+      "cruiseIntercepted": 0,
+      "dronesDetected": 3,
+      "dronesIntercepted": 0,
+      "dronesImpacted": 3,
+      "total": 4
     }
   ]
 }
