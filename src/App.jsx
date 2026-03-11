@@ -586,8 +586,8 @@ const StatCard = ({ label, value, sub, color = UAE_GOLD }) => (
   </div>
 );
 
-export default function Dashboard() {
-  const [activeTab, setActiveTab] = useState("intel");
+function Dashboard({ initialTab, onBack }) {
+  const [activeTab, setActiveTab] = useState(initialTab || "intel");
   const [hoveredImpact, setHoveredImpact] = useState(null);
   const [selectedImpact, setSelectedImpact] = useState(null);
   const [allData, setAllData] = useState(null);
@@ -897,6 +897,14 @@ export default function Dashboard() {
 
   return (
     <div dir={isRTL ? "rtl" : "ltr"} style={{ background: BG, minHeight: "100vh", color: TEXT, fontFamily: isRTL ? "'Segoe UI', 'Tahoma', sans-serif" : "'Trebuchet MS', sans-serif", padding: "0 0 40px", overflowX: "hidden" }}>
+      {onBack && (
+        <button
+          onClick={onBack}
+          style={{ background: 'none', border: 'none', color: '#C4A135', cursor: 'pointer', fontSize: '0.95rem', padding: '12px 20px' }}
+        >
+          ← Back
+        </button>
+      )}
       {/* Header */}
       <div style={{
         background: `linear-gradient(135deg, #060C1A 0%, #0C1830 50%, #060C1A 100%)`,
@@ -2243,4 +2251,16 @@ export default function Dashboard() {
       </div>
     </div>
   );
+}
+
+import Landing from "./Landing";
+import HormuzView from "./views/HormuzView";
+
+export default function App() {
+  const [appView, setAppView] = useState(null);
+
+  if (appView === null) return <Landing onSelect={setAppView} />;
+  if (appView === "hormuz") return <HormuzView onBack={() => setAppView(null)} />;
+  if (appView === "flights") return <Dashboard initialTab="flights" onBack={() => setAppView(null)} />;
+  return <Dashboard onBack={() => setAppView(null)} />;
 }
