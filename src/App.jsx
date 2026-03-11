@@ -486,12 +486,21 @@ function buildDerivedData(raw, t) {
 
   const hasDailyData = daily && daily.length > 0;
 
-  const dailyData = hasDailyData ? daily.map((d, i) => ({
-    day: d.label, label: `Day ${i + 1}`,
-    ballistic: n(d.ballisticDetected), drones: n(d.dronesDetected), cruise: n(d.cruiseDetected),
-    ballisticIntercepted: n(d.ballisticIntercepted), droneIntercepted: n(d.dronesIntercepted),
-    droneImpact: n(d.dronesImpacted), ballisticSea: n(d.ballisticSea),
-  })) : [];
+  const dailyData = hasDailyData ? daily.map((d, i) => {
+    const bDet = n(d.ballisticDetected), bInt = n(d.ballisticIntercepted);
+    const dDet = n(d.dronesDetected), dInt = n(d.dronesIntercepted);
+    const totalDet = bDet + dDet + n(d.cruiseDetected);
+    const totalInt = bInt + dInt + n(d.cruiseIntercepted);
+    return {
+      day: d.label, label: `Day ${i + 1}`,
+      ballistic: bDet, drones: dDet, cruise: n(d.cruiseDetected),
+      ballisticIntercepted: bInt, droneIntercepted: dInt,
+      droneImpact: n(d.dronesImpacted), ballisticSea: n(d.ballisticSea),
+      ballisticRate: bDet > 0 ? +((bInt / bDet) * 100).toFixed(1) : null,
+      droneRate: dDet > 0 ? +((dInt / dDet) * 100).toFixed(1) : null,
+      overallRate: totalDet > 0 ? +((totalInt / totalDet) * 100).toFixed(1) : null,
+    };
+  }) : [];
 
   let runDetected = 0, runIntercepted = 0, runImpacted = 0;
   const cumulativeData = hasDailyData ? daily.map((d) => {
@@ -2008,7 +2017,8 @@ export default function Dashboard() {
         const airportCodes = ["DXB", "DWC", "AUH", "MCT", "DOH"];
         const currentFlightData = airportDataMap[selectedAirport];
 
-        if (!currentFlightData || !currentFlightData.daily || currentFlightData.daily.length === 0) return (
+        const hasRealFlightData = currentFlightData && currentFlightData.daily && currentFlightData.daily.length > 0 && currentFlightData.daily.some(d => d.total > 0);
+        if (!currentFlightData || !currentFlightData.daily || currentFlightData.daily.length === 0 || !hasRealFlightData) return (
           <div style={{ padding: "0 20px" }}>
             {/* Airport sub-tabs */}
             <div style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap" }}>
