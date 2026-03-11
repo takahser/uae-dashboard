@@ -22,6 +22,8 @@ const AIRPORTS = [
   { iata: "DXB", icao: "OMDB", name: "Dubai International (DXB)" },
   { iata: "DWC", icao: "OMDW", name: "Al Maktoum International (DWC)" },
   { iata: "AUH", icao: "OMAA", name: "Abu Dhabi International (AUH)" },
+  { iata: "MCT", icao: "OOMS", name: "Muscat International (MCT)" },
+  { iata: "DOH", icao: "OTHH", name: "Hamad International (DOH)" },
 ];
 
 // Region classification by IATA country/area codes (common prefixes)
