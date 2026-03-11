@@ -2041,7 +2041,7 @@ export default function Dashboard() {
               {airportCodes.map(code => (
                 <button key={code} onClick={() => setSelectedAirport(code)} style={{
                   padding: "6px 16px", borderRadius: 6, border: `1px solid ${BORDER}`, cursor: "pointer", fontSize: 13, fontWeight: 600,
-                  background: selectedAirport === code ? ACCENT : "transparent",
+                  background: selectedAirport === code ? UAE_GREEN : "transparent",
                   color: selectedAirport === code ? "#fff" : TEXT,
                 }}>{code}</button>
               ))}
@@ -2123,7 +2123,7 @@ export default function Dashboard() {
               {airportCodes.map(code => (
                 <button key={code} onClick={() => setSelectedAirport(code)} style={{
                   padding: "6px 16px", borderRadius: 6, border: `1px solid ${BORDER}`, cursor: "pointer", fontSize: 13, fontWeight: 600,
-                  background: selectedAirport === code ? ACCENT : "transparent",
+                  background: selectedAirport === code ? UAE_GREEN : "transparent",
                   color: selectedAirport === code ? "#fff" : TEXT,
                 }}>{code}</button>
               ))}
