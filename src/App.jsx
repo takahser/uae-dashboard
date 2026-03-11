@@ -2034,8 +2034,7 @@ export default function Dashboard() {
         const airportCodes = ["DXB", "DWC", "AUH", "MCT", "DOH"];
         const currentFlightData = airportDataMap[selectedAirport];
 
-        const hasRealFlightData = currentFlightData && currentFlightData.daily && currentFlightData.daily.length > 0 && currentFlightData.daily.some(d => d.total > 0);
-        if (!currentFlightData || !currentFlightData.daily || currentFlightData.daily.length === 0 || !hasRealFlightData) return (
+        if (!currentFlightData || !currentFlightData.daily || currentFlightData.daily.length === 0) return (
           <div style={{ padding: "0 20px" }}>
             {/* Airport sub-tabs */}
             <div style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap" }}>
