@@ -24,7 +24,7 @@ export default function Landing({ onSelect }) {
     <div style={{ minHeight: '100vh', background: '#0a0a0a', color: '#E8E8E8', padding: '60px 20px' }}>
       <div style={{ maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
         <h1 style={{ fontSize: '2.4rem', fontWeight: 700, marginBottom: 8 }}>
-          <span style={{ color: '#C4A135' }}>ww3live</span>.io
+          Conflict Intelligence
         </h1>
         <p style={{ color: '#888', fontSize: '1.1rem', marginBottom: 48 }}>
           Real-time conflict intelligence platform
