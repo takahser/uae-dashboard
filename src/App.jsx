@@ -1613,6 +1613,23 @@ export default function Dashboard() {
                 </AreaChart>
               </ResponsiveContainer>
             </div>
+
+            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, gridColumn: "1 / -1" }}>
+              <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>Daily Interception Rate (%)</h3>
+              <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>Percentage of detected threats successfully intercepted each day</p>
+              <ResponsiveContainer width="100%" height={220}>
+                <LineChart data={dailyData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
+                  <XAxis dataKey="day" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} />
+                  <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} />
+                  <Tooltip content={<CustomTooltip />} formatter={(value) => [`${value}%`]} />
+                  <Legend wrapperStyle={{ fontSize: 11 }} />
+                  <Line type="monotone" dataKey="overallRate" name="Overall %" stroke={INTERCEPTED} strokeWidth={2.5} dot={{ r: 3 }} connectNulls />
+                  <Line type="monotone" dataKey="ballisticRate" name="Ballistic %" stroke="#2980B9" strokeWidth={2} dot={{ r: 2.5 }} connectNulls strokeDasharray="5 3" />
+                  <Line type="monotone" dataKey="droneRate" name="Drone %" stroke={UAE_GOLD} strokeWidth={2} dot={{ r: 2.5 }} connectNulls strokeDasharray="5 3" />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         )}
 
