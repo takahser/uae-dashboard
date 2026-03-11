@@ -2256,11 +2256,32 @@ function Dashboard({ initialTab, onBack }) {
 import Landing from "./Landing";
 import HormuzView from "./views/HormuzView";
 
-export default function App() {
-  const [appView, setAppView] = useState(null);
+function getViewFromHash() {
+  const hash = window.location.hash.replace("#/", "").replace("#", "");
+  if (hash === "threat") return "threat";
+  if (hash === "hormuz") return "hormuz";
+  if (hash === "flights") return "flights";
+  return null;
+}
 
-  if (appView === null) return <Landing onSelect={setAppView} />;
-  if (appView === "hormuz") return <HormuzView onBack={() => setAppView(null)} />;
-  if (appView === "flights") return <Dashboard initialTab="flights" onBack={() => setAppView(null)} />;
-  return <Dashboard onBack={() => setAppView(null)} />;
+function navigateTo(view) {
+  window.location.hash = view ? "/" + view : "/";
+}
+
+export default function App() {
+  const [appView, setAppView] = useState(getViewFromHash);
+
+  useEffect(() => {
+    const onHashChange = () => setAppView(getViewFromHash());
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
+
+  const handleSelect = (view) => navigateTo(view);
+  const handleBack = () => navigateTo(null);
+
+  if (appView === null) return <Landing onSelect={handleSelect} />;
+  if (appView === "hormuz") return <HormuzView onBack={handleBack} />;
+  if (appView === "flights") return <Dashboard initialTab="flights" onBack={handleBack} />;
+  return <Dashboard onBack={handleBack} />;
 }
