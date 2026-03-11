@@ -1,21 +1,21 @@
 {
-  "lastUpdated": "2026-03-10T21:00:00Z",
+  "lastUpdated": "2026-03-12",
   "sources": {
     "modgovae": {
       "lastTweetId": "2030989828712759428"
     }
   },
   "cumulative": {
-    "ballisticDetected": 265,
-    "ballisticIntercepted": 243,
+    "ballisticDetected": 271,
+    "ballisticIntercepted": 249,
     "ballisticSea": 20,
     "ballisticImpacted": 2,
-    "cruiseDetected": 8,
-    "cruiseIntercepted": 8,
+    "cruiseDetected": 15,
+    "cruiseIntercepted": 15,
     "cruiseSea": 0,
     "cruiseImpacted": 0,
-    "dronesDetected": 1455,
-    "dronesIntercepted": 1373,
+    "dronesDetected": 1494,
+    "dronesIntercepted": 1412,
     "dronesSea": 0,
     "dronesImpacted": 82,
     "killed": 4,
@@ -175,6 +175,22 @@
       "dronesIntercepted": 14,
       "dronesImpacted": 1,
       "total": 27
+    },
+    {
+      "date": "2026-03-11",
+      "label": "11 Mar",
+      "ballisticDetected": 6,
+      "ballisticIntercepted": 6,
+      "ballisticSea": 0,
+      "ballisticImpacted": 0,
+      "cruiseDetected": 7,
+      "cruiseIntercepted": 7,
+      "cruiseSea": 0,
+      "cruiseImpacted": 0,
+      "dronesDetected": 39,
+      "dronesIntercepted": 39,
+      "dronesImpacted": 0,
+      "total": 52
     }
   ]
 }
