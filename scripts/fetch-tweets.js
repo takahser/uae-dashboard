@@ -5,6 +5,10 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+// ── Shared keyword patterns ─────────────────────────────────────────────────
+const ATTACK_KW = /missile|drone|UAV|ballistic|cruise|intercept|defen[cs]e|attack|iranian|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i;
+const ATTACK_KW_HEB = /missile|drone|UAV|ballistic|cruise|intercept|defen[cs]e|attack|iranian|טיל|מזל"ט|יירוט|איראן|בליסטי|התקפה|הגנה אווירית|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i;
+
 // ── Country config with hardcoded user IDs to save API calls ────────────────
 const COUNTRIES = [
   {
@@ -12,28 +16,60 @@ const COUNTRIES = [
     file: "data-uae.json",
     source: "modgovae",
     userId: "495832726", // @modgovae
-    keywords: /missile|drone|UAV|ballistic|cruise|intercept|defen[cs]e|attack|iranian|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i,
+    keywords: ATTACK_KW,
   },
   {
     code: "qatar",
     file: "data-qatar.json",
     source: "MOD_Qatar",
     userId: null, // resolve at runtime
-    keywords: /missile|drone|UAV|ballistic|cruise|intercept|defen[cs]e|attack|iranian|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i,
+    keywords: ATTACK_KW,
   },
   {
     code: "kuwait",
     file: "data-kuwait.json",
     source: "MOD_KW",
     userId: "282194628", // @MOD_KW
-    keywords: /missile|drone|UAV|ballistic|cruise|intercept|defen[cs]e|attack|iranian|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i,
+    keywords: ATTACK_KW,
   },
   {
     code: "bahrain",
     file: "data-bahrain.json",
     source: "BDF_Bahrain",
     userId: "491055921", // @BDF_Bahrain
-    keywords: /missile|drone|UAV|ballistic|cruise|intercept|defen[cs]e|attack|iranian|صاروخ|طائرة مسيّرة|اعتراض|إيران|باليستي|هجوم|دفاعات جوية/i,
+    keywords: ATTACK_KW,
+  },
+  {
+    code: "israel",
+    file: "data-israel.json",
+    source: "IDF",
+    userId: null, // resolve at runtime
+    keywords: ATTACK_KW_HEB,
+  },
+  {
+    code: "saudi_arabia",
+    file: "data-saudi.json",
+    source: "AlArabiya_Eng",
+    userId: null, // resolve at runtime
+    keywords: ATTACK_KW,
+  },
+];
+
+// ── Multi-country aggregator sources ────────────────────────────────────────
+// These accounts report on multiple countries. Tweets are parsed by Claude to
+// identify which country the data belongs to, then routed to the right file.
+const AGGREGATOR_SOURCES = [
+  {
+    source: "LucasFoxNews",
+    userId: null,
+    keywords: ATTACK_KW,
+    label: "Lucas Tomlinson (Fox News Pentagon)",
+  },
+  {
+    source: "CENTCOM",
+    userId: null,
+    keywords: ATTACK_KW,
+    label: "US Central Command",
   },
 ];
 
@@ -308,6 +344,162 @@ async function processCountry(country, bearerToken, anthropic) {
   log(`[${country.code}] ${country.file} updated successfully.`);
 }
 
+// ── Parse aggregator tweet — identifies country + stats ─────────────────────
+
+const COUNTRY_FILE_MAP = {
+  uae: "data-uae.json",
+  qatar: "data-qatar.json",
+  kuwait: "data-kuwait.json",
+  bahrain: "data-bahrain.json",
+  israel: "data-israel.json",
+  saudi_arabia: "data-saudi.json",
+};
+
+async function parseAggregatorTweet(tweetText, imageUrls, anthropicClient) {
+  const content = [
+    {
+      type: "text",
+      text: `You are parsing a tweet from a journalist or military command account that may contain attack/intercept statistics for one or more countries in the Middle East.
+
+The tweet may reference: UAE, Qatar, Kuwait, Bahrain, Israel, Saudi Arabia, or others.
+Extract ONLY clearly stated numbers — do NOT estimate or infer.
+
+Tweet text:
+"""
+${tweetText}
+"""
+
+Return ONLY a JSON array. Each element represents one country mentioned with stats:
+[
+  {
+    "country": "uae"|"qatar"|"kuwait"|"bahrain"|"israel"|"saudi_arabia",
+    "hasCumulativeData": boolean,
+    "cumulative": {
+      "ballisticDetected": number|null,
+      "ballisticIntercepted": number|null,
+      "cruiseDetected": number|null,
+      "cruiseIntercepted": number|null,
+      "dronesDetected": number|null,
+      "dronesIntercepted": number|null,
+      "totalStrikes": number|null,
+      "killed": number|null,
+      "injured": number|null
+    },
+    "date": "YYYY-MM-DD"
+  }
+]
+
+If the tweet contains no quantitative attack data, return an empty array [].`,
+    },
+  ];
+  if (imageUrls && imageUrls.length > 0) {
+    for (const url of imageUrls) {
+      content.push({ type: "image", source: { type: "url", url } });
+    }
+  }
+
+  const message = await anthropicClient.messages.create({
+    model: "claude-sonnet-4-20250514",
+    max_tokens: 1500,
+    messages: [{ role: "user", content }],
+  });
+
+  const raw = message.content[0].text.trim();
+  const clean = raw.replace(/```json|```/g, "").trim();
+  return JSON.parse(clean);
+}
+
+// ── Process an aggregator source ────────────────────────────────────────────
+
+async function processAggregator(agg, bearerToken, anthropic) {
+  const sourceName = agg.source;
+  log(`[agg:${sourceName}] Processing aggregator source: ${agg.label}`);
+
+  // Resolve user ID
+  let userId = agg.userId;
+  if (!userId) {
+    userId = await getUserId(agg.source, bearerToken);
+    log(`[agg:${sourceName}] Resolved @${agg.source} user ID: ${userId}`);
+  }
+
+  // Use a state file to track last tweet ID per aggregator
+  const statePath = path.join(__dirname, "../public", `.agg-state-${sourceName}.json`);
+  let state = {};
+  try {
+    state = JSON.parse(fs.readFileSync(statePath, "utf-8"));
+  } catch {
+    // first run, no state yet
+  }
+  const sinceId = state.lastTweetId || null;
+
+  const { tweets, media } = await fetchNewTweets(userId, sinceId, agg.keywords, bearerToken);
+  log(`[agg:${sourceName}] Found ${tweets.length} relevant tweet(s)`);
+
+  if (tweets.length === 0) {
+    log(`[agg:${sourceName}] Nothing to update.`);
+    return;
+  }
+
+  let latestTweetId = sinceId;
+
+  for (const tweet of tweets.reverse()) {
+    log(`[agg:${sourceName}] Parsing tweet ${tweet.id}: "${tweet.text.slice(0, 80)}..."`);
+    try {
+      const imageUrls = [];
+      if (tweet.attachments?.media_keys) {
+        for (const key of tweet.attachments.media_keys) {
+          const m = media[key];
+          if (m && m.type === "photo" && m.url) imageUrls.push(m.url);
+        }
+      }
+
+      const entries = await parseAggregatorTweet(tweet.text, imageUrls, anthropic);
+
+      if (!Array.isArray(entries) || entries.length === 0) {
+        log(`[agg:${sourceName}] Tweet ${tweet.id} — no country stats found, skipping.`);
+      } else {
+        for (const entry of entries) {
+          const countryFile = COUNTRY_FILE_MAP[entry.country];
+          if (!countryFile) {
+            log(`[agg:${sourceName}] Unknown country "${entry.country}", skipping.`);
+            continue;
+          }
+          if (!entry.hasCumulativeData) continue;
+
+          const dataPath = path.join(__dirname, "../public", countryFile);
+          const currentData = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
+
+          // Merge cumulative totals (only non-null values)
+          if (entry.cumulative) {
+            for (const [key, val] of Object.entries(entry.cumulative)) {
+              if (val !== null && val !== undefined) {
+                currentData.cumulative[key] = val;
+              }
+            }
+          }
+
+          currentData.lastUpdated = new Date().toISOString();
+          if (!currentData.sources) currentData.sources = {};
+          if (!currentData.sources[sourceName]) currentData.sources[sourceName] = {};
+          currentData.sources[sourceName].lastTweetId = tweet.id;
+
+          fs.writeFileSync(dataPath, JSON.stringify(currentData, null, 2));
+          log(`[agg:${sourceName}] Updated ${countryFile} for ${entry.country}`);
+        }
+      }
+
+      latestTweetId = tweet.id;
+    } catch (err) {
+      log(`[agg:${sourceName}] Failed to parse tweet ${tweet.id}: ${err.message}`);
+    }
+  }
+
+  // Persist aggregator state
+  if (latestTweetId) {
+    fs.writeFileSync(statePath, JSON.stringify({ lastTweetId: latestTweetId }, null, 2));
+  }
+}
+
 // ── Main ───────────────────────────────────────────────────────────────────
 
 async function main() {
@@ -330,7 +522,17 @@ async function main() {
     }
   }
 
-  log("Done processing all countries.");
+  // Process aggregator sources (LucasFoxNews, CENTCOM, etc.)
+  for (const agg of AGGREGATOR_SOURCES) {
+    try {
+      await processAggregator(agg, bearerToken, anthropic);
+    } catch (err) {
+      log(`[agg:${agg.source}] ERROR: ${err.message}`);
+      // Continue to next source
+    }
+  }
+
+  log("Done processing all countries and aggregator sources.");
 }
 
 main().catch((err) => {
