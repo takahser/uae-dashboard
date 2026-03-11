@@ -24,6 +24,7 @@ const AIRPORTS = [
   { iata: "AUH", icao: "OMAA", name: "Abu Dhabi International (AUH)" },
   { iata: "MCT", icao: "OOMS", name: "Muscat International (MCT)" },
   { iata: "DOH", icao: "OTHH", name: "Hamad International (DOH)" },
+  { iata: "TLV", icao: "LLBG", name: "Ben Gurion International (TLV)" },
 ];
 
 // Region classification by IATA country/area codes (common prefixes)

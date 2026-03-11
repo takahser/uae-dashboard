@@ -14,6 +14,7 @@ const COUNTRY_CONFIG = [
   { code: "kuwait", name: "Kuwait", flag: "\u{1F1F0}\u{1F1FC}", file: "data-kuwait.json", color: "#007A3D", accent: "#CE1126", source: "@MOD_KW" },
   { code: "bahrain", name: "Bahrain", flag: "\u{1F1E7}\u{1F1ED}", file: "data-bahrain.json", color: "#CE1126", accent: "#FFFFFF", source: "@BDF_Bahrain" },
   { code: "oman", name: "Oman", flag: "\u{1F1F4}\u{1F1F2}", file: "data-oman.json", color: "#DB161B", accent: "#008000", source: "@MOD_Oman" },
+  { code: "israel", name: "Israel", flag: "\u{1F1EE}\u{1F1F1}", file: "data-israel.json", color: "#003F87", accent: "#FFFFFF", source: "OSINT", airports: ["TLV"] },
 ];
 const IRAN_CONFIG = { code: "iran", name: "Iran", flag: "\u{1F1EE}\u{1F1F7}", file: "data-iran.json", color: "#DA0000", accent: "#FFFFFF", source: "OSINT" };
 const INTERCEPTED = "#00A86B";
@@ -161,6 +162,29 @@ const MAP_CONFIGS = {
       { id: "s3", name: "US Embassy Manama", type: "US Embassy", lat: 26.2280, lng: 50.5830 },
       { id: "d1", name: "Al Hidd Desal", type: "Desalination", siteType: "desal", lat: 26.2223, lng: 50.6621 },
       { id: "d2", name: "Al Dur Desal", type: "Desalination", siteType: "desal", lat: 25.9714, lng: 50.6076 },
+    ],
+  },
+  israel: {
+    bounds: { latMin: 29.4, latMax: 33.4, lngMin: 34.0, lngMax: 36.0 },
+    title: "LIVE INTEL — ISRAEL IMPACT MAP",
+    subtitle: "CONFIRMED STRIKE LOCATIONS",
+    regions: [
+      { name: "ISRAEL", labelLat: 31.5, labelLng: 34.8, pts: [[33.0,35.8],[33.3,35.6],[33.8,35.1],[32.9,35.1],[32.5,34.9],[32.0,34.5],[31.5,34.5],[31.0,34.5],[30.5,34.8],[29.5,34.8],[30.0,35.0],[31.0,35.4],[31.5,35.5],[32.5,35.5],[33.0,35.8]] },
+    ],
+    impacts: [
+      { id: 1, name: "Tel Aviv city center", type: "debris", date: "Ongoing", casualties: "Multiple", lat: 32.0853, lng: 34.7818, region: "Tel Aviv" },
+      { id: 2, name: "Ben Gurion Airport", type: "drone_hit", date: "Ongoing", casualties: "Diverted flights", lat: 32.0055, lng: 34.8854, region: "Tel Aviv" },
+      { id: 3, name: "Haifa", type: "drone_hit", date: "Ongoing", casualties: "Multiple", lat: 32.7940, lng: 34.9896, region: "Haifa" },
+      { id: 4, name: "Jerusalem", type: "debris", date: "Ongoing", casualties: "Intercept debris", lat: 31.7683, lng: 35.2137, region: "Jerusalem" },
+    ],
+    strategicSites: [
+      { id: "s1", name: "Ben Gurion Airport", type: "International Airport", lat: 32.0055, lng: 34.8854 },
+      { id: "s2", name: "Nevatim Air Base", type: "IAF Air Base", lat: 31.2083, lng: 34.9383 },
+      { id: "s3", name: "Ramat David Air Base", type: "IAF Air Base", lat: 32.6651, lng: 35.1796 },
+      { id: "s4", name: "US Embassy Jerusalem", type: "US Embassy", lat: 31.7720, lng: 35.2290 },
+      { id: "d1", name: "Sorek Desal", type: "Desalination", siteType: "desal", lat: 31.8770, lng: 34.6890 },
+      { id: "d2", name: "Hadera Desal", type: "Desalination", siteType: "desal", lat: 32.4580, lng: 34.8650 },
+      { id: "d3", name: "Ashkelon Desal", type: "Desalination", siteType: "desal", lat: 31.6290, lng: 34.5370 },
     ],
   },
 };
