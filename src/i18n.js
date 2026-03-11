@@ -17,6 +17,7 @@ const translations = {
     "country.qatar": "Qatar",
     "country.kuwait": "Kuwait",
     "country.bahrain": "Bahrain",
+    "country.oman": "Oman",
     "country.allGcc": "All GCC",
     "country.iran": "Iran",
 
@@ -304,6 +305,7 @@ const translations = {
     "country.qatar": "قطر",
     "country.kuwait": "الكويت",
     "country.bahrain": "البحرين",
+    "country.oman": "عُمان",
     "country.allGcc": "كل دول الخليج",
     "country.iran": "إيران",
 

@@ -13,6 +13,7 @@ const COUNTRY_CONFIG = [
   { code: "qatar", name: "Qatar", flag: "\u{1F1F6}\u{1F1E6}", file: "data-qatar.json", color: "#8A1538", accent: "#FFFFFF", source: "@MOD_Qatar" },
   { code: "kuwait", name: "Kuwait", flag: "\u{1F1F0}\u{1F1FC}", file: "data-kuwait.json", color: "#007A3D", accent: "#CE1126", source: "@MOD_KW" },
   { code: "bahrain", name: "Bahrain", flag: "\u{1F1E7}\u{1F1ED}", file: "data-bahrain.json", color: "#CE1126", accent: "#FFFFFF", source: "@BDF_Bahrain" },
+  { code: "oman", name: "Oman", flag: "\u{1F1F4}\u{1F1F2}", file: "data-oman.json", color: "#DB161B", accent: "#008000", source: "@MOD_Oman" },
 ];
 const IRAN_CONFIG = { code: "iran", name: "Iran", flag: "\u{1F1EE}\u{1F1F7}", file: "data-iran.json", color: "#DA0000", accent: "#FFFFFF", source: "OSINT" };
 const INTERCEPTED = "#00A86B";
@@ -2038,13 +2039,21 @@ export default function Dashboard() {
           <div style={{ padding: "0 20px" }}>
             {/* Airport sub-tabs */}
             <div style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap" }}>
-              {airportCodes.map(code => (
-                <button key={code} onClick={() => setSelectedAirport(code)} style={{
-                  padding: "6px 16px", borderRadius: 6, border: `1px solid ${BORDER}`, cursor: "pointer", fontSize: 13, fontWeight: 600,
-                  background: selectedAirport === code ? UAE_GREEN : "transparent",
-                  color: selectedAirport === code ? "#fff" : TEXT,
-                }}>{code}</button>
-              ))}
+              {airportCodes.map(code => {
+                const airportInfo = { DXB: "Dubai Intl — UAE", DWC: "Al Maktoum Intl — UAE", AUH: "Abu Dhabi Intl — UAE", MCT: "Muscat Intl — Oman", DOH: "Hamad Intl — Qatar" };
+                const isActive = selectedAirport === code;
+                return (
+                  <button key={code} onClick={() => setSelectedAirport(code)} style={{
+                    padding: "6px 16px", borderRadius: 6, border: `1px solid ${isActive ? UAE_GREEN : BORDER}`, cursor: "pointer",
+                    background: isActive ? UAE_GREEN : "transparent",
+                    color: isActive ? "#fff" : TEXT,
+                    textAlign: "left",
+                  }}>
+                    <div style={{ fontSize: 13, fontWeight: 600 }}>{code}</div>
+                    {isActive && <div style={{ fontSize: 10, fontWeight: 400, opacity: 0.85, marginTop: 1 }}>{airportInfo[code]}</div>}
+                  </button>
+                );
+              })}
             </div>
             <div style={{ padding: 40, textAlign: "center", color: SUBTEXT }}>{t("flights.noData")}</div>
           </div>
@@ -2120,13 +2129,21 @@ export default function Dashboard() {
 
             {/* Airport sub-tabs */}
             <div style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap" }}>
-              {airportCodes.map(code => (
-                <button key={code} onClick={() => setSelectedAirport(code)} style={{
-                  padding: "6px 16px", borderRadius: 6, border: `1px solid ${BORDER}`, cursor: "pointer", fontSize: 13, fontWeight: 600,
-                  background: selectedAirport === code ? UAE_GREEN : "transparent",
-                  color: selectedAirport === code ? "#fff" : TEXT,
-                }}>{code}</button>
-              ))}
+              {airportCodes.map(code => {
+                const airportInfo = { DXB: "Dubai Intl — UAE", DWC: "Al Maktoum Intl — UAE", AUH: "Abu Dhabi Intl — UAE", MCT: "Muscat Intl — Oman", DOH: "Hamad Intl — Qatar" };
+                const isActive = selectedAirport === code;
+                return (
+                  <button key={code} onClick={() => setSelectedAirport(code)} style={{
+                    padding: "6px 16px", borderRadius: 6, border: `1px solid ${isActive ? UAE_GREEN : BORDER}`, cursor: "pointer",
+                    background: isActive ? UAE_GREEN : "transparent",
+                    color: isActive ? "#fff" : TEXT,
+                    textAlign: "left",
+                  }}>
+                    <div style={{ fontSize: 13, fontWeight: 600 }}>{code}</div>
+                    {isActive && <div style={{ fontSize: 10, fontWeight: 400, opacity: 0.85, marginTop: 1 }}>{airportInfo[code]}</div>}
+                  </button>
+                );
+              })}
             </div>
 
             {/* Summary stat cards */}
