@@ -2270,8 +2270,8 @@ function Dashboard({ initialTab, onBack }) {
         );
       })()}
 
-      {/* Confirmed Attack Timeline */}
-      {!isIran && !isAllGCC && hasDailyData && rawData.daily && rawData.daily.length > 0 && (
+      {/* Confirmed Attack Timeline — overview tab only */}
+      {activeTab === "overview" && !isIran && !isAllGCC && hasDailyData && rawData.daily && rawData.daily.length > 0 && (
         <div style={{ padding: "0 20px", maxWidth: 900, margin: "32px auto 0" }}>
           <h2 style={{ fontSize: 18, fontWeight: 700, color: TEXT, marginBottom: 20, letterSpacing: -0.3 }}>
             Confirmed Attack Timeline
