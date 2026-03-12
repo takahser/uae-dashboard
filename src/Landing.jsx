@@ -160,7 +160,7 @@ export default function Landing({ onSelect }) {
               letterSpacing: '0.02em',
             }}
           >
-            Real-time conflict intelligence.
+            Real-time conflict intelligence.<br />Covering Iran, the GCC & the Strait of Hormuz.
           </p>
 
           {/* Stat pills */}
