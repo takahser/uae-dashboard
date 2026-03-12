@@ -3,6 +3,8 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   LineChart, Line, AreaChart, Area, PieChart, Pie, Cell, ComposedChart, ReferenceLine,
 } from "recharts";
+import { MapContainer, TileLayer, CircleMarker, Popup, Tooltip as LTooltip } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 import { createT } from "./i18n";
 
 const UAE_GREEN = "#00732F";
@@ -17,6 +19,110 @@ const COUNTRY_CONFIG = [
   { code: "israel", name: "Israel", flag: "\u{1F1EE}\u{1F1F1}", file: "data-israel.json", color: "#003F87", accent: "#FFFFFF", source: "OSINT", airports: ["TLV"] },
 ];
 const IRAN_CONFIG = { code: "iran", name: "Iran", flag: "\u{1F1EE}\u{1F1F7}", file: "data-iran.json", color: "#DA0000", accent: "#FFFFFF", source: "OSINT" };
+
+const COUNTRY_MAP_DATA = {
+  uae: {
+    center: [24.0, 54.0], zoom: 7,
+    cities: [
+      { pos: [24.47, 54.37], name: "Abu Dhabi", type: "capital" },
+      { pos: [25.20, 55.27], name: "Dubai", type: "city" },
+      { pos: [25.34, 56.36], name: "Khor Fakkan", type: "port" },
+      { pos: [25.13, 56.36], name: "Fujairah", type: "port" },
+      { pos: [24.98, 55.07], name: "Jebel Ali Port", type: "port" },
+    ],
+    attacks: [
+      { pos: [24.43, 54.65], label: "Ballistic missile intercept — Ruwais industrial zone" },
+      { pos: [24.47, 54.37], label: "Drone intercept over Abu Dhabi" },
+      { pos: [25.20, 55.27], label: "Cruise missile intercept — Dubai airspace" },
+    ],
+  },
+  israel: {
+    center: [31.5, 34.8], zoom: 7,
+    cities: [
+      { pos: [31.77, 35.21], name: "Jerusalem", type: "capital" },
+      { pos: [32.08, 34.78], name: "Tel Aviv", type: "city" },
+      { pos: [32.81, 34.98], name: "Haifa", type: "city" },
+      { pos: [29.55, 34.95], name: "Eilat", type: "city" },
+    ],
+    attacks: [
+      { pos: [32.0, 34.88], label: "Ben Gurion — repeated drone threats" },
+      { pos: [31.77, 35.21], label: "Jerusalem — rocket intercepts" },
+      { pos: [32.81, 34.98], label: "Haifa — drone intercepts" },
+    ],
+  },
+  saudi: {
+    center: [24.0, 45.0], zoom: 5,
+    cities: [
+      { pos: [24.68, 46.72], name: "Riyadh", type: "capital" },
+      { pos: [21.49, 39.19], name: "Jeddah", type: "city" },
+      { pos: [26.43, 50.10], name: "Dammam", type: "city" },
+      { pos: [26.28, 50.20], name: "Aramco Abqaiq", type: "port" },
+    ],
+    attacks: [
+      { pos: [26.28, 50.20], label: "Aramco Abqaiq — previous major attack site" },
+      { pos: [24.68, 46.72], label: "Riyadh — ballistic missile intercepts" },
+    ],
+  },
+  kuwait: {
+    center: [29.5, 47.8], zoom: 8,
+    cities: [
+      { pos: [29.37, 47.97], name: "Kuwait City", type: "capital" },
+    ],
+    attacks: [],
+  },
+  qatar: {
+    center: [25.2, 51.2], zoom: 8,
+    cities: [
+      { pos: [25.28, 51.53], name: "Doha", type: "capital" },
+      { pos: [25.11, 51.33], name: "Al Udeid Air Base", type: "military" },
+    ],
+    attacks: [],
+  },
+  bahrain: {
+    center: [26.0, 50.5], zoom: 9,
+    cities: [
+      { pos: [26.21, 50.59], name: "Manama", type: "capital" },
+      { pos: [26.04, 50.55], name: "NSA Bahrain (US 5th Fleet)", type: "military" },
+    ],
+    attacks: [],
+  },
+};
+
+function CountryMapModal({ countryCode, countryName, flag, onClose }) {
+  const data = COUNTRY_MAP_DATA[countryCode];
+  if (!data) return null;
+  return (
+    <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)", zIndex: 9999, display: "flex", flexDirection: "column" }}>
+      <div style={{ background: "#0A0F1E", borderBottom: "1px solid #1A2840", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <h2 style={{ margin: 0, color: "#E8EDF5", fontSize: 20 }}>{flag} {countryName} — Threat Map</h2>
+        <button onClick={onClose} style={{ background: "none", border: "1px solid #3A4A60", color: "#E8EDF5", padding: "6px 14px", borderRadius: 6, cursor: "pointer", fontSize: 14 }}>✕ Close</button>
+      </div>
+      <div style={{ flex: 1, position: "relative" }}>
+        <MapContainer center={data.center} zoom={data.zoom} style={{ height: "100%", width: "100%" }} zoomControl={true}>
+          <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" attribution="© CartoDB" />
+          {data.cities.map((c, i) => (
+            <CircleMarker key={i} center={c.pos} radius={c.type === "capital" ? 9 : c.type === "military" ? 7 : 6}
+              pathOptions={{ color: c.type === "capital" ? "#FFD700" : c.type === "military" ? "#FF6B00" : c.type === "port" ? "#4a9eff" : "#aaa", fillOpacity: 0.85 }}>
+              <LTooltip permanent direction="top" offset={[0, -8]} opacity={0.9}>
+                <span style={{ fontSize: 11 }}>{c.name}</span>
+              </LTooltip>
+            </CircleMarker>
+          ))}
+          {data.attacks.map((a, i) => (
+            <CircleMarker key={i} center={a.pos} radius={8}
+              pathOptions={{ color: "#ff4444", fillColor: "#ff4444", fillOpacity: 0.7 }}>
+              <Popup><span style={{ fontSize: 12 }}>⚠️ {a.label}</span></Popup>
+            </CircleMarker>
+          ))}
+        </MapContainer>
+        <div style={{ position: "absolute", bottom: 20, right: 20, background: "rgba(10,15,30,0.9)", border: "1px solid #1A2840", borderRadius: 8, padding: "10px 14px", zIndex: 1000, fontSize: 12, color: "#aaa", lineHeight: "1.8" }}>
+          🟡 Capital &nbsp; 🟠 Military &nbsp; 🔵 Port<br/>🔴 Attack/Intercept site
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const INTERCEPTED = "#00A86B";
 const IMPACTED = "#C0392B";
 const SEA = "#2980B9";
@@ -610,12 +716,12 @@ const StatCard = ({ label, value, sub, color = UAE_GOLD }) => (
   </div>
 );
 
-function Dashboard({ initialTab, onBack }) {
+function Dashboard({ initialTab, initialCountry, onBack }) {
   const [activeTab, setActiveTab] = useState(initialTab || "intel");
   const [hoveredImpact, setHoveredImpact] = useState(null);
   const [selectedImpact, setSelectedImpact] = useState(null);
   const [allData, setAllData] = useState(null);
-  const [selectedCountry, setSelectedCountry] = useState("uae");
+  const [selectedCountry, setSelectedCountry] = useState(initialCountry || "uae");
   const [error, setError] = useState(null);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
   const [expandedTimelineIdx, setExpandedTimelineIdx] = useState(null);
@@ -626,6 +732,7 @@ function Dashboard({ initialTab, onBack }) {
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [selectedSite, setSelectedSite] = useState(null);
   const [lang, setLang] = useState("en");
+  const [mapModalCountry, setMapModalCountry] = useState(null);
   const [flightData, setFlightData] = useState(null);
   const [flightDataDwc, setFlightDataDwc] = useState(null);
   const [flightDataAuh, setFlightDataAuh] = useState(null);
@@ -725,7 +832,7 @@ function Dashboard({ initialTab, onBack }) {
         <div style={{ display: "flex", gap: 8, padding: "16px 28px 0", flexWrap: "wrap" }}>
           {[{ code: "all", name: t("country.allGcc"), flag: "🌐" }, ...COUNTRY_CONFIG.map(c => ({ ...c, name: t(`country.${c.code}`) })), { code: "_sep" }, { ...IRAN_CONFIG, name: t("country.iran") }].map(c => (
             c.code === "_sep" ? <div key="_sep" style={{ width: 1, background: BORDER, margin: "4px 4px" }} /> :
-            <button key={c.code} onClick={() => { setSelectedCountry(c.code); setHoveredImpact(null); setSelectedImpact(null); setSelectedSite(null); }}
+            <button key={c.code} onClick={() => { setSelectedCountry(c.code); setHoveredImpact(null); setSelectedImpact(null); setSelectedSite(null); window.location.hash = "/threat/" + c.code + (activeTab && activeTab !== "overview" && activeTab !== "intel" ? "/" + activeTab : ""); }}
               style={{
                 background: selectedCountry === c.code ? (c.color || UAE_GREEN) : "transparent",
                 color: selectedCountry === c.code ? "#fff" : SUBTEXT,
@@ -991,7 +1098,7 @@ function Dashboard({ initialTab, onBack }) {
         {[{ code: "all", name: t("country.allGcc"), flag: "🌐" }, ...COUNTRY_CONFIG.map(c => ({ ...c, name: t(`country.${c.code}`) })), { code: "_sep" }, { ...IRAN_CONFIG, name: t("country.iran") }].map(c => (
           c.code === "_sep" ? <div key="_sep" style={{ width: 1, background: BORDER, margin: "4px 4px" }} /> :
 
-          <button key={c.code} onClick={() => { setSelectedCountry(c.code); setHoveredImpact(null); setSelectedImpact(null); setSelectedSite(null); }}
+          <button key={c.code} onClick={() => { setSelectedCountry(c.code); setHoveredImpact(null); setSelectedImpact(null); setSelectedSite(null); window.location.hash = "/threat/" + c.code + (activeTab && activeTab !== "overview" && activeTab !== "intel" ? "/" + activeTab : ""); }}
             style={{
               background: selectedCountry === c.code ? (c.color || UAE_GREEN) : "transparent",
               color: selectedCountry === c.code ? "#fff" : SUBTEXT,
@@ -1018,7 +1125,7 @@ function Dashboard({ initialTab, onBack }) {
       {/* Tabs */}
       <div style={{ display: "flex", gap: 4, padding: "0 28px 20px", flexWrap: "wrap" }}>
         {tabs.map(t => (
-          <button key={t.id} onClick={() => setActiveTab(t.id)} style={{
+          <button key={t.id} onClick={() => { setActiveTab(t.id); window.location.hash = "/threat/" + selectedCountry + (t.id !== "overview" && t.id !== "intel" ? "/" + t.id : ""); }} style={{
             background: activeTab === t.id ? (themeAccent || UAE_GOLD) : "transparent",
             color: activeTab === t.id ? (themeAccent === "#FFFFFF" ? themeColor : "#000") : SUBTEXT,
             border: `1px solid ${activeTab === t.id ? (themeAccent || UAE_GOLD) : BORDER}`,
@@ -2354,22 +2461,31 @@ import Landing from "./Landing";
 import HormuzView from "./views/HormuzView";
 
 function getViewFromHash() {
-  const hash = window.location.hash.replace("#/", "").replace("#", "");
-  if (hash === "threat") return "threat";
-  if (hash === "hormuz") return "hormuz";
-  if (hash === "flights") return "flights";
-  return null;
+  const hash = window.location.hash.replace(/^#\/?/, "");
+  const parts = hash.split("/").filter(Boolean);
+  const view = parts[0] || null;
+  if (!view) return { view: null };
+  if (view === "hormuz") return { view: "hormuz" };
+  if (view === "flights") return { view: "threat", country: "uae", tab: "flights" };
+  if (view === "threat") return { view: "threat", country: parts[1] || "uae", tab: parts[2] || null };
+  return { view: null };
 }
 
-function navigateTo(view) {
-  window.location.hash = view ? "/" + view : "/";
+function navigateTo(view, country, tab) {
+  if (!view) { window.location.hash = "/"; return; }
+  if (view === "hormuz") { window.location.hash = "/hormuz"; return; }
+  let hash = "/threat";
+  if (country && country !== "uae") hash += "/" + country;
+  else if (tab) hash += "/uae";
+  if (tab) hash += "/" + tab;
+  window.location.hash = hash;
 }
 
 export default function App() {
-  const [appView, setAppView] = useState(getViewFromHash);
+  const [appState, setAppState] = useState(getViewFromHash);
 
   useEffect(() => {
-    const onHashChange = () => setAppView(getViewFromHash());
+    const onHashChange = () => setAppState(getViewFromHash());
     window.addEventListener("hashchange", onHashChange);
     return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
@@ -2377,8 +2493,7 @@ export default function App() {
   const handleSelect = (view) => navigateTo(view);
   const handleBack = () => navigateTo(null);
 
-  if (appView === null) return <Landing onSelect={handleSelect} />;
-  if (appView === "hormuz") return <HormuzView onBack={handleBack} />;
-  if (appView === "flights") return <Dashboard initialTab="flights" onBack={handleBack} />;
-  return <Dashboard onBack={handleBack} />;
+  if (appState.view === null) return <Landing onSelect={handleSelect} />;
+  if (appState.view === "hormuz") return <HormuzView onBack={handleBack} />;
+  return <Dashboard onBack={handleBack} initialTab={appState.tab} initialCountry={appState.country} />;
 }
