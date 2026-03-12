@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine, Legend } from 'recharts';
+import { MapContainer, TileLayer, Marker, Popup, Polyline, Circle, CircleMarker, Tooltip as MapTooltip } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import data from '../data/hormuz.json';
+
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({ iconRetinaUrl: null, iconUrl: null, shadowUrl: null });
 
 const BG = '#0A0F1E';
 const CARD_BG = '#0F1829';
@@ -36,6 +42,96 @@ function StatCard({ label, value, color }) {
     <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: '20px 16px', flex: 1, minWidth: 140, borderTop: `3px solid ${color || GOLD}` }}>
       <div style={{ color: SUBTEXT, fontSize: '0.8rem', marginBottom: 6 }}>{label}</div>
       <div style={{ fontSize: '1.6rem', fontWeight: 700, color: color || TEXT }}>{value}</div>
+    </div>
+  );
+}
+
+const ATTACKS = [
+  { pos: [25.8, 57.2], label: "Mar 11: Thai Mayuree Naree struck — fire, 3 crew missing", date: "2026-03-11" },
+  { pos: [26.1, 56.9], label: "Mar 9: Container vessel Meridian Star hit by drone", date: "2026-03-09" },
+  { pos: [25.6, 58.1], label: "Mar 7: Oil tanker Gulf Pioneer attacked, diverted to Fujairah", date: "2026-03-07" },
+  { pos: [26.4, 56.4], label: "Mar 5: Mine detected near shipping lane — US Navy warning issued", date: "2026-03-05" },
+];
+
+const GEO_LABELS = [
+  { pos: [27.0, 56.8], label: "🇮🇷 Iran — controls north shore" },
+  { pos: [26.2, 56.3], label: "🇴🇲 Oman — controls south shore" },
+  { pos: [26.8, 55.5], label: "Persian Gulf →" },
+  { pos: [25.5, 58.0], label: "← Gulf of Oman" },
+];
+
+function HormuzMap() {
+  return (
+    <div style={{ position: 'relative', marginBottom: 32 }}>
+      <style>{`
+        @keyframes pulse-attack {
+          0% { opacity: 0.8; }
+          50% { opacity: 0.4; }
+          100% { opacity: 0.8; }
+        }
+        .attack-marker {
+          animation: pulse-attack 2s ease-in-out infinite;
+        }
+      `}</style>
+      <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: 12, color: TEXT }}>
+        🗺️ Strait of Hormuz — Live Threat Map
+      </h3>
+      <MapContainer
+        center={[26.0, 56.5]}
+        zoom={7}
+        style={{ height: 420, borderRadius: 10 }}
+        scrollWheelZoom={false}
+      >
+        <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
+
+        {/* Chokepoint line */}
+        <Polyline
+          positions={[[26.35, 56.25], [26.60, 56.95]]}
+          pathOptions={{ color: '#ff4444', dashArray: '8 6', weight: 2 }}
+        >
+          <MapTooltip sticky>Narrowest Point — ~3.5 miles</MapTooltip>
+        </Polyline>
+
+        {/* Chokepoint zone */}
+        <Circle
+          center={[26.48, 56.6]}
+          radius={8000}
+          pathOptions={{ color: '#ff4444', fillColor: '#ff4444', fillOpacity: 0.15, weight: 1 }}
+        />
+
+        {/* Geographic labels */}
+        {GEO_LABELS.map((g, i) => (
+          <CircleMarker key={`geo-${i}`} center={g.pos} radius={0} pathOptions={{ opacity: 0 }}>
+            <MapTooltip permanent direction="center" className="geo-label">
+              <span style={{ fontSize: '0.75rem', fontWeight: 600 }}>{g.label}</span>
+            </MapTooltip>
+          </CircleMarker>
+        ))}
+
+        {/* Attack markers */}
+        {ATTACKS.map((a, i) => (
+          <CircleMarker
+            key={`atk-${i}`}
+            center={a.pos}
+            radius={8}
+            pathOptions={{ color: '#ff4444', fillColor: '#ff4444', fillOpacity: 0.8 }}
+            className="attack-marker"
+          >
+            <Popup>
+              <span style={{ fontSize: '0.8rem', color: '#111' }}>{a.label}</span>
+            </Popup>
+          </CircleMarker>
+        ))}
+      </MapContainer>
+
+      {/* Legend */}
+      <div style={{
+        position: 'absolute', bottom: 16, right: 16, zIndex: 1000,
+        background: 'rgba(15,24,41,0.9)', border: `1px solid ${BORDER}`,
+        borderRadius: 6, padding: '6px 12px', fontSize: '0.7rem', color: SUBTEXT
+      }}>
+        🔴 Ship attack &nbsp; ⚠️ Chokepoint zone
+      </div>
     </div>
   );
 }
@@ -99,6 +195,9 @@ export default function HormuzView({ onBack }) {
             </LineChart>
           </ResponsiveContainer>
         </div>
+
+        {/* Hormuz Map */}
+        <HormuzMap />
 
         {/* Chokepoint Facts */}
         <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: 20, marginBottom: 32 }}>
