@@ -832,17 +832,27 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
         <div style={{ display: "flex", gap: 8, padding: "16px 28px 0", flexWrap: "wrap" }}>
           {[{ code: "all", name: t("country.allGcc"), flag: "🌐" }, ...COUNTRY_CONFIG.map(c => ({ ...c, name: t(`country.${c.code}`) })), { code: "_sep" }, { ...IRAN_CONFIG, name: t("country.iran") }].map(c => (
             c.code === "_sep" ? <div key="_sep" style={{ width: 1, background: BORDER, margin: "4px 4px" }} /> :
-            <button key={c.code} onClick={() => { setSelectedCountry(c.code); setHoveredImpact(null); setSelectedImpact(null); setSelectedSite(null); window.location.hash = "/threat/" + c.code + (activeTab && activeTab !== "overview" && activeTab !== "intel" ? "/" + activeTab : ""); }}
-              style={{
-                background: selectedCountry === c.code ? (c.color || UAE_GREEN) : "transparent",
-                color: selectedCountry === c.code ? "#fff" : SUBTEXT,
-                border: `1px solid ${selectedCountry === c.code ? (c.color || UAE_GREEN) : BORDER}`,
-                borderRadius: 20, padding: "6px 16px", cursor: "pointer",
-                fontSize: 12, fontWeight: selectedCountry === c.code ? 700 : 500,
-                transition: "all 0.15s", display: "flex", alignItems: "center", gap: 6
-              }}>
-              <span>{c.flag}</span> {c.name}
-            </button>
+            <span key={c.code} style={{ display: "inline-flex", alignItems: "center", gap: 2 }}>
+              <button onClick={() => { setSelectedCountry(c.code); setHoveredImpact(null); setSelectedImpact(null); setSelectedSite(null); window.location.hash = "/threat/" + c.code + (activeTab && activeTab !== "overview" && activeTab !== "intel" ? "/" + activeTab : ""); }}
+                style={{
+                  background: selectedCountry === c.code ? (c.color || UAE_GREEN) : "transparent",
+                  color: selectedCountry === c.code ? "#fff" : SUBTEXT,
+                  border: `1px solid ${selectedCountry === c.code ? (c.color || UAE_GREEN) : BORDER}`,
+                  borderRadius: 20, padding: "6px 16px", cursor: "pointer",
+                  fontSize: 12, fontWeight: selectedCountry === c.code ? 700 : 500,
+                  transition: "all 0.15s", display: "flex", alignItems: "center", gap: 6
+                }}>
+                <span>{c.flag}</span> {c.name}
+              </button>
+              {COUNTRY_MAP_DATA[c.code] && (
+                <button onClick={(e) => { e.stopPropagation(); setMapModalCountry({ code: c.code, name: c.name, flag: c.flag }); }}
+                  title={`${c.name} threat map`}
+                  style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, padding: "2px 4px", opacity: 0.7, transition: "opacity 0.15s" }}
+                  onMouseEnter={e => e.currentTarget.style.opacity = 1} onMouseLeave={e => e.currentTarget.style.opacity = 0.7}>
+                  🗺
+                </button>
+              )}
+            </span>
           ))}
         </div>
 
@@ -1097,18 +1107,27 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
       <div style={{ display: "flex", gap: 8, padding: "16px 28px 0", flexWrap: "wrap" }}>
         {[{ code: "all", name: t("country.allGcc"), flag: "🌐" }, ...COUNTRY_CONFIG.map(c => ({ ...c, name: t(`country.${c.code}`) })), { code: "_sep" }, { ...IRAN_CONFIG, name: t("country.iran") }].map(c => (
           c.code === "_sep" ? <div key="_sep" style={{ width: 1, background: BORDER, margin: "4px 4px" }} /> :
-
-          <button key={c.code} onClick={() => { setSelectedCountry(c.code); setHoveredImpact(null); setSelectedImpact(null); setSelectedSite(null); window.location.hash = "/threat/" + c.code + (activeTab && activeTab !== "overview" && activeTab !== "intel" ? "/" + activeTab : ""); }}
-            style={{
-              background: selectedCountry === c.code ? (c.color || UAE_GREEN) : "transparent",
-              color: selectedCountry === c.code ? "#fff" : SUBTEXT,
-              border: `1px solid ${selectedCountry === c.code ? (c.color || UAE_GREEN) : BORDER}`,
-              borderRadius: 20, padding: "6px 16px", cursor: "pointer",
-              fontSize: 12, fontWeight: selectedCountry === c.code ? 700 : 500,
-              transition: "all 0.15s", display: "flex", alignItems: "center", gap: 6
-            }}>
-            <span>{c.flag}</span> {c.name}
-          </button>
+          <span key={c.code} style={{ display: "inline-flex", alignItems: "center", gap: 2 }}>
+            <button onClick={() => { setSelectedCountry(c.code); setHoveredImpact(null); setSelectedImpact(null); setSelectedSite(null); window.location.hash = "/threat/" + c.code + (activeTab && activeTab !== "overview" && activeTab !== "intel" ? "/" + activeTab : ""); }}
+              style={{
+                background: selectedCountry === c.code ? (c.color || UAE_GREEN) : "transparent",
+                color: selectedCountry === c.code ? "#fff" : SUBTEXT,
+                border: `1px solid ${selectedCountry === c.code ? (c.color || UAE_GREEN) : BORDER}`,
+                borderRadius: 20, padding: "6px 16px", cursor: "pointer",
+                fontSize: 12, fontWeight: selectedCountry === c.code ? 700 : 500,
+                transition: "all 0.15s", display: "flex", alignItems: "center", gap: 6
+              }}>
+              <span>{c.flag}</span> {c.name}
+            </button>
+            {COUNTRY_MAP_DATA[c.code] && (
+              <button onClick={(e) => { e.stopPropagation(); setMapModalCountry({ code: c.code, name: c.name, flag: c.flag }); }}
+                title={`${c.name} threat map`}
+                style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, padding: "2px 4px", opacity: 0.7, transition: "opacity 0.15s" }}
+                onMouseEnter={e => e.currentTarget.style.opacity = 1} onMouseLeave={e => e.currentTarget.style.opacity = 0.7}>
+                🗺
+              </button>
+            )}
+          </span>
         ))}
       </div>
 
@@ -2453,6 +2472,14 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
           GitHub
         </a>
       </div>
+      {mapModalCountry && (
+        <CountryMapModal
+          countryCode={mapModalCountry.code}
+          countryName={mapModalCountry.name}
+          flag={mapModalCountry.flag}
+          onClose={() => setMapModalCountry(null)}
+        />
+      )}
     </div>
   );
 }
