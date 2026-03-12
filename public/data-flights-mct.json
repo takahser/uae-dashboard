@@ -1,11 +1,11 @@
 {
   "airport": "OOMS",
   "airportName": "Muscat International (MCT)",
-  "lastUpdated": "2026-03-10T21:00:00Z",
+  "lastUpdated": "2026-03-12T00:24:10.944Z",
   "baselineDailyAvg": {
     "total": 150,
-    "departures": 74,
-    "arrivals": 76,
+    "departures": 73,
+    "arrivals": 77,
     "regions": {
       "Middle East": 45,
       "South Asia": 48,
@@ -301,6 +301,19 @@
         "Asia-Pacific": 8,
         "Americas": 2,
         "Unknown": 2
+      }
+    },
+    {
+      "date": "2026-03-11",
+      "departures": 103,
+      "arrivals": 108,
+      "total": 211,
+      "regions": {
+        "Europe": 39,
+        "South Asia": 81,
+        "Middle East": 68,
+        "Asia-Pacific": 11,
+        "Africa": 12
       }
     }
   ]

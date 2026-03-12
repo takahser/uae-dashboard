@@ -1,15 +1,15 @@
 {
   "airport": "OTHH",
   "airportName": "Hamad International (DOH)",
-  "lastUpdated": "2026-03-10T21:00:00Z",
+  "lastUpdated": "2026-03-12T00:24:24.081Z",
   "baselineDailyAvg": {
-    "total": 449,
-    "departures": 221,
-    "arrivals": 228,
+    "total": 446,
+    "departures": 220,
+    "arrivals": 227,
     "regions": {
-      "Middle East": 90,
-      "South Asia": 112,
-      "Europe": 120,
+      "Middle East": 89,
+      "South Asia": 111,
+      "Europe": 119,
       "Africa": 32,
       "Asia-Pacific": 54,
       "Americas": 27,
@@ -309,6 +309,21 @@
         "Asia-Pacific": 38,
         "Americas": 20,
         "Unknown": 10
+      }
+    },
+    {
+      "date": "2026-03-11",
+      "departures": 329,
+      "arrivals": 344,
+      "total": 673,
+      "regions": {
+        "Africa": 60,
+        "Europe": 191,
+        "South Asia": 130,
+        "Middle East": 138,
+        "Asia-Pacific": 110,
+        "Americas": 42,
+        "Other": 2
       }
     }
   ]
