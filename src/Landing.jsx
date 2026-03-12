@@ -160,7 +160,7 @@ export default function Landing({ onSelect }) {
               letterSpacing: '0.02em',
             }}
           >
-            Real-time conflict intelligence. No estimates. No noise.
+            Real-time conflict intelligence.
           </p>
 
           {/* Stat pills */}
