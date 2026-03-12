@@ -618,6 +618,7 @@ function Dashboard({ initialTab, onBack }) {
   const [selectedCountry, setSelectedCountry] = useState("uae");
   const [error, setError] = useState(null);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
+  const [expandedTimelineIdx, setExpandedTimelineIdx] = useState(null);
   const [showStrategicSites, setShowStrategicSites] = useState(true);
   const [mapZoom, setMapZoom] = useState(1);
   const [mapPan, setMapPan] = useState({ x: 0, y: 0 });
@@ -2268,6 +2269,73 @@ function Dashboard({ initialTab, onBack }) {
           </div>
         );
       })()}
+
+      {/* Confirmed Attack Timeline */}
+      {!isIran && !isAllGCC && hasDailyData && rawData.daily && rawData.daily.length > 0 && (
+        <div style={{ padding: "0 20px", maxWidth: 900, margin: "32px auto 0" }}>
+          <h2 style={{ fontSize: 18, fontWeight: 700, color: TEXT, marginBottom: 20, letterSpacing: -0.3 }}>
+            Confirmed Attack Timeline
+          </h2>
+          <div style={{ position: "relative", paddingLeft: 20, borderLeft: `2px solid ${BORDER}` }}>
+            {[...rawData.daily].reverse().map((day, i) => {
+              const totalIntercepted = (day.ballisticIntercepted || 0) + (day.cruiseIntercepted || 0) + (day.dronesIntercepted || 0);
+              const ballistic = day.ballisticDetected || 0;
+              const cruise = day.cruiseDetected || 0;
+              const drones = day.dronesDetected || 0;
+              const total = ballistic + cruise + drones;
+              if (total === 0) return null;
+              const ballisticRatio = total > 0 ? ballistic / total : 0;
+              const droneRatio = total > 0 ? drones / total : 0;
+              const dotColor = ballisticRatio > 0.5 ? "#C0392B" : droneRatio > 0.6 ? "#F1C40F" : "#E67E22";
+              const isExpanded = expandedTimelineIdx === i;
+              return (
+                <div key={i} style={{ marginBottom: 16, position: "relative" }}>
+                  <div style={{
+                    position: "absolute", left: -27, top: 14, width: 12, height: 12,
+                    borderRadius: "50%", background: dotColor, border: `2px solid ${BG}`
+                  }} />
+                  <div
+                    onClick={() => setExpandedTimelineIdx(isExpanded ? null : i)}
+                    style={{
+                      background: CARD_BG, border: `1px solid ${isExpanded ? dotColor : BORDER}`,
+                      borderRadius: 10, padding: "14px 18px", cursor: "pointer",
+                      transition: "border-color 0.2s"
+                    }}
+                  >
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: TEXT }}>{day.label || day.date}</span>
+                      <span style={{ fontSize: 11, color: SUBTEXT }}>{isExpanded ? "▲" : "▼"}</span>
+                    </div>
+                    <div style={{ fontSize: 12, color: SUBTEXT, marginBottom: 6 }}>
+                      Total intercepted: <span style={{ color: INTERCEPTED, fontWeight: 700 }}>{totalIntercepted}</span> / {total}
+                    </div>
+                    <div style={{ display: "flex", gap: 12, fontSize: 11, color: SUBTEXT }}>
+                      {ballistic > 0 && <span>Ballistic: <span style={{ color: "#C0392B" }}>{ballistic}</span></span>}
+                      {cruise > 0 && <span>Cruise: <span style={{ color: "#3498DB" }}>{cruise}</span></span>}
+                      {drones > 0 && <span>Drones: <span style={{ color: "#F1C40F" }}>{drones}</span></span>}
+                    </div>
+                    {isExpanded && (
+                      <div style={{ marginTop: 14, paddingTop: 12, borderTop: `1px solid ${BORDER}` }}>
+                        <div style={{ fontSize: 12, fontWeight: 600, color: TEXT, marginBottom: 8 }}>Sources</div>
+                        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: SUBTEXT }}>
+                            <span style={{ fontSize: 14 }}>🐦</span>
+                            <span>UAE MoD official statement — <a href="#" style={{ color: UAE_GOLD, textDecoration: "none" }}>@modgovae</a></span>
+                          </div>
+                          <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: SUBTEXT }}>
+                            <span style={{ fontSize: 14 }}>🐦</span>
+                            <span>CENTCOM press release — <a href="#" style={{ color: UAE_GOLD, textDecoration: "none" }}>@CENTCOM</a></span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       <div style={{ textAlign: "center", marginTop: 32, fontSize: 10, color: "#3A4A60" }}>
         {t("footer.text")}
