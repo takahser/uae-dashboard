@@ -1566,11 +1566,15 @@ function Dashboard({ initialTab, onBack }) {
 
             {/* Annotation cards below */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))", gap: 12 }}>
-              {trendData.map((d, i) => (
+              {(() => {
+                const totals = trendData.map(d => d.total);
+                const peakIdx = totals.indexOf(Math.max(...totals));
+                const lowestIdx = totals.indexOf(Math.min(...totals));
+                return trendData.map((d, i) => (
                 <div key={i} style={{
                   background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 10,
                   padding: "14px 16px",
-                  borderTop: `3px solid ${i === 0 ? IMPACTED : i === 4 ? INTERCEPTED : BORDER}`
+                  borderTop: `3px solid ${i === peakIdx ? IMPACTED : i === lowestIdx ? INTERCEPTED : BORDER}`
                 }}>
                   <div style={{ fontSize: 11, color: UAE_GOLD, fontWeight: 700, marginBottom: 8, textTransform: "uppercase", letterSpacing: 1 }}>{d.day}</div>
                   <div style={{ fontSize: 22, fontWeight: 800, color: TEXT, fontFamily: "Georgia, serif" }}>{d.total}</div>
@@ -1578,10 +1582,11 @@ function Dashboard({ initialTab, onBack }) {
                   <div style={{ fontSize: 10, color: "#4DA6FF" }}>🚀 {d.ballistic} {t("trends.ballistic")}</div>
                   <div style={{ fontSize: 10, color: UAE_GOLD }}>🚁 {d.drones} {t("trends.drones")}</div>
                   {d.cruise > 0 && <div style={{ fontSize: 10, color: "#E74C3C" }}>✈️ {d.cruise} {t("trends.cruise")}</div>}
-                  {i === 0 && <div style={{ fontSize: 9, color: IMPACTED, marginTop: 6, fontWeight: 600 }}>⚠️ {t("trends.peakDay")}</div>}
-                  {i === 4 && <div style={{ fontSize: 9, color: INTERCEPTED, marginTop: 6, fontWeight: 600 }}>↓ {t("trends.lowestDay")}</div>}
+                  {i === peakIdx && <div style={{ fontSize: 9, color: IMPACTED, marginTop: 6, fontWeight: 600 }}>⚠️ {t("trends.peakDay")}</div>}
+                  {i === lowestIdx && <div style={{ fontSize: 9, color: INTERCEPTED, marginTop: 6, fontWeight: 600 }}>↓ {t("trends.lowestDay")}</div>}
                 </div>
-              ))}
+                ));
+              })()}
             </div>
           </div>
         )}
