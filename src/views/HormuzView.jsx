@@ -60,6 +60,15 @@ const GEO_LABELS = [
   { pos: [25.5, 58.0], label: "← Gulf of Oman" },
 ];
 
+const PORTS = [
+  { pos: [27.18, 56.27], label: "🏭 Bandar Abbas — Iran main port & naval base", country: "Iran" },
+  { pos: [24.98, 55.07], label: "🏭 Jebel Ali (UAE) — World largest man-made harbour", country: "UAE" },
+  { pos: [25.13, 56.36], label: "⛽ Fujairah (UAE) — Major oil terminal & bunkering hub", country: "UAE" },
+  { pos: [25.34, 56.36], label: "🚢 Khor Fakkan (UAE) — Key container port, Gulf of Oman", country: "UAE" },
+  { pos: [23.62, 58.59], label: "🏭 Muscat (Oman) — Main port", country: "Oman" },
+  { pos: [24.35, 56.64], label: "⛽ Sohar (Oman) — Oil & industrial port", country: "Oman" },
+];
+
 function HormuzMap() {
   return (
     <div style={{ position: 'relative', marginBottom: 32 }}>
@@ -122,6 +131,19 @@ function HormuzMap() {
             </Popup>
           </CircleMarker>
         ))}
+        {/* Port markers */}
+        {PORTS.map((p, i) => (
+          <CircleMarker
+            key={`port-${i}`}
+            center={p.pos}
+            radius={7}
+            pathOptions={{ color: '#4a9eff', fillColor: '#4a9eff', fillOpacity: 0.8 }}
+          >
+            <Popup>
+              <span style={{ fontSize: '0.8rem', color: '#111' }}>{p.label}</span>
+            </Popup>
+          </CircleMarker>
+        ))}
       </MapContainer>
 
       {/* Legend */}
@@ -130,7 +152,7 @@ function HormuzMap() {
         background: 'rgba(15,24,41,0.9)', border: `1px solid ${BORDER}`,
         borderRadius: 6, padding: '6px 12px', fontSize: '0.7rem', color: SUBTEXT
       }}>
-        🔴 Ship attack &nbsp; ⚠️ Chokepoint zone
+        🔴 Ship attack &nbsp; ⚠️ Chokepoint zone &nbsp; 🔵 Port
       </div>
     </div>
   );
