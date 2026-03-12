@@ -2,7 +2,7 @@ name: Update Attack Data
 
 on:
   schedule:
-    - cron: "0 */2 * * *"   # every 2 hours (rate limit aware for 4 countries)
+    - cron: "0 8 * * *"   # once daily at 08:00 UTC (manual updates preferred)
   workflow_dispatch:           # allow manual trigger from GitHub UI
 
 jobs:
