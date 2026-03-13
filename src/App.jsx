@@ -844,14 +844,6 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                 }}>
                 <span>{c.flag}</span> {c.name}
               </button>
-              {COUNTRY_MAP_DATA[c.code] && (
-                <button onClick={(e) => { e.stopPropagation(); setMapModalCountry({ code: c.code, name: c.name, flag: c.flag }); }}
-                  title={`${c.name} threat map`}
-                  style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, padding: "2px 4px", opacity: 0.7, transition: "opacity 0.15s" }}
-                  onMouseEnter={e => e.currentTarget.style.opacity = 1} onMouseLeave={e => e.currentTarget.style.opacity = 0.7}>
-                  🗺
-                </button>
-              )}
             </span>
           ))}
         </div>
@@ -1119,14 +1111,6 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
               }}>
               <span>{c.flag}</span> {c.name}
             </button>
-            {COUNTRY_MAP_DATA[c.code] && (
-              <button onClick={(e) => { e.stopPropagation(); setMapModalCountry({ code: c.code, name: c.name, flag: c.flag }); }}
-                title={`${c.name} threat map`}
-                style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, padding: "2px 4px", opacity: 0.7, transition: "opacity 0.15s" }}
-                onMouseEnter={e => e.currentTarget.style.opacity = 1} onMouseLeave={e => e.currentTarget.style.opacity = 0.7}>
-                🗺
-              </button>
-            )}
           </span>
         ))}
       </div>
