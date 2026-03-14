@@ -6,20 +6,20 @@
     }
   },
   "cumulative": {
-    "ballisticDetected": 271,
-    "ballisticIntercepted": 249,
+    "ballisticDetected": 281,
+    "ballisticIntercepted": 259,
     "ballisticSea": 20,
     "ballisticImpacted": 2,
     "cruiseDetected": 15,
     "cruiseIntercepted": 15,
     "cruiseSea": 0,
     "cruiseImpacted": 0,
-    "dronesDetected": 1494,
-    "dronesIntercepted": 1412,
+    "dronesDetected": 1520,
+    "dronesIntercepted": 1436,
     "dronesSea": 0,
-    "dronesImpacted": 82,
+    "dronesImpacted": 84,
     "killed": 4,
-    "injured": 117
+    "injured": 121
   },
   "daily": [
     {
@@ -191,6 +191,23 @@
       "dronesIntercepted": 39,
       "dronesImpacted": 0,
       "total": 52
+    },
+    {
+      "date": "2026-03-12",
+      "label": "12 Mar",
+      "ballisticDetected": 10,
+      "ballisticIntercepted": 10,
+      "ballisticSea": 0,
+      "ballisticImpacted": 0,
+      "cruiseDetected": 0,
+      "cruiseIntercepted": 0,
+      "cruiseSea": 0,
+      "cruiseImpacted": 0,
+      "dronesDetected": 26,
+      "dronesIntercepted": 24,
+      "dronesSea": 0,
+      "dronesImpacted": 2,
+      "total": 36
     }
   ]
 }
