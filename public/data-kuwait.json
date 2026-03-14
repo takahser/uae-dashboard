@@ -1,23 +1,25 @@
 {
-  "lastUpdated": "2026-03-10T21:00:00Z",
+  "lastUpdated": "2026-03-12",
   "sources": {
-    "MOD_KW": { "lastTweetId": null }
+    "MOD_KW": {
+      "lastTweetId": null
+    }
   },
   "cumulative": {
-    "ballisticDetected": 268,
-    "ballisticIntercepted": 268,
+    "ballisticDetected": 226,
+    "ballisticIntercepted": 226,
     "ballisticSea": null,
     "ballisticImpacted": null,
     "cruiseDetected": null,
     "cruiseIntercepted": null,
     "cruiseSea": null,
     "cruiseImpacted": null,
-    "dronesDetected": 674,
-    "dronesIntercepted": 674,
+    "dronesDetected": 414,
+    "dronesIntercepted": 414,
     "dronesSea": null,
-    "dronesImpacted": null,
+    "dronesImpacted": 2,
     "killed": 1,
-    "injured": 32
+    "injured": 34
   },
   "daily": [
     {
