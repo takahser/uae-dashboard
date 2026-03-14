@@ -8,14 +8,22 @@ import "leaflet/dist/leaflet.css";
 import { createT } from "./i18n";
 
 const UAE_GREEN = "#00732F";
-const UAE_GOLD = "#CF9B1A";
+const UAE_GOLD = "#F59E0B";
+
+// Glassmorphism design tokens
+const GLASS_BG = "rgba(255,255,255,0.03)";
+const GLASS_BORDER = "1px solid rgba(255,255,255,0.07)";
+const GLASS_BLUR = "blur(40px)";
+const GLASS_RADIUS = 16;
+const DM_SANS = "'DM Sans', -apple-system, sans-serif";
 
 const COUNTRY_CONFIG = [
-  { code: "uae", name: "UAE", flag: "\u{1F1E6}\u{1F1EA}", file: "data-uae.json", color: "#00732F", accent: "#CF9B1A", source: "@modgovae" },
+  { code: "uae", name: "UAE", flag: "\u{1F1E6}\u{1F1EA}", file: "data-uae.json", color: "#00732F", accent: "#F59E0B", source: "@modgovae" },
   { code: "qatar", name: "Qatar", flag: "\u{1F1F6}\u{1F1E6}", file: "data-qatar.json", color: "#8A1538", accent: "#FFFFFF", source: "@MOD_Qatar" },
   { code: "kuwait", name: "Kuwait", flag: "\u{1F1F0}\u{1F1FC}", file: "data-kuwait.json", color: "#007A3D", accent: "#CE1126", source: "@MOD_KW" },
   { code: "bahrain", name: "Bahrain", flag: "\u{1F1E7}\u{1F1ED}", file: "data-bahrain.json", color: "#CE1126", accent: "#FFFFFF", source: "@BDF_Bahrain" },
   { code: "oman", name: "Oman", flag: "\u{1F1F4}\u{1F1F2}", file: "data-oman.json", color: "#DB161B", accent: "#008000", source: "@MOD_Oman" },
+  { code: "saudi", name: "Saudi Arabia", flag: "\u{1F1F8}\u{1F1E6}", file: "data-saudi.json", color: "#006C35", accent: "#FFFFFF", source: "@SPA_English" },
   { code: "israel", name: "Israel", flag: "\u{1F1EE}\u{1F1F1}", file: "data-israel.json", color: "#003F87", accent: "#FFFFFF", source: "OSINT", airports: ["TLV"] },
 ];
 const IRAN_CONFIG = { code: "iran", name: "Iran", flag: "\u{1F1EE}\u{1F1F7}", file: "data-iran.json", color: "#DA0000", accent: "#FFFFFF", source: "OSINT" };
@@ -92,17 +100,17 @@ function CountryMapModal({ countryCode, countryName, flag, onClose }) {
   const data = COUNTRY_MAP_DATA[countryCode];
   if (!data) return null;
   return (
-    <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)", zIndex: 9999, display: "flex", flexDirection: "column" }}>
-      <div style={{ background: "#0A0F1E", borderBottom: "1px solid #1A2840", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <h2 style={{ margin: 0, color: "#E8EDF5", fontSize: 20 }}>{flag} {countryName} — Threat Map</h2>
-        <button onClick={onClose} style={{ background: "none", border: "1px solid #3A4A60", color: "#E8EDF5", padding: "6px 14px", borderRadius: 6, cursor: "pointer", fontSize: 14 }}>✕ Close</button>
+    <div style={{ position: "fixed", inset: 0, background: "rgba(5,11,26,0.92)", backdropFilter: "blur(12px)", zIndex: 9999, display: "flex", flexDirection: "column" }}>
+      <div style={{ background: CARD_BG, borderBottom: GLASS_BORDER, backdropFilter: GLASS_BLUR, padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <h2 style={{ margin: 0, color: TEXT, fontSize: 20, fontFamily: DM_SANS }}>{flag} {countryName} — Threat Map</h2>
+        <button onClick={onClose} style={{ background: CARD_BG, border: GLASS_BORDER, color: TEXT, padding: "6px 14px", borderRadius: GLASS_RADIUS, cursor: "pointer", fontSize: 14, fontFamily: DM_SANS }}>✕ Close</button>
       </div>
       <div style={{ flex: 1, position: "relative" }}>
         <MapContainer center={data.center} zoom={data.zoom} style={{ height: "100%", width: "100%" }} zoomControl={true}>
           <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" attribution="© CartoDB" />
           {data.cities.map((c, i) => (
             <CircleMarker key={i} center={c.pos} radius={c.type === "capital" ? 9 : c.type === "military" ? 7 : 6}
-              pathOptions={{ color: c.type === "capital" ? "#FFD700" : c.type === "military" ? "#FF6B00" : c.type === "port" ? "#4a9eff" : "#aaa", fillOpacity: 0.85 }}>
+              pathOptions={{ color: c.type === "capital" ? "#F59E0B" : c.type === "military" ? "#F59E0B" : c.type === "port" ? "#3B82F6" : "#E8E8ED44", fillOpacity: 0.85 }}>
               <LTooltip permanent direction="top" offset={[0, -8]} opacity={0.9}>
                 <span style={{ fontSize: 11 }}>{c.name}</span>
               </LTooltip>
@@ -110,12 +118,12 @@ function CountryMapModal({ countryCode, countryName, flag, onClose }) {
           ))}
           {data.attacks.map((a, i) => (
             <CircleMarker key={i} center={a.pos} radius={8}
-              pathOptions={{ color: "#ff4444", fillColor: "#ff4444", fillOpacity: 0.7 }}>
+              pathOptions={{ color: "#F87171", fillColor: "#F87171", fillOpacity: 0.7 }}>
               <Popup><span style={{ fontSize: 12 }}>⚠️ {a.label}</span></Popup>
             </CircleMarker>
           ))}
         </MapContainer>
-        <div style={{ position: "absolute", bottom: 20, right: 20, background: "rgba(10,15,30,0.9)", border: "1px solid #1A2840", borderRadius: 8, padding: "10px 14px", zIndex: 1000, fontSize: 12, color: "#aaa", lineHeight: "1.8" }}>
+        <div style={{ position: "absolute", bottom: 20, right: 20, background: "#0D1B2Aee", border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: "10px 14px", zIndex: 1000, fontSize: 12, color: SUBTEXT, lineHeight: "1.8", backdropFilter: GLASS_BLUR }}>
           🟡 Capital &nbsp; 🟠 Military &nbsp; 🔵 Port<br/>🔴 Attack/Intercept site
         </div>
       </div>
@@ -123,25 +131,25 @@ function CountryMapModal({ countryCode, countryName, flag, onClose }) {
   );
 }
 
-const INTERCEPTED = "#00A86B";
-const IMPACTED = "#C0392B";
-const SEA = "#2980B9";
-const BG = "#0A0F1E";
-const CARD_BG = "#0F1829";
-const BORDER = "#1A2840";
-const TEXT = "#E8EDF5";
-const SUBTEXT = "#8899BB";
+const INTERCEPTED = "#34D399";
+const IMPACTED = "#F87171";
+const SEA = "#3B82F6";
+const BG = "#050B1A";
+const CARD_BG = "#FFFFFF08";
+const BORDER = "#FFFFFF11";
+const TEXT = "#E8E8ED";
+const SUBTEXT = "#E8E8ED88";
 
 // Live Intel map constants
-const MAP_BG = "#060A14";
-const MAP_LAND = "#0A1628";
-const MAP_BORDER_COLOR = "#1A3050";
-const MAP_GRID = "#0D2040";
-const DRONE_HIT = "#C0392B";
-const DEBRIS_HIT = "#E67E22";
+const MAP_BG = "#050B1A";
+const MAP_LAND = "#FFFFFF06";
+const MAP_BORDER_COLOR = "#FFFFFF15";
+const MAP_GRID = "#FFFFFF08";
+const DRONE_HIT = "#F87171";
+const DEBRIS_HIT = "#F59E0B";
 
-const STRATEGIC_BLUE = "#3498DB";
-const DESAL_CYAN = "#00BCD4";
+const STRATEGIC_BLUE = "#3B82F6";
+const DESAL_CYAN = "#22D3EE";
 
 // Equirectangular projection: configurable bounds → SVG coords
 const SVG_W = 800, SVG_H = 500;
@@ -687,7 +695,8 @@ function buildDerivedData(raw, t) {
   })) : [];
 
   return { dailyData, cumulativeData, finalTotals, pieData, rateData, trendData, interceptorData,
-           cumulative: c, totalDetected, totalIntercepted, totalImpacted, overallRate, hasDailyData };
+           cumulative: c, totalDetected, totalIntercepted, totalImpacted, overallRate, hasDailyData,
+           totalStrikes: c.totalStrikes || null };
 }
 
 const CustomTooltip = ({ active, payload, label }) => {
@@ -1000,7 +1009,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
   })() : buildDerivedData(rawData, t);
 
   const { dailyData, cumulativeData, finalTotals, pieData, rateData, trendData, interceptorData,
-          cumulative, totalDetected, totalIntercepted, totalImpacted, overallRate, hasDailyData } = derived;
+          cumulative, totalDetected, totalIntercepted, totalImpacted, overallRate, hasDailyData, totalStrikes } = derived;
 
   const lastUpdated = new Date(rawData.lastUpdated).toLocaleString("en-GB", {
     day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Dubai"
@@ -1117,13 +1126,57 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
 
       {/* Stat cards */}
       <div style={{ display: "flex", gap: 12, padding: "20px 28px", flexWrap: "wrap" }}>
-        <StatCard label={t("stat.totalDetected")} value={totalDetected.toLocaleString()} sub={t("stat.totalDetectedSub")} color={themeAccent || UAE_GOLD} />
-        <StatCard label={t("stat.intercepted")} value={totalIntercepted.toLocaleString()} sub={overallRate != null ? `${overallRate}% ${t("stat.successRate")}` : t("stat.rateNA")} color={INTERCEPTED} />
-        <StatCard label={t("stat.impacted")} value={totalImpacted.toLocaleString()} sub={t("stat.impactedSub")} color={IMPACTED} />
+        {totalStrikes && totalDetected === 0 ? (
+          <>
+            <StatCard label={t("stat.totalStrikes") || "Total Strikes"} value={totalStrikes.toLocaleString()} sub={t("stat.totalStrikesSub") || "Combined ballistic + drone"} color={themeAccent || UAE_GOLD} />
+            <StatCard label={t("stat.intercepted")} value="—" sub={t("stat.breakdownNA") || "No breakdown available"} color={INTERCEPTED} />
+          </>
+        ) : (
+          <>
+            <StatCard label={t("stat.totalDetected")} value={totalDetected.toLocaleString()} sub={t("stat.totalDetectedSub")} color={themeAccent || UAE_GOLD} />
+            <StatCard label={t("stat.intercepted")} value={totalIntercepted.toLocaleString()} sub={overallRate != null ? `${overallRate}% ${t("stat.successRate")}` : t("stat.rateNA")} color={INTERCEPTED} />
+            <StatCard label={t("stat.impacted")} value={totalImpacted.toLocaleString()} sub={t("stat.impactedSub")} color={IMPACTED} />
+          </>
+        )}
         {n(cumulative.ballisticSea) > 0 && <StatCard label={t("stat.sea")} value={n(cumulative.ballisticSea).toLocaleString()} sub={t("stat.seaSub")} color={SEA} />}
         {n(cumulative.killed) > 0 && <StatCard label={t("stat.killed")} value={cumulative.killed} sub="" color="#E74C3C" />}
         {cumulative.injured != null && <StatCard label={t("stat.injured")} value={cumulative.injured} sub="" color="#E67E22" />}
       </div>
+      {/* Country note (e.g. IDF data limitations) */}
+      {rawData.note && (
+        <div style={{ padding: "0 28px 12px" }}>
+          <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 8, padding: "10px 16px", fontSize: 11, color: SUBTEXT, lineHeight: 1.5 }}>
+            <span style={{ color: themeAccent || UAE_GOLD, fontWeight: 700, marginRight: 6 }}>NOTE:</span>{rawData.note}
+          </div>
+        </div>
+      )}
+      {/* Defence systems from data */}
+      {rawData.defenceSystems && rawData.defenceSystems.length > 0 && (
+        <div style={{ padding: "0 28px 12px" }}>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            {rawData.defenceSystems.map(sys => (
+              <span key={sys} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 16, padding: "4px 12px", fontSize: 11, color: INTERCEPTED, fontWeight: 600 }}>{sys}</span>
+            ))}
+          </div>
+        </div>
+      )}
+      {/* Airport status from data */}
+      {rawData.airports && rawData.airports.length > 0 && (
+        <div style={{ padding: "0 28px 12px" }}>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            {rawData.airports.map(apt => (
+              <div key={apt.iata} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 8, padding: "8px 14px", fontSize: 11 }}>
+                <span style={{ color: themeAccent || UAE_GOLD, fontWeight: 700 }}>{apt.iata}</span>
+                <span style={{ color: TEXT, marginLeft: 6 }}>{apt.name}</span>
+                <span style={{ color: apt.status === "operational_restricted" ? "#E67E22" : INTERCEPTED, marginLeft: 8, fontWeight: 600 }}>
+                  {apt.status === "operational_restricted" ? "RESTRICTED" : apt.status?.toUpperCase()}
+                </span>
+                {apt.notes && <span style={{ color: SUBTEXT, marginLeft: 6 }}>— {apt.notes}</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Tabs */}
       <div style={{ display: "flex", gap: 4, padding: "0 28px 20px", flexWrap: "wrap" }}>
@@ -1165,10 +1218,19 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                     <div style={{ fontSize: 24, marginBottom: 4 }}>{cs.flag}</div>
                     <div style={{ fontSize: 14, fontWeight: 700, color: TEXT, marginBottom: 12 }}>{cs.name}</div>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-                      <div><div style={{ fontSize: 20, fontWeight: 800, color: cs.accent || UAE_GOLD, fontFamily: "Georgia, serif" }}>{cs.totalDetected.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>{t("comp.detected")}</div></div>
-                      <div><div style={{ fontSize: 20, fontWeight: 800, color: INTERCEPTED, fontFamily: "Georgia, serif" }}>{cs.totalIntercepted.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>{t("comp.intercepted")}</div></div>
-                      <div><div style={{ fontSize: 20, fontWeight: 800, color: IMPACTED, fontFamily: "Georgia, serif" }}>{cs.totalImpacted.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>{t("comp.impacted")}</div></div>
-                      <div><div style={{ fontSize: 20, fontWeight: 800, color: cs.overallRate != null && cs.overallRate >= 95 ? INTERCEPTED : "#E67E22", fontFamily: "Georgia, serif" }}>{cs.overallRate != null ? `${cs.overallRate}%` : "N/A"}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>{t("comp.successRate")}</div></div>
+                      {cs.totalStrikes && cs.totalDetected === 0 ? (
+                        <>
+                          <div style={{ gridColumn: "1 / -1" }}><div style={{ fontSize: 20, fontWeight: 800, color: cs.accent || UAE_GOLD, fontFamily: "Georgia, serif" }}>{cs.totalStrikes.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>TOTAL STRIKES</div></div>
+                          <div style={{ gridColumn: "1 / -1" }}><div style={{ fontSize: 10, color: SUBTEXT }}>No intercept breakdown available</div></div>
+                        </>
+                      ) : (
+                        <>
+                          <div><div style={{ fontSize: 20, fontWeight: 800, color: cs.accent || UAE_GOLD, fontFamily: "Georgia, serif" }}>{cs.totalDetected.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>{t("comp.detected")}</div></div>
+                          <div><div style={{ fontSize: 20, fontWeight: 800, color: INTERCEPTED, fontFamily: "Georgia, serif" }}>{cs.totalIntercepted.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>{t("comp.intercepted")}</div></div>
+                          <div><div style={{ fontSize: 20, fontWeight: 800, color: IMPACTED, fontFamily: "Georgia, serif" }}>{cs.totalImpacted.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>{t("comp.impacted")}</div></div>
+                          <div><div style={{ fontSize: 20, fontWeight: 800, color: cs.overallRate != null && cs.overallRate >= 95 ? INTERCEPTED : "#E67E22", fontFamily: "Georgia, serif" }}>{cs.overallRate != null ? `${cs.overallRate}%` : "N/A"}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>{t("comp.successRate")}</div></div>
+                        </>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -1227,9 +1289,9 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                         <td style={{ padding: "10px", color: TEXT }}>{n(cs.cumulative.ballisticDetected) || "—"}</td>
                         <td style={{ padding: "10px", color: TEXT }}>{n(cs.cumulative.cruiseDetected) || "—"}</td>
                         <td style={{ padding: "10px", color: TEXT }}>{n(cs.cumulative.dronesDetected) || "—"}</td>
-                        <td style={{ padding: "10px", color: themeAccent, fontWeight: 700 }}>{cs.totalDetected.toLocaleString()}</td>
-                        <td style={{ padding: "10px", color: INTERCEPTED, fontWeight: 700 }}>{cs.totalIntercepted.toLocaleString()}</td>
-                        <td style={{ padding: "10px", color: IMPACTED, fontWeight: 700 }}>{cs.totalImpacted.toLocaleString()}</td>
+                        <td style={{ padding: "10px", color: themeAccent, fontWeight: 700 }}>{cs.totalStrikes && cs.totalDetected === 0 ? `${cs.totalStrikes.toLocaleString()}*` : cs.totalDetected.toLocaleString()}</td>
+                        <td style={{ padding: "10px", color: INTERCEPTED, fontWeight: 700 }}>{cs.totalStrikes && cs.totalDetected === 0 ? "—" : cs.totalIntercepted.toLocaleString()}</td>
+                        <td style={{ padding: "10px", color: IMPACTED, fontWeight: 700 }}>{cs.totalStrikes && cs.totalDetected === 0 ? "—" : cs.totalImpacted.toLocaleString()}</td>
                         <td style={{ padding: "10px", color: "#E74C3C" }}>{n(cs.cumulative.killed) || "—"}</td>
                         <td style={{ padding: "10px", color: "#E67E22" }}>{cs.cumulative.injured != null ? cs.cumulative.injured : "—"}</td>
                       </tr>

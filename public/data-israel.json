@@ -1,20 +1,36 @@
 {
   "country": "israel",
   "flag": "\ud83c\uddee\ud83c\uddf1",
-  "capital": "Tel Aviv",
+  "capital": "Tel Aviv / Jerusalem",
   "lastUpdated": "2026-03-11",
-  "source": "@IDF, @timesofisrael, @fdd",
+  "source": "IDF (@IDF), @timesofisrael, @LucasTomlinson",
+  "note": "IDF does not publish daily intercept breakdowns. Cumulative 550 total strikes Feb 28\u2013Mar 11 (IDF via Fox News/Lucas Tomlinson). Daily detail unavailable from official sources.",
+  "defenceSystems": ["Iron Dome", "David's Sling", "Arrow-2", "Arrow-3"],
   "daily": [],
   "cumulative": {
     "ballisticDetected": null,
     "ballisticIntercepted": null,
+    "ballisticSea": null,
+    "ballisticImpacted": null,
     "cruiseDetected": null,
     "cruiseIntercepted": null,
+    "cruiseSea": null,
+    "cruiseImpacted": null,
     "dronesDetected": null,
     "dronesIntercepted": null,
+    "dronesSea": null,
+    "dronesImpacted": null,
     "totalStrikes": 550,
     "killed": null,
-    "injured": null
+    "injured": null,
+    "notes": "Total 550 strikes (ballistic + drone combined) Feb 28\u2013Mar 11"
   },
-  "note": "Daily breakdown pending. Cumulative: 550 strikes Feb 28\u2013Mar 11 (Source: @IDF via Lucas Tomlinson/Fox News)"
+  "airports": [
+    {
+      "iata": "TLV",
+      "name": "Ben Gurion International Airport",
+      "status": "operational_restricted",
+      "notes": "Repeatedly targeted; multiple flight diversions"
+    }
+  ]
 }
