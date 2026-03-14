@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const cards = [
   {
@@ -30,8 +30,8 @@ const cards = [
   },
 ];
 
-const stats = [
-  { label: 'threats detected', value: '1,780', color: '#ff4444' },
+const DEFAULT_STATS = [
+  { label: 'threats detected', value: '1,816', color: '#ff4444' },
   { label: 'intercepted', value: '94.2%', color: '#44ff88' },
   { label: 'Hormuz', value: 'CLOSED', color: '#ffaa22' },
 ];
@@ -54,6 +54,23 @@ const keyframesStyle = `
 
 export default function Landing({ onSelect }) {
   const [hovered, setHovered] = useState(null);
+  const [stats, setStats] = useState(DEFAULT_STATS);
+
+  useEffect(() => {
+    const base = import.meta.env.BASE_URL || '/';
+    fetch(base + 'data-uae.json').then(r => r.ok ? r.json() : null).then(d => {
+      if (!d) return;
+      const c = d.cumulative || {};
+      const det = (c.ballisticDetected || 0) + (c.cruiseDetected || 0) + (c.dronesDetected || 0);
+      const int_ = (c.ballisticIntercepted || 0) + (c.cruiseIntercepted || 0) + (c.dronesIntercepted || 0);
+      const rate = det > 0 ? ((int_ / det) * 100).toFixed(1) + '%' : '—';
+      setStats([
+        { label: 'threats detected', value: det.toLocaleString(), color: '#ff4444' },
+        { label: 'intercepted', value: rate, color: '#44ff88' },
+        { label: 'Hormuz', value: 'CLOSED', color: '#ffaa22' },
+      ]);
+    }).catch(() => {});
+  }, []);
 
   return (
     <>
