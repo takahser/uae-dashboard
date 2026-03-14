@@ -26,7 +26,7 @@ const COUNTRY_CONFIG = [
   { code: "saudi", name: "Saudi Arabia", flag: "\u{1F1F8}\u{1F1E6}", file: "data-saudi.json", color: "#006C35", accent: "#FFFFFF", source: "@SPA_English" },
   { code: "israel", name: "Israel", flag: "\u{1F1EE}\u{1F1F1}", file: "data-israel.json", color: "#003F87", accent: "#FFFFFF", source: "OSINT", airports: ["TLV"] },
 ];
-const IRAN_CONFIG = { code: "iran", name: "Iran", flag: "\u{1F1EE}\u{1F1F7}", file: "data-iran.json", color: "#DA0000", accent: "#FFFFFF", source: "OSINT" };
+const IRAN_CONFIG = { code: "iran", name: "Iran", flag: "\u{1F1EE}\u{1F1F7}", file: "data-iran.json", color: "#EF4444", accent: "#FFFFFF", source: "OSINT" };
 
 const COUNTRY_MAP_DATA = {
   uae: {
@@ -103,7 +103,7 @@ function CountryMapModal({ countryCode, countryName, flag, onClose }) {
     <div style={{ position: "fixed", inset: 0, background: "rgba(5,11,26,0.92)", backdropFilter: "blur(12px)", zIndex: 9999, display: "flex", flexDirection: "column" }}>
       <div style={{ background: CARD_BG, borderBottom: GLASS_BORDER, backdropFilter: GLASS_BLUR, padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <h2 style={{ margin: 0, color: TEXT, fontSize: 20, fontFamily: DM_SANS }}>{flag} {countryName} — Threat Map</h2>
-        <button onClick={onClose} style={{ background: CARD_BG, border: GLASS_BORDER, color: TEXT, padding: "6px 14px", borderRadius: GLASS_RADIUS, cursor: "pointer", fontSize: 14, fontFamily: DM_SANS }}>✕ Close</button>
+        <button onClick={onClose} style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, color: TEXT, padding: "6px 14px", borderRadius: GLASS_RADIUS, cursor: "pointer", fontSize: 14, fontFamily: DM_SANS }}>✕ Close</button>
       </div>
       <div style={{ flex: 1, position: "relative" }}>
         <MapContainer center={data.center} zoom={data.zoom} style={{ height: "100%", width: "100%" }} zoomControl={true}>
@@ -308,7 +308,7 @@ const MAP_CONFIGS = {
 const GCC_GEOGRAPHY = {
   // Sea background: the entire SVG is water-colored; land polygons are drawn on top
   saudiArabia: {
-    name: "SAUDI ARABIA", color: "#0E1A2A", labelLat: 24.5, labelLng: 45.0,
+    name: "SAUDI ARABIA", color: "#FFFFFF06", labelLat: 24.5, labelLng: 45.0,
     strategicSites: [
       { id: "sa-s1", name: "Prince Sultan Air Base", type: "US Air Base", lat: 24.0625, lng: 47.5806 },
       { id: "sa-s3", name: "US Embassy Riyadh", type: "US Embassy", lat: 24.7468, lng: 46.6527 },
@@ -342,7 +342,7 @@ const GCC_GEOGRAPHY = {
     ],
   },
   oman: {
-    name: "OMAN", color: "#0E1A2A", labelLat: 21.5, labelLng: 57.5,
+    name: "OMAN", color: "#FFFFFF06", labelLat: 21.5, labelLng: 57.5,
     strategicSites: [
       { id: "om-s1", name: "Thumrait Air Base", type: "US/Oman Air Base", lat: 17.6660, lng: 54.0246 },
       { id: "om-s2", name: "Al Musannah Air Base", type: "US/Oman Air Base", lat: 23.6406, lng: 57.4936 },
@@ -369,7 +369,7 @@ const GCC_GEOGRAPHY = {
     ],
   },
   iran: {
-    name: "IRAN", color: "#1A1020", labelLat: 33.0, labelLng: 53.0,
+    name: "IRAN", color: "#FFFFFF08", labelLat: 33.0, labelLng: 53.0,
     strategicSites: [
       { id: "ir-d1", name: "Bandar Abbas Desal", type: "Desalination", siteType: "desal", lat: 27.1837, lng: 56.2774 },
       { id: "ir-d2", name: "Bushehr Desal", type: "Desalination", siteType: "desal", lat: 28.9684, lng: 50.8385 },
@@ -402,7 +402,7 @@ const GCC_GEOGRAPHY = {
     ],
   },
   iraq: {
-    name: "IRAQ", color: "#0E1A2A", labelLat: 33.5, labelLng: 44.0,
+    name: "IRAQ", color: "#FFFFFF06", labelLat: 33.5, labelLng: 44.0,
     pts: [
       // Persian Gulf coast to Iran border
       [30.5,48.0],[30.0,48.8],
@@ -419,7 +419,7 @@ const GCC_GEOGRAPHY = {
     ],
   },
   yemen: {
-    name: "YEMEN", color: "#0E1A2A", labelLat: 15.5, labelLng: 47.0,
+    name: "YEMEN", color: "#FFFFFF06", labelLat: 15.5, labelLng: 47.0,
     pts: [
       // Saudi border (east to west)
       [19.0,55.0],[19.5,52.0],[19.5,51.5],[20.0,50.5],[19.5,49.5],[19.0,48.0],[18.0,48.5],[17.5,46.0],[17.0,44.5],[16.5,43.5],[16.0,43.0],
@@ -430,7 +430,7 @@ const GCC_GEOGRAPHY = {
     ],
   },
   jordan: {
-    name: "JORDAN", color: "#0E1A2A", labelLat: 31.2, labelLng: 36.5,
+    name: "JORDAN", color: "#FFFFFF06", labelLat: 31.2, labelLng: 36.5,
     pts: [
       // Iraq border
       [33.0,39.0],[33.5,38.5],
@@ -443,7 +443,7 @@ const GCC_GEOGRAPHY = {
     ],
   },
   syria: {
-    name: "SYRIA", color: "#0E1A2A", labelLat: 35.0, labelLng: 38.0,
+    name: "SYRIA", color: "#FFFFFF06", labelLat: 35.0, labelLng: 38.0,
     pts: [
       // Jordan border to tripoint
       [33.0,39.0],[33.5,38.5],[33.3,36.3],
@@ -461,13 +461,13 @@ const GCC_GEOGRAPHY = {
     ],
   },
   lebanon: {
-    name: "", color: "#0E1A2A",
+    name: "", color: "#FFFFFF06",
     pts: [
       [34.7,36.2],[34.5,36.0],[34.0,36.0],[33.3,35.6],[33.8,35.1],[34.0,35.5],[34.7,35.8],[34.7,36.2]
     ],
   },
   israel: {
-    name: "", color: "#0E1A2A",
+    name: "", color: "#FFFFFF06",
     pts: [
       // Tripoint with Syria/Jordan
       [33.0,35.8],[33.3,35.6],[33.8,35.1],
@@ -480,7 +480,7 @@ const GCC_GEOGRAPHY = {
     ],
   },
   turkey: {
-    name: "TURKEY", color: "#0E1A2A", labelLat: 39.5, labelLng: 37.0,
+    name: "TURKEY", color: "#FFFFFF06", labelLat: 39.5, labelLng: 37.0,
     pts: [
       // Syria border (Mediterranean to Iraq)
       [37.0,36.5],[36.5,36.2],[36.2,36.0],[36.0,35.8],[35.8,35.8],[34.7,35.8],[34.7,34.0],
@@ -495,7 +495,7 @@ const GCC_GEOGRAPHY = {
     ],
   },
   egypt: {
-    name: "EGYPT", color: "#0E1A2A", labelLat: 28.0, labelLng: 34.0,
+    name: "EGYPT", color: "#FFFFFF06", labelLat: 28.0, labelLng: 34.0,
     pts: [
       // Sinai / Israel border
       [31.5,34.5],[31.0,34.5],[30.5,34.0],[30.0,34.0],
@@ -506,7 +506,7 @@ const GCC_GEOGRAPHY = {
     ],
   },
   sudan: {
-    name: "SUDAN", color: "#0E1A2A",
+    name: "SUDAN", color: "#FFFFFF06",
     pts: [
       // Egypt border
       [22.0,36.5],[22.0,34.0],
@@ -519,7 +519,7 @@ const GCC_GEOGRAPHY = {
     ],
   },
   ethiopia: {
-    name: "", color: "#0E1A2A",
+    name: "", color: "#FFFFFF06",
     pts: [
       // Eritrea border
       [18.0,38.5],[17.0,38.5],[15.5,37.5],[15.0,36.5],
@@ -532,7 +532,7 @@ const GCC_GEOGRAPHY = {
     ],
   },
   somalia: {
-    name: "SOMALIA", color: "#0E1A2A",
+    name: "SOMALIA", color: "#FFFFFF06",
     pts: [
       // Gulf of Aden coast
       [12.0,43.3],[11.5,43.5],[11.0,44.0],[11.2,45.0],[11.0,46.0],[11.5,47.0],[12.0,48.0],[12.0,49.0],[12.0,50.0],[11.5,51.0],
@@ -543,11 +543,11 @@ const GCC_GEOGRAPHY = {
     ],
   },
   djibouti: {
-    name: "", color: "#0E1A2A",
+    name: "", color: "#FFFFFF06",
     pts: [[12.5,43.5],[12.0,43.3],[11.5,43.0],[11.5,42.5],[12.0,42.0],[13.0,42.0],[12.5,43.0],[12.5,43.5]],
   },
   eritrea: {
-    name: "", color: "#0E1A2A",
+    name: "", color: "#FFFFFF06",
     pts: [[18.0,38.5],[17.0,38.5],[16.0,39.0],[15.0,39.5],[14.5,40.0],[13.0,42.0],[12.0,42.0],[11.5,42.0],[11.5,40.5],[13.0,40.0],[14.0,39.0],[15.0,38.5],[15.5,37.5],[16.0,38.0],[17.0,38.5],[18.0,38.5]],
   },
 };
@@ -702,8 +702,8 @@ function buildDerivedData(raw, t) {
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
-      <div style={{ background: "#0D1525", border: `1px solid ${BORDER}`, borderRadius: 8, padding: "10px 14px", fontSize: 12 }}>
-        <p style={{ color: UAE_GOLD, fontWeight: 700, marginBottom: 6, fontFamily: "Georgia, serif" }}>{label}</p>
+      <div style={{ background: "#0D1B2Aee", border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: "10px 14px", fontSize: 12, backdropFilter: GLASS_BLUR, fontFamily: DM_SANS }}>
+        <p style={{ color: UAE_GOLD, fontWeight: 700, marginBottom: 6, fontFamily: DM_SANS }}>{label}</p>
         {payload.map((p, i) => (
           <p key={i} style={{ color: p.color, margin: "2px 0" }}>{p.name}: <strong>{p.value?.toLocaleString()}</strong></p>
         ))}
@@ -715,12 +715,13 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 const StatCard = ({ label, value, sub, color = UAE_GOLD }) => (
   <div style={{
-    background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 10,
+    background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS,
     padding: "16px 20px", flex: 1, minWidth: 130,
-    borderTop: `3px solid ${color}`
+    position: "relative", overflow: "hidden"
   }}>
-    <div style={{ fontSize: 28, fontWeight: 800, color, fontFamily: "Georgia, serif", letterSpacing: -1 }}>{value}</div>
-    <div style={{ fontSize: 11, color: TEXT, fontWeight: 600, marginTop: 4, textTransform: "uppercase", letterSpacing: 1 }}>{label}</div>
+    <div style={{ position: "absolute", top: 0, left: 20, right: 20, height: 1, background: `linear-gradient(90deg, transparent, ${color}44, transparent)` }} />
+    <div style={{ fontSize: 32, fontWeight: 700, color, fontFamily: DM_SANS, letterSpacing: -1 }}>{value}</div>
+    <div style={{ fontSize: 11, color: "#E8E8ED66", fontWeight: 500, marginTop: 4, textTransform: "uppercase", letterSpacing: 1 }}>{label}</div>
     {sub && <div style={{ fontSize: 10, color: SUBTEXT, marginTop: 2 }}>{sub}</div>}
   </div>
 );
@@ -775,8 +776,8 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
     fetch(base + "data-flights-doh.json").then(r => r.ok ? r.json() : null).then(d => setFlightDataDoh(d)).catch(() => {});
   }, []);
 
-  if (error) return <div style={{ background: BG, color: IMPACTED, padding: 40, fontFamily: "monospace" }}>{error}</div>;
-  if (!allData) return <div style={{ background: BG, color: SUBTEXT, padding: 40, fontFamily: "monospace", minHeight: "100vh" }}>Loading...</div>;
+  if (error) return <div style={{ background: BG, color: IMPACTED, padding: 40, fontFamily: DM_SANS }}>{error}</div>;
+  if (!allData) return <div style={{ background: BG, color: SUBTEXT, padding: 40, fontFamily: DM_SANS, minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}><div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: "24px 40px", textAlign: "center" }}><div style={{ color: "#F59E0B", fontSize: 24, marginBottom: 8 }}>W</div><div>Loading...</div></div></div>;
 
   const isAllGCC = selectedCountry === "all";
   const isIran = selectedCountry === "iran";
@@ -809,7 +810,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
     const targetTypes = {};
     targets.forEach(t => { targetTypes[t.type] = (targetTypes[t.type] || 0) + 1; });
     const targetTypeData = Object.entries(targetTypes).map(([type, count]) => ({ name: type, value: count }));
-    const TARGET_COLORS = { leadership: "#E74C3C", military: "#3498DB", nuclear: "#F39C12", naval: "#2980B9", government: "#9B59B6", oil: "#E67E22", civilian: "#95A5A6" };
+    const TARGET_COLORS = { leadership: "#F87171", military: "#3B82F6", nuclear: "#F59E0B", naval: "#60A5FA", government: "#A78BFA", oil: "#FB923C", civilian: "#94A3B8" };
 
     // Iran map config
     const iranGeo = GCC_GEOGRAPHY.iran;
@@ -817,39 +818,46 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
     const iranToSVG = makeToSVG(iranBounds);
 
     return (
-      <div dir={isRTL ? "rtl" : "ltr"} style={{ background: BG, minHeight: "100vh", color: TEXT, fontFamily: isRTL ? "'Segoe UI', 'Tahoma', sans-serif" : "'Trebuchet MS', sans-serif", padding: "0 0 40px", overflowX: "hidden" }}>
+      <div dir={isRTL ? "rtl" : "ltr"} style={{ background: BG, minHeight: "100vh", color: TEXT, fontFamily: DM_SANS, padding: "0 0 40px", overflowX: "hidden", position: "relative" }}>
+        {/* Background gradient orbs */}
+        <div style={{ position: "fixed", top: -200, right: -100, width: 500, height: 500, borderRadius: "50%", background: "radial-gradient(circle, #F59E0B11 0%, transparent 70%)", pointerEvents: "none", zIndex: 0 }} />
+        <div style={{ position: "fixed", bottom: -200, left: -100, width: 600, height: 600, borderRadius: "50%", background: "radial-gradient(circle, #3B82F611 0%, transparent 70%)", pointerEvents: "none", zIndex: 0 }} />
         {/* Header */}
-        <div style={{ background: `linear-gradient(135deg, #1A0000 0%, #2A0A0A 50%, #1A0000 100%)`, borderBottom: `1px solid ${BORDER}`, padding: "24px 28px 20px", position: "relative" }}>
-          <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 39px, #401010 39px, #401010 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, #401010 39px, #401010 40px)", opacity: 0.15, pointerEvents: "none" }} />
+        <div style={{ background: "#FFFFFF05", borderBottom: "1px solid #FFFFFF0A", padding: "16px 28px", position: "sticky", top: 0, zIndex: 50, backdropFilter: "blur(20px)" }}>
           <div style={{ position: "relative" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <span style={{ fontSize: 32 }}>🇮🇷</span>
+              <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg, #F59E0B, #D97706)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: "#050B1A" }}>W</div>
               <div>
-                <h1 style={{ margin: 0, fontSize: 20, fontWeight: 800, color: TEXT, fontFamily: isRTL ? "'Segoe UI', sans-serif" : "Georgia, serif" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <span style={{ fontSize: 20, fontWeight: 700, letterSpacing: -0.3, color: TEXT }}>ww3live<span style={{ color: "#F59E0B" }}>.xyz</span></span>
+                  <span style={{ fontSize: 16 }}>🇮🇷</span>
+                </div>
+                <h1 style={{ margin: 0, fontSize: 14, fontWeight: 500, color: "#E8E8ED44", fontFamily: DM_SANS, textTransform: "uppercase", letterSpacing: 2 }}>
                   {t("iran.title")}
                 </h1>
               </div>
             </div>
-            <div style={{ display: "flex", gap: 20, fontSize: 11, color: SUBTEXT, marginTop: 8 }}>
-              <span style={{ color: "#DA0000" }}>⚡ {t("header.updated")} {lastUpdated} GST</span>
-              <span>📡 {t("iran.source")}</span>
+            <div style={{ display: "flex", gap: 20, fontSize: 11, color: "#E8E8ED44", marginTop: 8 }}>
+              <span style={{ color: "#EF4444" }}>{t("header.updated")} {lastUpdated} GST</span>
+              <span>{t("iran.source")}</span>
             </div>
           </div>
         </div>
 
         {/* Country selector */}
-        <div style={{ display: "flex", gap: 8, padding: "16px 28px 0", flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: 6, padding: "16px 28px 0", flexWrap: "wrap", position: "relative", zIndex: 2 }}>
           {[{ code: "all", name: t("country.allGcc"), flag: "🌐" }, ...COUNTRY_CONFIG.map(c => ({ ...c, name: t(`country.${c.code}`) })), { code: "_sep" }, { ...IRAN_CONFIG, name: t("country.iran") }].map(c => (
             c.code === "_sep" ? <div key="_sep" style={{ width: 1, background: BORDER, margin: "4px 4px" }} /> :
             <span key={c.code} style={{ display: "inline-flex", alignItems: "center", gap: 2 }}>
               <button onClick={() => { setSelectedCountry(c.code); setHoveredImpact(null); setSelectedImpact(null); setSelectedSite(null); window.location.hash = "/threat/" + c.code + (activeTab && activeTab !== "overview" && activeTab !== "intel" ? "/" + activeTab : ""); }}
                 style={{
-                  background: selectedCountry === c.code ? (c.color || UAE_GREEN) : "transparent",
-                  color: selectedCountry === c.code ? "#fff" : SUBTEXT,
-                  border: `1px solid ${selectedCountry === c.code ? (c.color || UAE_GREEN) : BORDER}`,
-                  borderRadius: 20, padding: "6px 16px", cursor: "pointer",
-                  fontSize: 12, fontWeight: selectedCountry === c.code ? 700 : 500,
-                  transition: "all 0.15s", display: "flex", alignItems: "center", gap: 6
+                  background: selectedCountry === c.code ? "linear-gradient(135deg, #F59E0B, #D97706)" : "#FFFFFF0A",
+                  backdropFilter: selectedCountry !== c.code ? "blur(10px)" : "none",
+                  color: selectedCountry === c.code ? "#050B1A" : "#E8E8ED88",
+                  border: selectedCountry === c.code ? "none" : "1px solid #FFFFFF11",
+                  borderRadius: 100, padding: "6px 16px", cursor: "pointer",
+                  fontSize: 12, fontWeight: selectedCountry === c.code ? 600 : 400,
+                  fontFamily: DM_SANS, transition: "all 0.15s", display: "flex", alignItems: "center", gap: 6
                 }}>
                 <span>{c.flag}</span> {c.name}
               </button>
@@ -858,45 +866,45 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
         </div>
 
         {/* Stat cards */}
-        <div style={{ display: "flex", gap: 12, padding: "20px 28px", flexWrap: "wrap" }}>
-          <StatCard label={t("iran.totalStrikes")} value={n(c.totalStrikes).toLocaleString()} sub={t("iran.usIsrael")} color="#DA0000" />
-          <StatCard label={t("iran.sorties")} value={n(c.sorties).toLocaleString()} sub={t("iran.sortiesSub")} color="#F39C12" />
-          <StatCard label={t("iran.killed")} value={n(c.killed).toLocaleString()} sub={`${t("iran.civilian")}: ~${n(c.civilianKilled).toLocaleString()}`} color="#E74C3C" />
-          <StatCard label={t("iran.injured")} value={n(c.injured).toLocaleString()} sub="" color="#E67E22" />
-          <StatCard label={t("iran.launchersDisabled")} value={n(c.launchersDisabled).toLocaleString()} sub={t("iran.launchersSub")} color="#3498DB" />
+        <div style={{ display: "flex", gap: 12, padding: "20px 28px", flexWrap: "wrap", position: "relative", zIndex: 2 }}>
+          <StatCard label={t("iran.totalStrikes")} value={n(c.totalStrikes).toLocaleString()} sub={t("iran.usIsrael")} color="#EF4444" />
+          <StatCard label={t("iran.sorties")} value={n(c.sorties).toLocaleString()} sub={t("iran.sortiesSub")} color="#F59E0B" />
+          <StatCard label={t("iran.killed")} value={n(c.killed).toLocaleString()} sub={`${t("iran.civilian")}: ~${n(c.civilianKilled).toLocaleString()}`} color="#F87171" />
+          <StatCard label={t("iran.injured")} value={n(c.injured).toLocaleString()} sub="" color="#FB923C" />
+          <StatCard label={t("iran.launchersDisabled")} value={n(c.launchersDisabled).toLocaleString()} sub={t("iran.launchersSub")} color="#3B82F6" />
         </div>
 
-        <div dir="ltr" style={{ padding: "0 28px" }}>
+        <div dir="ltr" style={{ padding: "0 28px", position: "relative", zIndex: 2 }}>
           {/* Daily strikes chart */}
-          <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, marginBottom: 20 }}>
-            <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: "#DA0000" }}>{t("iran.dailyStrikes")}</h3>
+          <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20, marginBottom: 20 }}>
+            <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: "#EF4444" }}>{t("iran.dailyStrikes")}</h3>
             <ResponsiveContainer width="100%" height={280}>
               <ComposedChart data={strikeChartData} barCategoryGap="20%">
                 <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
                 <XAxis dataKey="day" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} />
                 <YAxis yAxisId="left" tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} />
-                <YAxis yAxisId="right" orientation="right" tick={{ fill: "#E74C3C", fontSize: 10 }} axisLine={false} />
+                <YAxis yAxisId="right" orientation="right" tick={{ fill: "#F87171", fontSize: 10 }} axisLine={false} />
                 <Tooltip content={<CustomTooltip />} />
                 <Legend wrapperStyle={{ fontSize: 11 }} />
-                <Bar yAxisId="left" dataKey="strikes" name={t("iran.strikes")} fill="#DA0000" radius={[4, 4, 0, 0]} opacity={0.85} />
-                <Line yAxisId="right" type="monotone" dataKey="killed" name={t("iran.killed")} stroke="#E74C3C" strokeWidth={2} dot={{ fill: "#E74C3C", r: 3 }} />
+                <Bar yAxisId="left" dataKey="strikes" name={t("iran.strikes")} fill="#EF4444" radius={[4, 4, 0, 0]} opacity={0.85} />
+                <Line yAxisId="right" type="monotone" dataKey="killed" name={t("iran.killed")} stroke="#F87171" strokeWidth={2} dot={{ fill: "#F87171", r: 3 }} />
               </ComposedChart>
             </ResponsiveContainer>
           </div>
 
           {/* Cumulative chart */}
-          <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, marginBottom: 20 }}>
-            <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: "#DA0000" }}>{t("iran.cumulativeTitle")}</h3>
+          <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20, marginBottom: 20 }}>
+            <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: "#EF4444" }}>{t("iran.cumulativeTitle")}</h3>
             <ResponsiveContainer width="100%" height={250}>
               <AreaChart data={cumulativeChartData}>
                 <defs>
                   <linearGradient id="gradIranStrikes" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#DA0000" stopOpacity={0.4} />
-                    <stop offset="95%" stopColor="#DA0000" stopOpacity={0} />
+                    <stop offset="5%" stopColor="#EF4444" stopOpacity={0.4} />
+                    <stop offset="95%" stopColor="#EF4444" stopOpacity={0} />
                   </linearGradient>
                   <linearGradient id="gradIranKilled" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#E74C3C" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="#E74C3C" stopOpacity={0} />
+                    <stop offset="5%" stopColor="#F87171" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="#F87171" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
@@ -904,8 +912,8 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                 <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} />
                 <Tooltip content={<CustomTooltip />} />
                 <Legend wrapperStyle={{ fontSize: 11 }} />
-                <Area type="monotone" dataKey="cumStrikes" name={t("iran.cumStrikes")} stroke="#DA0000" fill="url(#gradIranStrikes)" strokeWidth={2} dot={{ fill: "#DA0000", r: 3 }} />
-                <Area type="monotone" dataKey="cumKilled" name={t("iran.cumKilled")} stroke="#E74C3C" fill="url(#gradIranKilled)" strokeWidth={2} dot={{ fill: "#E74C3C", r: 3 }} />
+                <Area type="monotone" dataKey="cumStrikes" name={t("iran.cumStrikes")} stroke="#EF4444" fill="url(#gradIranStrikes)" strokeWidth={2} dot={{ fill: "#EF4444", r: 3 }} />
+                <Area type="monotone" dataKey="cumKilled" name={t("iran.cumKilled")} stroke="#F87171" fill="url(#gradIranKilled)" strokeWidth={2} dot={{ fill: "#F87171", r: 3 }} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -913,8 +921,8 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
           {/* Target type breakdown + map side by side */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 20, marginBottom: 20 }}>
             {/* Target type pie */}
-            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
-              <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: "#F39C12" }}>{t("iran.targetBreakdown")}</h3>
+            <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20 }}>
+              <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: "#F59E0B" }}>{t("iran.targetBreakdown")}</h3>
               <ResponsiveContainer width="100%" height={250}>
                 <PieChart>
                   <Pie data={targetTypeData} cx="50%" cy="50%" innerRadius={45} outerRadius={75} dataKey="value" paddingAngle={3}
@@ -928,15 +936,15 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
             </div>
 
             {/* Strike map */}
-            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
-              <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: "#DA0000" }}>{t("iran.strikeMap")}</h3>
+            <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20 }}>
+              <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: "#EF4444" }}>{t("iran.strikeMap")}</h3>
               <svg viewBox={`0 0 ${SVG_W} ${SVG_H}`} style={{ width: "100%", background: MAP_BG, borderRadius: 8 }}>
                 {/* Iran outline */}
                 {iranGeo && <polygon points={iranGeo.pts.map(([lat, lng]) => { const p = iranToSVG(lat, lng); return `${p.x},${p.y}`; }).join(" ")} fill={MAP_LAND} stroke={MAP_BORDER_COLOR} strokeWidth={1} />}
                 {/* Strike markers */}
                 {targets.map((tgt, i) => {
                   const p = iranToSVG(tgt.lat, tgt.lng);
-                  const color = TARGET_COLORS[tgt.type] || "#E74C3C";
+                  const color = TARGET_COLORS[tgt.type] || "#F87171";
                   return (
                     <g key={i}>
                       <circle cx={p.x} cy={p.y} r={5} fill={color} opacity={0.7} stroke={color} strokeWidth={1} />
@@ -946,7 +954,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                   );
                 })}
                 {/* Tehran label (cluster) */}
-                {(() => { const tp = iranToSVG(35.7, 51.42); return <text x={tp.x + 20} y={tp.y - 15} fill="#E74C3C" fontSize={9} fontWeight={700}>Tehran</text>; })()}
+                {(() => { const tp = iranToSVG(35.7, 51.42); return <text x={tp.x + 20} y={tp.y - 15} fill="#F87171" fontSize={9} fontWeight={700}>Tehran</text>; })()}
                 {/* Legend */}
                 {Object.entries(TARGET_COLORS).map(([type, color], i) => (
                   <g key={type} transform={`translate(10, ${SVG_H - 20 - (Object.keys(TARGET_COLORS).length - 1 - i) * 14})`}>
@@ -959,15 +967,15 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
           </div>
 
           {/* Daily event timeline */}
-          <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, marginBottom: 20 }}>
-            <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: "#F39C12" }}>{t("iran.timeline")}</h3>
+          <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20, marginBottom: 20 }}>
+            <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: "#F59E0B" }}>{t("iran.timeline")}</h3>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               {daily.map((d, i) => (
-                <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start", borderLeft: `2px solid #DA0000`, paddingLeft: 16 }}>
+                <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start", borderLeft: "2px solid #EF4444", paddingLeft: 16 }}>
                   <div style={{ minWidth: 60 }}>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: "#DA0000" }}>{d.label}</div>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: "#EF4444" }}>{d.label}</div>
                     <div style={{ fontSize: 10, color: SUBTEXT }}>{d.strikes} {t("iran.strikes")}</div>
-                    <div style={{ fontSize: 10, color: "#E74C3C" }}>{d.killed} {t("iran.killedLabel")}</div>
+                    <div style={{ fontSize: 10, color: "#F87171" }}>{d.killed} {t("iran.killedLabel")}</div>
                   </div>
                   <div style={{ fontSize: 11, color: TEXT, lineHeight: 1.5 }}>{d.events}</div>
                 </div>
@@ -977,11 +985,11 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
         </div>
 
         {/* Footer */}
-        <div style={{ textAlign: "center", marginTop: 32, fontSize: 10, color: "#3A4A60" }}>
+        <div style={{ textAlign: "center", marginTop: 32, fontSize: 11, color: "#E8E8ED55", fontFamily: DM_SANS }}>
           {t("footer.text")}
           <br />
           <a href="https://github.com/takahser/uae-dashboard" target="_blank" rel="noopener noreferrer"
-            style={{ color: "#3A4A60", textDecoration: "none", marginTop: 4, display: "inline-flex", alignItems: "center", gap: 4 }}>
+            style={{ color: "#E8E8ED33", textDecoration: "none", marginTop: 4, display: "inline-flex", alignItems: "center", gap: 4 }}>
             <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
             GitHub
           </a>
@@ -1039,30 +1047,30 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
   }
 
   return (
-    <div dir={isRTL ? "rtl" : "ltr"} style={{ background: BG, minHeight: "100vh", color: TEXT, fontFamily: isRTL ? "'Segoe UI', 'Tahoma', sans-serif" : "'Trebuchet MS', sans-serif", padding: "0 0 40px", overflowX: "hidden" }}>
+    <div dir={isRTL ? "rtl" : "ltr"} style={{ background: BG, minHeight: "100vh", color: TEXT, fontFamily: DM_SANS, padding: "0 0 40px", overflowX: "hidden", position: "relative" }}>
+      {/* Background gradient orbs */}
+      <div style={{ position: "fixed", top: -200, right: -100, width: 500, height: 500, borderRadius: "50%", background: "radial-gradient(circle, #F59E0B11 0%, transparent 70%)", pointerEvents: "none", zIndex: 0 }} />
+      <div style={{ position: "fixed", bottom: -200, left: -100, width: 600, height: 600, borderRadius: "50%", background: "radial-gradient(circle, #3B82F611 0%, transparent 70%)", pointerEvents: "none", zIndex: 0 }} />
+
       {onBack && (
         <button
           onClick={onBack}
-          style={{ background: 'none', border: 'none', color: '#C4A135', cursor: 'pointer', fontSize: '0.95rem', padding: '12px 20px' }}
+          style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, color: "#F59E0B", cursor: "pointer", fontSize: "0.95rem", padding: "8px 16px", borderRadius: GLASS_RADIUS, position: "relative", zIndex: 2, fontFamily: DM_SANS }}
         >
           ← Back
         </button>
       )}
       {/* Header */}
       <div style={{
-        background: `linear-gradient(135deg, #060C1A 0%, #0C1830 50%, #060C1A 100%)`,
-        borderBottom: `1px solid ${BORDER}`, padding: "24px 28px 20px",
-        position: "relative", overflow: "visible"
+        background: "#FFFFFF05",
+        borderBottom: "1px solid #FFFFFF0A", padding: "16px 28px",
+        position: "sticky", top: 0, zIndex: 50, backdropFilter: "blur(20px)"
       }}>
-        <div style={{
-          position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
-          backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 39px, #1A2840 39px, #1A2840 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, #1A2840 39px, #1A2840 40px)",
-          opacity: 0.15, overflow: "hidden", pointerEvents: "none"
-        }} />
+        <div style={{ display: "none" }} />
         <div style={{ position: "relative" }}>
           <div style={{ position: "absolute", top: 0, [isRTL ? "left" : "right"]: 0, display: "flex", alignItems: "center", gap: 10 }}>
             <button onClick={() => setLang(lang === "en" ? "ar" : "en")}
-              style={{ background: "transparent", border: `1px solid ${BORDER}`, color: SUBTEXT, borderRadius: 4, padding: "3px 10px", cursor: "pointer", fontSize: 11, fontWeight: 600, letterSpacing: 0.5 }}>
+              style={{ background: "#FFFFFF0A", backdropFilter: "blur(10px)", border: "1px solid #FFFFFF11", color: "#E8E8ED88", borderRadius: 100, padding: "4px 12px", cursor: "pointer", fontSize: 11, fontWeight: 500, letterSpacing: 0.5, fontFamily: DM_SANS }}>
               {t("lang.switch")}
             </button>
             <a href="https://github.com/takahser/uae-dashboard" target="_blank" rel="noopener noreferrer"
@@ -1073,50 +1081,60 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 6 }}>
             <div style={{
-              background: themeColor, borderRadius: "50%", width: 36, height: 36,
+              width: 32, height: 32, borderRadius: 8,
+              background: "linear-gradient(135deg, #F59E0B, #D97706)",
               display: "flex", alignItems: "center", justifyContent: "center",
-              fontSize: 18, fontWeight: 900, color: "white", flexShrink: 0
-            }}>{isAllGCC ? "GCC" : countryConf.flag}</div>
+              fontSize: 16, fontWeight: 700, color: "#050B1A", flexShrink: 0
+            }}>W</div>
             <div>
-              <div style={{ fontSize: 11, color: themeAccent, textTransform: "uppercase", letterSpacing: 3, fontWeight: 600, display: "flex", alignItems: "center", gap: 6 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 2 }}>
+                <span style={{ fontSize: 20, fontWeight: 700, letterSpacing: -0.3, color: TEXT }}>ww3live<span style={{ color: "#F59E0B" }}>.xyz</span></span>
+                <span style={{ fontSize: 10, color: "#EF4444", fontWeight: 600, display: "flex", alignItems: "center", gap: 4, marginLeft: 4 }}>
+                  <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#EF4444", animation: "pulse-live 1.5s ease-in-out infinite" }} />
+                  LIVE
+                </span>
+                <span style={{ fontSize: 16, marginLeft: 4 }}>{isAllGCC ? "🌐" : countryConf.flag}</span>
+              </div>
+              <div style={{ fontSize: 11, color: "#E8E8ED44", textTransform: "uppercase", letterSpacing: 3, fontWeight: 500, display: "flex", alignItems: "center", gap: 6 }}>
                 {isAllGCC ? t("header.coalition") : t("header.mod", { country: countryConf.name })}
                 <span
                   onClick={() => setShowDisclaimer(!showDisclaimer)}
-                  style={{ cursor: "pointer", fontSize: 10, color: SUBTEXT, border: `1px solid ${BORDER}`, borderRadius: "50%", width: 16, height: 16, display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0, position: "relative" }}
+                  style={{ cursor: "pointer", fontSize: 10, color: SUBTEXT, border: GLASS_BORDER, borderRadius: "50%", width: 16, height: 16, display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0, position: "relative" }}
                   title={t("header.disclaimer")}
                 >(i)</span>
                 {showDisclaimer && (
-                  <div style={{ position: "absolute", top: "100%", [isRTL ? "right" : "left"]: 50, zIndex: 100, marginTop: 4, background: "#0D1525", border: `1px solid ${BORDER}`, borderRadius: 8, padding: "10px 14px", fontSize: 11, color: SUBTEXT, maxWidth: 360, lineHeight: 1.5, fontWeight: 400, textTransform: "none", letterSpacing: 0, boxShadow: "0 4px 20px rgba(0,0,0,0.6)" }}>
+                  <div style={{ position: "absolute", top: "100%", [isRTL ? "right" : "left"]: 50, zIndex: 100, marginTop: 4, background: "#0D1B2Aee", border: GLASS_BORDER, borderRadius: 8, padding: "10px 14px", fontSize: 11, color: SUBTEXT, maxWidth: 360, lineHeight: 1.5, fontWeight: 400, textTransform: "none", letterSpacing: 0, boxShadow: "0 4px 20px rgba(0,0,0,0.6)" }}>
                     {t("header.disclaimerText")}
                   </div>
                 )}
               </div>
-              <h1 style={{ margin: 0, fontSize: 20, fontWeight: 800, color: TEXT, fontFamily: isRTL ? "'Segoe UI', sans-serif" : "Georgia, serif", letterSpacing: -0.5 }}>
+              <h1 style={{ margin: 0, fontSize: 20, fontWeight: 800, color: TEXT, fontFamily: DM_SANS, letterSpacing: -0.5 }}>
                 {t("header.title")}
               </h1>
             </div>
           </div>
-          <div style={{ display: "flex", gap: 20, fontSize: 11, color: SUBTEXT }}>
-            <span>📅 {(() => { const now = new Date(); const conflictStart = new Date("2026-02-28T00:00:00+04:00"); const dayNum = Math.floor((now - conflictStart) / 86400000) + 1; const dateStr = now.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Dubai" }); return `${dateStr}${dayNum > 0 ? ` — ${t("header.day", { count: dayNum })}` : ""}`; })()}</span>
-            <span>📡 {t("header.source")} {isAllGCC ? t("header.multiSource") : `${countryConf.source} ${t("header.officialStatements")}`}</span>
-            <span style={{ color: themeAccent }}>⚡ {t("header.updated")} {lastUpdated} GST</span>
+          <div style={{ display: "flex", gap: 20, fontSize: 11, color: "#E8E8ED44" }}>
+            <span>{(() => { const now = new Date(); const conflictStart = new Date("2026-02-28T00:00:00+04:00"); const dayNum = Math.floor((now - conflictStart) / 86400000) + 1; const dateStr = now.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Dubai" }); return `${dateStr}${dayNum > 0 ? ` — ${t("header.day", { count: dayNum })}` : ""}`; })()}</span>
+            <span>{t("header.source")} {isAllGCC ? t("header.multiSource") : `${countryConf.source} ${t("header.officialStatements")}`}</span>
+            <span style={{ color: "#F59E0B" }}>{t("header.updated")} {lastUpdated} GST</span>
           </div>
         </div>
       </div>
 
       {/* Country selector */}
-      <div style={{ display: "flex", gap: 8, padding: "16px 28px 0", flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 6, padding: "16px 28px 0", flexWrap: "wrap", position: "relative", zIndex: 2 }}>
         {[{ code: "all", name: t("country.allGcc"), flag: "🌐" }, ...COUNTRY_CONFIG.map(c => ({ ...c, name: t(`country.${c.code}`) })), { code: "_sep" }, { ...IRAN_CONFIG, name: t("country.iran") }].map(c => (
           c.code === "_sep" ? <div key="_sep" style={{ width: 1, background: BORDER, margin: "4px 4px" }} /> :
           <span key={c.code} style={{ display: "inline-flex", alignItems: "center", gap: 2 }}>
             <button onClick={() => { setSelectedCountry(c.code); setHoveredImpact(null); setSelectedImpact(null); setSelectedSite(null); window.location.hash = "/threat/" + c.code + (activeTab && activeTab !== "overview" && activeTab !== "intel" ? "/" + activeTab : ""); }}
               style={{
-                background: selectedCountry === c.code ? (c.color || UAE_GREEN) : "transparent",
-                color: selectedCountry === c.code ? "#fff" : SUBTEXT,
-                border: `1px solid ${selectedCountry === c.code ? (c.color || UAE_GREEN) : BORDER}`,
-                borderRadius: 20, padding: "6px 16px", cursor: "pointer",
-                fontSize: 12, fontWeight: selectedCountry === c.code ? 700 : 500,
-                transition: "all 0.15s", display: "flex", alignItems: "center", gap: 6
+                background: selectedCountry === c.code ? "linear-gradient(135deg, #F59E0B, #D97706)" : "#FFFFFF0A",
+                backdropFilter: selectedCountry !== c.code ? "blur(10px)" : "none",
+                color: selectedCountry === c.code ? "#050B1A" : "#E8E8ED88",
+                border: selectedCountry === c.code ? "none" : "1px solid #FFFFFF11",
+                borderRadius: 100, padding: "6px 16px", cursor: "pointer",
+                fontSize: 12, fontWeight: selectedCountry === c.code ? 600 : 400,
+                fontFamily: DM_SANS, transition: "all 0.15s", display: "flex", alignItems: "center", gap: 6
               }}>
               <span>{c.flag}</span> {c.name}
             </button>
@@ -1125,7 +1143,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
       </div>
 
       {/* Stat cards */}
-      <div style={{ display: "flex", gap: 12, padding: "20px 28px", flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 12, padding: "20px 28px", flexWrap: "wrap", position: "relative", zIndex: 2 }}>
         {totalStrikes && totalDetected === 0 ? (
           <>
             <StatCard label={t("stat.totalStrikes") || "Total Strikes"} value={totalStrikes.toLocaleString()} sub={t("stat.totalStrikesSub") || "Combined ballistic + drone"} color={themeAccent || UAE_GOLD} />
@@ -1139,13 +1157,13 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
           </>
         )}
         {n(cumulative.ballisticSea) > 0 && <StatCard label={t("stat.sea")} value={n(cumulative.ballisticSea).toLocaleString()} sub={t("stat.seaSub")} color={SEA} />}
-        {n(cumulative.killed) > 0 && <StatCard label={t("stat.killed")} value={cumulative.killed} sub="" color="#E74C3C" />}
-        {cumulative.injured != null && <StatCard label={t("stat.injured")} value={cumulative.injured} sub="" color="#E67E22" />}
+        {n(cumulative.killed) > 0 && <StatCard label={t("stat.killed")} value={cumulative.killed} sub="" color="#F87171" />}
+        {cumulative.injured != null && <StatCard label={t("stat.injured")} value={cumulative.injured} sub="" color="#FB923C" />}
       </div>
       {/* Country note (e.g. IDF data limitations) */}
       {rawData.note && (
         <div style={{ padding: "0 28px 12px" }}>
-          <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 8, padding: "10px 16px", fontSize: 11, color: SUBTEXT, lineHeight: 1.5 }}>
+          <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: "10px 16px", fontSize: 11, color: SUBTEXT, lineHeight: 1.5 }}>
             <span style={{ color: themeAccent || UAE_GOLD, fontWeight: 700, marginRight: 6 }}>NOTE:</span>{rawData.note}
           </div>
         </div>
@@ -1155,7 +1173,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
         <div style={{ padding: "0 28px 12px" }}>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             {rawData.defenceSystems.map(sys => (
-              <span key={sys} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 16, padding: "4px 12px", fontSize: 11, color: INTERCEPTED, fontWeight: 600 }}>{sys}</span>
+              <span key={sys} style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: 16, padding: "4px 12px", fontSize: 11, color: INTERCEPTED, fontWeight: 600 }}>{sys}</span>
             ))}
           </div>
         </div>
@@ -1165,10 +1183,10 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
         <div style={{ padding: "0 28px 12px" }}>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             {rawData.airports.map(apt => (
-              <div key={apt.iata} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 8, padding: "8px 14px", fontSize: 11 }}>
+              <div key={apt.iata} style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: "8px 14px", fontSize: 11 }}>
                 <span style={{ color: themeAccent || UAE_GOLD, fontWeight: 700 }}>{apt.iata}</span>
                 <span style={{ color: TEXT, marginLeft: 6 }}>{apt.name}</span>
-                <span style={{ color: apt.status === "operational_restricted" ? "#E67E22" : INTERCEPTED, marginLeft: 8, fontWeight: 600 }}>
+                <span style={{ color: apt.status === "operational_restricted" ? "#FB923C" : INTERCEPTED, marginLeft: 8, fontWeight: 600 }}>
                   {apt.status === "operational_restricted" ? "RESTRICTED" : apt.status?.toUpperCase()}
                 </span>
                 {apt.notes && <span style={{ color: SUBTEXT, marginLeft: 6 }}>— {apt.notes}</span>}
@@ -1179,20 +1197,20 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
       )}
 
       {/* Tabs */}
-      <div style={{ display: "flex", gap: 4, padding: "0 28px 20px", flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 0, padding: "0 28px 20px", flexWrap: "wrap", borderBottom: "1px solid #FFFFFF0A" }}>
         {tabs.map(t => (
           <button key={t.id} onClick={() => { setActiveTab(t.id); window.location.hash = "/threat/" + selectedCountry + (t.id !== "overview" && t.id !== "intel" ? "/" + t.id : ""); }} style={{
-            background: activeTab === t.id ? (themeAccent || UAE_GOLD) : "transparent",
-            color: activeTab === t.id ? (themeAccent === "#FFFFFF" ? themeColor : "#000") : SUBTEXT,
-            border: `1px solid ${activeTab === t.id ? (themeAccent || UAE_GOLD) : BORDER}`,
-            borderRadius: 6, padding: "7px 16px", cursor: "pointer",
-            fontSize: 12, fontWeight: activeTab === t.id ? 700 : 500,
-            transition: "all 0.15s"
+            background: "transparent",
+            color: activeTab === t.id ? "#F59E0B" : "#E8E8ED77",
+            border: "none", borderBottom: activeTab === t.id ? "2px solid #F59E0B" : "2px solid transparent",
+            padding: "10px 16px", cursor: "pointer",
+            fontSize: 12, fontWeight: activeTab === t.id ? 600 : 400,
+            fontFamily: DM_SANS, transition: "all 0.15s"
           }}>{t.label}</button>
         ))}
       </div>
 
-      <div dir="ltr" style={{ padding: "0 28px" }}>
+      <div dir="ltr" style={{ padding: "0 28px", position: "relative", zIndex: 2 }}>
 
         {/* ALL GCC COMPARISON VIEW */}
         {isAllGCC && activeTab === "comparison" && (() => {
@@ -1214,21 +1232,21 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
               {/* Per-country stat cards */}
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 16 }}>
                 {countryStats.map(cs => (
-                  <div key={cs.code} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, borderTop: `3px solid ${cs.color}` }}>
+                  <div key={cs.code} style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20, borderTop: `3px solid ${cs.color}` }}>
                     <div style={{ fontSize: 24, marginBottom: 4 }}>{cs.flag}</div>
                     <div style={{ fontSize: 14, fontWeight: 700, color: TEXT, marginBottom: 12 }}>{cs.name}</div>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
                       {cs.totalStrikes && cs.totalDetected === 0 ? (
                         <>
-                          <div style={{ gridColumn: "1 / -1" }}><div style={{ fontSize: 20, fontWeight: 800, color: cs.accent || UAE_GOLD, fontFamily: "Georgia, serif" }}>{cs.totalStrikes.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>TOTAL STRIKES</div></div>
+                          <div style={{ gridColumn: "1 / -1" }}><div style={{ fontSize: 20, fontWeight: 800, color: cs.accent || UAE_GOLD, fontFamily: DM_SANS }}>{cs.totalStrikes.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>TOTAL STRIKES</div></div>
                           <div style={{ gridColumn: "1 / -1" }}><div style={{ fontSize: 10, color: SUBTEXT }}>No intercept breakdown available</div></div>
                         </>
                       ) : (
                         <>
-                          <div><div style={{ fontSize: 20, fontWeight: 800, color: cs.accent || UAE_GOLD, fontFamily: "Georgia, serif" }}>{cs.totalDetected.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>{t("comp.detected")}</div></div>
-                          <div><div style={{ fontSize: 20, fontWeight: 800, color: INTERCEPTED, fontFamily: "Georgia, serif" }}>{cs.totalIntercepted.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>{t("comp.intercepted")}</div></div>
-                          <div><div style={{ fontSize: 20, fontWeight: 800, color: IMPACTED, fontFamily: "Georgia, serif" }}>{cs.totalImpacted.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>{t("comp.impacted")}</div></div>
-                          <div><div style={{ fontSize: 20, fontWeight: 800, color: cs.overallRate != null && cs.overallRate >= 95 ? INTERCEPTED : "#E67E22", fontFamily: "Georgia, serif" }}>{cs.overallRate != null ? `${cs.overallRate}%` : "N/A"}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>{t("comp.successRate")}</div></div>
+                          <div><div style={{ fontSize: 20, fontWeight: 800, color: cs.accent || UAE_GOLD, fontFamily: DM_SANS }}>{cs.totalDetected.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>{t("comp.detected")}</div></div>
+                          <div><div style={{ fontSize: 20, fontWeight: 800, color: INTERCEPTED, fontFamily: DM_SANS }}>{cs.totalIntercepted.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>{t("comp.intercepted")}</div></div>
+                          <div><div style={{ fontSize: 20, fontWeight: 800, color: IMPACTED, fontFamily: DM_SANS }}>{cs.totalImpacted.toLocaleString()}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>{t("comp.impacted")}</div></div>
+                          <div><div style={{ fontSize: 20, fontWeight: 800, color: cs.overallRate != null && cs.overallRate >= 95 ? INTERCEPTED : "#FB923C", fontFamily: DM_SANS }}>{cs.overallRate != null ? `${cs.overallRate}%` : "N/A"}</div><div style={{ fontSize: 9, color: SUBTEXT, textTransform: "uppercase" }}>{t("comp.successRate")}</div></div>
                         </>
                       )}
                     </div>
@@ -1237,7 +1255,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
               </div>
 
               {/* Grouped bar chart */}
-              <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+              <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20 }}>
                 <h3 style={{ margin: "0 0 16px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("comp.byCountryTitle")}</h3>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={compData} barCategoryGap="25%">
@@ -1246,7 +1264,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                     <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend wrapperStyle={{ fontSize: 11 }} />
-                    <Bar dataKey="detected" name={t("comp.detected")} fill="#1A3A5C" radius={[3, 3, 0, 0]} />
+                    <Bar dataKey="detected" name={t("comp.detected")} fill="#FFFFFF15" radius={[3, 3, 0, 0]} />
                     <Bar dataKey="intercepted" name={t("comp.intercepted")} fill={INTERCEPTED} radius={[3, 3, 0, 0]} />
                     <Bar dataKey="impacted" name={t("comp.impacted")} fill={IMPACTED} radius={[3, 3, 0, 0]} />
                   </BarChart>
@@ -1254,7 +1272,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
               </div>
 
               {/* Interception rate comparison */}
-              <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+              <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20 }}>
                 <h3 style={{ margin: "0 0 16px", fontSize: 13, color: INTERCEPTED, textTransform: "uppercase", letterSpacing: 2 }}>{t("comp.rateTitle")}</h3>
                 <ResponsiveContainer width="100%" height={200}>
                   <BarChart data={compData.filter(d => d.rate != null)} barCategoryGap="35%">
@@ -1272,7 +1290,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
               </div>
 
               {/* Breakdown table */}
-              <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, overflow: "auto" }}>
+              <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20, overflow: "auto" }}>
                 <h3 style={{ margin: "0 0 16px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("comp.tableTitle")}</h3>
                 <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
                   <thead>
@@ -1292,8 +1310,8 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                         <td style={{ padding: "10px", color: themeAccent, fontWeight: 700 }}>{cs.totalStrikes && cs.totalDetected === 0 ? `${cs.totalStrikes.toLocaleString()}*` : cs.totalDetected.toLocaleString()}</td>
                         <td style={{ padding: "10px", color: INTERCEPTED, fontWeight: 700 }}>{cs.totalStrikes && cs.totalDetected === 0 ? "—" : cs.totalIntercepted.toLocaleString()}</td>
                         <td style={{ padding: "10px", color: IMPACTED, fontWeight: 700 }}>{cs.totalStrikes && cs.totalDetected === 0 ? "—" : cs.totalImpacted.toLocaleString()}</td>
-                        <td style={{ padding: "10px", color: "#E74C3C" }}>{n(cs.cumulative.killed) || "—"}</td>
-                        <td style={{ padding: "10px", color: "#E67E22" }}>{cs.cumulative.injured != null ? cs.cumulative.injured : "—"}</td>
+                        <td style={{ padding: "10px", color: "#F87171" }}>{n(cs.cumulative.killed) || "—"}</td>
+                        <td style={{ padding: "10px", color: "#FB923C" }}>{cs.cumulative.injured != null ? cs.cumulative.injured : "—"}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -1351,7 +1369,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
           const uniqueRegions = [...new Set(impacts.map(i => i.region))];
           return (
           <div>
-            <div style={{ position: "relative", background: MAP_BG, border: `1px solid ${MAP_BORDER_COLOR}`, borderRadius: 12, overflow: "hidden" }}
+            <div style={{ position: "relative", background: MAP_BG, border: `1px solid ${MAP_BORDER_COLOR}`, borderRadius: GLASS_RADIUS, overflow: "hidden" }}
               onWheel={(e) => {
                 e.preventDefault();
                 const delta = e.deltaY > 0 ? -0.3 : 0.3;
@@ -1373,9 +1391,9 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
             >
               {/* Zoom controls */}
               <div style={{ position: "absolute", top: 12, right: 12, zIndex: 10, display: "flex", flexDirection: "column", gap: 4 }}>
-                <button onClick={() => setMapZoom(z => Math.min(5, z + 0.5))} style={{ background: "#0D1525", border: `1px solid ${MAP_BORDER_COLOR}`, color: TEXT, width: 28, height: 28, borderRadius: 4, cursor: "pointer", fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>+</button>
-                <button onClick={() => setMapZoom(z => Math.max(1, z - 0.5))} style={{ background: "#0D1525", border: `1px solid ${MAP_BORDER_COLOR}`, color: TEXT, width: 28, height: 28, borderRadius: 4, cursor: "pointer", fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>-</button>
-                <button onClick={() => { setMapZoom(1); setMapPan({ x: 0, y: 0 }); }} style={{ background: "#0D1525", border: `1px solid ${MAP_BORDER_COLOR}`, color: SUBTEXT, width: 28, height: 28, borderRadius: 4, cursor: "pointer", fontSize: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>RST</button>
+                <button onClick={() => setMapZoom(z => Math.min(5, z + 0.5))} style={{ background: "#0D1B2Aee", border: `1px solid ${MAP_BORDER_COLOR}`, color: TEXT, width: 28, height: 28, borderRadius: 4, cursor: "pointer", fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>+</button>
+                <button onClick={() => setMapZoom(z => Math.max(1, z - 0.5))} style={{ background: "#0D1B2Aee", border: `1px solid ${MAP_BORDER_COLOR}`, color: TEXT, width: 28, height: 28, borderRadius: 4, cursor: "pointer", fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>-</button>
+                <button onClick={() => { setMapZoom(1); setMapPan({ x: 0, y: 0 }); }} style={{ background: "#0D1B2Aee", border: `1px solid ${MAP_BORDER_COLOR}`, color: SUBTEXT, width: 28, height: 28, borderRadius: 4, cursor: "pointer", fontSize: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>RST</button>
               </div>
               {mapZoom > 1 && <div style={{ position: "absolute", bottom: 8, left: 12, zIndex: 10, fontSize: 9, color: SUBTEXT, fontFamily: "monospace" }}>{mapZoom.toFixed(1)}x — drag to pan</div>}
               <svg viewBox={`0 0 ${SVG_W} ${SVG_H}`} style={{ width: "100%", height: "auto", display: "block", cursor: mapZoom > 1 ? (isDragging ? "grabbing" : "grab") : "default" }}>
@@ -1384,7 +1402,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                     <path d="M 40 0 L 0 0 0 40" fill="none" stroke={MAP_GRID} strokeWidth="0.5" opacity="0.4" />
                   </pattern>
                   <pattern id="scanLines" width="4" height="4" patternUnits="userSpaceOnUse">
-                    <line x1="0" y1="0" x2="4" y2="0" stroke="#0A3060" strokeWidth="0.5" opacity="0.15" />
+                    <line x1="0" y1="0" x2="4" y2="0" stroke="#FFFFFF08" strokeWidth="0.5" opacity="0.15" />
                   </pattern>
                   <filter id="glowRed" x="-50%" y="-50%" width="200%" height="200%">
                     <feGaussianBlur stdDeviation="3" result="blur" />
@@ -1408,8 +1426,8 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
 
                 <g transform={`translate(${mapPan.x / (SVG_W / 800) + SVG_W / 2 * (1 - mapZoom)}, ${mapPan.y / (SVG_H / 500) + SVG_H / 2 * (1 - mapZoom)}) scale(${mapZoom})`}>
                 {/* Base: dark sea for All GCC, dark bg for single country */}
-                <rect width={SVG_W} height={SVG_H} fill={isAllGCC ? "#040810" : MAP_BG} />
-                {isAllGCC && <rect width={SVG_W} height={SVG_H} fill="#061020" opacity="0.8" />}
+                <rect width={SVG_W} height={SVG_H} fill={isAllGCC ? "#050B1A" : MAP_BG} />
+                {isAllGCC && <rect width={SVG_W} height={SVG_H} fill="#050B1A" opacity="0.8" />}
                 <rect width={SVG_W} height={SVG_H} fill="url(#mapGrid)" />
                 <rect width={SVG_W} height={SVG_H} fill="url(#scanLines)" />
 
@@ -1417,45 +1435,45 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                 {isAllGCC && Object.entries(GCC_GEOGRAPHY).map(([key, geo]) => {
                   const geoPath = "M" + geo.pts.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z";
                   return <g key={key}>
-                    <path d={geoPath} fill={geo.color} stroke="#1A2840" strokeWidth="0.8" opacity="0.95" />
+                    <path d={geoPath} fill={geo.color} stroke="#FFFFFF22" strokeWidth="0.8" opacity="0.95" />
                     {geo.name && geo.labelLat && (() => {
                       const { x, y } = proj(geo.labelLat, geo.labelLng);
-                      return <text x={x} y={y} fill="#334466" fontSize={key === "iran" ? "10" : "8"} fontFamily="monospace" textAnchor="middle" fontWeight="600" letterSpacing="2">{geo.name}</text>;
+                      return <text x={x} y={y} fill="#E8E8ED33" fontSize={key === "iran" ? "10" : "8"} fontFamily="monospace" textAnchor="middle" fontWeight="600" letterSpacing="2">{geo.name}</text>;
                     })()}
                   </g>;
                 })}
 
                 {/* Covered country regions (GCC members) */}
                 {regionPaths.map((e, i) => (
-                  <path key={`${e.name}-${i}`} d={e.path} fill={isAllGCC ? "#0F2038" : MAP_LAND} stroke={isAllGCC ? "#1E4060" : MAP_BORDER_COLOR} strokeWidth={isAllGCC ? "1.5" : "1.2"} opacity="0.95" />
+                  <path key={`${e.name}-${i}`} d={e.path} fill={isAllGCC ? "#FFFFFF0A" : MAP_LAND} stroke={isAllGCC ? "#FFFFFF22" : MAP_BORDER_COLOR} strokeWidth={isAllGCC ? "1.5" : "1.2"} opacity="0.95" />
                 ))}
 
                 {/* Region labels */}
                 {regionPaths.filter(e => e.labelLat > 0).map((e, i) => {
                   const { x, y } = proj(e.labelLat, e.labelLng);
-                  return <text key={`lbl-${e.name}-${i}`} x={x} y={y} fill={isAllGCC ? "#4488BB" : "#2A4A70"} fontSize={isAllGCC ? "6" : "7"} fontFamily="monospace" textAnchor="middle" fontWeight="600" letterSpacing="1.5">{e.name}</text>;
+                  return <text key={`lbl-${e.name}-${i}`} x={x} y={y} fill={isAllGCC ? "#E8E8ED55" : "#E8E8ED55"} fontSize={isAllGCC ? "6" : "7"} fontFamily="monospace" textAnchor="middle" fontWeight="600" letterSpacing="1.5">{e.name}</text>;
                 })}
 
                 {/* Coordinate ticks */}
                 {lngTicks.map(lng => {
                   const { x } = proj(bnd.latMin, lng);
                   return <g key={`lng-${lng}`}>
-                    <line x1={x} y1={SVG_H - 12} x2={x} y2={SVG_H} stroke="#1A3050" strokeWidth="0.5" />
-                    <text x={x} y={SVG_H - 3} fill="#1A3050" fontSize="6" fontFamily="monospace" textAnchor="middle">{lng}°E</text>
+                    <line x1={x} y1={SVG_H - 12} x2={x} y2={SVG_H} stroke="#FFFFFF22" strokeWidth="0.5" />
+                    <text x={x} y={SVG_H - 3} fill="#FFFFFF33" fontSize="6" fontFamily="monospace" textAnchor="middle">{lng}°E</text>
                   </g>;
                 })}
                 {latTicks.map(lat => {
                   const { y } = proj(lat, bnd.lngMin);
                   return <g key={`lat-${lat}`}>
-                    <line x1={0} y1={y} x2={12} y2={y} stroke="#1A3050" strokeWidth="0.5" />
-                    <text x={14} y={y + 2} fill="#1A3050" fontSize="6" fontFamily="monospace">{lat}°N</text>
+                    <line x1={0} y1={y} x2={12} y2={y} stroke="#FFFFFF22" strokeWidth="0.5" />
+                    <text x={14} y={y + 2} fill="#FFFFFF33" fontSize="6" fontFamily="monospace">{lat}°N</text>
                   </g>;
                 })}
 
                 {/* Impact markers */}
                 {impacts.map(loc => {
                   const { x, y } = proj(loc.lat, loc.lng);
-                  const color = loc._iran ? "#DA0000" : loc.type === "drone_hit" ? DRONE_HIT : DEBRIS_HIT;
+                  const color = loc._iran ? "#EF4444" : loc.type === "drone_hit" ? DRONE_HIT : DEBRIS_HIT;
                   const hasCasualties = loc.casualties !== "None";
                   const filterId = loc._iran ? "glowRed" : loc.type === "drone_hit" ? "glowRed" : "glowOrange";
                   return (
@@ -1475,28 +1493,28 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
 
                 {/* Map title overlay */}
                 <text x="16" y="22" fill={themeAccent} fontSize="10" fontFamily="monospace" fontWeight="700" letterSpacing="2">{mapConf.title}</text>
-                <text x="16" y="34" fill="#2A5A80" fontSize="7" fontFamily="monospace">{mapConf.subtitle} • FEB 28, 2026 –</text>
+                <text x="16" y="34" fill="#E8E8ED33" fontSize="7" fontFamily="monospace">{mapConf.subtitle} • FEB 28, 2026 –</text>
 
                 {/* Legend */}
                 <g transform={`translate(${SVG_W - 195}, 16)`}>
-                  <rect x="-8" y="-8" width="190" height={showStrategicSites ? (isAllGCC ? 100 : 84) : (isAllGCC ? 66 : 50)} rx="4" fill="#060A14" fillOpacity="0.85" stroke={MAP_BORDER_COLOR} strokeWidth="0.5" />
+                  <rect x="-8" y="-8" width="190" height={showStrategicSites ? (isAllGCC ? 100 : 84) : (isAllGCC ? 66 : 50)} rx="4" fill="#050B1Aee" fillOpacity="0.85" stroke={MAP_BORDER_COLOR} strokeWidth="0.5" />
                   <circle cx="6" cy="6" r="4" fill={DRONE_HIT} />
-                  <text x="16" y="9" fill="#AAB8CC" fontSize="7" fontFamily="monospace">{t("intel.directHit")}</text>
+                  <text x="16" y="9" fill="#E8E8ED66" fontSize="7" fontFamily="monospace">{t("intel.directHit")}</text>
                   <circle cx="6" cy="22" r="4" fill={DEBRIS_HIT} />
-                  <text x="16" y="25" fill="#AAB8CC" fontSize="7" fontFamily="monospace">{t("intel.debris")}</text>
+                  <text x="16" y="25" fill="#E8E8ED66" fontSize="7" fontFamily="monospace">{t("intel.debris")}</text>
                   <circle cx="6" cy="38" r="3" fill="none" stroke={DRONE_HIT} strokeWidth="1" className="pulse-ring-fast" />
                   <circle cx="6" cy="38" r="2" fill={DRONE_HIT} />
-                  <text x="16" y="41" fill="#AAB8CC" fontSize="7" fontFamily="monospace">{t("intel.casualties")}</text>
+                  <text x="16" y="41" fill="#E8E8ED66" fontSize="7" fontFamily="monospace">{t("intel.casualties")}</text>
                   {isAllGCC && <>
-                    <circle cx="6" cy="54" r="4" fill="#DA0000" />
-                    <text x="16" y="57" fill="#AAB8CC" fontSize="7" fontFamily="monospace">IRAN STRIKE (US/IL)</text>
+                    <circle cx="6" cy="54" r="4" fill="#EF4444" />
+                    <text x="16" y="57" fill="#E8E8ED66" fontSize="7" fontFamily="monospace">IRAN STRIKE (US/IL)</text>
                   </>}
                   {showStrategicSites && <>
                     <polygon points={isAllGCC ? "6,66 10,70 6,74 2,70" : "6,50 10,54 6,58 2,54"} fill={STRATEGIC_BLUE} />
-                    <text x="16" y={isAllGCC ? 73 : 57} fill="#AAB8CC" fontSize="7" fontFamily="monospace">{t("intel.strategic")}</text>
+                    <text x="16" y={isAllGCC ? 73 : 57} fill="#E8E8ED66" fontSize="7" fontFamily="monospace">{t("intel.strategic")}</text>
                     <circle cx="6" cy={isAllGCC ? 86 : 70} r="4" fill="none" stroke={DESAL_CYAN} strokeWidth="1.5" />
                     <circle cx="6" cy={isAllGCC ? 86 : 70} r="1.5" fill={DESAL_CYAN} />
-                    <text x="16" y={isAllGCC ? 89 : 73} fill="#AAB8CC" fontSize="7" fontFamily="monospace">{t("intel.desalination")}</text>
+                    <text x="16" y={isAllGCC ? 89 : 73} fill="#E8E8ED66" fontSize="7" fontFamily="monospace">{t("intel.desalination")}</text>
                   </>}
                 </g>
 
@@ -1529,23 +1547,23 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                 const { x, y } = proj(hoveredImpact.lat, hoveredImpact.lng);
                 const pctX = (x / SVG_W) * 100;
                 const pctY = (y / SVG_H) * 100;
-                const color = hoveredImpact._iran ? "#DA0000" : hoveredImpact.type === "drone_hit" ? DRONE_HIT : DEBRIS_HIT;
+                const color = hoveredImpact._iran ? "#EF4444" : hoveredImpact.type === "drone_hit" ? DRONE_HIT : DEBRIS_HIT;
                 return (
                   <div style={{
                     position: "absolute", left: `${pctX}%`, top: `${pctY}%`,
                     transform: `translate(${pctX > 70 ? "-110%" : "10%"}, -50%)`,
-                    background: "#0B1420", border: `1px solid ${color}`, borderRadius: 6,
+                    background: "#0D1B2Aee", border: `1px solid ${color}`, borderRadius: 6,
                     padding: "10px 14px", pointerEvents: "none", zIndex: 10,
                     minWidth: 180, boxShadow: `0 0 20px ${color}33`
                   }}>
                     <div style={{ fontFamily: "monospace", fontSize: 10, color, fontWeight: 700, marginBottom: 4, textTransform: "uppercase", letterSpacing: 1 }}>
                       {hoveredImpact.name}
                     </div>
-                    <div style={{ fontFamily: "monospace", fontSize: 9, color: "#8899BB", lineHeight: 1.6 }}>
+                    <div style={{ fontFamily: "monospace", fontSize: 9, color: SUBTEXT, lineHeight: 1.6 }}>
                       <div>{t("intel.type")} {hoveredImpact._iran ? "IRAN STRIKE (US/IL)" : hoveredImpact.type === "drone_hit" ? t("intel.directHitLabel") : t("intel.debrisLabel")}</div>
                       <div>{t("intel.date")} {hoveredImpact.date.toUpperCase()}</div>
                       <div>{t("intel.region")} {(hoveredImpact.region || hoveredImpact.emirate || "").toUpperCase()}</div>
-                      <div style={{ color: hoveredImpact.casualties !== "None" ? "#E74C3C" : "#556677" }}>
+                      <div style={{ color: hoveredImpact.casualties !== "None" ? "#F87171" : "#E8E8ED44" }}>
                         {t("intel.casualtiesLabel")} {hoveredImpact.casualties.toUpperCase()}
                       </div>
                     </div>
@@ -1563,7 +1581,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                   <div style={{
                     position: "absolute", left: `${pctX}%`, top: `${pctY}%`,
                     transform: `translate(${pctX > 60 ? "-110%" : "10%"}, -50%)`,
-                    background: "#0B1420", border: `1px solid ${sColor}`, borderRadius: 6,
+                    background: "#0D1B2Aee", border: `1px solid ${sColor}`, borderRadius: 6,
                     padding: "10px 14px", zIndex: 10,
                     minWidth: 200, boxShadow: `0 0 20px ${sColor}33`
                   }}>
@@ -1571,9 +1589,9 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                       <div style={{ fontFamily: "monospace", fontSize: 10, color: sColor, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1 }}>
                         {selectedSite.name}
                       </div>
-                      <button onClick={(e) => { e.stopPropagation(); setSelectedSite(null); }} style={{ background: "none", border: `1px solid ${BORDER}`, color: SUBTEXT, borderRadius: 4, padding: "1px 6px", cursor: "pointer", fontSize: 8 }}>X</button>
+                      <button onClick={(e) => { e.stopPropagation(); setSelectedSite(null); }} style={{ background: "none", border: GLASS_BORDER, color: SUBTEXT, borderRadius: 4, padding: "1px 6px", cursor: "pointer", fontSize: 8 }}>X</button>
                     </div>
-                    <div style={{ fontFamily: "monospace", fontSize: 9, color: "#8899BB", lineHeight: 1.6 }}>
+                    <div style={{ fontFamily: "monospace", fontSize: 9, color: SUBTEXT, lineHeight: 1.6 }}>
                       <div>{t("intel.type")} {selectedSite.type.toUpperCase()}</div>
                       <div>{t("intel.coords")} {selectedSite.lat.toFixed(4)}°N, {selectedSite.lng.toFixed(4)}°E</div>
                     </div>
@@ -1585,21 +1603,21 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
             {/* Selected impact detail panel */}
             {selectedImpact && (
               <div style={{
-                marginTop: 12, background: "#0B1420", border: `1px solid ${selectedImpact.type === "drone_hit" ? DRONE_HIT : DEBRIS_HIT}`,
-                borderRadius: 8, padding: "14px 20px", fontFamily: "monospace"
+                marginTop: 12, background: "#0D1B2Aee", border: `1px solid ${selectedImpact.type === "drone_hit" ? DRONE_HIT : DEBRIS_HIT}`,
+                borderRadius: GLASS_RADIUS, padding: "14px 20px", fontFamily: "monospace"
               }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ color: themeAccent, fontSize: 10, fontWeight: 700, letterSpacing: 2 }}>{t("intel.briefing", { id: selectedImpact.id })}</span>
-                  <button onClick={() => setSelectedImpact(null)} style={{ background: "none", border: `1px solid ${BORDER}`, color: SUBTEXT, borderRadius: 4, padding: "2px 8px", cursor: "pointer", fontSize: 9 }}>{t("intel.close")}</button>
+                  <button onClick={() => setSelectedImpact(null)} style={{ background: "none", border: GLASS_BORDER, color: SUBTEXT, borderRadius: 4, padding: "2px 8px", cursor: "pointer", fontSize: 9 }}>{t("intel.close")}</button>
                 </div>
-                <div style={{ fontSize: 13, color: "#33CC77", fontWeight: 700, marginBottom: 6 }}>{selectedImpact.name}</div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 12, fontSize: 9, color: "#8899BB" }}>
-                  <div><div style={{ color: "#556677", marginBottom: 2 }}>{t("intel.weapon")}</div><div style={{ color: TEXT }}>{selectedImpact.type === "drone_hit" ? t("intel.weaponDirect") : t("intel.weaponDebris")}</div></div>
-                  <div><div style={{ color: "#556677", marginBottom: 2 }}>{t("intel.date")}</div><div style={{ color: TEXT }}>{selectedImpact.date}</div></div>
-                  <div><div style={{ color: "#556677", marginBottom: 2 }}>{t("intel.region")}</div><div style={{ color: TEXT }}>{selectedImpact.region || selectedImpact.emirate}</div></div>
-                  <div><div style={{ color: "#556677", marginBottom: 2 }}>{t("intel.casualtiesLabel")}</div><div style={{ color: selectedImpact.casualties !== "None" ? "#E74C3C" : TEXT }}>{selectedImpact.casualties}</div></div>
+                <div style={{ fontSize: 13, color: "#34D399", fontWeight: 700, marginBottom: 6 }}>{selectedImpact.name}</div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 12, fontSize: 9, color: SUBTEXT }}>
+                  <div><div style={{ color: "#E8E8ED44", marginBottom: 2 }}>{t("intel.weapon")}</div><div style={{ color: TEXT }}>{selectedImpact.type === "drone_hit" ? t("intel.weaponDirect") : t("intel.weaponDebris")}</div></div>
+                  <div><div style={{ color: "#E8E8ED44", marginBottom: 2 }}>{t("intel.date")}</div><div style={{ color: TEXT }}>{selectedImpact.date}</div></div>
+                  <div><div style={{ color: "#E8E8ED44", marginBottom: 2 }}>{t("intel.region")}</div><div style={{ color: TEXT }}>{selectedImpact.region || selectedImpact.emirate}</div></div>
+                  <div><div style={{ color: "#E8E8ED44", marginBottom: 2 }}>{t("intel.casualtiesLabel")}</div><div style={{ color: selectedImpact.casualties !== "None" ? "#F87171" : TEXT }}>{selectedImpact.casualties}</div></div>
                 </div>
-                <div style={{ fontSize: 9, color: "#556677", marginTop: 8 }}>
+                <div style={{ fontSize: 9, color: "#E8E8ED44", marginTop: 8 }}>
                   COORDS: {selectedImpact.lat.toFixed(4)}°N, {selectedImpact.lng.toFixed(4)}°E
                 </div>
               </div>
@@ -1620,8 +1638,8 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
               <StatCard label={t("intel.regionsHit")} value={uniqueRegions.length} sub={uniqueRegions.slice(0, 3).join(", ")} color={DEBRIS_HIT} />
               <StatCard label={t("intel.directHits")} value={directHits} sub={t("intel.directHitDesc")} color={DRONE_HIT} />
               <StatCard label={t("intel.debrisImpacts")} value={debrisHits} sub={t("intel.debrisDesc")} color={DEBRIS_HIT} />
-              {totalKIA > 0 && <StatCard label={t("intel.kia")} value={totalKIA} sub="" color="#E74C3C" />}
-              {totalWIA > 0 && <StatCard label={t("intel.wia")} value={totalWIA} sub="" color="#E67E22" />}
+              {totalKIA > 0 && <StatCard label={t("intel.kia")} value={totalKIA} sub="" color="#F87171" />}
+              {totalWIA > 0 && <StatCard label={t("intel.wia")} value={totalWIA} sub="" color="#FB923C" />}
             </div>
           </div>
         ); })()}
@@ -1631,7 +1649,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 20 }}>
 
             {/* Pie chart */}
-            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+            <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20 }}>
               <h3 style={{ margin: "0 0 16px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("overview.pieTitle")}</h3>
               <ResponsiveContainer width="100%" height={260}>
                 <PieChart>
@@ -1647,7 +1665,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
             </div>
 
             {/* Category breakdown bar */}
-            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+            <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20 }}>
               <h3 style={{ margin: "0 0 16px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("overview.categoryTitle")}</h3>
               <ResponsiveContainer width="100%" height={240}>
                 <BarChart data={finalTotals} layout="vertical" barCategoryGap="30%">
@@ -1656,7 +1674,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                   <YAxis type="category" dataKey="name" tick={{ fill: TEXT, fontSize: 11 }} axisLine={false} width={isRTL ? 100 : 80} />
                   <Tooltip content={<CustomTooltip />} />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
-                  <Bar dataKey="detected" name={t("chart.detected")} fill="#1A3A5C" radius={[0, 3, 3, 0]} />
+                  <Bar dataKey="detected" name={t("chart.detected")} fill="#FFFFFF15" radius={[0, 3, 3, 0]} />
                   <Bar dataKey="intercepted" name={t("chart.intercepted")} fill={INTERCEPTED} radius={[0, 3, 3, 0]} />
                   <Bar dataKey="impacted" name={t("chart.impacted")} fill={IMPACTED} radius={[0, 3, 3, 0]} />
                 </BarChart>
@@ -1664,7 +1682,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
             </div>
 
             {/* Interception rates */}
-            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, gridColumn: "1 / -1" }}>
+            <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20, gridColumn: "1 / -1" }}>
               <h3 style={{ margin: "0 0 16px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("overview.rateTitle")}</h3>
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={rateData} barCategoryGap="35%">
@@ -1686,7 +1704,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
         {/* TRENDS TAB */}
         {activeTab === "trends" && (
           <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 20 }}>
-            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 24 }}>
+            <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 24 }}>
               <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("trends.title")}</h3>
               <p style={{ margin: "0 0 24px", fontSize: 11, color: SUBTEXT }}>{t("trends.subtitle")}</p>
               <ResponsiveContainer width="100%" height={380}>
@@ -1722,15 +1740,15 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                   {/* Ballistic */}
                   <Line
                     type="monotone" dataKey="ballistic" name={t("trends.ballisticMissiles")}
-                    stroke="#4DA6FF" strokeWidth={2}
-                    dot={{ fill: "#4DA6FF", r: 5, strokeWidth: 2, stroke: BG }}
+                    stroke="#3B82F6" strokeWidth={2}
+                    dot={{ fill: "#3B82F6", r: 5, strokeWidth: 2, stroke: BG }}
                     activeDot={{ r: 7 }}
                   />
                   {/* Cruise */}
                   <Line
                     type="monotone" dataKey="cruise" name={t("trends.cruiseMissiles")}
-                    stroke="#E74C3C" strokeWidth={2}
-                    dot={{ fill: "#E74C3C", r: 5, strokeWidth: 2, stroke: BG }}
+                    stroke="#F87171" strokeWidth={2}
+                    dot={{ fill: "#F87171", r: 5, strokeWidth: 2, stroke: BG }}
                     activeDot={{ r: 7 }}
                   />
                 </LineChart>
@@ -1745,16 +1763,16 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                 const lowestIdx = totals.indexOf(Math.min(...totals));
                 return trendData.map((d, i) => (
                 <div key={i} style={{
-                  background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 10,
+                  background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS,
                   padding: "14px 16px",
                   borderTop: `3px solid ${i === peakIdx ? IMPACTED : i === lowestIdx ? INTERCEPTED : BORDER}`
                 }}>
                   <div style={{ fontSize: 11, color: UAE_GOLD, fontWeight: 700, marginBottom: 8, textTransform: "uppercase", letterSpacing: 1 }}>{d.day}</div>
-                  <div style={{ fontSize: 22, fontWeight: 800, color: TEXT, fontFamily: "Georgia, serif" }}>{d.total}</div>
+                  <div style={{ fontSize: 22, fontWeight: 800, color: TEXT, fontFamily: DM_SANS }}>{d.total}</div>
                   <div style={{ fontSize: 10, color: SUBTEXT, marginBottom: 8 }}>{t("trends.totalIncoming")}</div>
-                  <div style={{ fontSize: 10, color: "#4DA6FF" }}>🚀 {d.ballistic} {t("trends.ballistic")}</div>
+                  <div style={{ fontSize: 10, color: "#3B82F6" }}>🚀 {d.ballistic} {t("trends.ballistic")}</div>
                   <div style={{ fontSize: 10, color: UAE_GOLD }}>🚁 {d.drones} {t("trends.drones")}</div>
-                  {d.cruise > 0 && <div style={{ fontSize: 10, color: "#E74C3C" }}>✈️ {d.cruise} {t("trends.cruise")}</div>}
+                  {d.cruise > 0 && <div style={{ fontSize: 10, color: "#F87171" }}>✈️ {d.cruise} {t("trends.cruise")}</div>}
                   {i === peakIdx && <div style={{ fontSize: 9, color: IMPACTED, marginTop: 6, fontWeight: 600 }}>⚠️ {t("trends.peakDay")}</div>}
                   {i === lowestIdx && <div style={{ fontSize: 9, color: INTERCEPTED, marginTop: 6, fontWeight: 600 }}>↓ {t("trends.lowestDay")}</div>}
                 </div>
@@ -1767,7 +1785,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
         {/* DAILY TAB */}
         {activeTab === "daily" && (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 20 }}>
-            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+            <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20 }}>
               <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("daily.ballisticTitle")}</h3>
               <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>{t("daily.ballisticSub")}</p>
               <ResponsiveContainer width="100%" height={220}>
@@ -1783,7 +1801,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
               </ResponsiveContainer>
             </div>
 
-            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+            <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20 }}>
               <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("daily.dronesTitle")}</h3>
               <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>{t("daily.dronesSub")}</p>
               <ResponsiveContainer width="100%" height={220}>
@@ -1799,15 +1817,15 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
               </ResponsiveContainer>
             </div>
 
-            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, gridColumn: "1 / -1" }}>
+            <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20, gridColumn: "1 / -1" }}>
               <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("daily.totalTitle")}</h3>
               <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>{t("daily.totalSub")}</p>
               <ResponsiveContainer width="100%" height={200}>
                 <AreaChart data={dailyData}>
                   <defs>
                     <linearGradient id="colorBallistic" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#2980B9" stopOpacity={0.4} />
-                      <stop offset="95%" stopColor="#2980B9" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.4} />
+                      <stop offset="95%" stopColor="#3B82F6" stopOpacity={0} />
                     </linearGradient>
                     <linearGradient id="colorDrones" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor={UAE_GOLD} stopOpacity={0.4} />
@@ -1819,13 +1837,13 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                   <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} />
                   <Tooltip content={<CustomTooltip />} />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
-                  <Area type="monotone" dataKey="ballistic" name={t("trends.ballisticMissiles")} stroke="#2980B9" fill="url(#colorBallistic)" strokeWidth={2} />
+                  <Area type="monotone" dataKey="ballistic" name={t("trends.ballisticMissiles")} stroke="#3B82F6" fill="url(#colorBallistic)" strokeWidth={2} />
                   <Area type="monotone" dataKey="drones" name={t("trends.drones")} stroke={UAE_GOLD} fill="url(#colorDrones)" strokeWidth={2} />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
 
-            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20, gridColumn: "1 / -1" }}>
+            <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20, gridColumn: "1 / -1" }}>
               <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>Daily Interception Rate (%)</h3>
               <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>Percentage of detected threats successfully intercepted each day</p>
               <ResponsiveContainer width="100%" height={220}>
@@ -1836,7 +1854,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                   <Tooltip content={<CustomTooltip />} formatter={(value) => [`${value}%`]} />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
                   <Line type="monotone" dataKey="overallRate" name="Overall %" stroke={INTERCEPTED} strokeWidth={2.5} dot={{ r: 3 }} connectNulls />
-                  <Line type="monotone" dataKey="ballisticRate" name="Ballistic %" stroke="#2980B9" strokeWidth={2} dot={{ r: 2.5 }} connectNulls strokeDasharray="5 3" />
+                  <Line type="monotone" dataKey="ballisticRate" name="Ballistic %" stroke="#3B82F6" strokeWidth={2} dot={{ r: 2.5 }} connectNulls strokeDasharray="5 3" />
                   <Line type="monotone" dataKey="droneRate" name="Drone %" stroke={UAE_GOLD} strokeWidth={2} dot={{ r: 2.5 }} connectNulls strokeDasharray="5 3" />
                 </LineChart>
               </ResponsiveContainer>
@@ -1847,15 +1865,15 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
         {/* CUMULATIVE TAB */}
         {activeTab === "cumulative" && (
           <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 20 }}>
-            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+            <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20 }}>
               <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("cumul.title")}</h3>
               <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>{t("cumul.subtitle")}</p>
               <ResponsiveContainer width="100%" height={280}>
                 <AreaChart data={cumulativeData}>
                   <defs>
                     <linearGradient id="gradDetected" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#2980B9" stopOpacity={0.3} />
-                      <stop offset="95%" stopColor="#2980B9" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.3} />
+                      <stop offset="95%" stopColor="#3B82F6" stopOpacity={0} />
                     </linearGradient>
                     <linearGradient id="gradIntercepted" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor={INTERCEPTED} stopOpacity={0.4} />
@@ -1867,14 +1885,14 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                   <YAxis tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} />
                   <Tooltip content={<CustomTooltip />} />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
-                  <Area type="monotone" dataKey="totalDetected" name={t("cumul.detected")} stroke="#2980B9" fill="url(#gradDetected)" strokeWidth={2} dot={{ fill: "#2980B9", r: 4 }} />
+                  <Area type="monotone" dataKey="totalDetected" name={t("cumul.detected")} stroke="#3B82F6" fill="url(#gradDetected)" strokeWidth={2} dot={{ fill: "#3B82F6", r: 4 }} />
                   <Area type="monotone" dataKey="totalIntercepted" name={t("cumul.intercepted")} stroke={INTERCEPTED} fill="url(#gradIntercepted)" strokeWidth={2} dot={{ fill: INTERCEPTED, r: 4 }} />
                   <Area type="monotone" dataKey="impacted" name={t("cumul.impacted")} stroke={IMPACTED} fill="none" strokeWidth={2} strokeDasharray="5 3" dot={{ fill: IMPACTED, r: 4 }} />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
 
-            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+            <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20 }}>
               <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("cumul.impactedTitle")}</h3>
               <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>{t("cumul.impactedSub")}</p>
               <ResponsiveContainer width="100%" height={200}>
@@ -1885,7 +1903,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                   <Tooltip content={<CustomTooltip />} />
                   <Bar dataKey="impacted" name="Cumulative Impacted" radius={[4, 4, 0, 0]}>
                     {cumulativeData.map((_, i) => (
-                      <Cell key={i} fill={`rgba(192, 57, 43, ${0.4 + i * 0.13})`} />
+                      <Cell key={i} fill={`rgba(248, 113, 113, ${0.4 + i * 0.13})`} />
                     ))}
                   </Bar>
                 </BarChart>
@@ -1898,16 +1916,16 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
         {activeTab === "rates" && !isAllGCC && (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
             {[
-              n(cumulative.ballisticDetected) > 0 && { label: t("chart.ballisticMissiles"), intercepted: n(cumulative.ballisticIntercepted), total: n(cumulative.ballisticDetected), rate: +((n(cumulative.ballisticIntercepted) / n(cumulative.ballisticDetected)) * 100).toFixed(1), color: "#2980B9" },
+              n(cumulative.ballisticDetected) > 0 && { label: t("chart.ballisticMissiles"), intercepted: n(cumulative.ballisticIntercepted), total: n(cumulative.ballisticDetected), rate: +((n(cumulative.ballisticIntercepted) / n(cumulative.ballisticDetected)) * 100).toFixed(1), color: "#3B82F6" },
               n(cumulative.cruiseDetected) > 0 && { label: t("chart.cruiseMissiles"), intercepted: n(cumulative.cruiseIntercepted), total: n(cumulative.cruiseDetected), rate: +((n(cumulative.cruiseIntercepted) / n(cumulative.cruiseDetected)) * 100).toFixed(1), color: UAE_GOLD },
               n(cumulative.dronesDetected) > 0 && { label: t("chart.drones"), intercepted: n(cumulative.dronesIntercepted), total: n(cumulative.dronesDetected), rate: +((n(cumulative.dronesIntercepted) / n(cumulative.dronesDetected)) * 100).toFixed(1), color: INTERCEPTED },
-              { label: t("chart.overall"), intercepted: totalIntercepted, total: totalDetected, rate: overallRate, color: "#9B59B6" },
+              { label: t("chart.overall"), intercepted: totalIntercepted, total: totalDetected, rate: overallRate, color: "#A78BFA" },
             ].filter(Boolean).map((item, i) => (
-              <div key={i} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 24 }}>
+              <div key={i} style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 24 }}>
                 <div style={{ fontSize: 12, color: SUBTEXT, textTransform: "uppercase", letterSpacing: 2, marginBottom: 8 }}>{item.label}</div>
-                <div style={{ fontSize: 44, fontWeight: 900, color: item.color, fontFamily: "Georgia, serif", lineHeight: 1 }}>{item.rate != null ? `${item.rate}%` : "N/A"}</div>
+                <div style={{ fontSize: 44, fontWeight: 900, color: item.color, fontFamily: DM_SANS, lineHeight: 1 }}>{item.rate != null ? `${item.rate}%` : "N/A"}</div>
                 <div style={{ fontSize: 11, color: SUBTEXT, marginTop: 6 }}>{t("rates.interceptionRate")}</div>
-                <div style={{ marginTop: 16, background: "#0A0F1E", borderRadius: 6, height: 8, overflow: "hidden" }}>
+                <div style={{ marginTop: 16, background: "#FFFFFF06", borderRadius: 6, height: 8, overflow: "hidden" }}>
                   <div style={{ height: "100%", width: `${item.rate || 0}%`, background: item.color, borderRadius: 6, transition: "width 0.8s ease" }} />
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", marginTop: 8, fontSize: 11, color: SUBTEXT }}>
@@ -1918,10 +1936,10 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
             ))}
 
             {/* Interceptors Used Per Day */}
-            <div style={{ gridColumn: "1 / -1", background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 24 }}>
+            <div style={{ gridColumn: "1 / -1", background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 24 }}>
               <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("rates.interceptorsTitle")}</h3>
               <p style={{ margin: "0 0 4px", fontSize: 11, color: SUBTEXT }}>{t("rates.interceptorsSub")}</p>
-              <p style={{ margin: "0 0 16px", fontSize: 10, color: "#556677", fontStyle: "italic" }}>{t("rates.interceptorsNote")}</p>
+              <p style={{ margin: "0 0 16px", fontSize: 10, color: "#E8E8ED44", fontStyle: "italic" }}>{t("rates.interceptorsNote")}</p>
               <ResponsiveContainer width="100%" height={260}>
                 <BarChart data={interceptorData} barCategoryGap="30%">
                   <CartesianGrid strokeDasharray="3 3" stroke={BORDER} vertical={false} />
@@ -1930,10 +1948,10 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                   <Tooltip content={<CustomTooltip />} />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
                   <Bar dataKey="intercepted" name={t("rates.targetsIntercepted")} fill={INTERCEPTED} radius={[4, 4, 0, 0]} />
-                  <Bar dataKey="estimatedUsed" name={t("rates.estInterceptors")} fill="#9B59B6" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="estimatedUsed" name={t("rates.estInterceptors")} fill="#A78BFA" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
-              <div style={{ fontSize: 9, color: "#556677", marginTop: 8 }}>
+              <div style={{ fontSize: 9, color: "#E8E8ED44", marginTop: 8 }}>
                 {t("rates.sourceNote")}
               </div>
             </div>
@@ -1944,7 +1962,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
         {activeTab === "arsenal" && (() => {
           const attackSystems = [
             {
-              name: "Ballistic Missiles", sub: "MRBM", color: "#4DA6FF",
+              name: "Ballistic Missiles", sub: "MRBM", color: "#3B82F6",
               img: "https://upload.wikimedia.org/wikipedia/commons/8/8d/Kheibar_Shekan_%281%29.jpg",
               desc: "High-speed projectiles arcing through the upper atmosphere. Iran's most destructive but costly weapon.",
               types: "Kheibar Shekan, Emad, Fattah-1/2, Ghadr, Sejjil",
@@ -1952,7 +1970,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
               costLabel: "$500K–$5M", speedLabel: "Mach 7–13+", rangeLabel: "1,300–2,500km", altLabel: "150–1,000km",
             },
             {
-              name: "Cruise Missiles", sub: "Subsonic Strike", color: "#E74C3C",
+              name: "Cruise Missiles", sub: "Subsonic Strike", color: "#F87171",
               img: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Hoveyzeh_cruise_missile.jpg",
               desc: "Jet-powered, low-altitude terrain-huggers that evade radar. Slower but stealthier.",
               types: "Paveh, Hoveyzeh, Soumar",
@@ -1970,7 +1988,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
           ];
           const defenceSystems = [
             {
-              name: "THAAD", maker: "Lockheed Martin (US)", color: "#4DA6FF",
+              name: "THAAD", maker: "Lockheed Martin (US)", color: "#3B82F6",
               img: "https://upload.wikimedia.org/wikipedia/commons/4/45/The_first_of_two_Terminal_High_Altitude_Area_Defense_%28THAAD%29_interceptors_is_launched_during_a_successful_intercept_test_-_US_Army.jpg",
               target: "Ballistic missiles", altitude: 150, range: 200, cost: 12,
               costLabel: "$12M", desc: "Exo-atmospheric hit-to-kill. Sonic booms heard 100km away.",
@@ -1982,13 +2000,13 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
               costLabel: "$4–12M", desc: "Gulf workhorse. Lower-tier terminal phase interceptor.",
             },
             {
-              name: "Cheongung-II", maker: "LIG Nex1 (South Korea)", color: "#9B59B6",
+              name: "Cheongung-II", maker: "LIG Nex1 (South Korea)", color: "#A78BFA",
               img: "https://upload.wikimedia.org/wikipedia/commons/d/d1/M-SAM_Block-2_battery.jpg",
               target: "Medium-range threats", altitude: 20, range: 40, cost: 2.5,
               costLabel: "$2–3M", desc: "First-ever combat use. $3.5B UAE deal — proved itself here.",
             },
             {
-              name: "Barak MX", maker: "IAI (Israel)", color: "#E67E22",
+              name: "Barak MX", maker: "IAI (Israel)", color: "#FB923C",
               img: "https://upload.wikimedia.org/wikipedia/commons/f/f6/Salon_du_Bourget_20090619_077.jpg",
               target: "Multi-layer", altitude: 30, range: 150, cost: 1,
               costLabel: "~$1M", desc: "Modular system via Abraham Accords. Drones to ballistic.",
@@ -2011,11 +2029,11 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
             <h3 style={{ margin: 0, fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("arsenal.iranTitle")}</h3>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 16 }}>
               {attackSystems.map((w, i) => (
-                <div key={i} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, overflow: "hidden", borderTop: `3px solid ${w.color}` }}>
+                <div key={i} style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, overflow: "hidden", borderTop: `3px solid ${w.color}` }}>
                   <div style={{ height: 160, overflow: "hidden", position: "relative" }}>
                     <img src={w.img} alt={w.name} style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.7)" }} />
                     <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "20px 16px 12px", background: "linear-gradient(transparent, rgba(0,0,0,0.85))" }}>
-                      <div style={{ fontSize: 18, fontWeight: 800, color: w.color, fontFamily: "Georgia, serif" }}>{w.name}</div>
+                      <div style={{ fontSize: 18, fontWeight: 800, color: w.color, fontFamily: DM_SANS }}>{w.name}</div>
                       <div style={{ fontSize: 9, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 1 }}>{w.sub}</div>
                     </div>
                   </div>
@@ -2023,19 +2041,19 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                     <div style={{ fontSize: 11, color: TEXT, lineHeight: 1.5, marginBottom: 10 }}>{w.desc}</div>
                     <div style={{ fontSize: 10, color: SUBTEXT, marginBottom: 10 }}>Types: {w.types}</div>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, textAlign: "center" }}>
-                      <div style={{ background: "#0A0F1E", borderRadius: 6, padding: "8px 4px" }}>
+                      <div style={{ background: "#FFFFFF06", borderRadius: 8, padding: "8px 4px" }}>
                         <div style={{ fontSize: 12, fontWeight: 800, color: w.color }}>{w.speedLabel}</div>
                         <div style={{ fontSize: 8, color: SUBTEXT, marginTop: 2 }}>SPEED</div>
                       </div>
-                      <div style={{ background: "#0A0F1E", borderRadius: 6, padding: "8px 4px" }}>
+                      <div style={{ background: "#FFFFFF06", borderRadius: 8, padding: "8px 4px" }}>
                         <div style={{ fontSize: 12, fontWeight: 800, color: w.color }}>{w.altLabel}</div>
                         <div style={{ fontSize: 8, color: SUBTEXT, marginTop: 2 }}>FLIGHT ALTITUDE</div>
                       </div>
-                      <div style={{ background: "#0A0F1E", borderRadius: 6, padding: "8px 4px" }}>
+                      <div style={{ background: "#FFFFFF06", borderRadius: 8, padding: "8px 4px" }}>
                         <div style={{ fontSize: 12, fontWeight: 800, color: w.color }}>{w.rangeLabel}</div>
                         <div style={{ fontSize: 8, color: SUBTEXT, marginTop: 2 }}>RANGE</div>
                       </div>
-                      <div style={{ background: "#0A0F1E", borderRadius: 6, padding: "8px 4px" }}>
+                      <div style={{ background: "#FFFFFF06", borderRadius: 8, padding: "8px 4px" }}>
                         <div style={{ fontSize: 12, fontWeight: 800, color: w.color }}>{w.costLabel}</div>
                         <div style={{ fontSize: 8, color: SUBTEXT, marginTop: 2 }}>COST/UNIT</div>
                       </div>
@@ -2046,7 +2064,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
             </div>
 
             {/* ATTACK COMPARISON CHART */}
-            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+            <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20 }}>
               <h3 style={{ margin: "0 0 4px", fontSize: 13, color: UAE_GOLD, textTransform: "uppercase", letterSpacing: 2 }}>{t("arsenal.compTitle")}</h3>
               <p style={{ margin: "0 0 16px", fontSize: 11, color: SUBTEXT }}>{t("arsenal.compSub")}</p>
               <ResponsiveContainer width="100%" height={220}>
@@ -2056,8 +2074,8 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                   <YAxis domain={[0, 100]} tick={{ fill: SUBTEXT, fontSize: 10 }} axisLine={false} tickFormatter={v => `${v}%`} />
                   <Tooltip content={<CustomTooltip />} formatter={(v) => [`${v.toFixed(1)}%`, ""]} />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
-                  <Bar dataKey="ballistic" name="Ballistic" fill="#4DA6FF" radius={[3, 3, 0, 0]} />
-                  <Bar dataKey="cruise" name="Cruise" fill="#E74C3C" radius={[3, 3, 0, 0]} />
+                  <Bar dataKey="ballistic" name="Ballistic" fill="#3B82F6" radius={[3, 3, 0, 0]} />
+                  <Bar dataKey="cruise" name="Cruise" fill="#F87171" radius={[3, 3, 0, 0]} />
                   <Bar dataKey="drone" name="Drone" fill={UAE_GOLD} radius={[3, 3, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
@@ -2067,11 +2085,11 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
             <h3 style={{ margin: "8px 0 0", fontSize: 13, color: INTERCEPTED, textTransform: "uppercase", letterSpacing: 2 }}>{t("arsenal.defenceTitle")}</h3>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
               {defenceSystems.map((s, i) => (
-                <div key={i} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, overflow: "hidden", borderTop: `3px solid ${s.color}` }}>
+                <div key={i} style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, overflow: "hidden", borderTop: `3px solid ${s.color}` }}>
                   <div style={{ height: 120, overflow: "hidden", position: "relative" }}>
                     <img src={s.img} alt={s.name} style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.65)" }} />
                     <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "16px 12px 8px", background: "linear-gradient(transparent, rgba(0,0,0,0.85))" }}>
-                      <div style={{ fontSize: 14, fontWeight: 800, color: s.color, fontFamily: "Georgia, serif" }}>{s.name}</div>
+                      <div style={{ fontSize: 14, fontWeight: 800, color: s.color, fontFamily: DM_SANS }}>{s.name}</div>
                       <div style={{ fontSize: 9, color: SUBTEXT }}>{s.maker}</div>
                     </div>
                   </div>
@@ -2079,11 +2097,11 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                     <div style={{ fontSize: 10, color: UAE_GOLD, fontWeight: 600, marginBottom: 6 }}>{s.target}</div>
                     <div style={{ fontSize: 10, color: TEXT, lineHeight: 1.4, marginBottom: 8 }}>{s.desc}</div>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 4, textAlign: "center" }}>
-                      <div style={{ background: "#0A0F1E", borderRadius: 5, padding: "6px 4px" }}>
+                      <div style={{ background: "#FFFFFF06", borderRadius: 8, padding: "6px 4px" }}>
                         <div style={{ fontSize: 11, fontWeight: 800, color: s.color }}>{s.altitude}km</div>
                         <div style={{ fontSize: 7, color: SUBTEXT }}>ALTITUDE</div>
                       </div>
-                      <div style={{ background: "#0A0F1E", borderRadius: 5, padding: "6px 4px" }}>
+                      <div style={{ background: "#FFFFFF06", borderRadius: 8, padding: "6px 4px" }}>
                         <div style={{ fontSize: 11, fontWeight: 800, color: IMPACTED }}>{s.costLabel}</div>
                         <div style={{ fontSize: 7, color: SUBTEXT }}>PER SHOT</div>
                       </div>
@@ -2095,7 +2113,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
 
             {/* DEFENCE COMPARISON CHARTS */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 16 }}>
-              <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+              <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20 }}>
                 <h3 style={{ margin: "0 0 4px", fontSize: 13, color: INTERCEPTED, textTransform: "uppercase", letterSpacing: 2 }}>{t("chart.interceptAltitude")}</h3>
                 <p style={{ margin: "0 0 12px", fontSize: 11, color: SUBTEXT }}>{t("chart.altitudeSub")}</p>
                 <ResponsiveContainer width="100%" height={180}>
@@ -2110,7 +2128,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                   </BarChart>
                 </ResponsiveContainer>
               </div>
-              <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+              <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20 }}>
                 <h3 style={{ margin: "0 0 4px", fontSize: 13, color: IMPACTED, textTransform: "uppercase", letterSpacing: 2 }}>{t("chart.interceptorCost")}</h3>
                 <p style={{ margin: "0 0 12px", fontSize: 11, color: SUBTEXT }}>{t("chart.costSub")}</p>
                 <ResponsiveContainer width="100%" height={180}>
@@ -2157,21 +2175,21 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 16 }}>
                 {[
                   { label: "Drones", atk: "$20K–$50K", atkC: UAE_GOLD, def: "$1M–$4M", ratio: "20:1 — 200:1" },
-                  { label: "Ballistic", atk: "$0.5M–$5M", atkC: "#4DA6FF", def: "$4M–$12M", ratio: "4:1 — 12:1" },
+                  { label: "Ballistic", atk: "$0.5M–$5M", atkC: "#3B82F6", def: "$4M–$12M", ratio: "4:1 — 12:1" },
                   { label: "Total (5 days)", atk: `~$${costTimeline[costTimeline.length-1]?.cumAtk}M`, atkC: UAE_GOLD, def: `~$${(costTimeline[costTimeline.length-1]?.cumDef/1000).toFixed(1)}B`, ratio: "~$1B/day" },
                 ].map((c, i) => (
-                  <div key={i} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 10, textAlign: "center", padding: 16 }}>
+                  <div key={i} style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, textAlign: "center", padding: 16 }}>
                     <div style={{ fontSize: 10, color: SUBTEXT, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>{c.label}</div>
                     <div style={{ fontSize: 11, color: TEXT, marginBottom: 4 }}>{t("cost.attack")} <span style={{ color: c.atkC, fontWeight: 700 }}>{c.atk}</span></div>
                     <div style={{ fontSize: 11, color: TEXT, marginBottom: 8 }}>{t("cost.defence")} <span style={{ color: IMPACTED, fontWeight: 700 }}>{c.def}</span></div>
-                    <div style={{ fontSize: 20, fontWeight: 900, color: IMPACTED, fontFamily: "Georgia, serif" }}>{c.ratio}</div>
+                    <div style={{ fontSize: 20, fontWeight: 900, color: IMPACTED, fontFamily: DM_SANS }}>{c.ratio}</div>
                     <div style={{ fontSize: 10, color: SUBTEXT }}>{i < 2 ? t("cost.disadvantage") : t("cost.dailyCost")}</div>
                   </div>
                 ))}
               </div>
 
               {/* Per-unit cost comparison */}
-              <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+              <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20 }}>
                 <h3 style={{ margin: "0 0 4px", fontSize: 13, color: IMPACTED, textTransform: "uppercase", letterSpacing: 2 }}>{t("chart.costPerUnit")}</h3>
                 <p style={{ margin: "0 0 12px", fontSize: 11, color: SUBTEXT }}>{t("chart.costPerUnitSub")}</p>
                 <ResponsiveContainer width="100%" height={200}>
@@ -2189,7 +2207,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
 
               {/* Daily cost comparison */}
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 16 }}>
-                <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+                <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20 }}>
                   <h3 style={{ margin: "0 0 4px", fontSize: 13, color: IMPACTED, textTransform: "uppercase", letterSpacing: 2 }}>{t("cost.dailyTitle")}</h3>
                   <p style={{ margin: "0 0 12px", fontSize: 11, color: SUBTEXT }}>{t("cost.dailySub")}</p>
                   <ResponsiveContainer width="100%" height={220}>
@@ -2205,7 +2223,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                   </ResponsiveContainer>
                 </div>
 
-                <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 20 }}>
+                <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20 }}>
                   <h3 style={{ margin: "0 0 4px", fontSize: 13, color: IMPACTED, textTransform: "uppercase", letterSpacing: 2 }}>{t("cost.cumulTitle")}</h3>
                   <p style={{ margin: "0 0 12px", fontSize: 11, color: SUBTEXT }}>{t("cost.cumulSub")}</p>
                   <ResponsiveContainer width="100%" height={220}>
@@ -2254,9 +2272,9 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                 const isActive = selectedAirport === code;
                 return (
                   <button key={code} onClick={() => setSelectedAirport(code)} style={{
-                    padding: "6px 16px", borderRadius: 6, border: `1px solid ${isActive ? UAE_GREEN : BORDER}`, cursor: "pointer",
-                    background: isActive ? UAE_GREEN : "transparent",
-                    color: isActive ? "#fff" : TEXT,
+                    padding: "6px 16px", borderRadius: GLASS_RADIUS, border: isActive ? "none" : GLASS_BORDER, cursor: "pointer",
+                    background: isActive ? "linear-gradient(135deg, #F59E0B, #D97706)" : "#FFFFFF0A",
+                    color: isActive ? "#050B1A" : TEXT,
                     textAlign: "left",
                   }}>
                     <div style={{ fontSize: 13, fontWeight: 600 }}>{code}</div>
@@ -2269,10 +2287,10 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
           </div>
         );
 
-        const FLIGHT_GREEN = "#2ECC71";
-        const FLIGHT_AMBER = "#F39C12";
-        const FLIGHT_RED = "#E74C3C";
-        const FLIGHT_BLUE = "#3498DB";
+        const FLIGHT_GREEN = "#34D399";
+        const FLIGHT_AMBER = "#F59E0B";
+        const FLIGHT_RED = "#F87171";
+        const FLIGHT_BLUE = "#3B82F6";
 
         const baseline = currentFlightData.baselineDailyAvg || { total: 0, departures: 0, arrivals: 0, regions: {} };
         const daily = currentFlightData.daily || [];
@@ -2306,8 +2324,8 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
           "Africa": t("flights.africa"), "Americas": t("flights.americas"),
         };
         const regionColors = {
-          "Middle East": "#F39C12", "Europe": "#3498DB", "South Asia": "#2ECC71",
-          "Asia-Pacific": "#9B59B6", "Africa": "#E67E22", "Americas": "#E74C3C",
+          "Middle East": "#F59E0B", "Europe": "#3B82F6", "South Asia": "#34D399",
+          "Asia-Pacific": "#A78BFA", "Africa": "#FB923C", "Americas": "#F87171",
         };
 
         const regionalChartData = REGION_KEYS.map(r => ({
@@ -2344,9 +2362,9 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                 const isActive = selectedAirport === code;
                 return (
                   <button key={code} onClick={() => setSelectedAirport(code)} style={{
-                    padding: "6px 16px", borderRadius: 6, border: `1px solid ${isActive ? UAE_GREEN : BORDER}`, cursor: "pointer",
-                    background: isActive ? UAE_GREEN : "transparent",
-                    color: isActive ? "#fff" : TEXT,
+                    padding: "6px 16px", borderRadius: GLASS_RADIUS, border: isActive ? "none" : GLASS_BORDER, cursor: "pointer",
+                    background: isActive ? "linear-gradient(135deg, #F59E0B, #D97706)" : "#FFFFFF0A",
+                    color: isActive ? "#050B1A" : TEXT,
                     textAlign: "left",
                   }}>
                     <div style={{ fontSize: 13, fontWeight: 600 }}>{code}</div>
@@ -2364,7 +2382,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
             </div>
 
             {/* Main chart: daily flights vs baseline */}
-            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: 20, marginBottom: 24 }}>
+            <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20, marginBottom: 24 }}>
               <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: TEXT }}>{t("flights.total")} — {selectedAirport}</h3>
               <ResponsiveContainer width="100%" height={300}>
                 <ComposedChart data={chartData} barCategoryGap="15%">
@@ -2382,7 +2400,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
             </div>
 
             {/* Capacity % chart */}
-            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: 20, marginBottom: 24 }}>
+            <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20, marginBottom: 24 }}>
               <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: TEXT }}>{t("flights.capacity")} %</h3>
               <ResponsiveContainer width="100%" height={200}>
                 <AreaChart data={chartData}>
@@ -2403,7 +2421,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
             </div>
 
             {/* Regional comparison bar chart */}
-            <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: 20, marginBottom: 24 }}>
+            <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20, marginBottom: 24 }}>
               <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: TEXT }}>{t("flights.regionalTitle")}</h3>
               <ResponsiveContainer width="100%" height={250}>
                 <BarChart data={regionalChartData} layout="vertical" barCategoryGap="20%">
@@ -2421,7 +2439,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
             {/* Regional time series - small multiples */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 16, marginBottom: 24 }}>
               {regionalTimeSeries.filter(r => r.data.some(d => d.value > 0 || d.baseline > 0)).map(r => (
-                <div key={r.key} style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: 16 }}>
+                <div key={r.key} style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 16 }}>
                   <h4 style={{ margin: "0 0 12px", fontSize: 13, fontWeight: 600, color: r.color }}>{r.label}</h4>
                   <ResponsiveContainer width="100%" height={150}>
                     <ComposedChart data={r.data} barCategoryGap="15%">
@@ -2437,7 +2455,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
               ))}
             </div>
 
-            <div style={{ fontSize: 10, color: "#3A4A60", textAlign: "center" }}>{t("flights.source")} / Flightradar24</div>
+            <div style={{ fontSize: 10, color: "#E8E8ED33", textAlign: "center" }}>{t("flights.source")} / Flightradar24</div>
           </div>
         );
       })()}
@@ -2458,19 +2476,19 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
               if (total === 0) return null;
               const ballisticRatio = total > 0 ? ballistic / total : 0;
               const droneRatio = total > 0 ? drones / total : 0;
-              const dotColor = ballisticRatio > 0.5 ? "#C0392B" : droneRatio > 0.6 ? "#F1C40F" : "#E67E22";
+              const dotColor = ballisticRatio > 0.5 ? "#F87171" : droneRatio > 0.6 ? "#F59E0B" : "#FB923C";
               const isExpanded = expandedTimelineIdx === i;
               return (
                 <div key={i} style={{ marginBottom: 16, position: "relative" }}>
                   <div style={{
                     position: "absolute", left: -27, top: 14, width: 12, height: 12,
-                    borderRadius: "50%", background: dotColor, border: `2px solid ${BG}`
+                    borderRadius: "50%", background: dotColor, border: "2px solid #050B1A"
                   }} />
                   <div
                     onClick={() => setExpandedTimelineIdx(isExpanded ? null : i)}
                     style={{
-                      background: CARD_BG, border: `1px solid ${isExpanded ? dotColor : BORDER}`,
-                      borderRadius: 10, padding: "14px 18px", cursor: "pointer",
+                      background: CARD_BG, backdropFilter: GLASS_BLUR, border: `1px solid ${isExpanded ? dotColor : BORDER}`,
+                      borderRadius: GLASS_RADIUS, padding: "14px 18px", cursor: "pointer",
                       transition: "border-color 0.2s"
                     }}
                   >
@@ -2482,9 +2500,9 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                       Total intercepted: <span style={{ color: INTERCEPTED, fontWeight: 700 }}>{totalIntercepted}</span> / {total}
                     </div>
                     <div style={{ display: "flex", gap: 12, fontSize: 11, color: SUBTEXT }}>
-                      {ballistic > 0 && <span>Ballistic: <span style={{ color: "#C0392B" }}>{ballistic}</span></span>}
-                      {cruise > 0 && <span>Cruise: <span style={{ color: "#3498DB" }}>{cruise}</span></span>}
-                      {drones > 0 && <span>Drones: <span style={{ color: "#F1C40F" }}>{drones}</span></span>}
+                      {ballistic > 0 && <span>Ballistic: <span style={{ color: "#F87171" }}>{ballistic}</span></span>}
+                      {cruise > 0 && <span>Cruise: <span style={{ color: "#3B82F6" }}>{cruise}</span></span>}
+                      {drones > 0 && <span>Drones: <span style={{ color: "#F59E0B" }}>{drones}</span></span>}
                     </div>
                     {isExpanded && (
                       <div style={{ marginTop: 14, paddingTop: 12, borderTop: `1px solid ${BORDER}` }}>
@@ -2509,11 +2527,11 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
         </div>
       )}
 
-      <div style={{ textAlign: "center", marginTop: 32, fontSize: 10, color: "#3A4A60" }}>
+      <div style={{ textAlign: "center", marginTop: 32, fontSize: 11, color: "#E8E8ED55", fontFamily: DM_SANS }}>
         {t("footer.text")}
         <br />
         <a href="https://github.com/takahser/uae-dashboard" target="_blank" rel="noopener noreferrer"
-          style={{ color: "#3A4A60", textDecoration: "none", marginTop: 4, display: "inline-flex", alignItems: "center", gap: 4 }}>
+          style={{ color: "#E8E8ED33", textDecoration: "none", marginTop: 4, display: "inline-flex", alignItems: "center", gap: 4 }}>
           <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
           GitHub
         </a>

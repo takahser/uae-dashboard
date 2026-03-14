@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #050B1A;
+  color: #E8E8ED;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Leaflet tooltip and popup overrides for dark theme */
+.leaflet-tooltip {
+  background: #0D1B2Aee !important;
+  border: 1px solid #FFFFFF11 !important;
+  color: #E8E8ED !important;
+  border-radius: 8px !important;
+  font-family: 'DM Sans', sans-serif !important;
+}
+.leaflet-tooltip-top:before {
+  border-top-color: #0D1B2Aee !important;
+}
+.leaflet-popup-content-wrapper {
+  background: #0D1B2Aee !important;
+  border: 1px solid #FFFFFF11 !important;
+  color: #E8E8ED !important;
+  border-radius: 12px !important;
+  font-family: 'DM Sans', sans-serif !important;
+}
+.leaflet-popup-tip {
+  background: #0D1B2Aee !important;
+}
+
+/* Scrollbar dark theme */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050B1A;
+}
+::-webkit-scrollbar-thumb {
+  background: #FFFFFF22;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FFFFFF44;
+}
+
+@keyframes glass-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes pulse-live {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
