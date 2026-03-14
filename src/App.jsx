@@ -2470,6 +2470,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
 
 import Landing from "./Landing";
 import HormuzView from "./views/HormuzView";
+import DesignShowcase from "./designs/DesignShowcase";
 
 function getViewFromHash() {
   const hash = window.location.hash.replace(/^#\/?/, "");
@@ -2477,6 +2478,7 @@ function getViewFromHash() {
   const view = parts[0] || null;
   if (!view) return { view: null };
   if (view === "hormuz") return { view: "hormuz" };
+  if (view === "designs") return { view: "designs" };
   if (view === "flights") return { view: "threat", country: "uae", tab: "flights" };
   if (view === "threat") return { view: "threat", country: parts[1] || "uae", tab: parts[2] || null };
   return { view: null };
@@ -2505,6 +2507,7 @@ export default function App() {
   const handleBack = () => navigateTo(null);
 
   if (appState.view === null) return <Landing onSelect={handleSelect} />;
+  if (appState.view === "designs") return <DesignShowcase />;
   if (appState.view === "hormuz") return <HormuzView onBack={handleBack} />;
   return <Dashboard onBack={handleBack} initialTab={appState.tab} initialCountry={appState.country} />;
 }

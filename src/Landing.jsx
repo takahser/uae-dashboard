@@ -294,6 +294,29 @@ export default function Landing({ onSelect }) {
             })}
           </div>
 
+          {/* Preview Designs button */}
+          <div style={{ marginTop: 24, marginBottom: 32 }}>
+            <button
+              onClick={() => { window.location.hash = '#/designs'; }}
+              style={{
+                padding: '10px 24px',
+                background: 'transparent',
+                border: '1px solid #333',
+                color: '#888',
+                borderRadius: 8,
+                fontSize: '0.85rem',
+                cursor: 'pointer',
+                fontFamily: 'monospace',
+                letterSpacing: '0.05em',
+                transition: 'all 0.3s ease',
+              }}
+              onMouseEnter={e => { e.target.style.borderColor = '#CF9B1A'; e.target.style.color = '#CF9B1A'; }}
+              onMouseLeave={e => { e.target.style.borderColor = '#333'; e.target.style.color = '#888'; }}
+            >
+              Preview Designs →
+            </button>
+          </div>
+
           {/* Footer */}
           <p
             style={{
