@@ -261,42 +261,56 @@ async function main() {
   let successCount = 0;
   let failCount = 0;
 
-  for (const [country, account] of entries) {
+  // Randomise order to avoid predictable scraping patterns
+  const shuffled = [...entries].sort(() => Math.random() - 0.5);
+
+  for (const [country, account] of shuffled) {
     log(`[${country}] Scraping ${account}...`);
+
+    // Random debounce 8–20s between accounts
+    const delay = 8000 + Math.floor(Math.random() * 12000);
+    const idx = shuffled.findIndex(([c]) => c === country);
+    if (idx > 0) {
+      log(`  Waiting ${(delay/1000).toFixed(1)}s before next account...`);
+      await sleep(delay);
+    }
+
     const page = await context.newPage();
 
     try {
-      // Try X.com first
       let tweets = null;
+
+      // 1. Try Nitter first (purpose-built for scraping, no login wall)
+      const nitterPage = await context.newPage();
       try {
-        tweets = await scrapeTweetsFromX(page, account);
-        if (tweets && tweets.length > 0) {
-          log(`[${country}] Got ${tweets.length} tweets from X.com`);
-        } else {
-          throw new Error("No tweets extracted from X.com");
-        }
+        tweets = await scrapeTweetsFromNitter(nitterPage, account);
+        if (tweets && tweets.length > 0) log(`[${country}] Got ${tweets.length} tweets from Nitter`);
       } catch (err) {
-        log(`[${country}] X.com failed (${err.message}), trying fallbacks...`);
+        log(`[${country}] Nitter failed (${err.message})`);
+      } finally {
+        await nitterPage.close();
+      }
 
-        // Close the tainted page and create fresh ones for fallbacks
-        await page.close();
-
-        // Try Nitter with a fresh page
-        const nitterPage = await context.newPage();
+      // 2. Fall back to X.com (works when authenticated session is present)
+      if (!tweets || tweets.length === 0) {
         try {
-          tweets = await scrapeTweetsFromNitter(nitterPage, account);
-        } finally {
-          await nitterPage.close();
+          tweets = await scrapeTweetsFromX(page, account);
+          if (tweets && tweets.length > 0) log(`[${country}] Got ${tweets.length} tweets from X.com`);
+        } catch (err) {
+          log(`[${country}] X.com failed (${err.message})`);
         }
+      }
 
-        // Try syndication as last resort with a fresh page
-        if (!tweets || tweets.length === 0) {
-          const synPage = await context.newPage();
-          try {
-            tweets = await scrapeTweetsFromSyndication(synPage, account);
-          } finally {
-            await synPage.close();
-          }
+      // 3. Last resort: syndication API
+      if (!tweets || tweets.length === 0) {
+        const synPage = await context.newPage();
+        try {
+          tweets = await scrapeTweetsFromSyndication(synPage, account);
+          if (tweets && tweets.length > 0) log(`[${country}] Got ${tweets.length} tweets from syndication`);
+        } catch (err) {
+          log(`[${country}] Syndication failed (${err.message})`);
+        } finally {
+          await synPage.close();
         }
       }
 
@@ -325,13 +339,7 @@ async function main() {
       if (!page.isClosed()) await page.close();
     }
 
-    // Delay between accounts to avoid rate limiting
-    const idx = entries.findIndex(([c]) => c === country);
-    const isLast = idx === entries.length - 1;
-    if (!isLast) {
-      log("  Waiting 3s before next account...");
-      await sleep(3000);
-    }
+
   }
 
   await browser.close();
