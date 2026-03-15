@@ -1,21 +1,21 @@
 {
-  "lastUpdated": "2026-03-12",
+  "lastUpdated": "2026-03-15",
   "sources": {
     "modgovae": {
       "lastTweetId": "2030989828712759428"
     }
   },
   "cumulative": {
-    "ballisticDetected": 281,
-    "ballisticIntercepted": 259,
+    "ballisticDetected": 298,
+    "ballisticIntercepted": 298,
     "ballisticSea": 20,
     "ballisticImpacted": 2,
     "cruiseDetected": 15,
     "cruiseIntercepted": 15,
     "cruiseSea": 0,
     "cruiseImpacted": 0,
-    "dronesDetected": 1520,
-    "dronesIntercepted": 1436,
+    "dronesDetected": 1526,
+    "dronesIntercepted": 1442,
     "dronesSea": 0,
     "dronesImpacted": 84,
     "killed": 6,
@@ -208,6 +208,19 @@
       "dronesSea": 0,
       "dronesImpacted": 2,
       "total": 36
+    },
+    {
+      "date": "2026-03-15",
+      "ballisticDetected": 4,
+      "ballisticIntercepted": 4,
+      "ballisticImpacted": 0,
+      "dronesDetected": 6,
+      "dronesIntercepted": 6,
+      "dronesImpacted": 0,
+      "killed": 0,
+      "injured": 0,
+      "notes": "UAE MoD tweet @modgovae Mar 15 2026",
+      "source": "https://x.com/modgovae/status/2033146337772863665"
     }
   ]
 }
