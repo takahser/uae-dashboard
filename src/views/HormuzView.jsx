@@ -1,19 +1,18 @@
-import { useState } from 'react';
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine, Legend } from 'recharts';
-import { MapContainer, TileLayer, Marker, Popup, Polyline, Circle, CircleMarker, Tooltip as MapTooltip } from 'react-leaflet';
-import L from 'leaflet';
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ReferenceLine } from 'recharts';
+import { Tooltip as RTooltip, Legend } from 'recharts';
+import { MapContainer, TileLayer, Popup, Polyline, Circle, CircleMarker, Tooltip as MapTooltip } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import data from '../data/hormuz.json';
 
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({ iconRetinaUrl: null, iconUrl: null, shadowUrl: null });
-
-const BG = '#0A0F1E';
-const CARD_BG = '#0F1829';
-const BORDER = '#1A2840';
+const BG = '#050B1A';
+const CARD_BG = 'rgba(255,255,255,0.08)';
+const GLASS_BORDER = 'rgba(255,255,255,0.11)';
+const GLASS_BLUR = 'blur(40px)';
+const GLASS_RADIUS = 16;
 const TEXT = '#E8EDF5';
-const SUBTEXT = '#8899BB';
-const GOLD = '#C4A135';
+const SUBTEXT = 'rgba(255,255,255,0.5)';
+const ACCENT = '#F59E0B';
+const DM_SANS = "'DM Sans', -apple-system, sans-serif";
 
 const today = data[data.length - 1];
 const closureDays = data.filter((d) => d.status === 'critical').length;
@@ -39,7 +38,7 @@ function parseIntelItem(text) {
 
 function StatCard({ label, value, color }) {
   return (
-    <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: '20px 16px', flex: 1, minWidth: 140, borderTop: `3px solid ${color || GOLD}` }}>
+    <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: `1px solid ${GLASS_BORDER}`, borderRadius: GLASS_RADIUS, padding: '20px 16px', flex: 1, minWidth: 140, borderTop: `3px solid ${color || ACCENT}` }}>
       <div style={{ color: SUBTEXT, fontSize: '0.8rem', marginBottom: 6 }}>{label}</div>
       <div style={{ fontSize: '1.6rem', fontWeight: 700, color: color || TEXT }}>{value}</div>
     </div>
@@ -54,19 +53,19 @@ const ATTACKS = [
 ];
 
 const GEO_LABELS = [
-  { pos: [27.0, 56.8], label: "🇮🇷 Iran — controls north shore" },
-  { pos: [26.2, 56.3], label: "🇴🇲 Oman — controls south shore" },
-  { pos: [26.8, 55.5], label: "Persian Gulf →" },
-  { pos: [25.5, 58.0], label: "← Gulf of Oman" },
+  { pos: [27.0, 56.8], label: "\u{1F1EE}\u{1F1F7} Iran \u2014 controls north shore" },
+  { pos: [26.2, 56.3], label: "\u{1F1F4}\u{1F1F2} Oman \u2014 controls south shore" },
+  { pos: [26.8, 55.5], label: "Persian Gulf \u2192" },
+  { pos: [25.5, 58.0], label: "\u2190 Gulf of Oman" },
 ];
 
 const PORTS = [
-  { pos: [27.18, 56.27], label: "🏭 Bandar Abbas — Iran main port & naval base", country: "Iran" },
-  { pos: [24.98, 55.07], label: "🏭 Jebel Ali (UAE) — World largest man-made harbour", country: "UAE" },
-  { pos: [25.13, 56.36], label: "⛽ Fujairah (UAE) — Major oil terminal & bunkering hub", country: "UAE" },
-  { pos: [25.34, 56.36], label: "🚢 Khor Fakkan (UAE) — Key container port, Gulf of Oman", country: "UAE" },
-  { pos: [23.62, 58.59], label: "🏭 Muscat (Oman) — Main port", country: "Oman" },
-  { pos: [24.35, 56.64], label: "⛽ Sohar (Oman) — Oil & industrial port", country: "Oman" },
+  { pos: [27.18, 56.27], label: "Bandar Abbas \u2014 Iran main port & naval base", country: "Iran" },
+  { pos: [24.98, 55.07], label: "Jebel Ali (UAE) \u2014 World largest man-made harbour", country: "UAE" },
+  { pos: [25.13, 56.36], label: "Fujairah (UAE) \u2014 Major oil terminal & bunkering hub", country: "UAE" },
+  { pos: [25.34, 56.36], label: "Khor Fakkan (UAE) \u2014 Key container port, Gulf of Oman", country: "UAE" },
+  { pos: [23.62, 58.59], label: "Muscat (Oman) \u2014 Main port", country: "Oman" },
+  { pos: [24.35, 56.64], label: "Sohar (Oman) \u2014 Oil & industrial port", country: "Oman" },
 ];
 
 function HormuzMap() {
@@ -83,12 +82,12 @@ function HormuzMap() {
         }
       `}</style>
       <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: 12, color: TEXT }}>
-        🗺️ Strait of Hormuz — Live Threat Map
+        Strait of Hormuz — Live Threat Map
       </h3>
       <MapContainer
         center={[26.0, 56.5]}
         zoom={7}
-        style={{ height: 420, borderRadius: 10 }}
+        style={{ height: 420, borderRadius: GLASS_RADIUS }}
         scrollWheelZoom={false}
       >
         <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
@@ -149,10 +148,10 @@ function HormuzMap() {
       {/* Legend */}
       <div style={{
         position: 'absolute', bottom: 16, right: 16, zIndex: 1000,
-        background: 'rgba(15,24,41,0.9)', border: `1px solid ${BORDER}`,
+        background: 'rgba(5,11,26,0.9)', border: `1px solid ${GLASS_BORDER}`,
         borderRadius: 6, padding: '6px 12px', fontSize: '0.7rem', color: SUBTEXT
       }}>
-        🔴 Ship attack &nbsp; ⚠️ Chokepoint zone &nbsp; 🔵 Port
+        <span style={{ color: '#ff4444' }}>&#9679;</span> Ship attack &nbsp; <span style={{ color: '#F59E0B' }}>&#9650;</span> Chokepoint zone &nbsp; <span style={{ color: '#4a9eff' }}>&#9679;</span> Port
       </div>
     </div>
   );
@@ -170,22 +169,26 @@ export default function HormuzView({ onBack }) {
   const status = getStraitStatus(today.ships);
 
   return (
-    <div style={{ minHeight: '100vh', background: BG, color: TEXT, padding: '40px 20px' }}>
-      <div style={{ maxWidth: 900, margin: '0 auto' }}>
+    <div style={{ minHeight: '100vh', background: BG, color: TEXT, fontFamily: DM_SANS, padding: '40px 20px', position: 'relative', overflowX: 'hidden' }}>
+      {/* Background gradient orbs */}
+      <div style={{ position: 'fixed', top: -200, right: -100, width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, #F59E0B11 0%, transparent 70%)', pointerEvents: 'none', zIndex: 0 }} />
+      <div style={{ position: 'fixed', bottom: -200, left: -100, width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, #3B82F611 0%, transparent 70%)', pointerEvents: 'none', zIndex: 0 }} />
+
+      <div style={{ maxWidth: 900, margin: '0 auto', position: 'relative', zIndex: 1 }}>
         <button
           onClick={onBack}
-          style={{ background: 'none', border: 'none', color: GOLD, cursor: 'pointer', fontSize: '0.95rem', marginBottom: 24 }}
+          style={{ background: 'none', border: 'none', color: ACCENT, cursor: 'pointer', fontSize: '0.95rem', marginBottom: 24, fontFamily: DM_SANS }}
         >
-          ← Back
+          ← Back to Dashboard
         </button>
 
         <h1 style={{ fontSize: '1.8rem', fontWeight: 700, marginBottom: 20 }}>
-          🛢️ Hormuz Watch
+          Hormuz Watch
         </h1>
 
         {/* Strait Status Banner */}
         <div style={{
-          background: status.bg, border: `1px solid ${status.border}`, borderRadius: 10,
+          background: status.bg, border: `1px solid ${status.border}`, borderRadius: GLASS_RADIUS,
           padding: '16px 24px', marginBottom: 24, display: 'flex', alignItems: 'center', gap: 16
         }}>
           <div style={{ width: 14, height: 14, borderRadius: '50%', background: status.color, flexShrink: 0, boxShadow: `0 0 12px ${status.color}` }} />
@@ -204,15 +207,15 @@ export default function HormuzView({ onBack }) {
         </div>
 
         {/* Chart */}
-        <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: 20, marginBottom: 32 }}>
+        <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: `1px solid ${GLASS_BORDER}`, borderRadius: GLASS_RADIUS, padding: 20, marginBottom: 32 }}>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={chartData}>
-              <XAxis dataKey="label" stroke={BORDER} tick={{ fontSize: 11, fill: SUBTEXT }} />
-              <YAxis stroke={BORDER} tick={{ fontSize: 11, fill: SUBTEXT }} />
-              <Tooltip contentStyle={{ background: '#0D1525', border: `1px solid ${BORDER}`, borderRadius: 6, color: TEXT }} />
+              <XAxis dataKey="label" stroke={GLASS_BORDER} tick={{ fontSize: 11, fill: SUBTEXT }} />
+              <YAxis stroke={GLASS_BORDER} tick={{ fontSize: 11, fill: SUBTEXT }} />
+              <RTooltip contentStyle={{ background: '#0D1525', border: `1px solid ${GLASS_BORDER}`, borderRadius: 6, color: TEXT }} />
               <Legend />
               <ReferenceLine x="02-28" stroke="#C0392B" strokeDasharray="4 4" label={{ value: 'Feb 28', fill: '#C0392B', fontSize: 11 }} />
-              <Line type="monotone" dataKey="ships" stroke={GOLD} strokeWidth={2} dot={false} />
+              <Line type="monotone" dataKey="ships" stroke={ACCENT} strokeWidth={2} dot={false} />
               <Line type="monotone" dataKey="tankers" stroke="#4a9eff" strokeWidth={2} dot={false} />
             </LineChart>
           </ResponsiveContainer>
@@ -222,12 +225,12 @@ export default function HormuzView({ onBack }) {
         <HormuzMap />
 
         {/* Chokepoint Facts */}
-        <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: 20, marginBottom: 32 }}>
-          <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 16, color: GOLD }}>Chokepoint Facts</h3>
+        <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: `1px solid ${GLASS_BORDER}`, borderRadius: GLASS_RADIUS, padding: 20, marginBottom: 32 }}>
+          <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 16, color: ACCENT }}>Chokepoint Facts</h3>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
             {FACTS.map((f, i) => (
-              <div key={i} style={{ background: BG, border: `1px solid ${BORDER}`, borderRadius: 8, padding: '14px 16px' }}>
-                <div style={{ fontSize: '1.2rem', fontWeight: 800, color: GOLD, marginBottom: 4 }}>{f.value}</div>
+              <div key={i} style={{ background: 'rgba(255,255,255,0.04)', border: `1px solid ${GLASS_BORDER}`, borderRadius: 8, padding: '14px 16px' }}>
+                <div style={{ fontSize: '1.2rem', fontWeight: 800, color: ACCENT, marginBottom: 4 }}>{f.value}</div>
                 <div style={{ fontSize: '0.8rem', color: SUBTEXT, lineHeight: 1.4 }}>{f.desc}</div>
               </div>
             ))}
@@ -235,24 +238,27 @@ export default function HormuzView({ onBack }) {
         </div>
 
         {/* Recent Incidents */}
-        <div style={{ background: CARD_BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: 20 }}>
-          <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 12, color: GOLD }}>Recent Incidents</h3>
+        <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: `1px solid ${GLASS_BORDER}`, borderRadius: GLASS_RADIUS, padding: 20 }}>
+          <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 12, color: ACCENT }}>Recent Incidents</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {intel.map((item, i) => {
               const { timestamp, body } = parseIntelItem(item);
               return (
                 <div key={i} style={{
-                  background: BG, border: `1px solid ${BORDER}`, borderRadius: 8,
+                  background: 'rgba(255,255,255,0.04)', border: `1px solid ${GLASS_BORDER}`, borderRadius: 8,
                   padding: '12px 16px', display: 'flex', gap: 12, alignItems: 'flex-start'
                 }}>
-                  <span style={{ fontSize: 18, flexShrink: 0 }}>⚠️</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0, marginTop: 2 }}>
+                    <path d="M12 2L1 21h22L12 2z" fill="none" stroke="#F59E0B" strokeWidth="2" />
+                    <path d="M12 9v5M12 16v1" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
                   <div style={{ flex: 1 }}>
                     {timestamp && <div style={{ fontSize: '0.75rem', color: '#C0392B', fontWeight: 700, marginBottom: 4 }}>{timestamp}</div>}
                     <div style={{ fontSize: '0.85rem', color: TEXT, lineHeight: 1.5 }}>{body}</div>
                     <div style={{ marginTop: 6 }}>
                       <span style={{
-                        fontSize: '0.65rem', color: SUBTEXT, background: 'rgba(26,40,64,0.6)',
-                        border: `1px solid ${BORDER}`, borderRadius: 4, padding: '2px 8px'
+                        fontSize: '0.65rem', color: SUBTEXT, background: 'rgba(255,255,255,0.06)',
+                        border: `1px solid ${GLASS_BORDER}`, borderRadius: 4, padding: '2px 8px'
                       }}>Source: OSINT</span>
                     </div>
                   </div>

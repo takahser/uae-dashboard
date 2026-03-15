@@ -73,7 +73,7 @@ const cards = [
   {
     id: 'flights',
     title: 'Flight Monitor',
-    desc: 'Airport status, regional air travel risk',
+    desc: 'All GCC airports \u2014 status, capacity, risk',
   },
   {
     id: 'hormuz',

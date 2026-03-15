@@ -1047,7 +1047,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
     { id: "cumulative",  label: t("tab.cumulative"),      needsDaily: true },
     { id: "rates",       label: t("tab.rates") },
     { id: "arsenal",     label: t("tab.arsenal") },
-    { id: "flights",    label: t("tab.flights") },
+    { id: "flights",    label: t("tab.flights"), isLink: true },
   ];
   const tabs = isAllGCC ? [{ id: "intel", label: t("tab.intel") }, { id: "comparison", label: t("tab.comparison") }] : allTabs.filter(t => {
     if (t.needsUAE && selectedCountry !== "uae") return false;
@@ -1214,14 +1214,14 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
       {/* Tabs */}
       <div style={{ display: "flex", gap: 0, padding: "0 28px 20px", flexWrap: "wrap", borderBottom: "1px solid #FFFFFF0A" }}>
         {tabs.map(t => (
-          <button key={t.id} onClick={() => { setActiveTab(t.id); window.location.hash = "/threat/" + selectedCountry + (t.id !== "overview" && t.id !== "intel" ? "/" + t.id : ""); }} style={{
+          <button key={t.id} onClick={() => { if (t.isLink) { window.location.hash = "/flights"; return; } setActiveTab(t.id); window.location.hash = "/threat/" + selectedCountry + (t.id !== "overview" && t.id !== "intel" ? "/" + t.id : ""); }} style={{
             background: "transparent",
             color: activeTab === t.id ? "#F59E0B" : "#E8E8ED77",
             border: "none", borderBottom: activeTab === t.id ? "2px solid #F59E0B" : "2px solid transparent",
             padding: "10px 16px", cursor: "pointer",
             fontSize: 12, fontWeight: activeTab === t.id ? 600 : 400,
             fontFamily: DM_SANS, transition: "all 0.15s"
-          }}>{t.label}</button>
+          }}>{t.isLink ? "\u2192 " + t.label : t.label}</button>
         ))}
       </div>
 
@@ -2274,6 +2274,19 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
       </div>
 
       {activeTab === "flights" && (() => {
+        return (
+          <div style={{ padding: "40px 20px", textAlign: "center" }}>
+            <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 40, maxWidth: 500, margin: "0 auto" }}>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: TEXT, marginBottom: 12 }}>Flight Tracker</h3>
+              <p style={{ fontSize: 13, color: SUBTEXT, marginBottom: 24 }}>Flight data has moved to the standalone GCC Airport Flight Tracker with all airports in one view.</p>
+              <button onClick={() => { window.location.hash = "/flights"; }} style={{
+                background: "linear-gradient(135deg, #F59E0B, #D97706)", color: "#050B1A",
+                border: "none", borderRadius: GLASS_RADIUS, padding: "12px 32px",
+                fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: DM_SANS,
+              }}>&rarr; Open Flight Tracker</button>
+            </div>
+          </div>
+        );
         const airportDataMap = { DXB: flightData, DWC: flightDataDwc, AUH: flightDataAuh, MCT: flightDataMct, DOH: flightDataDoh };
         const airportCodes = ["DXB", "DWC", "AUH", "MCT", "DOH"];
         const currentFlightData = airportDataMap[selectedAirport];
@@ -2565,6 +2578,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
 
 import Landing from "./Landing";
 import HormuzView from "./views/HormuzView";
+import FlightsView from "./views/FlightsView";
 import DesignShowcase from "./designs/DesignShowcase";
 
 function getViewFromHash() {
@@ -2574,7 +2588,7 @@ function getViewFromHash() {
   if (!view) return { view: null };
   if (view === "hormuz") return { view: "hormuz" };
   if (view === "designs") return { view: "designs" };
-  if (view === "flights") return { view: "threat", country: "uae", tab: "flights" };
+  if (view === "flights") return { view: "flights" };
   if (view === "threat") return { view: "threat", country: parts[1] || "all", tab: parts[2] || null };
   return { view: null };
 }
@@ -2582,6 +2596,7 @@ function getViewFromHash() {
 function navigateTo(view, country, tab) {
   if (!view) { window.location.hash = "/"; return; }
   if (view === "hormuz") { window.location.hash = "/hormuz"; return; }
+  if (view === "flights") { window.location.hash = "/flights"; return; }
   let hash = "/threat";
   if (country && country !== "uae") hash += "/" + country;
   else if (tab) hash += "/uae";
@@ -2604,5 +2619,6 @@ export default function App() {
   if (appState.view === null) return <Landing onSelect={handleSelect} />;
   if (appState.view === "designs") return <DesignShowcase />;
   if (appState.view === "hormuz") return <HormuzView onBack={handleBack} />;
+  if (appState.view === "flights") return <FlightsView onBack={handleBack} />;
   return <Dashboard onBack={handleBack} initialTab={appState.tab} initialCountry={appState.country} />;
 }
