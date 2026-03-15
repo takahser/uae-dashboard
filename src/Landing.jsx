@@ -13,22 +13,62 @@ const TEXT = '#E8E8ED';
 const SUBTEXT = 'rgba(232,232,237,0.53)';
 const DM_SANS = "'DM Sans', -apple-system, sans-serif";
 
+const ICON_WRAP = {
+  width: 56, height: 56, borderRadius: '50%',
+  background: 'rgba(245,158,11,0.1)',
+  border: '1px solid rgba(245,158,11,0.2)',
+  display: 'flex', alignItems: 'center', justifyContent: 'center',
+  marginBottom: 16,
+};
+
+const CardIcons = {
+  threat: (
+    <div style={ICON_WRAP}>
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#F59E0B" strokeWidth="1.5">
+        <circle cx="24" cy="24" r="20"/>
+        <circle cx="24" cy="24" r="12"/>
+        <circle cx="24" cy="24" r="4" fill="#F59E0B" stroke="none"/>
+        <line x1="24" y1="4" x2="24" y2="10"/>
+        <line x1="24" y1="38" x2="24" y2="44"/>
+        <line x1="4" y1="24" x2="10" y2="24"/>
+        <line x1="38" y1="24" x2="44" y2="24"/>
+        <line x1="24" y1="24" x2="38" y2="10" strokeOpacity="0.5"/>
+      </svg>
+    </div>
+  ),
+  flights: (
+    <div style={ICON_WRAP}>
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#F59E0B" strokeWidth="1.5">
+        <path d="M8 32 L20 20 L16 12 L20 12 L28 20 L38 16 C42 14 44 17 42 20 L28 26 L28 36 L24 38 L22 30 L8 32Z"/>
+      </svg>
+    </div>
+  ),
+  hormuz: (
+    <div style={ICON_WRAP}>
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#F59E0B" strokeWidth="1.5">
+        <path d="M6 30 Q12 26 18 30 Q24 34 30 30 Q36 26 42 30"/>
+        <path d="M6 36 Q12 32 18 36 Q24 40 30 36 Q36 32 42 36"/>
+        <rect x="12" y="16" width="24" height="12" rx="2"/>
+        <rect x="18" y="10" width="8" height="6" rx="1"/>
+        <line x1="24" y1="10" x2="24" y2="6"/>
+      </svg>
+    </div>
+  ),
+};
+
 const cards = [
   {
     id: 'threat',
-    icon: '🚀',
     title: 'Threat Tracker',
     desc: 'Missiles, drones, interceptions across UAE/GCC',
   },
   {
     id: 'flights',
-    icon: '✈️',
     title: 'Flight Monitor',
     desc: 'Airport status, regional air travel risk',
   },
   {
     id: 'hormuz',
-    icon: '🛢️',
     title: 'Hormuz Watch',
     desc: 'Strait of Hormuz shipping traffic & oil flow',
   },
@@ -253,7 +293,7 @@ export default function Landing({ onSelect }) {
                   }}
                   onClick={() => onSelect(c.id)}
                 >
-                  <div style={{ fontSize: '2.4rem', marginBottom: 16 }}>{c.icon}</div>
+                  {CardIcons[c.id]}
                   <h2
                     style={{
                       fontSize: '1.25rem',
@@ -315,29 +355,6 @@ export default function Landing({ onSelect }) {
           >
             Enter Dashboard →
           </button>
-
-          {/* Preview Designs button */}
-          <div style={{ marginTop: 16, marginBottom: 32 }}>
-            <button
-              onClick={() => { window.location.hash = '#/designs'; }}
-              style={{
-                padding: '10px 24px',
-                background: 'transparent',
-                border: GLASS_BORDER,
-                color: SUBTEXT,
-                borderRadius: GLASS_RADIUS,
-                fontSize: '0.85rem',
-                cursor: 'pointer',
-                fontFamily: DM_SANS,
-                letterSpacing: '0.05em',
-                transition: 'all 0.3s ease',
-              }}
-              onMouseEnter={e => { e.target.style.borderColor = ACCENT; e.target.style.color = ACCENT; }}
-              onMouseLeave={e => { e.target.style.borderColor = 'rgba(255,255,255,0.11)'; e.target.style.color = SUBTEXT; }}
-            >
-              Preview Designs →
-            </button>
-          </div>
 
           {/* Footer */}
           <p
