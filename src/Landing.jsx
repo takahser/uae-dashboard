@@ -38,8 +38,16 @@ const CardIcons = {
   ),
   flights: (
     <div style={ICON_WRAP}>
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#F59E0B" strokeWidth="1.5">
-        <path d="M8 32 L20 20 L16 12 L20 12 L28 20 L38 16 C42 14 44 17 42 20 L28 26 L28 36 L24 38 L22 30 L8 32Z"/>
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        {/* Fuselage */}
+        <path d="M24 6 C25.5 6 27 7.5 27 10 L27 27"/>
+        <path d="M24 6 C22.5 6 21 7.5 21 10 L21 27"/>
+        <path d="M21 27 L24 30 L27 27"/>
+        {/* Main wings */}
+        <path d="M21 20 L7 30 L9 32 L21 25"/>
+        <path d="M27 20 L41 30 L39 32 L27 25"/>
+        {/* Tail */}
+        <path d="M21 34 L15 40 L17 41 L24 37 L31 41 L33 40 L27 34"/>
       </svg>
     </div>
   ),
