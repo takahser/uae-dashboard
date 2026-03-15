@@ -6,6 +6,7 @@ import {
 import { MapContainer, TileLayer, CircleMarker, Popup, Tooltip as LTooltip } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { createT } from "./i18n";
+import gccBorders from "./data/gcc-borders.json";
 
 const UAE_GREEN = "#00732F";
 const UAE_GOLD = "#F59E0B";
@@ -337,24 +338,8 @@ const GCC_GEOGRAPHY = {
       { id: "sa-d4", name: "Yanbu Desal", type: "Desalination", siteType: "desal", lat: 24.0890, lng: 38.0650 },
       { id: "sa-d5", name: "Al Khobar Desal", type: "Desalination", siteType: "desal", lat: 26.2800, lng: 50.2100 },
     ],
-    pts: [
-      // Red Sea coast (north to south)
-      [29.5,34.8],[28.0,35.2],[27.0,36.7],[25.5,37.2],[24.5,37.5],[23.5,38.5],[22.0,39.0],[20.5,39.5],[19.0,40.0],[17.5,41.0],[16.5,42.5],
-      // Yemen border (west to east)
-      [16.0,43.0],[16.5,43.5],[17.0,44.5],[17.5,46.0],[18.0,48.5],[19.0,48.0],[19.5,49.5],[20.0,50.5],[19.5,51.5],[19.5,52.0],[19.0,55.0],
-      // Oman border (south to tripoint)
-      [20.5,55.0],[21.5,55.0],[22.0,55.0],[22.50,55.01],
-      // Saudi-UAE border (tripoint northwest through Rub al Khali to Qatar)
-      [23.00,52.00],[23.98,51.57],[24.36,51.58],
-      // Persian Gulf coast (south to north — includes Dammam/Jubail bulge)
-      [24.70,50.80],[25.00,50.70],[25.30,50.55],[25.70,50.40],[26.10,50.30],[26.50,50.15],[27.00,49.95],[27.40,49.30],[27.80,48.80],[28.20,48.55],[28.50,48.50],
-      // Kuwait border area
-      [28.55,47.70],[28.55,47.43],[28.67,47.45],[29.10,47.00],[29.35,47.00],
-      // Iraq border (NW from Kuwait tripoint to Saudi-Iraq-Jordan tripoint)
-      [29.80,46.40],[30.30,44.60],[30.80,43.00],[31.20,41.50],[31.60,40.20],[32.00,38.77],
-      // Jordan border (SW from tripoint to Gulf of Aqaba)
-      [31.50,38.00],[31.00,37.50],[30.50,36.50],[30.00,35.50],[29.50,34.95]
-    ],
+    path: gccBorders.saudiArabia.path,
+    pts: gccBorders.saudiArabia.pts,
   },
   oman: {
     name: "OMAN", color: "#FFFFFF06", labelLat: 21.5, labelLng: 57.5,
@@ -368,22 +353,8 @@ const GCC_GEOGRAPHY = {
       { id: "om-d3", name: "Sur Desal", type: "Desalination", siteType: "desal", lat: 22.5667, lng: 59.5289 },
       { id: "om-d4", name: "Ghubrah Desal (Muscat)", type: "Desalination", siteType: "desal", lat: 23.6031, lng: 58.4164 },
     ],
-    pts: [
-      // Musandam peninsula (Strait of Hormuz)
-      [26.35,56.30],[26.20,56.50],[26.10,56.65],[25.90,56.60],[25.75,56.56],[25.59,56.36],[25.35,56.45],[25.22,56.57],[25.10,56.42],[24.85,56.50],[24.60,56.65],[24.40,56.55],
-      // UAE eastern border south
-      [24.08,56.02],[23.97,55.48],[23.77,55.57],[23.12,55.25],[22.70,55.21],
-      // Saudi-Oman-UAE tripoint, then south along Saudi border
-      [22.50,55.01],[22.0,55.0],[21.5,55.0],[20.5,55.0],[19.5,53.5],[19.0,52.1],
-      // Yemen-Oman border (runs SE from tripoint ~19N,52E to coast ~16.7N,53.1E)
-      [18.5,52.3],[18.0,52.5],[17.5,52.8],[17.0,53.0],[16.7,53.1],
-      // South coast of Oman (Dhofar region, Salalah area)
-      [16.5,54.0],[16.5,54.5],[16.8,55.5],[17.0,55.8],[17.5,55.6],[18.0,56.0],
-      // East coast north
-      [19.5,57.5],[20.0,58.0],[20.5,58.5],[21.0,59.0],[21.5,59.5],[22.0,59.8],[22.5,59.8],[23.0,59.5],[23.5,58.8],[24.0,58.0],[24.2,57.5],[24.5,57.0],[24.6,56.8],
-      // UAE border back to Musandam
-      [24.40,56.55],[24.08,56.02],[24.24,55.95],[24.23,55.78],[24.70,55.82],[24.95,55.88],[25.00,55.98],[25.15,55.98],[25.25,55.99],[25.30,55.96],[25.37,56.00],[25.43,56.05],[25.50,56.10],[25.55,56.20],[25.65,56.30],[25.80,56.33],[25.85,56.40],[25.95,56.38],[26.07,56.09],[26.08,56.16],[26.10,56.25],[26.35,56.30]
-    ],
+    path: gccBorders.oman.path,
+    pts: gccBorders.oman.pts,
   },
   iran: {
     name: "IRAN", color: "#FFFFFF08", labelLat: 33.0, labelLng: 53.0,
@@ -394,178 +365,74 @@ const GCC_GEOGRAPHY = {
       { id: "ir-d4", name: "Qeshm Island Desal", type: "Desalination", siteType: "desal", lat: 26.8330, lng: 56.0000 },
       { id: "ir-d5", name: "Chabahar Desal", type: "Desalination", siteType: "desal", lat: 25.4500, lng: 60.3833 },
     ],
-    pts: [
-      // Shatt al-Arab / Iraq border
-      [30.5,48.0],[30.0,48.8],
-      // Persian Gulf coast (west to east)
-      [29.8,49.3],[29.5,50.0],[29.0,50.5],[28.9,50.8],[28.5,51.3],[28.0,51.8],[27.8,52.3],[27.5,52.8],[27.3,53.5],[27.1,54.0],[27.0,54.5],[26.8,55.0],
-      // Strait of Hormuz (Qeshm/Bandar Abbas)
-      [26.7,55.5],[26.6,55.8],[26.5,56.0],[26.6,56.3],[27.2,56.3],[27.1,56.8],
-      // Gulf of Oman coast east
-      [26.5,57.3],[26.2,57.8],[25.8,58.5],[25.5,59.0],[25.3,59.8],[25.2,60.0],
-      // Eastern border north (Pakistan/Afghanistan/Turkmenistan)
-      [26.0,60.0],[27.0,60.0],[28.5,60.0],[30.0,60.0],[31.5,60.0],[33.0,60.0],[34.5,60.0],[36.0,60.0],[37.5,60.0],[39.0,60.0],
-      // Turkmenistan border / Caspian
-      [40.0,58.0],[40.5,56.0],[40.0,54.0],[39.5,52.5],[38.5,52.0],
-      // Caspian Sea coast (south shore)
-      [37.5,51.5],[37.0,50.5],[37.5,50.0],[38.0,49.5],[38.5,49.0],[38.5,48.5],
-      // Azerbaijan/Armenia border
-      [39.5,48.0],[39.5,47.0],[39.0,46.0],[38.5,45.5],
-      // Turkey border
-      [38.0,44.5],[37.5,44.5],[37.5,45.5],[37.0,45.5],[36.5,45.5],
-      // Iraq border south
-      [36.0,45.5],[35.5,46.0],[35.0,46.5],[34.5,46.0],[34.0,45.5],
-      [33.5,45.5],[33.0,45.5],[32.5,45.5],[32.0,46.0],[31.5,47.0],[31.0,47.5],[30.5,48.0]
-    ],
+    path: gccBorders.iran.path,
+    pts: gccBorders.iran.pts,
+    multiPolygon: gccBorders.iran.multiPolygon,
   },
   iraq: {
     name: "IRAQ", color: "#FFFFFF06", labelLat: 33.5, labelLng: 44.0,
-    pts: [
-      // Persian Gulf coast to Iran border
-      [30.5,48.0],[30.0,48.8],
-      // Iran border north
-      [31.0,47.5],[31.5,47.0],[32.0,46.0],[32.5,45.5],[33.0,45.5],[33.5,45.5],[34.0,45.5],[34.5,46.0],[35.0,46.5],[35.5,46.0],[36.0,45.5],[36.5,45.5],
-      // Turkey border (shared points)
-      [37.0,45.5],[37.5,45.0],[37.5,44.5],[37.5,43.5],[37.5,42.5],
-      // Syria border
-      [37.0,42.0],[36.5,42.0],[36.0,41.5],[35.5,41.0],[35.0,41.0],[34.5,41.0],[34.0,41.0],[33.5,41.0],
-      // Jordan/Saudi border south
-      [33.0,39.0],[32.5,39.0],[32.0,39.0],[31.0,39.0],
-      // Saudi border
-      [30.5,39.0],[30.0,40.0],[29.5,44.0],[29.5,46.5],[29.5,47.0],[30.0,47.0],[30.5,47.7],[30.5,48.0]
-    ],
+    path: gccBorders.iraq.path,
+    pts: gccBorders.iraq.pts,
   },
   yemen: {
     name: "YEMEN", color: "#FFFFFF06", labelLat: 15.5, labelLng: 47.0,
-    pts: [
-      // Saudi border (east to west) — eastern end meets Oman-Yemen-Saudi tripoint ~19N,52.1E
-      [19.0,52.1],[19.5,51.5],[20.0,50.5],[19.5,49.5],[19.0,48.0],[18.0,48.5],[17.5,46.0],[17.0,44.5],[16.5,43.5],[16.0,43.0],
-      // Red Sea / Gulf of Aden coast
-      [15.0,43.0],[13.5,43.5],[12.5,43.5],[12.5,44.5],[12.8,45.0],[13.0,45.5],[13.5,47.0],[14.0,48.5],[14.5,49.5],[15.0,50.5],[15.5,51.5],[16.0,52.5],
-      // Oman border (matching Oman polygon exactly — SE to tripoint)
-      [16.7,53.1],[17.0,53.0],[17.5,52.8],[18.0,52.5],[18.5,52.3],[19.0,52.1]
-    ],
+    path: gccBorders.yemen.path,
+    pts: gccBorders.yemen.pts,
   },
   jordan: {
     name: "JORDAN", color: "#FFFFFF06", labelLat: 31.2, labelLng: 36.5,
-    pts: [
-      // Iraq border
-      [33.0,39.0],[33.5,38.5],
-      // Syria border west to tripoint
-      [33.3,36.3],[33.0,35.8],
-      // Israel border south
-      [32.5,35.5],[31.5,35.5],[31.0,35.4],[30.0,35.0],[29.5,34.8],
-      // Saudi border east
-      [29.5,36.0],[30.0,37.0],[30.5,37.5],[31.0,38.0],[31.5,38.5],[32.0,39.0],[32.5,39.0],[33.0,39.0]
-    ],
+    path: gccBorders.jordan.path,
+    pts: gccBorders.jordan.pts,
   },
   syria: {
     name: "SYRIA", color: "#FFFFFF06", labelLat: 35.0, labelLng: 38.0,
-    pts: [
-      // Jordan border to tripoint
-      [33.0,39.0],[33.5,38.5],[33.3,36.3],
-      // Tripoint with Israel/Lebanon — Golan
-      [33.0,35.8],[33.3,35.6],
-      // Lebanon border
-      [34.0,36.0],[34.5,36.2],[34.7,36.2],
-      // Mediterranean coast
-      [35.8,35.8],[36.0,35.8],[36.2,36.0],[36.5,36.2],
-      // Turkey border
-      [37.0,36.5],[37.5,37.0],[37.5,38.0],[37.5,39.0],[37.5,40.0],[37.5,41.0],[37.5,42.0],
-      // Iraq border
-      [37.0,42.0],[36.5,42.0],[36.0,41.5],[35.5,41.0],[35.0,41.0],[34.5,41.0],[34.0,41.0],[33.5,41.0],
-      [33.0,39.0]
-    ],
+    path: gccBorders.syria.path,
+    pts: gccBorders.syria.pts,
   },
   lebanon: {
     name: "", color: "#FFFFFF06",
-    pts: [
-      [34.7,36.2],[34.5,36.0],[34.0,36.0],[33.3,35.6],[33.8,35.1],[34.0,35.5],[34.7,35.8],[34.7,36.2]
-    ],
+    path: gccBorders.lebanon.path,
+    pts: gccBorders.lebanon.pts,
   },
   israel: {
     name: "", color: "#FFFFFF06",
-    pts: [
-      // Tripoint with Syria/Jordan
-      [33.0,35.8],[33.3,35.6],[33.8,35.1],
-      // Med coast south
-      [32.9,35.1],[32.5,34.9],[32.0,34.5],[31.5,34.5],[31.0,34.5],[30.5,34.8],
-      // Egypt border
-      [29.5,34.8],
-      // Jordan border north
-      [30.0,35.0],[31.0,35.4],[31.5,35.5],[32.5,35.5],[33.0,35.8]
-    ],
+    path: gccBorders.israel.path,
+    pts: gccBorders.israel.pts,
   },
   turkey: {
     name: "TURKEY", color: "#FFFFFF06", labelLat: 39.5, labelLng: 37.0,
-    pts: [
-      // Syria border (Mediterranean to Iraq)
-      [37.0,36.5],[36.5,36.2],[36.2,36.0],[36.0,35.8],[35.8,35.8],[34.7,35.8],[34.7,34.0],
-      // Off-map north (extends well above map edge)
-      [42.0,34.0],[42.0,36.0],[42.0,38.0],[42.0,40.0],[42.0,42.0],[42.0,44.0],[42.0,46.0],[42.0,48.0],
-      // Iran/Armenia border
-      [39.5,48.0],[39.5,47.0],[39.0,46.0],[38.5,45.5],[38.0,44.5],
-      // Iraq border (shared points, reverse of Iraq's Turkey border)
-      [37.5,45.0],[37.5,44.5],[37.5,43.5],[37.5,42.5],
-      // Syria border
-      [37.0,42.0],[37.5,42.0],[37.5,41.0],[37.5,40.0],[37.5,39.0],[37.5,38.0],[37.5,37.0],[37.0,36.5]
-    ],
+    path: gccBorders.turkey.path,
+    pts: gccBorders.turkey.pts,
   },
   egypt: {
     name: "EGYPT", color: "#FFFFFF06", labelLat: 28.0, labelLng: 34.0,
-    pts: [
-      // Sinai / Israel border
-      [31.5,34.5],[31.0,34.5],[30.5,34.0],[30.0,34.0],
-      // Suez / Red Sea coast south
-      [29.5,33.0],[29.0,33.0],[28.0,33.5],[27.5,34.0],[27.0,34.5],[26.0,34.8],[25.0,35.0],[24.0,35.3],[23.0,35.8],[22.0,36.5],
-      // Sudan border west then north along Nile/off-map
-      [22.0,34.0],[25.0,34.0],[29.5,34.0],[29.5,34.8],[30.5,34.8],[31.0,34.5],[31.5,34.5]
-    ],
+    path: gccBorders.egypt.path,
+    pts: gccBorders.egypt.pts,
   },
   sudan: {
     name: "SUDAN", color: "#FFFFFF06",
-    pts: [
-      // Egypt border
-      [22.0,36.5],[22.0,34.0],
-      // Off-map west/south
-      [12.0,34.0],[12.0,36.0],
-      // Eritrea border
-      [15.0,36.5],[15.5,37.5],[16.0,38.0],[17.0,38.5],[18.0,38.5],
-      // Red Sea coast north
-      [19.0,38.0],[19.5,37.5],[20.0,37.5],[20.5,37.0],[21.0,37.0],[21.5,36.8],[22.0,36.5]
-    ],
+    path: gccBorders.sudan.path,
+    pts: gccBorders.sudan.pts,
   },
   ethiopia: {
     name: "", color: "#FFFFFF06",
-    pts: [
-      // Eritrea border
-      [18.0,38.5],[17.0,38.5],[15.5,37.5],[15.0,36.5],
-      // Off-map south/west
-      [12.0,36.0],[12.0,38.0],[10.0,38.0],[10.0,42.0],
-      // Djibouti/Somalia border
-      [11.5,42.0],[11.5,42.5],[12.0,42.0],
-      // Eritrea border east
-      [13.0,42.0],[14.5,40.0],[15.0,39.5],[16.0,39.0],[17.0,38.5],[18.0,38.5]
-    ],
+    path: gccBorders.ethiopia.path,
+    pts: gccBorders.ethiopia.pts,
   },
   somalia: {
     name: "SOMALIA", color: "#FFFFFF06",
-    pts: [
-      // Gulf of Aden coast
-      [12.0,43.3],[11.5,43.5],[11.0,44.0],[11.2,45.0],[11.0,46.0],[11.5,47.0],[12.0,48.0],[12.0,49.0],[12.0,50.0],[11.5,51.0],
-      // Off-map south
-      [10.0,51.5],[10.0,42.0],
-      // Djibouti border
-      [11.5,42.0],[11.5,42.5],[11.5,43.0],[12.0,43.3]
-    ],
+    path: gccBorders.somalia.path,
+    pts: gccBorders.somalia.pts,
   },
   djibouti: {
     name: "", color: "#FFFFFF06",
-    pts: [[12.5,43.5],[12.0,43.3],[11.5,43.0],[11.5,42.5],[12.0,42.0],[13.0,42.0],[12.5,43.0],[12.5,43.5]],
+    path: gccBorders.djibouti.path,
+    pts: gccBorders.djibouti.pts,
   },
   eritrea: {
     name: "", color: "#FFFFFF06",
-    pts: [[18.0,38.5],[17.0,38.5],[16.0,39.0],[15.0,39.5],[14.5,40.0],[13.0,42.0],[12.0,42.0],[11.5,42.0],[11.5,40.5],[13.0,40.0],[14.0,39.0],[15.0,38.5],[15.5,37.5],[16.0,38.0],[17.0,38.5],[18.0,38.5]],
+    path: gccBorders.eritrea.path,
+    pts: gccBorders.eritrea.pts,
   },
 };
 const GCC_COVERED_COUNTRIES = new Set(["UAE", "QATAR", "KUWAIT", "BAHRAIN"]);
@@ -973,7 +840,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
               <h3 style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 600, color: "#EF4444" }}>{t("iran.strikeMap")}</h3>
               <svg viewBox={`0 0 ${SVG_W} ${SVG_H}`} style={{ width: "100%", background: MAP_BG, borderRadius: 8 }}>
                 {/* Iran outline */}
-                {iranGeo && <polygon points={iranGeo.pts.map(([lat, lng]) => { const p = iranToSVG(lat, lng); return `${p.x},${p.y}`; }).join(" ")} fill={MAP_LAND} stroke={MAP_BORDER_COLOR} strokeWidth={1} />}
+                {iranGeo && (iranGeo.multiPolygon ? iranGeo.pts : [iranGeo.pts]).map((ring, ri) => <polygon key={ri} points={ring.map(([lat, lng]) => { const p = iranToSVG(lat, lng); return `${p.x},${p.y}`; }).join(" ")} fill={MAP_LAND} stroke={MAP_BORDER_COLOR} strokeWidth={1} />)}
                 {/* Strike markers */}
                 {targets.map((tgt, i) => {
                   const p = iranToSVG(tgt.lat, tgt.lng);
@@ -1472,9 +1339,8 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
 
                 {/* Background geography (All GCC only): surrounding countries in grey/muted */}
                 {isAllGCC && Object.entries(GCC_GEOGRAPHY).map(([key, geo]) => {
-                  const geoPath = "M" + geo.pts.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z";
                   return <g key={key}>
-                    <path d={geoPath} fill={geo.color} stroke="#FFFFFF22" strokeWidth="0.8" opacity="0.95" />
+                    <path d={geo.path} fill={geo.color} stroke="#FFFFFF22" strokeWidth="0.8" opacity="0.95" />
                     {geo.name && geo.labelLat && (() => {
                       const { x, y } = proj(geo.labelLat, geo.labelLng);
                       return <text x={x} y={y} fill="#E8E8ED33" fontSize={key === "iran" ? "10" : "8"} fontFamily="monospace" textAnchor="middle" fontWeight="600" letterSpacing="2">{geo.name}</text>;
