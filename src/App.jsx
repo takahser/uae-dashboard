@@ -279,11 +279,26 @@ const MAP_CONFIGS = {
     ],
   },
   israel: {
-    bounds: { latMin: 29.4, latMax: 33.4, lngMin: 34.0, lngMax: 36.0 },
+    bounds: { latMin: 29.3, latMax: 33.5, lngMin: 34.1, lngMax: 36.1 },
     title: "LIVE INTEL — ISRAEL IMPACT MAP",
     subtitle: "CONFIRMED STRIKE LOCATIONS",
     regions: [
-      { name: "ISRAEL", labelLat: 31.5, labelLng: 34.8, pts: [[33.0,35.8],[33.3,35.6],[33.8,35.1],[32.9,35.1],[32.5,34.9],[32.0,34.5],[31.5,34.5],[31.0,34.5],[30.5,34.8],[29.5,34.8],[30.0,35.0],[31.0,35.4],[31.5,35.5],[32.5,35.5],[33.0,35.8]] },
+      { name: "ISRAEL", labelLat: 31.5, labelLng: 34.9,
+        pts: [
+          // North — Lebanon border (Rosh HaNikra to Mt Hermon area)
+          [33.08,35.10],[33.10,35.20],[33.25,35.57],[33.36,35.63],[33.28,35.78],
+          // Golan Heights east border
+          [33.10,35.85],[32.72,35.78],[32.40,35.77],[32.10,35.55],
+          // Jordan River valley / Jordan border
+          [31.90,35.47],[31.50,35.55],[31.10,35.48],[30.90,35.35],
+          // Negev / Eilat south tip
+          [29.56,34.92],[29.50,34.97],
+          // Egypt border (Sinai) going north
+          [30.00,34.27],[30.60,34.28],[31.00,34.35],
+          // Mediterranean coast north
+          [31.50,34.48],[31.80,34.60],[32.08,34.76],[32.40,34.85],[32.80,34.96],[33.08,35.10],
+        ]
+      },
     ],
     impacts: [
       { id: 1, name: "Tel Aviv city center", type: "debris", date: "Ongoing", casualties: "Multiple", lat: 32.0853, lng: 34.7818, region: "Tel Aviv" },
