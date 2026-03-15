@@ -974,6 +974,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
   const tabs = isAllGCC ? [{ id: "intel", label: t("tab.intel") }, { id: "comparison", label: t("tab.comparison") }] : allTabs.filter(t => {
     if (t.needsUAE && selectedCountry !== "uae") return false;
     if (t.needsDaily && !hasDailyData) return false;
+    if (t.id === "intel" && (selectedCountry === "oman" || selectedCountry === "saudi")) return false;
     return true;
   });
 
