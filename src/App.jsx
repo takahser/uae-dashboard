@@ -756,7 +756,11 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [selectedSite, setSelectedSite] = useState(null);
-  const [lang, setLang] = useState("en");
+  const [lang, setLang] = useState(() => {
+    // Auto-detect Arabic browser language
+    const browserLang = navigator.language || navigator.userLanguage || "en";
+    return browserLang.startsWith("ar") ? "ar" : "en";
+  });
   const [mapModalCountry, setMapModalCountry] = useState(null);
   const [flightData, setFlightData] = useState(null);
   const [flightDataDwc, setFlightDataDwc] = useState(null);
@@ -766,6 +770,16 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
   const [selectedAirport, setSelectedAirport] = useState("DXB");
   const t = createT(lang);
   const isRTL = lang === "ar";
+
+  // Track initial language (auto-detected or default) in GA
+  useEffect(() => {
+    if (window.gtag) {
+      window.gtag("event", "language_load", {
+        language: lang,
+        auto_detected: (navigator.language || "").startsWith("ar"),
+      });
+    }
+  }, []);
 
   useEffect(() => {
     const base = import.meta.env.BASE_URL;
@@ -1084,7 +1098,11 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
         <div style={{ display: "none" }} />
         <div style={{ position: "relative" }}>
           <div style={{ position: "absolute", top: 0, [isRTL ? "left" : "right"]: 0, display: "flex", alignItems: "center", gap: 10 }}>
-            <button onClick={() => setLang(lang === "en" ? "ar" : "en")}
+            <button onClick={() => {
+                const next = lang === "en" ? "ar" : "en";
+                setLang(next);
+                if (window.gtag) window.gtag("event", "language_switch", { language: next });
+              }}
               style={{ background: "#FFFFFF0A", backdropFilter: "blur(10px)", border: "1px solid #FFFFFF11", color: "#E8E8ED88", borderRadius: 100, padding: "4px 12px", cursor: "pointer", fontSize: 11, fontWeight: 500, letterSpacing: 0.5, fontFamily: DM_SANS }}>
               {t("lang.switch")}
             </button>
