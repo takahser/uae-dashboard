@@ -731,7 +731,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
   const [hoveredImpact, setHoveredImpact] = useState(null);
   const [selectedImpact, setSelectedImpact] = useState(null);
   const [allData, setAllData] = useState(null);
-  const [selectedCountry, setSelectedCountry] = useState(initialCountry || "uae");
+  const [selectedCountry, setSelectedCountry] = useState(initialCountry || "all");
   const [error, setError] = useState(null);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
   const [expandedTimelineIdx, setExpandedTimelineIdx] = useState(null);
@@ -2560,7 +2560,7 @@ function getViewFromHash() {
   if (view === "hormuz") return { view: "hormuz" };
   if (view === "designs") return { view: "designs" };
   if (view === "flights") return { view: "threat", country: "uae", tab: "flights" };
-  if (view === "threat") return { view: "threat", country: parts[1] || "uae", tab: parts[2] || null };
+  if (view === "threat") return { view: "threat", country: parts[1] || "all", tab: parts[2] || null };
   return { view: null };
 }
 
