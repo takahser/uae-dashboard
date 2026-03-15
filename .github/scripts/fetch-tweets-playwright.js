@@ -244,7 +244,18 @@ async function main() {
 
   log("Launching Playwright Chromium...");
   const browser = await chromium.launch({ headless: true });
-  const context = await browser.newContext({ userAgent: USER_AGENT });
+
+  // Load saved X session if available (created by setup-x-session.js)
+  const SESSION_FILE = path.join(__dirname, "x-session.json");
+  const contextOptions = { userAgent: USER_AGENT };
+  if (fs.existsSync(SESSION_FILE)) {
+    log("Using saved X session for authenticated scraping");
+    contextOptions.storageState = SESSION_FILE;
+  } else {
+    log("No session file found — scraping unauthenticated (may hit login walls)");
+    log("Run: node .github/scripts/setup-x-session.js to set up auth");
+  }
+  const context = await browser.newContext(contextOptions);
 
   const entries = Object.entries(ACCOUNTS);
   let successCount = 0;
