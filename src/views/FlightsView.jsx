@@ -1,8 +1,4 @@
 import { useState, useEffect } from 'react';
-import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
-  Legend, ReferenceLine, ResponsiveContainer,
-} from 'recharts';
 
 const BG = '#050B1A';
 const CARD_BG = 'rgba(255,255,255,0.08)';
@@ -23,49 +19,14 @@ const AIRPORTS = [
   { code: 'TLV', name: 'Ben Gurion', country: 'Israel', flag: '\u{1F1EE}\u{1F1F1}', file: 'data-flights-tlv.json' },
 ];
 
-const AIRPORT_COLORS = {
-  DXB: '#F59E0B',
-  AUH: '#3B82F6',
-  DWC: '#8B5CF6',
-  MCT: '#10B981',
-  DOH: '#EF4444',
-  TLV: '#60A5FA',
+const STATUS_STYLES = {
+  open:       { label: 'OPEN',       color: '#34D399', bg: 'rgba(52,211,153,0.15)' },
+  restricted: { label: 'RESTRICTED', color: '#F59E0B', bg: 'rgba(245,158,11,0.15)' },
+  closed:     { label: 'CLOSED',     color: '#EF4444', bg: 'rgba(239,68,68,0.15)' },
 };
-
-const CustomTooltip = ({ active, payload, label }) => {
-  if (!active || !payload?.length) return null;
-  return (
-    <div style={{
-      background: '#0D1525',
-      border: `1px solid ${GLASS_BORDER}`,
-      borderRadius: 10,
-      padding: '10px 14px',
-      fontSize: '0.75rem',
-    }}>
-      <div style={{ color: 'rgba(232,232,237,0.4)', marginBottom: 6 }}>{label}</div>
-      {payload.map(p => (
-        <div key={p.dataKey} style={{ color: p.color, marginBottom: 2 }}>
-          {p.name}: {p.value != null ? `${p.value}%` : '—'}
-        </div>
-      ))}
-    </div>
-  );
-};
-
-function getStatus(capacity) {
-  if (capacity <= 0) return { label: 'CLOSED', color: '#EF4444', bg: 'rgba(239,68,68,0.15)' };
-  if (capacity < 50) return { label: 'RESTRICTED', color: '#F59E0B', bg: 'rgba(245,158,11,0.15)' };
-  return { label: 'OPERATIONAL', color: '#34D399', bg: 'rgba(52,211,153,0.15)' };
-}
 
 function AirportCard({ airport, data }) {
-  const baseline = data?.baselineDailyAvg?.total || 0;
-  const daily = data?.daily || [];
-  const latest = daily.length > 0 ? daily[daily.length - 1] : null;
-  const todayTotal = latest?.total ?? 0;
-  const capacity = baseline > 0 ? Math.round((todayTotal / baseline) * 100) : 0;
-  const status = getStatus(capacity);
-  const lastUpdated = data?.lastUpdated;
+  const status = STATUS_STYLES[data?.status] || STATUS_STYLES.closed;
 
   return (
     <div style={{
@@ -76,16 +37,18 @@ function AirportCard({ airport, data }) {
       padding: 24,
       display: 'flex',
       flexDirection: 'column',
-      gap: 16,
+      gap: 14,
     }}>
       {/* Header */}
       <div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
           <span style={{ fontSize: 20 }}>{airport.flag}</span>
           <span style={{ fontSize: '1.1rem', fontWeight: 700, color: TEXT }}>{airport.code}</span>
+          {data?.airport && (
+            <span style={{ fontSize: '0.7rem', color: SUBTEXT }}>({data.airport})</span>
+          )}
         </div>
-        <div style={{ fontSize: '0.8rem', color: SUBTEXT }}>{airport.name}</div>
-        <div style={{ fontSize: '0.7rem', color: SUBTEXT, marginTop: 2 }}>{airport.country}</div>
+        <div style={{ fontSize: '0.8rem', color: SUBTEXT }}>{data?.airportName || airport.name}</div>
       </div>
 
       {/* Status badge */}
@@ -97,38 +60,26 @@ function AirportCard({ airport, data }) {
         <span style={{ fontSize: '0.75rem', fontWeight: 700, color: status.color, letterSpacing: 0.5 }}>{status.label}</span>
       </div>
 
-      {/* Flight count */}
-      <div>
-        <div style={{ fontSize: '0.75rem', color: SUBTEXT, marginBottom: 4 }}>Today vs Historical Avg</div>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
-          <span style={{ fontSize: '1.4rem', fontWeight: 700, color: TEXT }}>{todayTotal.toLocaleString()}</span>
-          <span style={{ fontSize: '0.8rem', color: SUBTEXT }}>/ {baseline.toLocaleString()}</span>
-        </div>
-      </div>
-
-      {/* Capacity bar */}
-      <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
-          <span style={{ fontSize: '0.7rem', color: SUBTEXT }}>Capacity</span>
-          <span style={{ fontSize: '0.7rem', fontWeight: 600, color: ACCENT }}>{capacity}%</span>
-        </div>
-        <div style={{ height: 8, borderRadius: 4, background: 'rgba(255,255,255,0.06)', overflow: 'hidden' }}>
-          <div style={{
-            height: '100%',
-            width: `${Math.min(capacity, 100)}%`,
-            borderRadius: 4,
-            background: `linear-gradient(90deg, ${ACCENT}, #D97706)`,
-            transition: 'width 0.6s ease',
-          }} />
-        </div>
-      </div>
-
-      {/* Last updated */}
-      {lastUpdated && (
-        <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.3)', marginTop: 'auto' }}>
-          Updated: {new Date(lastUpdated).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
+      {/* Status note */}
+      {data?.statusNote && (
+        <div style={{ fontSize: '0.8rem', color: TEXT, lineHeight: 1.5 }}>
+          {data.statusNote}
         </div>
       )}
+
+      {/* Source + last verified */}
+      <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 4 }}>
+        {data?.source && (
+          <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.35)' }}>
+            Source: {data.source}
+          </div>
+        )}
+        {data?.lastVerified && (
+          <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.3)' }}>
+            Last verified: {data.lastVerified}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -171,7 +122,7 @@ export default function FlightsView({ onBack }) {
           GCC AIRPORT FLIGHT TRACKER
         </h1>
         <p style={{ fontSize: '0.85rem', color: SUBTEXT, marginBottom: 32 }}>
-          Real-time flight operations across conflict-zone airports
+          Verified airport status across conflict-zone airports
         </p>
 
         {/* Airport grid */}
@@ -196,13 +147,6 @@ export default function FlightsView({ onBack }) {
             ))}
           </div>
         )}
-
-        {/* Capacity Over Time chart — removed pending verified flight data source */}
-
-        {/* Source note */}
-        <div style={{ textAlign: 'center', marginTop: 32, fontSize: '0.7rem', color: 'rgba(255,255,255,0.25)' }}>
-          Data sourced from OpenSky Network / official airport announcements
-        </div>
       </div>
     </div>
   );
