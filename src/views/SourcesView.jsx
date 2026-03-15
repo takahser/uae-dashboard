@@ -184,10 +184,10 @@ export default function SourcesView({ onBack }) {
             {/* Data Policy cards */}
             <h2 style={{ fontSize: 16, fontWeight: 600, marginBottom: 14, color: TEXT }}>Data Policy</h2>
             <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 36 }}>
-              <PolicyCard icon="0" title="No Estimates" text={sources.dataPolicy.noEstimates} />
-              <PolicyCard icon="\u2713" title="Verification Threshold" text={sources.dataPolicy.verificationThreshold} />
-              <PolicyCard icon="\u21BB" title="Update Frequency" text={sources.dataPolicy.updateFrequency} />
-              <PolicyCard icon="\u27A1" title="Open Source" text={sources.dataPolicy.openSource} />
+              <PolicyCard icon="⊘" title="No Estimates" text={sources.dataPolicy.noEstimates} />
+              <PolicyCard icon="✓" title="Verification Threshold" text={sources.dataPolicy.verificationThreshold} />
+              <PolicyCard icon="↻" title="Update Frequency" text={sources.dataPolicy.updateFrequency} />
+              <PolicyCard icon="➡" title="Open Source" text={sources.dataPolicy.openSource} />
             </div>
 
             {/* Per-country sources */}
