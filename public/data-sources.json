@@ -1,0 +1,174 @@
+{
+  "lastUpdated": "2026-03-15",
+  "methodology": "All data sourced exclusively from official government MoD statements, verified news agencies, and established conflict monitoring organisations. No estimates or projections are used. Missing data is left blank rather than interpolated.",
+  "countries": {
+    "uae": {
+      "primarySources": [
+        {
+          "name": "UAE Ministry of Defence",
+          "handle": "@modgovae",
+          "url": "https://x.com/modgovae",
+          "type": "Official Government",
+          "coverage": "Daily intercept reports, cumulative totals, casualty figures"
+        },
+        {
+          "name": "Breaking Defense",
+          "url": "https://breakingdefense.com/2026/03/uae-fights-off-outsized-share-of-iranian-attacks-pulls-back-on-sharing-interception-rates/",
+          "type": "Verified News",
+          "coverage": "Confirmed UAE cumulative totals (1,514 drones, 283 missiles), THAAD/Patriot/KM-SAM confirmation, 6 fatalities"
+        },
+        {
+          "name": "Long War Journal",
+          "url": "https://www.longwarjournal.org/archives/2026/03/iranian-drones-and-missile-barrages-hit-energy-infrastructure-airports-and-residential-buildings-in-the-arab-world-march-11-12-updates.php",
+          "type": "Conflict Monitor",
+          "coverage": "Mar 11-12 attack details, all GCC country totals"
+        }
+      ],
+      "note": "UAE MoD suspended publishing detected/intercepted breakdown after Mar 12/13 for OPSEC. Only 'engaged' totals published since then. Mar 13+ daily entries left blank per no-estimates policy."
+    },
+    "kuwait": {
+      "primarySources": [
+        {
+          "name": "Kuwait Ministry of Defence",
+          "handle": "@MOD_KW",
+          "url": "https://x.com/MOD_KW",
+          "type": "Official Government",
+          "coverage": "Intercept confirmations, incident reports"
+        },
+        {
+          "name": "Long War Journal",
+          "url": "https://www.longwarjournal.org/archives/2026/03/iranian-drones-and-missile-barrages-hit-energy-infrastructure-airports-and-residential-buildings-in-the-arab-world-march-11-12-updates.php",
+          "type": "Conflict Monitor",
+          "coverage": "Official Kuwait cumulative: 414 drones + 226 missiles as of Mar 12"
+        }
+      ]
+    },
+    "qatar": {
+      "primarySources": [
+        {
+          "name": "Qatar Ministry of Defence",
+          "handle": "@MOD_Qatar",
+          "url": "https://x.com/MOD_Qatar",
+          "type": "Official Government"
+        },
+        {
+          "name": "Long War Journal",
+          "url": "https://www.longwarjournal.org/archives/2026/03/iranian-drones-and-missile-barrages-hit-energy-infrastructure-airports-and-residential-buildings-in-the-arab-world-march-11-12-updates.php",
+          "type": "Conflict Monitor",
+          "coverage": "Official Qatar cumulative: 69 drones + 162 missiles as of Mar 12"
+        }
+      ]
+    },
+    "bahrain": {
+      "primarySources": [
+        {
+          "name": "Bahrain Defence Force",
+          "handle": "@BDF_Bahrain",
+          "url": "https://x.com/BDF_Bahrain",
+          "type": "Official Government"
+        },
+        {
+          "name": "Long War Journal",
+          "url": "https://www.longwarjournal.org/archives/2026/03/iranian-drones-and-missile-barrages-hit-energy-infrastructure-airports-and-residential-buildings-in-the-arab-world-march-11-12-updates.php",
+          "type": "Conflict Monitor",
+          "coverage": "Official Bahrain cumulative: 190 drones + 114 missiles as of Mar 12"
+        }
+      ]
+    },
+    "oman": {
+      "primarySources": [
+        {
+          "name": "Royal Army of Oman",
+          "handle": "@RoyalArmyOfOman",
+          "url": "https://x.com/RoyalArmyOfOman",
+          "type": "Official Government"
+        },
+        {
+          "name": "Long War Journal",
+          "type": "Conflict Monitor",
+          "coverage": "Mar 11-12: Salalah port oil storage struck, Duqm port intercept, Khasab intercept"
+        }
+      ]
+    },
+    "saudi": {
+      "primarySources": [
+        {
+          "name": "Saudi Press Agency",
+          "handle": "@SPAEnglish",
+          "url": "https://x.com/SPAEnglish",
+          "type": "Official State Media"
+        },
+        {
+          "name": "Saudi Ministry of Defence",
+          "handle": "@modgovksa",
+          "url": "https://x.com/modgovksa",
+          "type": "Official Government"
+        },
+        {
+          "name": "Long War Journal",
+          "type": "Conflict Monitor",
+          "coverage": "Mar 11-12 drone waves: Shaybah oil field, Eastern Province, Riyadh Diplomatic Quarter"
+        }
+      ]
+    },
+    "israel": {
+      "primarySources": [
+        {
+          "name": "Israel Defense Forces",
+          "handle": "@IDF",
+          "url": "https://x.com/IDF",
+          "type": "Official Government"
+        },
+        {
+          "name": "Lucas Tomlinson / Fox News",
+          "url": "https://x.com/LucasTomlinson",
+          "type": "Verified Journalist",
+          "coverage": "IDF confirmed 550 total strikes Feb 28 - Mar 11"
+        }
+      ],
+      "note": "IDF does not publish daily intercept breakdowns. Only total strike count confirmed publicly. Daily detail unavailable."
+    },
+    "iran": {
+      "primarySources": [
+        {
+          "name": "IRGC / Tasnim News Agency",
+          "url": "https://www.tasnimnews.com",
+          "type": "Official State Media"
+        },
+        {
+          "name": "Long War Journal",
+          "type": "Conflict Monitor",
+          "coverage": "IRGC launch confirmations, target lists"
+        }
+      ]
+    }
+  },
+  "globalSources": [
+    {
+      "name": "Long War Journal",
+      "url": "https://www.longwarjournal.org",
+      "description": "US-based conflict monitoring publication. Primary cross-reference source for GCC cumulative data."
+    },
+    {
+      "name": "ISW (Institute for the Study of War)",
+      "url": "https://www.understandingwar.org",
+      "description": "Used for geopolitical context and conflict analysis."
+    },
+    {
+      "name": "Breaking Defense",
+      "url": "https://breakingdefense.com",
+      "description": "Defense industry publication. Key source for UAE-specific analysis."
+    },
+    {
+      "name": "OpenSky Network",
+      "url": "https://opensky-network.org",
+      "description": "Real-time ADS-B flight tracking. Used for airport flight count data."
+    }
+  ],
+  "dataPolicy": {
+    "noEstimates": "We never estimate or project data. If official sources have not published a figure, it is left blank.",
+    "verificationThreshold": "Data is only added when confirmed by at least one official government source or two independent verified news sources.",
+    "updateFrequency": "Data updated daily via automated MoD account monitoring + manual review",
+    "openSource": "Full source code and raw data available at https://github.com/takahser/uae-dashboard"
+  }
+}
