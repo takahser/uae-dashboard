@@ -1,47 +1,46 @@
 import { useState, useEffect } from 'react';
 
+// Dark Glassmorphism design tokens (matching App.jsx)
+const BG = '#050B1A';
+const CARD_BG = 'rgba(255,255,255,0.08)';
+const GLASS_BLUR = 'blur(40px)';
+const GLASS_BORDER = '1px solid rgba(255,255,255,0.11)';
+const GLASS_RADIUS = 16;
+const ACCENT = '#F59E0B';
+const ACCENT_DARK = '#D97706';
+const SECONDARY = '#3B82F6';
+const TEXT = '#E8E8ED';
+const SUBTEXT = 'rgba(232,232,237,0.53)';
+const DM_SANS = "'DM Sans', -apple-system, sans-serif";
+
 const cards = [
   {
     id: 'threat',
     icon: '🚀',
     title: 'Threat Tracker',
     desc: 'Missiles, drones, interceptions across UAE/GCC',
-    glow: 'rgba(255, 50, 50, 0.4)',
-    border: 'rgba(255, 50, 50, 0.25)',
-    hoverBorder: 'rgba(255, 50, 50, 0.6)',
   },
   {
     id: 'flights',
     icon: '✈️',
     title: 'Flight Monitor',
     desc: 'Airport status, regional air travel risk',
-    glow: 'rgba(60, 130, 255, 0.4)',
-    border: 'rgba(60, 130, 255, 0.25)',
-    hoverBorder: 'rgba(60, 130, 255, 0.6)',
   },
   {
     id: 'hormuz',
     icon: '🛢️',
     title: 'Hormuz Watch',
     desc: 'Strait of Hormuz shipping traffic & oil flow',
-    glow: 'rgba(220, 170, 40, 0.4)',
-    border: 'rgba(220, 170, 40, 0.25)',
-    hoverBorder: 'rgba(220, 170, 40, 0.6)',
   },
 ];
 
 const DEFAULT_STATS = [
-  { label: 'threats detected', value: '1,816', color: '#ff4444' },
-  { label: 'intercepted', value: '94.2%', color: '#44ff88' },
-  { label: 'Hormuz', value: 'CLOSED', color: '#ffaa22' },
+  { label: 'threats detected', value: '1,816' },
+  { label: 'intercepted', value: '94.2%' },
+  { label: 'Hormuz', value: 'CLOSED' },
 ];
 
 const keyframesStyle = `
-@keyframes bgShift {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
 @keyframes pulse {
   0%, 100% { opacity: 1; box-shadow: 0 0 4px 2px rgba(255,50,50,0.6); }
   50%      { opacity: 0.4; box-shadow: 0 0 8px 4px rgba(255,50,50,0.2); }
@@ -65,9 +64,9 @@ export default function Landing({ onSelect }) {
       const int_ = (c.ballisticIntercepted || 0) + (c.cruiseIntercepted || 0) + (c.dronesIntercepted || 0);
       const rate = det > 0 ? ((int_ / det) * 100).toFixed(1) + '%' : '—';
       setStats([
-        { label: 'threats detected', value: det.toLocaleString(), color: '#ff4444' },
-        { label: 'intercepted', value: rate, color: '#44ff88' },
-        { label: 'Hormuz', value: 'CLOSED', color: '#ffaa22' },
+        { label: 'threats detected', value: det.toLocaleString() },
+        { label: 'intercepted', value: rate },
+        { label: 'Hormuz', value: 'CLOSED' },
       ]);
     }).catch(() => {});
   }, []);
@@ -78,10 +77,9 @@ export default function Landing({ onSelect }) {
       <div
         style={{
           minHeight: '100vh',
-          background: 'radial-gradient(ellipse at 50% 0%, #1a1020 0%, #0a0a0f 50%, #050508 100%)',
-          backgroundSize: '200% 200%',
-          animation: 'bgShift 20s ease infinite',
-          color: '#E8E8E8',
+          background: BG,
+          color: TEXT,
+          fontFamily: DM_SANS,
           padding: '0 20px',
           display: 'flex',
           flexDirection: 'column',
@@ -91,19 +89,9 @@ export default function Landing({ onSelect }) {
           overflow: 'hidden',
         }}
       >
-        {/* Subtle radial glow */}
-        <div
-          style={{
-            position: 'absolute',
-            top: '-20%',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '120vw',
-            height: '60vh',
-            background: 'radial-gradient(ellipse, rgba(180,60,60,0.08) 0%, transparent 70%)',
-            pointerEvents: 'none',
-          }}
-        />
+        {/* Background gradient orbs */}
+        <div style={{ position: 'fixed', top: -200, right: -100, width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, #F59E0B11 0%, transparent 70%)', pointerEvents: 'none', zIndex: 0 }} />
+        <div style={{ position: 'fixed', bottom: -200, left: -100, width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, #3B82F611 0%, transparent 70%)', pointerEvents: 'none', zIndex: 0 }} />
 
         <div
           style={{
@@ -115,39 +103,57 @@ export default function Landing({ onSelect }) {
             animation: 'fadeInUp 0.8s ease-out',
           }}
         >
-          {/* Live indicator */}
+          {/* Header */}
           <div
             style={{
-              display: 'inline-flex',
+              display: 'flex',
               alignItems: 'center',
-              gap: 8,
-              marginBottom: 32,
-              padding: '6px 16px',
-              background: 'rgba(255,50,50,0.08)',
-              border: '1px solid rgba(255,50,50,0.2)',
-              borderRadius: 20,
+              justifyContent: 'space-between',
+              marginBottom: 48,
+              padding: '16px 0',
             }}
           >
+            {/* Logo */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <div style={{
+                width: 32, height: 32, borderRadius: 8,
+                background: `linear-gradient(135deg, ${ACCENT}, ${ACCENT_DARK})`,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: 16, fontWeight: 700, color: BG,
+              }}>W</div>
+              <span style={{ fontSize: 20, fontWeight: 700, letterSpacing: -0.3, color: TEXT }}>
+                ww3live<span style={{ color: ACCENT }}>.xyz</span>
+              </span>
+            </div>
+
+            {/* LIVE badge */}
             <div
               style={{
-                width: 8,
-                height: 8,
-                borderRadius: '50%',
-                background: '#ff3333',
-                animation: 'pulse 1.5s ease-in-out infinite',
-              }}
-            />
-            <span
-              style={{
-                fontSize: '0.75rem',
-                fontWeight: 700,
-                letterSpacing: '0.15em',
-                color: '#ff4444',
-                fontFamily: 'monospace',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '6px 16px',
+                background: 'rgba(255,50,50,0.08)',
+                border: '1px solid rgba(255,50,50,0.2)',
+                borderRadius: 20,
               }}
             >
-              LIVE
-            </span>
+              <div
+                style={{
+                  width: 8, height: 8, borderRadius: '50%',
+                  background: '#ff3333',
+                  animation: 'pulse 1.5s ease-in-out infinite',
+                }}
+              />
+              <span
+                style={{
+                  fontSize: '0.75rem', fontWeight: 700,
+                  letterSpacing: '0.15em', color: '#ff4444',
+                }}
+              >
+                LIVE
+              </span>
+            </div>
           </div>
 
           {/* Hero heading */}
@@ -155,29 +161,26 @@ export default function Landing({ onSelect }) {
             style={{
               fontSize: 'clamp(2.4rem, 6vw, 4.2rem)',
               fontWeight: 800,
-              fontFamily: "'Courier New', Courier, monospace",
+              fontFamily: DM_SANS,
               letterSpacing: '-0.02em',
               margin: '0 0 16px',
-              background: 'linear-gradient(135deg, #ffffff 0%, #999999 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
+              color: TEXT,
             }}
           >
-            ww3live.xyz
+            Real-time conflict intelligence.
           </h1>
 
           {/* Tagline */}
           <p
             style={{
-              color: '#666',
+              color: SUBTEXT,
               fontSize: 'clamp(0.95rem, 2vw, 1.15rem)',
-              margin: '0 0 36px',
+              margin: '0 0 40px',
               fontWeight: 400,
               letterSpacing: '0.02em',
             }}
           >
-            Real-time conflict intelligence.<br />Covering Iran, the GCC & the Strait of Hormuz.
+            Iran vs GCC. Missiles, drones, flights & the Strait of Hormuz — tracked live.
           </p>
 
           {/* Stat pills */}
@@ -197,35 +200,34 @@ export default function Landing({ onSelect }) {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: 8,
-                  padding: '8px 18px',
-                  background: 'rgba(255,255,255,0.03)',
-                  border: `1px solid ${s.color}33`,
+                  padding: '10px 20px',
+                  background: CARD_BG,
+                  backdropFilter: GLASS_BLUR,
+                  border: GLASS_BORDER,
                   borderRadius: 24,
-                  boxShadow: `0 0 12px ${s.color}15`,
                 }}
               >
                 <span
                   style={{
                     fontSize: '1rem',
                     fontWeight: 700,
-                    color: s.color,
-                    fontFamily: 'monospace',
+                    color: ACCENT,
                   }}
                 >
                   {s.value}
                 </span>
-                <span style={{ fontSize: '0.8rem', color: '#666' }}>{s.label}</span>
+                <span style={{ fontSize: '0.8rem', color: SUBTEXT }}>{s.label}</span>
               </div>
             ))}
           </div>
 
-          {/* Cards */}
+          {/* Feature cards */}
           <div
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))',
               gap: 24,
-              marginBottom: 64,
+              marginBottom: 48,
             }}
           >
             {cards.map((c) => {
@@ -236,18 +238,17 @@ export default function Landing({ onSelect }) {
                   onMouseEnter={() => setHovered(c.id)}
                   onMouseLeave={() => setHovered(null)}
                   style={{
-                    background: isHovered
-                      ? 'rgba(255,255,255,0.04)'
-                      : 'rgba(255,255,255,0.02)',
-                    border: `1px solid ${isHovered ? c.hoverBorder : c.border}`,
-                    borderRadius: 16,
+                    background: CARD_BG,
+                    backdropFilter: GLASS_BLUR,
+                    border: GLASS_BORDER,
+                    borderRadius: GLASS_RADIUS,
                     padding: '36px 28px',
                     textAlign: 'left',
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
                     transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
                     boxShadow: isHovered
-                      ? `0 8px 32px ${c.glow}, inset 0 1px 0 rgba(255,255,255,0.05)`
+                      ? '0 0 24px rgba(245,158,11,0.15)'
                       : '0 2px 12px rgba(0,0,0,0.3)',
                   }}
                   onClick={() => onSelect(c.id)}
@@ -257,16 +258,16 @@ export default function Landing({ onSelect }) {
                     style={{
                       fontSize: '1.25rem',
                       fontWeight: 700,
-                      marginBottom: 8,
                       margin: '0 0 8px',
                       letterSpacing: '0.01em',
+                      color: TEXT,
                     }}
                   >
                     {c.title}
                   </h2>
                   <p
                     style={{
-                      color: '#777',
+                      color: SUBTEXT,
                       fontSize: '0.9rem',
                       lineHeight: 1.5,
                       margin: '0 0 24px',
@@ -281,10 +282,8 @@ export default function Landing({ onSelect }) {
                       gap: 6,
                       fontSize: '0.85rem',
                       fontWeight: 600,
-                      letterSpacing: '0.08em',
-                      color: isHovered ? '#fff' : '#888',
+                      color: isHovered ? ACCENT : SUBTEXT,
                       transition: 'color 0.3s ease',
-                      fontFamily: 'monospace',
                     }}
                   >
                     ENTER <span style={{ fontSize: '1.1rem' }}>→</span>
@@ -294,24 +293,47 @@ export default function Landing({ onSelect }) {
             })}
           </div>
 
+          {/* CTA button */}
+          <button
+            onClick={() => onSelect('threat')}
+            style={{
+              padding: '14px 36px',
+              background: `linear-gradient(135deg, ${ACCENT}, ${ACCENT_DARK})`,
+              color: BG,
+              border: 'none',
+              borderRadius: 999,
+              fontSize: '1rem',
+              fontWeight: 700,
+              fontFamily: DM_SANS,
+              cursor: 'pointer',
+              letterSpacing: '0.02em',
+              marginBottom: 24,
+              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+            }}
+            onMouseEnter={e => { e.target.style.transform = 'scale(1.04)'; e.target.style.boxShadow = '0 0 32px rgba(245,158,11,0.3)'; }}
+            onMouseLeave={e => { e.target.style.transform = 'scale(1)'; e.target.style.boxShadow = 'none'; }}
+          >
+            Enter Dashboard →
+          </button>
+
           {/* Preview Designs button */}
-          <div style={{ marginTop: 24, marginBottom: 32 }}>
+          <div style={{ marginTop: 16, marginBottom: 32 }}>
             <button
               onClick={() => { window.location.hash = '#/designs'; }}
               style={{
                 padding: '10px 24px',
                 background: 'transparent',
-                border: '1px solid #333',
-                color: '#888',
-                borderRadius: 8,
+                border: GLASS_BORDER,
+                color: SUBTEXT,
+                borderRadius: GLASS_RADIUS,
                 fontSize: '0.85rem',
                 cursor: 'pointer',
-                fontFamily: 'monospace',
+                fontFamily: DM_SANS,
                 letterSpacing: '0.05em',
                 transition: 'all 0.3s ease',
               }}
-              onMouseEnter={e => { e.target.style.borderColor = '#CF9B1A'; e.target.style.color = '#CF9B1A'; }}
-              onMouseLeave={e => { e.target.style.borderColor = '#333'; e.target.style.color = '#888'; }}
+              onMouseEnter={e => { e.target.style.borderColor = ACCENT; e.target.style.color = ACCENT; }}
+              onMouseLeave={e => { e.target.style.borderColor = 'rgba(255,255,255,0.11)'; e.target.style.color = SUBTEXT; }}
             >
               Preview Designs →
             </button>
@@ -320,7 +342,7 @@ export default function Landing({ onSelect }) {
           {/* Footer */}
           <p
             style={{
-              color: '#444',
+              color: SUBTEXT,
               fontSize: '0.75rem',
               letterSpacing: '0.03em',
               paddingBottom: 40,
