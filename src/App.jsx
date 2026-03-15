@@ -317,6 +317,43 @@ const MAP_CONFIGS = {
       { id: "d3", name: "Ashkelon Desal", type: "Desalination", siteType: "desal", lat: 31.6290, lng: 34.5370 },
     ],
   },
+  oman: {
+    bounds: { latMin: 16.0, latMax: 26.5, lngMin: 51.5, lngMax: 60.0 },
+    title: "LIVE INTEL — OMAN IMPACT MAP",
+    subtitle: "CONFIRMED STRIKE LOCATIONS",
+    regions: [
+      { name: "OMAN", labelLat: 21.5, labelLng: 57.5, path: gccBorders.country?.oman, pts: [[22.50,55.01],[22.0,55.0],[21.5,55.0],[20.5,55.0],[19.5,53.5],[19.0,52.1],[18.5,52.3],[18.0,52.5],[17.5,52.8],[17.0,53.0],[16.7,53.1],[16.5,54.0],[16.5,54.5],[16.8,55.5],[17.0,55.8],[17.5,55.6],[18.0,56.0],[19.5,57.5],[20.0,58.0],[20.5,58.5],[21.0,59.0],[21.5,59.5],[22.0,59.8],[22.5,59.8],[23.0,59.5],[23.5,58.8],[24.0,58.0],[24.2,57.5],[24.5,57.0],[24.6,56.8],[24.40,56.55],[24.08,56.02],[23.97,55.48],[23.77,55.57],[23.12,55.25],[22.70,55.21],[22.50,55.01]] },
+    ],
+    impacts: [],
+    strategicSites: [
+      { id: "om-s1", name: "Thumrait Air Base", type: "US/Oman Air Base", lat: 17.6660, lng: 54.0246 },
+      { id: "om-s2", name: "Al Musannah Air Base", type: "US/Oman Air Base", lat: 23.6406, lng: 57.4936 },
+      { id: "om-s3", name: "Masirah Island Air Base", type: "US/Oman Air Base", lat: 20.6754, lng: 58.8905 },
+      { id: "om-s5", name: "US Embassy Muscat", type: "US Embassy", lat: 23.6133, lng: 58.5915 },
+      { id: "om-d1", name: "Barka Desal", type: "Desalination", siteType: "desal", lat: 23.7074, lng: 57.9845 },
+      { id: "om-d2", name: "Sohar Desal", type: "Desalination", siteType: "desal", lat: 24.4724, lng: 56.6334 },
+      { id: "om-d3", name: "Sur Desal", type: "Desalination", siteType: "desal", lat: 22.5667, lng: 59.5289 },
+      { id: "om-d4", name: "Ghubrah Desal (Muscat)", type: "Desalination", siteType: "desal", lat: 23.6031, lng: 58.4164 },
+    ],
+  },
+  saudi: {
+    bounds: { latMin: 16.0, latMax: 32.5, lngMin: 34.5, lngMax: 55.5 },
+    title: "LIVE INTEL — SAUDI ARABIA IMPACT MAP",
+    subtitle: "CONFIRMED STRIKE LOCATIONS",
+    regions: [
+      { name: "SAUDI ARABIA", labelLat: 24.5, labelLng: 45.0, path: gccBorders.country?.saudi, pts: [[29.5,34.95],[30.0,35.5],[30.5,36.5],[31.0,37.5],[31.5,38.0],[32.0,38.77],[31.6,40.2],[31.2,41.5],[30.8,43.0],[30.3,44.6],[29.8,46.4],[29.35,47.0],[28.55,47.43],[28.55,47.7],[28.67,47.45],[29.10,47.0],[24.70,50.80],[25.00,50.70],[25.30,50.55],[26.10,50.30],[27.00,49.95],[27.80,48.80],[28.50,48.50],[22.50,55.01],[22.0,55.0],[21.5,55.0],[20.5,55.0],[19.0,52.1],[19.5,51.5],[20.0,50.5],[19.5,49.5],[19.0,48.0],[18.0,48.5],[17.5,46.0],[17.0,44.5],[16.5,43.5],[16.0,43.0],[16.5,42.5],[17.5,41.0],[19.0,40.0],[20.5,39.5],[22.0,39.0],[23.5,38.5],[24.5,37.5],[25.5,37.2],[27.0,36.7],[28.0,35.2],[29.5,34.95]] },
+    ],
+    impacts: [],
+    strategicSites: [
+      { id: "sa-s1", name: "Prince Sultan Air Base", type: "US Air Base", lat: 24.0625, lng: 47.5806 },
+      { id: "sa-s3", name: "US Embassy Riyadh", type: "US Embassy", lat: 24.7468, lng: 46.6527 },
+      { id: "sa-s4", name: "US Consulate Jeddah", type: "US Consulate", lat: 21.5433, lng: 39.1728 },
+      { id: "sa-s7", name: "THAAD Battery (Yanbu)", type: "US THAAD", lat: 24.0890, lng: 38.0634 },
+      { id: "sa-d1", name: "Jubail Desal (SWCC)", type: "Desalination", siteType: "desal", lat: 27.0110, lng: 49.6580 },
+      { id: "sa-d3", name: "Shoaiba Desal", type: "Desalination", siteType: "desal", lat: 21.4200, lng: 39.2500 },
+      { id: "sa-d4", name: "Yanbu Desal", type: "Desalination", siteType: "desal", lat: 24.0890, lng: 38.0650 },
+    ],
+  },
 };
 
 // Simplified geography for the All GCC theatre map (Arabian Peninsula + Iran)

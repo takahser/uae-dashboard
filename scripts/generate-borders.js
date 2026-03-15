@@ -139,6 +139,8 @@ const COUNTRY_BOUNDS = {
   kuwait:  { iso: "414", bounds: { latMin: 28.5, latMax: 30.2, lngMin: 46.5, lngMax: 48.6 } },
   bahrain: { iso: "48",  bounds: { latMin: 25.7, latMax: 26.4, lngMin: 50.2, lngMax: 50.9 } },
   israel:  { iso: "376", bounds: { latMin: 29.3, latMax: 33.5, lngMin: 34.1, lngMax: 36.1 } },
+  oman:    { iso: "512", bounds: { latMin: 16.0, latMax: 26.5, lngMin: 51.5, lngMax: 60.0 } },
+  saudi:   { iso: "682", bounds: { latMin: 16.0, latMax: 32.5, lngMin: 34.5, lngMax: 55.5 } },
 };
 
 // Collect all GeoJSON features (50m + 10m fallbacks) keyed by ISO code
