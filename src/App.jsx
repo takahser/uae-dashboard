@@ -674,6 +674,14 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
   const [flightDataMct, setFlightDataMct] = useState(null);
   const [flightDataDoh, setFlightDataDoh] = useState(null);
   const [selectedAirport, setSelectedAirport] = useState("DXB");
+  const [experimental, setExperimental] = useState(() => {
+    try { return localStorage.getItem("ww3_experimental") === "true"; } catch { return false; }
+  });
+  const toggleExperimental = () => setExperimental(v => {
+    const next = !v;
+    try { localStorage.setItem("ww3_experimental", String(next)); } catch {}
+    return next;
+  });
   const t = createT(lang);
   const isRTL = lang === "ar";
 
@@ -974,7 +982,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
   const tabs = isAllGCC ? [{ id: "intel", label: t("tab.intel") }, { id: "comparison", label: t("tab.comparison") }] : allTabs.filter(t => {
     if (t.needsUAE && selectedCountry !== "uae") return false;
     if (t.needsDaily && !hasDailyData) return false;
-    if (t.id === "intel" && (selectedCountry === "oman" || selectedCountry === "saudi")) return false;
+    if (t.id === "intel" && (selectedCountry === "oman" || selectedCountry === "saudi") && !experimental) return false;
     return true;
   });
 
@@ -1014,6 +1022,10 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
               }}
               style={{ background: "#FFFFFF0A", backdropFilter: "blur(10px)", border: "1px solid #FFFFFF11", color: "#E8E8ED88", borderRadius: 100, padding: "4px 12px", cursor: "pointer", fontSize: 11, fontWeight: 500, letterSpacing: 0.5, fontFamily: DM_SANS }}>
               {t("lang.switch")}
+            </button>
+            <button onClick={toggleExperimental}
+              style={{ background: "#FFFFFF0A", backdropFilter: "blur(10px)", border: experimental ? "1px solid #F59E0B44" : "1px solid #FFFFFF11", color: experimental ? "#F59E0B" : SUBTEXT, borderRadius: 100, padding: "4px 12px", cursor: "pointer", fontSize: 11, fontWeight: 500, letterSpacing: 0.5, fontFamily: DM_SANS, display: "flex", alignItems: "center", gap: 4 }}>
+              ⚗️ {experimental ? "Experimental: ON" : "Experimental"}
             </button>
             <a href="https://github.com/takahser/uae-dashboard" target="_blank" rel="noopener noreferrer"
               style={{ color: SUBTEXT, fontSize: 11, textDecoration: "none", display: "flex", alignItems: "center", gap: 5 }}>
@@ -1150,7 +1162,9 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
             padding: "10px 16px", cursor: "pointer",
             fontSize: 12, fontWeight: activeTab === t.id ? 600 : 400,
             fontFamily: DM_SANS, transition: "all 0.15s"
-          }}>{t.isLink ? "\u2192 " + t.label : t.label}</button>
+          }}>{t.isLink ? "\u2192 " + t.label : t.label}{t.id === "intel" && (selectedCountry === "oman" || selectedCountry === "saudi") && experimental && (
+            <span style={{ fontSize: 10, marginLeft: 4, color: "#F59E0B", opacity: 0.7 }}>⚗</span>
+          )}</button>
         ))}
       </div>
 
