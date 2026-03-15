@@ -1,7 +1,6 @@
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { Tooltip as RTooltip, Legend } from 'recharts';
-import { MapContainer, TileLayer, Popup, Polyline, Circle, CircleMarker, Tooltip as MapTooltip } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+import { useState } from 'react';
 import data from '../data/hormuz.json';
 
 const BG = '#050B1A';
@@ -68,90 +67,148 @@ const PORTS = [
   { pos: [24.35, 56.64], label: "Sohar (Oman) \u2014 Oil & industrial port", country: "Oman" },
 ];
 
+const SVG_W = 800;
+const SVG_H = 480;
+const MAP_BOUNDS = { latMin: 23.5, latMax: 27.5, lngMin: 54.5, lngMax: 60.0 };
+
+function toSVG(lat, lng) {
+  return {
+    x: ((lng - MAP_BOUNDS.lngMin) / (MAP_BOUNDS.lngMax - MAP_BOUNDS.lngMin)) * SVG_W,
+    y: ((MAP_BOUNDS.latMax - lat) / (MAP_BOUNDS.latMax - MAP_BOUNDS.latMin)) * SVG_H,
+  };
+}
+
+// Simplified coastline polygons for context
+const IRAN_COAST = [
+  [27.5,54.5],[27.5,60.0],[26.8,60.0],[26.6,58.5],[26.3,57.8],[26.5,57.0],
+  [26.7,56.5],[27.0,56.0],[27.2,55.5],[27.5,54.5],
+];
+const OMAN_UAE_COAST = [
+  [23.5,54.5],[24.0,54.5],[24.5,54.8],[25.0,55.0],[25.4,55.4],[25.6,56.0],
+  [25.8,56.3],[26.2,56.3],[26.4,56.5],[26.0,56.8],[25.6,57.0],[25.3,57.5],
+  [25.0,58.0],[24.5,58.5],[24.0,59.0],[23.5,60.0],[23.5,54.5],
+];
+
+function makePath(pts) {
+  return 'M' + pts.map(([lat, lng]) => { const p = toSVG(lat, lng); return `${p.x},${p.y}`; }).join(' L') + ' Z';
+}
+
 function HormuzMap() {
+  const [hover, setHover] = useState(null);
+
+  const chokeA = toSVG(26.35, 56.25);
+  const chokeB = toSVG(26.60, 56.95);
+
   return (
     <div style={{ position: 'relative', marginBottom: 32 }}>
       <style>{`
         @keyframes pulse-attack {
-          0% { opacity: 0.8; }
-          50% { opacity: 0.4; }
-          100% { opacity: 0.8; }
-        }
-        .attack-marker {
-          animation: pulse-attack 2s ease-in-out infinite;
+          0% { opacity: 0.85; }
+          50% { opacity: 0.35; }
+          100% { opacity: 0.85; }
         }
       `}</style>
       <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: 12, color: TEXT }}>
         Strait of Hormuz — Live Threat Map
       </h3>
-      <MapContainer
-        center={[26.0, 56.5]}
-        zoom={7}
-        style={{ height: 420, borderRadius: GLASS_RADIUS }}
-        scrollWheelZoom={false}
-      >
-        <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
+      <div style={{ background: '#070E1E', borderRadius: GLASS_RADIUS, border: `1px solid ${GLASS_BORDER}`, overflow: 'hidden', position: 'relative' }}>
+        <svg viewBox={`0 0 ${SVG_W} ${SVG_H}`} style={{ width: '100%', height: 'auto', display: 'block' }}>
+          {/* Water background */}
+          <rect width={SVG_W} height={SVG_H} fill="#0a1628" />
 
-        {/* Chokepoint line */}
-        <Polyline
-          positions={[[26.35, 56.25], [26.60, 56.95]]}
-          pathOptions={{ color: '#ff4444', dashArray: '8 6', weight: 2 }}
-        >
-          <MapTooltip sticky>Narrowest Point — ~3.5 miles</MapTooltip>
-        </Polyline>
+          {/* Grid lines */}
+          {[55, 56, 57, 58, 59].map(lng => {
+            const p = toSVG(25, lng);
+            return <line key={`g-lng-${lng}`} x1={p.x} y1={0} x2={p.x} y2={SVG_H} stroke="rgba(255,255,255,0.04)" strokeWidth={1} />;
+          })}
+          {[24, 25, 26, 27].map(lat => {
+            const p = toSVG(lat, 57);
+            return <line key={`g-lat-${lat}`} x1={0} y1={p.y} x2={SVG_W} y2={p.y} stroke="rgba(255,255,255,0.04)" strokeWidth={1} />;
+          })}
 
-        {/* Chokepoint zone */}
-        <Circle
-          center={[26.48, 56.6]}
-          radius={8000}
-          pathOptions={{ color: '#ff4444', fillColor: '#ff4444', fillOpacity: 0.15, weight: 1 }}
-        />
+          {/* Coordinate ticks */}
+          {[55, 56, 57, 58, 59].map(lng => {
+            const p = toSVG(MAP_BOUNDS.latMin, lng);
+            return <text key={`t-lng-${lng}`} x={p.x} y={SVG_H - 6} fill="rgba(255,255,255,0.2)" fontSize={10} textAnchor="middle">{lng}°E</text>;
+          })}
+          {[24, 25, 26, 27].map(lat => {
+            const p = toSVG(lat, MAP_BOUNDS.lngMin);
+            return <text key={`t-lat-${lat}`} x={8} y={p.y + 3} fill="rgba(255,255,255,0.2)" fontSize={10}>{lat}°N</text>;
+          })}
 
-        {/* Geographic labels */}
-        {GEO_LABELS.map((g, i) => (
-          <CircleMarker key={`geo-${i}`} center={g.pos} radius={0} pathOptions={{ opacity: 0 }}>
-            <MapTooltip permanent direction="center" className="geo-label">
-              <span style={{ fontSize: '0.75rem', fontWeight: 600 }}>{g.label}</span>
-            </MapTooltip>
-          </CircleMarker>
-        ))}
+          {/* Land masses */}
+          <path d={makePath(IRAN_COAST)} fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" strokeWidth={1} />
+          <path d={makePath(OMAN_UAE_COAST)} fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" strokeWidth={1} />
 
-        {/* Attack markers */}
-        {ATTACKS.map((a, i) => (
-          <CircleMarker
-            key={`atk-${i}`}
-            center={a.pos}
-            radius={8}
-            pathOptions={{ color: '#ff4444', fillColor: '#ff4444', fillOpacity: 0.8 }}
-            className="attack-marker"
-          >
-            <Popup>
-              <span style={{ fontSize: '0.8rem', color: '#111' }}>{a.label}</span>
-            </Popup>
-          </CircleMarker>
-        ))}
-        {/* Port markers */}
-        {PORTS.map((p, i) => (
-          <CircleMarker
-            key={`port-${i}`}
-            center={p.pos}
-            radius={7}
-            pathOptions={{ color: '#4a9eff', fillColor: '#4a9eff', fillOpacity: 0.8 }}
-          >
-            <Popup>
-              <span style={{ fontSize: '0.8rem', color: '#111' }}>{p.label}</span>
-            </Popup>
-          </CircleMarker>
-        ))}
-      </MapContainer>
+          {/* Chokepoint line */}
+          <line x1={chokeA.x} y1={chokeA.y} x2={chokeB.x} y2={chokeB.y}
+            stroke="#ff4444" strokeWidth={2} strokeDasharray="8 6" />
+          <circle cx={(chokeA.x + chokeB.x) / 2} cy={(chokeA.y + chokeB.y) / 2}
+            r={30} fill="rgba(255,68,68,0.12)" stroke="#ff4444" strokeWidth={0.5} />
+          <text x={(chokeA.x + chokeB.x) / 2} y={(chokeA.y + chokeB.y) / 2 - 38}
+            fill="#ff4444" fontSize={9} textAnchor="middle" fontWeight={600}>
+            Narrowest Point — ~3.5 mi
+          </text>
 
-      {/* Legend */}
-      <div style={{
-        position: 'absolute', bottom: 16, right: 16, zIndex: 1000,
-        background: 'rgba(5,11,26,0.9)', border: `1px solid ${GLASS_BORDER}`,
-        borderRadius: 6, padding: '6px 12px', fontSize: '0.7rem', color: SUBTEXT
-      }}>
-        <span style={{ color: '#ff4444' }}>&#9679;</span> Ship attack &nbsp; <span style={{ color: '#F59E0B' }}>&#9650;</span> Chokepoint zone &nbsp; <span style={{ color: '#4a9eff' }}>&#9679;</span> Port
+          {/* Geo labels */}
+          {GEO_LABELS.map((g, i) => {
+            const p = toSVG(g.pos[0], g.pos[1]);
+            return <text key={`geo-${i}`} x={p.x} y={p.y} fill="rgba(255,255,255,0.35)" fontSize={10} fontWeight={600} textAnchor="middle">{g.label}</text>;
+          })}
+
+          {/* Port markers */}
+          {PORTS.map((p, i) => {
+            const pt = toSVG(p.pos[0], p.pos[1]);
+            return (
+              <g key={`port-${i}`}
+                onMouseEnter={() => setHover({ x: pt.x, y: pt.y, text: p.label, type: 'port' })}
+                onMouseLeave={() => setHover(null)}
+                style={{ cursor: 'pointer' }}
+              >
+                <circle cx={pt.x} cy={pt.y} r={6} fill="#4a9eff" fillOpacity={0.8} stroke="#4a9eff" strokeWidth={1} />
+                <circle cx={pt.x} cy={pt.y} r={10} fill="transparent" />
+              </g>
+            );
+          })}
+
+          {/* Attack markers */}
+          {ATTACKS.map((a, i) => {
+            const pt = toSVG(a.pos[0], a.pos[1]);
+            return (
+              <g key={`atk-${i}`}
+                onMouseEnter={() => setHover({ x: pt.x, y: pt.y, text: a.label, type: 'attack' })}
+                onMouseLeave={() => setHover(null)}
+                style={{ cursor: 'pointer' }}
+              >
+                <circle cx={pt.x} cy={pt.y} r={12} fill="rgba(255,68,68,0.2)" stroke="none" style={{ animation: 'pulse-attack 2s ease-in-out infinite' }} />
+                <circle cx={pt.x} cy={pt.y} r={6} fill="#ff4444" fillOpacity={0.9} stroke="#ff4444" strokeWidth={1} />
+                <circle cx={pt.x} cy={pt.y} r={14} fill="transparent" />
+              </g>
+            );
+          })}
+
+          {/* Hover tooltip */}
+          {hover && (
+            <g>
+              <rect x={hover.x - 120} y={hover.y - 38} width={240} height={26} rx={4}
+                fill="rgba(5,11,26,0.95)" stroke={hover.type === 'attack' ? '#ff4444' : '#4a9eff'} strokeWidth={1} />
+              <text x={hover.x} y={hover.y - 21} fill={TEXT} fontSize={9.5} textAnchor="middle" fontWeight={500}>
+                {hover.text.length > 55 ? hover.text.slice(0, 55) + '…' : hover.text}
+              </text>
+            </g>
+          )}
+        </svg>
+
+        {/* Legend overlay */}
+        <div style={{
+          position: 'absolute', bottom: 12, right: 12,
+          background: 'rgba(5,11,26,0.9)', border: `1px solid ${GLASS_BORDER}`,
+          borderRadius: 6, padding: '6px 12px', fontSize: '0.7rem', color: SUBTEXT
+        }}>
+          <span style={{ color: '#ff4444' }}>&#9679;</span> Ship attack &nbsp;
+          <span style={{ color: '#ff4444' }}>- -</span> Chokepoint &nbsp;
+          <span style={{ color: '#4a9eff' }}>&#9679;</span> Port
+        </div>
       </div>
     </div>
   );
