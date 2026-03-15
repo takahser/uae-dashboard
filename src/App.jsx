@@ -857,10 +857,12 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
         <div style={{ background: "#FFFFFF05", borderBottom: "1px solid #FFFFFF0A", padding: "16px 28px", position: "sticky", top: 0, zIndex: 50, backdropFilter: "blur(20px)" }}>
           <div style={{ position: "relative" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg, #F59E0B, #D97706)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: "#050B1A" }}>W</div>
+              <div onClick={() => { window.location.hash = "/"; }} style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }}>
+                <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg, #F59E0B, #D97706)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: "#050B1A" }}>W</div>
+                <span style={{ fontSize: 20, fontWeight: 700, letterSpacing: -0.3, color: TEXT }}>ww3live<span style={{ color: "#F59E0B" }}>.xyz</span></span>
+              </div>
               <div>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <span style={{ fontSize: 20, fontWeight: 700, letterSpacing: -0.3, color: TEXT }}>ww3live<span style={{ color: "#F59E0B" }}>.xyz</span></span>
                   <span style={{ fontSize: 16 }}>🇮🇷</span>
                 </div>
                 <h1 style={{ margin: 0, fontSize: 14, fontWeight: 500, color: "#E8E8ED44", fontFamily: DM_SANS, textTransform: "uppercase", letterSpacing: 2 }}>
@@ -1115,12 +1117,14 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
             </a>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 6 }}>
+            <div onClick={() => { window.location.hash = "/"; }} style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", textDecoration: "none" }}>
             <div style={{
               width: 32, height: 32, borderRadius: 8,
               background: "linear-gradient(135deg, #F59E0B, #D97706)",
               display: "flex", alignItems: "center", justifyContent: "center",
               fontSize: 16, fontWeight: 700, color: "#050B1A", flexShrink: 0
             }}>W</div>
+            </div>
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 2 }}>
                 <span style={{ fontSize: 20, fontWeight: 700, letterSpacing: -0.3, color: TEXT }}>ww3live<span style={{ color: "#F59E0B" }}>.xyz</span></span>
