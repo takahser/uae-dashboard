@@ -1,4 +1,8 @@
 import { useState, useEffect } from 'react';
+import {
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
+  Legend, ReferenceLine, ResponsiveContainer,
+} from 'recharts';
 
 const BG = '#050B1A';
 const CARD_BG = 'rgba(255,255,255,0.08)';
@@ -18,6 +22,35 @@ const AIRPORTS = [
   { code: 'DOH', name: 'Hamad International', country: 'Qatar', flag: '\u{1F1F6}\u{1F1E6}', file: 'data-flights-doh.json' },
   { code: 'TLV', name: 'Ben Gurion', country: 'Israel', flag: '\u{1F1EE}\u{1F1F1}', file: 'data-flights-tlv.json' },
 ];
+
+const AIRPORT_COLORS = {
+  DXB: '#F59E0B',
+  AUH: '#3B82F6',
+  DWC: '#8B5CF6',
+  MCT: '#10B981',
+  DOH: '#EF4444',
+  TLV: '#60A5FA',
+};
+
+const CustomTooltip = ({ active, payload, label }) => {
+  if (!active || !payload?.length) return null;
+  return (
+    <div style={{
+      background: '#0D1525',
+      border: `1px solid ${GLASS_BORDER}`,
+      borderRadius: 10,
+      padding: '10px 14px',
+      fontSize: '0.75rem',
+    }}>
+      <div style={{ color: 'rgba(232,232,237,0.4)', marginBottom: 6 }}>{label}</div>
+      {payload.map(p => (
+        <div key={p.dataKey} style={{ color: p.color, marginBottom: 2 }}>
+          {p.name}: {p.value != null ? `${p.value}%` : '—'}
+        </div>
+      ))}
+    </div>
+  );
+};
 
 function getStatus(capacity) {
   if (capacity <= 0) return { label: 'CLOSED', color: '#EF4444', bg: 'rgba(239,68,68,0.15)' };
@@ -163,6 +196,92 @@ export default function FlightsView({ onBack }) {
             ))}
           </div>
         )}
+
+        {/* Capacity Over Time chart */}
+        {!loading && (() => {
+          // Build unified date list from all airports
+          const dateSet = new Set();
+          AIRPORTS.forEach(a => {
+            (airportData[a.code]?.daily || []).forEach(d => dateSet.add(d.date));
+          });
+          const dates = [...dateSet].sort();
+
+          const chartData = dates.map(date => {
+            const row = { date: date.slice(5) }; // MM-DD
+            AIRPORTS.forEach(a => {
+              const d = airportData[a.code];
+              if (!d) return;
+              const baseline = d.baselineDailyAvg?.total || 0;
+              const entry = (d.daily || []).find(x => x.date === date);
+              row[a.code] = entry && baseline > 0
+                ? Math.round((entry.total / baseline) * 100)
+                : null;
+            });
+            return row;
+          });
+
+          return (
+            <div style={{
+              background: 'rgba(255,255,255,0.08)',
+              backdropFilter: GLASS_BLUR,
+              border: `1px solid ${GLASS_BORDER}`,
+              borderRadius: GLASS_RADIUS,
+              padding: 24,
+              marginTop: 24,
+            }}>
+              <div style={{
+                fontSize: 11,
+                letterSpacing: 2,
+                color: 'rgba(232,232,237,0.4)',
+                textTransform: 'uppercase',
+                marginBottom: 16,
+                fontWeight: 600,
+              }}>
+                CAPACITY OVER TIME
+              </div>
+              <ResponsiveContainer width="100%" height={280}>
+                <LineChart data={chartData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+                  <CartesianGrid stroke="rgba(255,255,255,0.06)" strokeDasharray="3 3" />
+                  <XAxis
+                    dataKey="date"
+                    tick={{ fill: 'rgba(232,232,237,0.4)', fontSize: 11 }}
+                    axisLine={{ stroke: 'rgba(255,255,255,0.06)' }}
+                    tickLine={false}
+                  />
+                  <YAxis
+                    tick={{ fill: 'rgba(232,232,237,0.4)', fontSize: 11 }}
+                    axisLine={{ stroke: 'rgba(255,255,255,0.06)' }}
+                    tickLine={false}
+                    domain={[0, 'auto']}
+                    tickFormatter={v => `${v}%`}
+                  />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend
+                    wrapperStyle={{ fontSize: 11, color: 'rgba(232,232,237,0.4)' }}
+                  />
+                  <ReferenceLine
+                    y={100}
+                    stroke="rgba(245,158,11,0.4)"
+                    strokeDasharray="4 4"
+                    label={{ value: 'Pre-war baseline', fill: 'rgba(245,158,11,0.4)', fontSize: 10, position: 'insideTopRight' }}
+                  />
+                  {AIRPORTS.map(a => (
+                    <Line
+                      key={a.code}
+                      type="monotone"
+                      dataKey={a.code}
+                      name={a.code}
+                      stroke={AIRPORT_COLORS[a.code]}
+                      strokeWidth={2}
+                      dot={false}
+                      connectNulls
+                    />
+                  ))}
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          );
+        })()}
 
         {/* Source note */}
         <div style={{ textAlign: 'center', marginTop: 32, fontSize: '0.7rem', color: 'rgba(255,255,255,0.25)' }}>
