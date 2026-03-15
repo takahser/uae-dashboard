@@ -171,7 +171,7 @@ const MAP_CONFIGS = {
     bounds: UAE_BOUNDS,
     // Simplified UAE outline for use in the GCC-wide map
     regions: [
-      { name: "UAE", labelLat: 24.0, labelLng: 54.0, pts: [[26.08,56.16],[25.60,56.36],[24.85,56.28],[24.08,56.02],[23.97,55.48],[23.77,55.57],[23.12,55.25],[22.70,55.21],[22.50,55.01],[23.00,52.00],[23.98,51.57],[24.36,51.58],[24.27,51.78],[24.00,52.32],[24.20,52.60],[24.06,53.87],[24.18,53.97],[24.15,54.11],[24.30,54.09],[24.42,54.26],[24.47,54.30],[24.45,54.61],[24.83,54.72],[24.98,55.01],[25.27,55.28],[25.31,55.45],[25.40,55.42],[25.51,55.52],[25.66,55.75],[25.74,55.89],[25.88,56.05],[26.07,56.09],[26.08,56.16]] },
+      { name: "UAE", labelLat: 24.0, labelLng: 54.0, path: gccBorders.country?.uae, pts: [[26.08,56.16],[25.60,56.36],[24.85,56.28],[24.08,56.02],[23.97,55.48],[23.77,55.57],[23.12,55.25],[22.70,55.21],[22.50,55.01],[23.00,52.00],[23.98,51.57],[24.36,51.58],[24.27,51.78],[24.00,52.32],[24.20,52.60],[24.06,53.87],[24.18,53.97],[24.15,54.11],[24.30,54.09],[24.42,54.26],[24.47,54.30],[24.45,54.61],[24.83,54.72],[24.98,55.01],[25.27,55.28],[25.31,55.45],[25.40,55.42],[25.51,55.52],[25.66,55.75],[25.74,55.89],[25.88,56.05],[26.07,56.09],[26.08,56.16]] },
     ],
     title: "LIVE INTEL — UAE IMPACT MAP",
     subtitle: "CONFIRMED STRIKE LOCATIONS",
@@ -209,7 +209,7 @@ const MAP_CONFIGS = {
     title: "LIVE INTEL — QATAR IMPACT MAP",
     subtitle: "CONFIRMED STRIKE LOCATIONS",
     regions: [
-      { name: "QATAR", labelLat: 25.3, labelLng: 51.2, pts: [[26.15,51.25],[26.10,51.58],[25.80,51.61],[25.60,51.53],[25.40,51.58],[25.20,51.56],[24.95,51.40],[24.56,51.28],[24.55,51.03],[24.70,50.85],[24.87,50.82],[25.10,50.80],[25.38,50.76],[25.60,50.82],[25.82,50.87],[26.05,51.02],[26.15,51.25]] },
+      { name: "QATAR", labelLat: 25.3, labelLng: 51.2, path: gccBorders.country?.qatar, pts: [[26.15,51.25],[26.10,51.58],[25.80,51.61],[25.60,51.53],[25.40,51.58],[25.20,51.56],[24.95,51.40],[24.56,51.28],[24.55,51.03],[24.70,50.85],[24.87,50.82],[25.10,50.80],[25.38,50.76],[25.60,50.82],[25.82,50.87],[26.05,51.02],[26.15,51.25]] },
     ],
     impacts: [
       { id: 1, name: "Al Udeid Air Base (direct hit)", type: "drone_hit", date: "28 Feb", casualties: "None", lat: 25.1173, lng: 51.3150, region: "Al Rayyan" },
@@ -233,7 +233,7 @@ const MAP_CONFIGS = {
     title: "LIVE INTEL — KUWAIT IMPACT MAP",
     subtitle: "CONFIRMED STRIKE LOCATIONS",
     regions: [
-      { name: "KUWAIT", labelLat: 29.3, labelLng: 47.5, pts: [[30.10,47.70],[30.00,48.00],[29.86,48.05],[29.36,48.40],[29.10,48.42],[29.00,48.15],[28.75,48.40],[28.55,48.05],[28.55,47.70],[28.55,47.43],[28.67,47.45],[29.10,47.00],[29.35,47.00],[29.35,47.15],[29.57,47.45],[29.80,47.70],[30.10,47.70]] },
+      { name: "KUWAIT", labelLat: 29.3, labelLng: 47.5, path: gccBorders.country?.kuwait, pts: [[30.10,47.70],[30.00,48.00],[29.86,48.05],[29.36,48.40],[29.10,48.42],[29.00,48.15],[28.75,48.40],[28.55,48.05],[28.55,47.70],[28.55,47.43],[28.67,47.45],[29.10,47.00],[29.35,47.00],[29.35,47.15],[29.57,47.45],[29.80,47.70],[30.10,47.70]] },
     ],
     impacts: [
       { id: 1, name: "Ali Al Salem Air Base (vicinity)", type: "drone_hit", date: "1 Mar", casualties: "None", lat: 29.3467, lng: 47.5208, region: "Al Jahra" },
@@ -258,7 +258,7 @@ const MAP_CONFIGS = {
     title: "LIVE INTEL — BAHRAIN IMPACT MAP",
     subtitle: "CONFIRMED STRIKE LOCATIONS",
     regions: [
-      { name: "BAHRAIN", labelLat: 26.05, labelLng: 50.55, pts: [[26.24,50.45],[26.27,50.55],[26.24,50.65],[26.14,50.70],[26.00,50.65],[25.90,50.62],[25.80,50.55],[25.79,50.45],[25.85,50.38],[25.97,50.35],[26.07,50.37],[26.18,50.40],[26.24,50.45]] },
+      { name: "BAHRAIN", labelLat: 26.05, labelLng: 50.55, path: gccBorders.country?.bahrain, pts: [[26.24,50.45],[26.27,50.55],[26.24,50.65],[26.14,50.70],[26.00,50.65],[25.90,50.62],[25.80,50.55],[25.79,50.45],[25.85,50.38],[25.97,50.35],[26.07,50.37],[26.18,50.40],[26.24,50.45]] },
       { name: "MUHARRAQ", labelLat: 26.26, labelLng: 50.62, pts: [[26.28,50.58],[26.30,50.63],[26.27,50.67],[26.22,50.67],[26.20,50.62],[26.22,50.57],[26.28,50.58]] },
     ],
     impacts: [
@@ -284,7 +284,7 @@ const MAP_CONFIGS = {
     title: "LIVE INTEL — ISRAEL IMPACT MAP",
     subtitle: "CONFIRMED STRIKE LOCATIONS",
     regions: [
-      { name: "ISRAEL", labelLat: 31.5, labelLng: 34.9,
+      { name: "ISRAEL", labelLat: 31.5, labelLng: 34.9, path: gccBorders.country?.israel,
         pts: [
           // North — Lebanon border (Rosh HaNikra to Mt Hermon area)
           [33.08,35.10],[33.10,35.20],[33.25,35.57],[33.36,35.63],[33.28,35.78],
@@ -338,8 +338,8 @@ const GCC_GEOGRAPHY = {
       { id: "sa-d4", name: "Yanbu Desal", type: "Desalination", siteType: "desal", lat: 24.0890, lng: 38.0650 },
       { id: "sa-d5", name: "Al Khobar Desal", type: "Desalination", siteType: "desal", lat: 26.2800, lng: 50.2100 },
     ],
-    path: gccBorders.saudiArabia.path,
-    pts: gccBorders.saudiArabia.pts,
+    path: gccBorders.gcc.saudiArabia.path,
+    pts: gccBorders.gcc.saudiArabia.pts,
   },
   oman: {
     name: "OMAN", color: "#FFFFFF06", labelLat: 21.5, labelLng: 57.5,
@@ -353,8 +353,8 @@ const GCC_GEOGRAPHY = {
       { id: "om-d3", name: "Sur Desal", type: "Desalination", siteType: "desal", lat: 22.5667, lng: 59.5289 },
       { id: "om-d4", name: "Ghubrah Desal (Muscat)", type: "Desalination", siteType: "desal", lat: 23.6031, lng: 58.4164 },
     ],
-    path: gccBorders.oman.path,
-    pts: gccBorders.oman.pts,
+    path: gccBorders.gcc.oman.path,
+    pts: gccBorders.gcc.oman.pts,
   },
   iran: {
     name: "IRAN", color: "#FFFFFF08", labelLat: 33.0, labelLng: 53.0,
@@ -365,74 +365,74 @@ const GCC_GEOGRAPHY = {
       { id: "ir-d4", name: "Qeshm Island Desal", type: "Desalination", siteType: "desal", lat: 26.8330, lng: 56.0000 },
       { id: "ir-d5", name: "Chabahar Desal", type: "Desalination", siteType: "desal", lat: 25.4500, lng: 60.3833 },
     ],
-    path: gccBorders.iran.path,
-    pts: gccBorders.iran.pts,
-    multiPolygon: gccBorders.iran.multiPolygon,
+    path: gccBorders.gcc.iran.path,
+    pts: gccBorders.gcc.iran.pts,
+    multiPolygon: gccBorders.gcc.iran.multiPolygon,
   },
   iraq: {
     name: "IRAQ", color: "#FFFFFF06", labelLat: 33.5, labelLng: 44.0,
-    path: gccBorders.iraq.path,
-    pts: gccBorders.iraq.pts,
+    path: gccBorders.gcc.iraq.path,
+    pts: gccBorders.gcc.iraq.pts,
   },
   yemen: {
     name: "YEMEN", color: "#FFFFFF06", labelLat: 15.5, labelLng: 47.0,
-    path: gccBorders.yemen.path,
-    pts: gccBorders.yemen.pts,
+    path: gccBorders.gcc.yemen.path,
+    pts: gccBorders.gcc.yemen.pts,
   },
   jordan: {
     name: "JORDAN", color: "#FFFFFF06", labelLat: 31.2, labelLng: 36.5,
-    path: gccBorders.jordan.path,
-    pts: gccBorders.jordan.pts,
+    path: gccBorders.gcc.jordan.path,
+    pts: gccBorders.gcc.jordan.pts,
   },
   syria: {
     name: "SYRIA", color: "#FFFFFF06", labelLat: 35.0, labelLng: 38.0,
-    path: gccBorders.syria.path,
-    pts: gccBorders.syria.pts,
+    path: gccBorders.gcc.syria.path,
+    pts: gccBorders.gcc.syria.pts,
   },
   lebanon: {
     name: "", color: "#FFFFFF06",
-    path: gccBorders.lebanon.path,
-    pts: gccBorders.lebanon.pts,
+    path: gccBorders.gcc.lebanon.path,
+    pts: gccBorders.gcc.lebanon.pts,
   },
   israel: {
     name: "", color: "#FFFFFF06",
-    path: gccBorders.israel.path,
-    pts: gccBorders.israel.pts,
+    path: gccBorders.gcc.israel.path,
+    pts: gccBorders.gcc.israel.pts,
   },
   turkey: {
     name: "TURKEY", color: "#FFFFFF06", labelLat: 39.5, labelLng: 37.0,
-    path: gccBorders.turkey.path,
-    pts: gccBorders.turkey.pts,
+    path: gccBorders.gcc.turkey.path,
+    pts: gccBorders.gcc.turkey.pts,
   },
   egypt: {
     name: "EGYPT", color: "#FFFFFF06", labelLat: 28.0, labelLng: 34.0,
-    path: gccBorders.egypt.path,
-    pts: gccBorders.egypt.pts,
+    path: gccBorders.gcc.egypt.path,
+    pts: gccBorders.gcc.egypt.pts,
   },
   sudan: {
     name: "SUDAN", color: "#FFFFFF06",
-    path: gccBorders.sudan.path,
-    pts: gccBorders.sudan.pts,
+    path: gccBorders.gcc.sudan.path,
+    pts: gccBorders.gcc.sudan.pts,
   },
   ethiopia: {
     name: "", color: "#FFFFFF06",
-    path: gccBorders.ethiopia.path,
-    pts: gccBorders.ethiopia.pts,
+    path: gccBorders.gcc.ethiopia.path,
+    pts: gccBorders.gcc.ethiopia.pts,
   },
   somalia: {
     name: "SOMALIA", color: "#FFFFFF06",
-    path: gccBorders.somalia.path,
-    pts: gccBorders.somalia.pts,
+    path: gccBorders.gcc.somalia.path,
+    pts: gccBorders.gcc.somalia.pts,
   },
   djibouti: {
     name: "", color: "#FFFFFF06",
-    path: gccBorders.djibouti.path,
-    pts: gccBorders.djibouti.pts,
+    path: gccBorders.gcc.djibouti.path,
+    pts: gccBorders.gcc.djibouti.pts,
   },
   eritrea: {
     name: "", color: "#FFFFFF06",
-    path: gccBorders.eritrea.path,
-    pts: gccBorders.eritrea.pts,
+    path: gccBorders.gcc.eritrea.path,
+    pts: gccBorders.gcc.eritrea.pts,
   },
 };
 const GCC_COVERED_COUNTRIES = new Set(["UAE", "QATAR", "KUWAIT", "BAHRAIN"]);
@@ -1257,10 +1257,10 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
             : [];
           const regions = isAllGCC ? allGCCRegions : (selectedCountry === "uae" ? UAE_EMIRATES : (mapConf.regions || []));
           const isUAE = selectedCountry === "uae" && !isAllGCC;
-          // Generate region paths dynamically for non-UAE
+          // Generate region paths dynamically for non-UAE (use pre-computed path if available)
           const regionPaths = isUAE ? regions : regions.map(r => ({
             ...r,
-            path: "M" + r.pts.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z",
+            path: r.path || ("M" + r.pts.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z"),
           }));
           const bnd = mapConf.bounds;
           const lngTicks = [];
