@@ -6,19 +6,19 @@
     }
   },
   "cumulative": {
-    "ballisticDetected": 298,
-    "ballisticIntercepted": 298,
+    "ballisticDetected": 304,
+    "ballisticIntercepted": 303,
     "ballisticSea": 20,
-    "ballisticImpacted": 2,
+    "ballisticImpacted": 3,
     "cruiseDetected": 15,
     "cruiseIntercepted": 15,
     "cruiseSea": 0,
     "cruiseImpacted": 0,
-    "dronesDetected": 1586,
-    "dronesIntercepted": 1502,
+    "dronesDetected": 1607,
+    "dronesIntercepted": 1523,
     "dronesSea": 0,
     "dronesImpacted": 84,
-    "killed": 6,
+    "killed": 7,
     "injured": 121
   },
   "daily": [
@@ -250,6 +250,21 @@
       "notes": "UAE MoD tweet @modgovae Mar 15 2026",
       "source": "https://x.com/modgovae/status/2033146337772863665",
       "total": 10
+    },
+    {
+      "date": "2026-03-16",
+      "label": "16 Mar",
+      "ballisticDetected": 6,
+      "ballisticIntercepted": 5,
+      "ballisticSea": 0,
+      "ballisticImpacted": 1,
+      "cruiseDetected": 0,
+      "cruiseIntercepted": 0,
+      "dronesDetected": 21,
+      "dronesIntercepted": 21,
+      "dronesImpacted": 0,
+      "total": 27,
+      "notes": "1 killed — missile impact on vehicle in Al Bahia, Abu Dhabi (Khaleej Times)"
     }
   ]
 }
