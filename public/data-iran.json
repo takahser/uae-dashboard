@@ -1,19 +1,19 @@
 {
-  "lastUpdated": "2026-03-10T18:00:00Z",
+  "lastUpdated": "2026-03-16T18:00:00Z",
   "type": "strikesReceived",
   "cumulative": {
-    "totalStrikes": 4105,
-    "sorties": 1660,
-    "killed": 1402,
-    "civilianKilled": 1050,
-    "childrenKilled": 190,
-    "militaryKilled": 2170,
-    "injured": 4680,
+    "totalStrikes": 5500,
+    "sorties": 2600,
+    "killed": 1444,
+    "civilianKilled": null,
+    "childrenKilled": null,
+    "militaryKilled": null,
+    "injured": 18551,
     "targetsDestroyed": 315,
     "launchersDisabled": 310,
     "aircraftDestroyed": 46,
-    "navalVesselsDestroyed": 12,
-    "notes": "US Operation Epic Fury + Israeli Operation Roaring Lion"
+    "navalVesselsDestroyed": 60,
+    "notes": "US Operation Epic Fury + Israeli Operation Roaring Lion. As of Mar 16: 1,444 killed, 18,551 injured (Al Jazeera). US: 5,500+ targets hit (LWJ Mar 13). Israeli: 2,600 sorties, ~6,500 munitions (LWJ). 60+ naval vessels destroyed (LWJ)."
   },
   "daily": [
     {
@@ -92,6 +92,48 @@
       "strikes": 45,
       "killed": 30,
       "events": "Reduced tempo as diplomatic channels open. Israeli strikes focus on remaining air defense radars. Iran's acting FM requests UN Security Council emergency session."
+    },
+    {
+      "date": "2026-03-11",
+      "label": "11 Mar",
+      "strikes": 35,
+      "killed": null,
+      "events": "Continued US/Israeli strikes. LWJ reports US has hit 5,500+ targets total. Iran ballistic launch rate dropped 92% (480→40/day). Drone launch rate dropped from 720→60/day."
+    },
+    {
+      "date": "2026-03-12",
+      "label": "12 Mar",
+      "strikes": 35,
+      "killed": null,
+      "events": "Dozens of airstrikes target Iran-backed militias across Iraq. 32 PMF HQ strikes since Feb 28 (LWJ). 10 security personnel killed in Tehran checkpoint attacks (Mar 11, per LWJ)."
+    },
+    {
+      "date": "2026-03-13",
+      "label": "13 Mar",
+      "strikes": 30,
+      "killed": null,
+      "events": "Israel shifts to hyperlocal targeting — repression units and regime figures in Tehran. IDF assessment: 4,000-5,000 Iranian soldiers/commanders killed total. 5 Iranians arrested for filming strikes. Source: LWJ."
+    },
+    {
+      "date": "2026-03-14",
+      "label": "14 Mar",
+      "strikes": null,
+      "killed": 15,
+      "events": "15 killed in Isfahan industrial city strike. 20 arrested in NW Iran for alleged Israel cooperation. 10,000+ residential homes damaged/destroyed in Tehran. Source: Al Jazeera Day 16."
+    },
+    {
+      "date": "2026-03-15",
+      "label": "15 Mar",
+      "strikes": null,
+      "killed": null,
+      "events": "Cumulative: 1,400+ killed. US Defense Sec claims 15,000 'enemy targets' struck (1,000+ daily). Source: Al Jazeera Day 16."
+    },
+    {
+      "date": "2026-03-16",
+      "label": "16 Mar",
+      "strikes": null,
+      "killed": null,
+      "events": "Cumulative: 1,444 killed, 18,551 injured (Al Jazeera Day 17). Iran says missiles are 'from a decade ago' — newer production not yet deployed. Diplomatic channels active."
     }
   ],
   "keyTargets": [

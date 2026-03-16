@@ -2,9 +2,37 @@
   "country": "saudi_arabia",
   "flag": "\ud83c\uddf8\ud83c\udde6",
   "capital": "Riyadh",
-  "lastUpdated": "2026-03-12",
-  "source": "@alarabiya (Al Arabiya)",
-  "daily": [],
+  "lastUpdated": "2026-03-16",
+  "source": "@alarabiya (Al Arabiya), Al Jazeera, LWJ",
+  "daily": [
+    {
+      "date": "2026-03-13",
+      "label": "13 Mar",
+      "dronesDetected": 38,
+      "dronesIntercepted": 38,
+      "ballisticDetected": 1,
+      "ballisticIntercepted": 1,
+      "events": "10 drones intercepted over eastern region + 28 additional destroyed. 1 ballistic intercepted toward al-Kharj late Friday. 1 drone targeted Riyadh Diplomatic Quarter (intercepted). Source: Al Jazeera Day 14 + Mar 13 article."
+    },
+    {
+      "date": "2026-03-14",
+      "label": "14 Mar",
+      "dronesDetected": 6,
+      "dronesIntercepted": 6,
+      "ballisticDetected": 6,
+      "ballisticIntercepted": 6,
+      "killed": 2,
+      "injured": 12,
+      "events": "6 ballistic missiles intercepted toward al-Kharj. 4 drones intercepted in Riyadh metro, 2 in Eastern Province. 2 killed, 12 injured. 5 US refueling planes damaged at airbase (WSJ). Source: Al Jazeera Day 16 + Mar 14."
+    },
+    {
+      "date": "2026-03-16",
+      "label": "16 Mar",
+      "dronesDetected": 37,
+      "dronesIntercepted": 37,
+      "events": "37 drones intercepted in east on Monday. Source: Al Jazeera Day 17."
+    }
+  ],
   "cumulative": {
     "ballisticDetected": null,
     "ballisticIntercepted": null,
@@ -13,8 +41,8 @@
     "dronesDetected": null,
     "dronesIntercepted": null,
     "totalStrikes": 287,
-    "killed": null,
-    "injured": null
+    "killed": 2,
+    "injured": 12
   },
-  "note": "Daily breakdown pending. Cumulative: 176 strikes Feb 28\u2013Mar 11 (Source: @alarabiya)"
+  "note": "Cumulative totalStrikes: 287 (LWJ, Mar 12). Mar 13-16 daily data from Al Jazeera. 2 killed, 12 injured reported Mar 14. Daily drone/missile breakdowns incomplete — numbers from wrap-up articles with overlapping date ranges."
 }

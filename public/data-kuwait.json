@@ -1,12 +1,12 @@
 {
-  "lastUpdated": "2026-03-12",
+  "lastUpdated": "2026-03-14",
   "sources": {
     "MOD_KW": {
       "lastTweetId": null
     }
   },
   "cumulative": {
-    "ballisticDetected": 226,
+    "ballisticDetected": 228,
     "ballisticIntercepted": 226,
     "ballisticSea": null,
     "ballisticImpacted": null,
@@ -14,12 +14,12 @@
     "cruiseIntercepted": null,
     "cruiseSea": null,
     "cruiseImpacted": null,
-    "dronesDetected": 414,
-    "dronesIntercepted": 414,
+    "dronesDetected": 421,
+    "dronesIntercepted": 417,
     "dronesSea": null,
-    "dronesImpacted": 2,
+    "dronesImpacted": 4,
     "killed": 1,
-    "injured": 34
+    "injured": 37
   },
   "daily": [
     {
@@ -147,6 +147,21 @@
       "dronesIntercepted": 15,
       "dronesImpacted": 0,
       "total": 19
+    },
+    {
+      "date": "2026-03-14",
+      "label": "13–14 Mar",
+      "ballisticDetected": 2,
+      "ballisticIntercepted": 0,
+      "ballisticSea": 0,
+      "ballisticImpacted": 2,
+      "cruiseDetected": 0,
+      "cruiseIntercepted": 0,
+      "dronesDetected": 7,
+      "dronesIntercepted": 3,
+      "dronesImpacted": 2,
+      "total": 9,
+      "events": "7 drones detected (3 intercepted, 2 fell outside zone, 2 struck Ahmed al-Jaber Air Base). 2 missiles struck al-Jaber perimeter. 3 soldiers minor injuries. Drones also hit Kuwait Intl Airport radar. Source: Al Jazeera Mar 14."
     }
   ]
 }
