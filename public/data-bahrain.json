@@ -1,6 +1,6 @@
 {
   "country": "bahrain",
-  "flag": "🇧🇭",
+  "flag": "\ud83c\udde7\ud83c\udded",
   "capital": "Manama",
   "lastUpdated": "2026-03-16",
   "source": "@bdf_bahrain (Bahrain Defence Force)",
@@ -8,64 +8,74 @@
     {
       "date": "2026-03-12",
       "label": "12 Mar",
-      "ballisticDetected": null,
-      "ballisticIntercepted": null,
-      "dronesDetected": null,
-      "dronesIntercepted": null,
-      "notes": "Attack confirmed by @BDF_Bahrain — count in image attachment, not parsed",
-      "total": null
+      "ballisticDetected": 0,
+      "ballisticIntercepted": 0,
+      "ballisticImpacted": 0,
+      "dronesDetected": 0,
+      "dronesIntercepted": 0,
+      "dronesImpacted": 0,
+      "total": 0,
+      "notes": "BDF cumulative to 2026-03-12: 190 drones + 114 missiles intercepted"
     },
     {
       "date": "2026-03-13",
       "label": "13 Mar",
-      "ballisticDetected": null,
-      "ballisticIntercepted": null,
-      "dronesDetected": null,
-      "dronesIntercepted": null,
-      "notes": "Attack confirmed by @BDF_Bahrain — count in image attachment, not parsed",
-      "total": null
+      "ballisticDetected": 7,
+      "ballisticIntercepted": 7,
+      "ballisticImpacted": 0,
+      "dronesDetected": 3,
+      "dronesIntercepted": 3,
+      "dronesImpacted": 0,
+      "total": 10,
+      "notes": "BDF cumulative to 2026-03-13: 193 drones + 121 missiles intercepted"
     },
     {
       "date": "2026-03-14",
       "label": "14 Mar",
-      "ballisticDetected": null,
-      "ballisticIntercepted": null,
-      "dronesDetected": null,
-      "dronesIntercepted": null,
-      "notes": "Attack confirmed by @BDF_Bahrain — count in image attachment, not parsed",
-      "total": null
+      "ballisticDetected": 4,
+      "ballisticIntercepted": 4,
+      "ballisticImpacted": 0,
+      "dronesDetected": 10,
+      "dronesIntercepted": 10,
+      "dronesImpacted": 0,
+      "total": 14,
+      "notes": "BDF cumulative to 2026-03-14: 203 drones + 125 missiles intercepted"
     },
     {
       "date": "2026-03-15",
       "label": "15 Mar",
-      "ballisticDetected": null,
-      "ballisticIntercepted": null,
-      "dronesDetected": null,
-      "dronesIntercepted": null,
-      "notes": "Attack confirmed by @BDF_Bahrain — count in image attachment, not parsed",
-      "total": null
+      "ballisticDetected": 0,
+      "ballisticIntercepted": 0,
+      "ballisticImpacted": 0,
+      "dronesDetected": 9,
+      "dronesIntercepted": 9,
+      "dronesImpacted": 0,
+      "total": 9,
+      "notes": "BDF cumulative to 2026-03-15: 212 drones + 125 missiles intercepted"
     },
     {
       "date": "2026-03-16",
       "label": "16 Mar",
-      "ballisticDetected": null,
-      "ballisticIntercepted": null,
-      "dronesDetected": null,
-      "dronesIntercepted": null,
-      "notes": "Attack confirmed by @BDF_Bahrain — count in image attachment, not parsed",
-      "total": null
+      "ballisticDetected": 4,
+      "ballisticIntercepted": 4,
+      "ballisticImpacted": 0,
+      "dronesDetected": 3,
+      "dronesIntercepted": 3,
+      "dronesImpacted": 0,
+      "total": 7,
+      "notes": "BDF cumulative to 2026-03-16: 215 drones + 129 missiles intercepted"
     }
   ],
   "cumulative": {
-    "ballisticDetected": 114,
-    "ballisticIntercepted": 114,
+    "ballisticDetected": 129,
+    "ballisticIntercepted": 129,
     "ballisticImpacted": 0,
-    "dronesDetected": 190,
-    "dronesIntercepted": 189,
+    "dronesDetected": 215,
+    "dronesIntercepted": 214,
     "dronesImpacted": 1,
-    "totalStrikes": 304,
+    "totalStrikes": 344,
     "killed": null,
     "injured": null
   },
-  "note": "Daily breakdown pending. Cumulative: 358 strikes Feb 28–Mar 11 (Source: Lucas Tomlinson/Fox News via @bdf_bahrain)"
+  "note": "Daily breakdown pending. Cumulative: 358 strikes Feb 28\u2013Mar 11 (Source: Lucas Tomlinson/Fox News via @bdf_bahrain)"
 }
