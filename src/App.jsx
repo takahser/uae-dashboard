@@ -190,6 +190,8 @@ const MAP_CONFIGS = {
       { id: 12, name: "Barsha area (debris on vehicle)", type: "debris", date: "7 Mar", casualties: "1 killed", lat: 25.1050, lng: 55.2000, region: "Dubai" },
       { id: 13, name: "Al Minhad Air Base", type: "drone_hit", date: "28 Feb", casualties: "None", lat: 25.0267, lng: 55.3696, region: "Dubai" },
       { id: 14, name: "Corniche / Bateen area", type: "debris", date: "28 Feb", casualties: "None", lat: 24.4650, lng: 54.3300, region: "Abu Dhabi" },
+      { id: 15, name: "DXB T3 Fuel Depot", type: "drone_hit", date: "16 Mar", casualties: "Fire, 65 flights diverted", lat: 25.2528, lng: 55.3644, region: "Dubai" },
+      { id: 16, name: "Al Bahia (vehicle)", type: "drone_hit", date: "16 Mar", casualties: "1 killed", lat: 24.5200, lng: 54.4000, region: "Abu Dhabi" },
     ],
     strategicSites: [
       { id: "s1", name: "Al Dhafra Air Base", type: "US/UAE Air Base", lat: 24.2482, lng: 54.5477 },
