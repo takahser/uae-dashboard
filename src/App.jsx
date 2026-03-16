@@ -1307,13 +1307,17 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
               ]
             : (mapConf.strategicSites || []);
           // Merge all regions for All GCC using raw pts re-projected to GCC bounds
+          // Exclude 'saudi' and 'oman' — already rendered by GCC_GEOGRAPHY background layer
+          const GCC_GEOGRAPHY_COVERED = new Set(['saudi', 'oman']);
           const allGCCRegions = isAllGCC
-            ? Object.values(MAP_CONFIGS).flatMap(mc =>
-                (mc.regions || []).map(r => ({
-                  ...r,
-                  path: "M" + r.pts.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z",
-                }))
-              )
+            ? Object.entries(MAP_CONFIGS)
+                .filter(([key]) => !GCC_GEOGRAPHY_COVERED.has(key))
+                .flatMap(([, mc]) =>
+                  (mc.regions || []).map(r => ({
+                    ...r,
+                    path: "M" + r.pts.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z",
+                  }))
+                )
             : [];
           const regions = isAllGCC ? allGCCRegions : (selectedCountry === "uae" ? UAE_EMIRATES : (mapConf.regions || []));
           const isUAE = selectedCountry === "uae" && !isAllGCC;
