@@ -286,18 +286,24 @@ const MAP_CONFIGS = {
     regions: [
       { name: "ISRAEL", labelLat: 31.5, labelLng: 34.9, path: gccBorders.country?.israel,
         pts: [
-          // North — Lebanon border (Rosh HaNikra to Mt Hermon area)
-          [33.08,35.10],[33.10,35.20],[33.25,35.57],[33.36,35.63],[33.28,35.78],
-          // Golan Heights east border
-          [33.10,35.85],[32.72,35.78],[32.40,35.77],[32.10,35.55],
-          // Jordan River valley / Jordan border
-          [31.90,35.47],[31.50,35.55],[31.10,35.48],[30.90,35.35],
-          // Negev / Eilat south tip
-          [29.56,34.92],[29.50,34.97],
-          // Egypt border (Sinai) going north
-          [30.00,34.27],[30.60,34.28],[31.00,34.35],
+          // NW — Rosh HaNikra (Mediterranean coast start)
+          [33.07,35.10],
+          // Lebanon border eastward
+          [33.08,35.18],[33.16,35.37],[33.27,35.56],[33.36,35.63],
+          // NE corner — Golan Heights
+          [33.24,35.78],[33.10,35.85],
+          // Golan east border south
+          [32.90,35.83],[32.70,35.79],[32.45,35.77],
+          // Jordan River valley
+          [32.20,35.62],[32.10,35.55],
+          // Jordan border south
+          [31.88,35.47],[31.50,35.55],[31.10,35.48],[30.90,35.35],[30.32,35.18],
+          // Eilat south tip
+          [29.56,34.97],
+          // Egypt / Sinai border NW
+          [29.50,34.97],[30.05,34.27],[30.87,34.24],[31.22,34.26],
           // Mediterranean coast north
-          [31.50,34.48],[31.80,34.60],[32.08,34.76],[32.40,34.85],[32.80,34.96],[33.08,35.10],
+          [31.50,34.48],[31.80,34.60],[32.08,34.76],[32.40,34.85],[32.81,34.95],[33.07,35.10],
         ]
       },
     ],
@@ -1309,10 +1315,10 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
             : [];
           const regions = isAllGCC ? allGCCRegions : (selectedCountry === "uae" ? UAE_EMIRATES : (mapConf.regions || []));
           const isUAE = selectedCountry === "uae" && !isAllGCC;
-          // Generate region paths dynamically for non-UAE (use pre-computed path if available)
+          // Generate region paths dynamically for non-UAE (always use pts with per-country projection)
           const regionPaths = isUAE ? regions : regions.map(r => ({
             ...r,
-            path: r.path || ("M" + r.pts.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z"),
+            path: "M" + r.pts.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z",
           }));
           const bnd = mapConf.bounds;
           const lngTicks = [];
