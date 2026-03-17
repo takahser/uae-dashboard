@@ -282,7 +282,7 @@ const MAP_CONFIGS = {
     ],
   },
   israel: {
-    bounds: { latMin: 29.3, latMax: 33.5, lngMin: 34.1, lngMax: 36.1 },
+    bounds: { latMin: 29.3, latMax: 33.5, lngMin: 33.5, lngMax: 36.8 },
     title: "LIVE INTEL — ISRAEL IMPACT MAP",
     subtitle: "CONFIRMED STRIKE LOCATIONS",
     regions: [
@@ -369,7 +369,7 @@ const MAP_CONFIGS = {
 const GCC_GEOGRAPHY = {
   // Sea background: the entire SVG is water-colored; land polygons are drawn on top
   saudiArabia: {
-    name: "SAUDI ARABIA", color: "#FFFFFF06", labelLat: 24.5, labelLng: 45.0,
+    name: "SAUDI ARABIA", color: "#FFFFFF12", labelLat: 24.5, labelLng: 45.0,
     strategicSites: [
       { id: "sa-s1", name: "Prince Sultan Air Base", type: "US Air Base", lat: 24.0625, lng: 47.5806 },
       { id: "sa-s3", name: "US Embassy Riyadh", type: "US Embassy", lat: 24.7468, lng: 46.6527 },
@@ -387,7 +387,7 @@ const GCC_GEOGRAPHY = {
     pts: gccBorders.gcc.saudiArabia.pts,
   },
   oman: {
-    name: "OMAN", color: "#FFFFFF06", labelLat: 21.5, labelLng: 57.5,
+    name: "OMAN", color: "#FFFFFF12", labelLat: 21.5, labelLng: 57.5,
     strategicSites: [
       { id: "om-s1", name: "Thumrait Air Base", type: "US/Oman Air Base", lat: 17.6660, lng: 54.0246 },
       { id: "om-s2", name: "Al Musannah Air Base", type: "US/Oman Air Base", lat: 23.6406, lng: 57.4936 },
@@ -402,7 +402,7 @@ const GCC_GEOGRAPHY = {
     pts: gccBorders.gcc.oman.pts,
   },
   iran: {
-    name: "IRAN", color: "#FFFFFF08", labelLat: 33.0, labelLng: 53.0,
+    name: "IRAN", color: "#FFFFFF12", labelLat: 33.0, labelLng: 53.0,
     strategicSites: [
       { id: "ir-d1", name: "Bandar Abbas Desal", type: "Desalination", siteType: "desal", lat: 27.1837, lng: 56.2774 },
       { id: "ir-d2", name: "Bushehr Desal", type: "Desalination", siteType: "desal", lat: 28.9684, lng: 50.8385 },
@@ -420,7 +420,7 @@ const GCC_GEOGRAPHY = {
     pts: gccBorders.gcc.iraq.pts,
   },
   yemen: {
-    name: "YEMEN", color: "#FFFFFF06", labelLat: 15.5, labelLng: 47.0,
+    name: "YEMEN", color: "#FFFFFF12", labelLat: 15.5, labelLng: 47.0,
     path: gccBorders.gcc.yemen.path,
     pts: gccBorders.gcc.yemen.pts,
   },
@@ -1403,14 +1403,18 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
 
                 {/* Background geography (All GCC only): surrounding countries in grey/muted */}
                 {isAllGCC && Object.entries(GCC_GEOGRAPHY).map(([key, geo]) => {
-                  const isMultiPoly = geo.pts && geo.pts.length > 0 && Array.isArray(geo.pts[0][0]);
-                  const geoPath = geo.pts
-                    ? (isMultiPoly
-                        ? geo.pts.map(ring => "M" + ring.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z").join(" ")
-                        : "M" + geo.pts.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z")
-                    : geo.path;
+                  // Prefer pre-rendered path (computed for GCC bounds) for reliability;
+                  // fall back to dynamic pts projection for entries without a path
+                  const geoPath = geo.path
+                    ? geo.path
+                    : (() => {
+                        const isMultiPoly = geo.pts && geo.pts.length > 0 && Array.isArray(geo.pts[0][0]);
+                        return isMultiPoly
+                          ? geo.pts.map(ring => "M" + ring.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z").join(" ")
+                          : "M" + geo.pts.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z";
+                      })();
                   return <g key={key}>
-                    <path d={geoPath} fill={geo.color} stroke="#FFFFFF22" strokeWidth="0.8" opacity="0.95" />
+                    <path d={geoPath} fill={geo.color} stroke="#FFFFFF44" strokeWidth="1" opacity="0.95" />
                     {geo.name && geo.labelLat && (() => {
                       const { x, y } = proj(geo.labelLat, geo.labelLng);
                       return <text x={x} y={y} fill="#E8E8ED33" fontSize={key === "iran" ? "10" : "8"} fontFamily="monospace" textAnchor="middle" fontWeight="600" letterSpacing="2">{geo.name}</text>;
