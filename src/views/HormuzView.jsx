@@ -2,6 +2,9 @@ import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ReferenceLine } fro
 import { Tooltip as RTooltip, Legend } from 'recharts';
 import { useState } from 'react';
 import data from '../data/hormuz.json';
+import MarketPanel from '../components/MarketPanel';
+import MarketBadge, { SpreadBadge } from '../components/MarketBadge';
+import { useMarketData } from '../hooks/useMarketData';
 
 const BG = '#050B1A';
 const CARD_BG = 'rgba(255,255,255,0.08)';
@@ -93,7 +96,7 @@ function makePath(pts) {
   return 'M' + pts.map(([lat, lng]) => { const p = toSVG(lat, lng); return `${p.x},${p.y}`; }).join(' L') + ' Z';
 }
 
-function HormuzMap() {
+function HormuzMap({ marketData }) {
   const [hover, setHover] = useState(null);
 
   const chokeA = toSVG(26.35, 56.25);
@@ -187,6 +190,24 @@ function HormuzMap() {
             );
           })}
 
+          {/* Market overlay badges */}
+          {marketData && (
+            <>
+              <MarketBadge
+                x={SVG_W * 0.52} y={SVG_H * 0.40}
+                label="BRENT CRUDE"
+                price={marketData['BZ=F']?.price}
+                change={marketData['BZ=F']?.change}
+                changePercent={marketData['BZ=F']?.changePercent}
+              />
+              <SpreadBadge
+                x={SVG_W * 0.35} y={SVG_H * 0.18}
+                brentPrice={marketData['BZ=F']?.price}
+                wtiPrice={marketData['CL=F']?.price}
+              />
+            </>
+          )}
+
           {/* Hover tooltip */}
           {hover && (
             <g>
@@ -224,6 +245,7 @@ const FACTS = [
 export default function HormuzView({ onBack }) {
   const chartData = data.map((d) => ({ ...d, label: d.date.slice(5) }));
   const status = getStraitStatus(today.ships);
+  const { data: marketData, error: marketError, lastUpdated, loading: marketLoading, refetch } = useMarketData();
 
   return (
     <div style={{ minHeight: '100vh', background: BG, color: TEXT, fontFamily: DM_SANS, padding: '40px 20px', position: 'relative', overflowX: 'hidden' }}>
@@ -279,7 +301,16 @@ export default function HormuzView({ onBack }) {
         </div>
 
         {/* Hormuz Map */}
-        <HormuzMap />
+        <HormuzMap marketData={marketData} />
+
+        {/* Market Impact Panel */}
+        <MarketPanel
+          data={marketData}
+          error={marketError}
+          lastUpdated={lastUpdated}
+          loading={marketLoading}
+          refetch={refetch}
+        />
 
         {/* Chokepoint Facts */}
         <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: `1px solid ${GLASS_BORDER}`, borderRadius: GLASS_RADIUS, padding: 20, marginBottom: 32 }}>
