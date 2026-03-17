@@ -1403,8 +1403,11 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
 
                 {/* Background geography (All GCC only): surrounding countries in grey/muted */}
                 {isAllGCC && Object.entries(GCC_GEOGRAPHY).map(([key, geo]) => {
+                  const isMultiPoly = geo.pts && geo.pts.length > 0 && Array.isArray(geo.pts[0][0]);
                   const geoPath = geo.pts
-                    ? "M" + geo.pts.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z"
+                    ? (isMultiPoly
+                        ? geo.pts.map(ring => "M" + ring.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z").join(" ")
+                        : "M" + geo.pts.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z")
                     : geo.path;
                   return <g key={key}>
                     <path d={geoPath} fill={geo.color} stroke="#FFFFFF22" strokeWidth="0.8" opacity="0.95" />

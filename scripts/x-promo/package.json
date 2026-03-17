@@ -1,0 +1,15 @@
+{
+  "name": "x-promo",
+  "version": "1.0.0",
+  "description": "ww3live.xyz Twitter/X promotion system",
+  "type": "module",
+  "scripts": {
+    "generate": "node generate-tweets.js",
+    "dry-run": "node generate-tweets.js --dry-run",
+    "infographic": "node generate-infographic.js"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0",
+    "node-fetch": "^3.3.0"
+  }
+}
