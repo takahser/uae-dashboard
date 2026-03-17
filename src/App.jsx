@@ -143,8 +143,8 @@ const SUBTEXT = "#E8E8ED88";
 
 // Live Intel map constants
 const MAP_BG = "#050B1A";
-const MAP_LAND = "#FFFFFF06";
-const MAP_BORDER_COLOR = "#FFFFFF15";
+const MAP_LAND = "#FFFFFF14";
+const MAP_BORDER_COLOR = "#FFFFFF50";
 const MAP_GRID = "#FFFFFF08";
 const DRONE_HIT = "#F87171";
 const DEBRIS_HIT = "#F59E0B";
@@ -1424,7 +1424,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
 
                 {/* Covered country regions (GCC members) */}
                 {regionPaths.map((e, i) => (
-                  <path key={`${e.name}-${i}`} d={e.path} fill={isAllGCC ? "#FFFFFF0A" : MAP_LAND} stroke={isAllGCC ? "#FFFFFF22" : MAP_BORDER_COLOR} strokeWidth={isAllGCC ? "1.5" : "1.2"} opacity="0.95" />
+                  <path key={`${e.name}-${i}`} d={e.path} fill={isAllGCC ? "#FFFFFF10" : MAP_LAND} stroke={isAllGCC ? "#FFFFFF40" : MAP_BORDER_COLOR} strokeWidth={isAllGCC ? "1.5" : "1.2"} opacity="0.95" />
                 ))}
 
                 {/* Region labels */}
