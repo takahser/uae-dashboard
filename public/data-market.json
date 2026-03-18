@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-18T18:46:57Z",
+  "updated": "2026-03-18T18:50:33Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
@@ -67,13 +67,13 @@
     },
     "DUBAI": {
       "symbol": "DUBAI",
-      "name": "Dubai Fateh Crude",
-      "price": 3.64,
-      "change": -0.15,
-      "changePercent": -3.96,
-      "previousClose": 3.79,
+      "name": "Dubai Crude (Platts)",
+      "price": 122.84,
+      "change": -7.05,
+      "changePercent": -5.43,
+      "previousClose": 129.89,
       "note": "Physical Gulf benchmark",
-      "source": "EIA (updated 2026-03-16)"
+      "source": "investing.com (Platts)"
     }
   },
   "history": {
@@ -999,10 +999,6 @@
     ],
     "DUBAI": [
       {
-        "date": "2026-01-30",
-        "close": 2.28
-      },
-      {
         "date": "2026-02-02",
         "close": 2.08
       },
@@ -1121,6 +1117,10 @@
       {
         "date": "2026-03-16",
         "close": 3.64
+      },
+      {
+        "date": "2026-03-18",
+        "close": 122.84
       }
     ]
   }
