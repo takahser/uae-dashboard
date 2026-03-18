@@ -573,9 +573,9 @@ function buildDerivedData(raw, t) {
       droneEngaged: isEngaged ? dDet : 0,
       droneImpact: n(d.dronesImpacted), ballisticSea: n(d.ballisticSea),
       reportingType: d.reportingType || "intercepted",
-      ballisticRate: bDet > 0 ? +((bInt / bDet) * 100).toFixed(1) : null,
-      droneRate: dDet > 0 ? +((dInt / dDet) * 100).toFixed(1) : null,
-      overallRate: totalDet > 0 ? +((totalInt / totalDet) * 100).toFixed(1) : null,
+      ballisticRate: isEngaged ? 100 : (bDet > 0 ? +((bInt / bDet) * 100).toFixed(1) : null),
+      droneRate: isEngaged ? 100 : (dDet > 0 ? +((dInt / dDet) * 100).toFixed(1) : null),
+      overallRate: isEngaged ? 100 : (totalDet > 0 ? +((totalInt / totalDet) * 100).toFixed(1) : null),
     };
   }) : [];
 
