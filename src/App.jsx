@@ -133,6 +133,7 @@ function CountryMapModal({ countryCode, countryName, flag, onClose }) {
 }
 
 const INTERCEPTED = "#34D399";
+const ENGAGED = "#F59E0B";
 const IMPACTED = "#F87171";
 const SEA = "#3B82F6";
 const BG = "#050B1A";
@@ -562,11 +563,16 @@ function buildDerivedData(raw, t) {
     const dDet = n(d.dronesDetected), dInt = n(d.dronesIntercepted);
     const totalDet = bDet + dDet + n(d.cruiseDetected);
     const totalInt = bInt + dInt + n(d.cruiseIntercepted);
+    const isEngaged = d.reportingType === "engaged";
     return {
       day: d.label, label: `Day ${i + 1}`,
       ballistic: bDet, drones: dDet, cruise: n(d.cruiseDetected),
-      ballisticIntercepted: bInt, droneIntercepted: dInt,
+      ballisticIntercepted: isEngaged ? 0 : bInt,
+      droneIntercepted: isEngaged ? 0 : dInt,
+      ballisticEngaged: isEngaged ? bDet : 0,
+      droneEngaged: isEngaged ? dDet : 0,
       droneImpact: n(d.dronesImpacted), ballisticSea: n(d.ballisticSea),
+      reportingType: d.reportingType || "intercepted",
       ballisticRate: bDet > 0 ? +((bInt / bDet) * 100).toFixed(1) : null,
       droneRate: dDet > 0 ? +((dInt / dDet) * 100).toFixed(1) : null,
       overallRate: totalDet > 0 ? +((totalInt / totalDet) * 100).toFixed(1) : null,
@@ -633,12 +639,18 @@ function buildDerivedData(raw, t) {
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
+    const isEngaged = payload[0]?.payload?.reportingType === "engaged";
     return (
       <div style={{ background: "#0D1B2Aee", border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: "10px 14px", fontSize: 12, backdropFilter: GLASS_BLUR, fontFamily: DM_SANS }}>
-        <p style={{ color: UAE_GOLD, fontWeight: 700, marginBottom: 6, fontFamily: DM_SANS }}>{label}</p>
-        {payload.map((p, i) => (
+        <p style={{ color: UAE_GOLD, fontWeight: 700, marginBottom: 6, fontFamily: DM_SANS }}>
+          {label}{isEngaged ? " †" : ""}
+        </p>
+        {payload.filter(p => p.value > 0).map((p, i) => (
           <p key={i} style={{ color: p.color, margin: "2px 0" }}>{p.name}: <strong>{p.value?.toLocaleString()}</strong></p>
         ))}
+        {isEngaged && (
+          <p style={{ color: SUBTEXT, margin: "6px 0 0", fontSize: 10, fontStyle: "italic" }}>MoD reports "engaged" only — no intercepted/impacted breakdown</p>
+        )}
       </div>
     );
   }
@@ -1778,9 +1790,11 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                   <Tooltip content={<CustomTooltip />} />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
                   <Bar dataKey="ballisticIntercepted" name={t("chart.intercepted")} fill={INTERCEPTED} radius={[3, 3, 0, 0]} stackId="a" />
+                  <Bar dataKey="ballisticEngaged" name="Engaged" fill={ENGAGED} radius={[3, 3, 0, 0]} stackId="a" />
                   <Bar dataKey="ballisticSea" name={t("chart.sea")} fill={SEA} radius={[3, 3, 0, 0]} stackId="a" />
                 </BarChart>
               </ResponsiveContainer>
+              <p style={{ margin: "8px 0 0", fontSize: 10, color: SUBTEXT, fontStyle: "italic" }}>† From 17 Mar: MoD reports "engaged" only (no intercepted/impacted breakdown)</p>
             </div>
 
             <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20 }}>
@@ -1794,9 +1808,11 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                   <Tooltip content={<CustomTooltip />} />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
                   <Bar dataKey="droneIntercepted" name={t("chart.intercepted")} fill={INTERCEPTED} radius={[3, 3, 0, 0]} stackId="a" />
+                  <Bar dataKey="droneEngaged" name="Engaged" fill={ENGAGED} radius={[3, 3, 0, 0]} stackId="a" />
                   <Bar dataKey="droneImpact" name={t("chart.impacted")} fill={IMPACTED} radius={[3, 3, 0, 0]} stackId="a" />
                 </BarChart>
               </ResponsiveContainer>
+              <p style={{ margin: "8px 0 0", fontSize: 10, color: SUBTEXT, fontStyle: "italic" }}>† From 17 Mar: MoD reports "engaged" only (no intercepted/impacted breakdown)</p>
             </div>
 
             <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20, gridColumn: "1 / -1" }}>

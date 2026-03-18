@@ -3,7 +3,8 @@
   "sources": {
     "modgovae": {
       "lastTweetId": "2030989828712759428"
-    }
+    },
+    "notes": "From 17 Mar 2026, UAE MoD changed reporting from intercepted/impacted breakdown to 'engaged' count only. See reportingType field on daily entries."
   },
   "cumulative": {
     "ballisticDetected": 314,
@@ -27,6 +28,7 @@
     {
       "date": "2026-02-28",
       "label": "28 Feb",
+      "reportingType": "intercepted",
       "ballisticDetected": 137,
       "ballisticIntercepted": 132,
       "ballisticSea": 5,
@@ -41,6 +43,7 @@
     {
       "date": "2026-03-01",
       "label": "1 Mar",
+      "reportingType": "intercepted",
       "ballisticDetected": 28,
       "ballisticIntercepted": 20,
       "ballisticSea": 8,
@@ -55,6 +58,7 @@
     {
       "date": "2026-03-02",
       "label": "2 Mar",
+      "reportingType": "intercepted",
       "ballisticDetected": 9,
       "ballisticIntercepted": 9,
       "ballisticSea": 0,
@@ -69,6 +73,7 @@
     {
       "date": "2026-03-03",
       "label": "3 Mar",
+      "reportingType": "intercepted",
       "ballisticDetected": 12,
       "ballisticIntercepted": 12,
       "ballisticSea": 0,
@@ -83,6 +88,7 @@
     {
       "date": "2026-03-04",
       "label": "4 Mar",
+      "reportingType": "intercepted",
       "ballisticDetected": 3,
       "ballisticIntercepted": 3,
       "ballisticSea": 0,
@@ -97,6 +103,7 @@
     {
       "date": "2026-03-05",
       "label": "5 Mar",
+      "reportingType": "intercepted",
       "ballisticDetected": 7,
       "ballisticIntercepted": 6,
       "ballisticSea": 0,
@@ -111,6 +118,7 @@
     {
       "date": "2026-03-06",
       "label": "6 Mar",
+      "reportingType": "intercepted",
       "ballisticDetected": 9,
       "ballisticIntercepted": 9,
       "ballisticSea": 0,
@@ -125,6 +133,7 @@
     {
       "date": "2026-03-07",
       "label": "7 Mar",
+      "reportingType": "intercepted",
       "ballisticDetected": 16,
       "ballisticIntercepted": 15,
       "ballisticSea": 1,
@@ -139,6 +148,7 @@
     {
       "date": "2026-03-08",
       "label": "8 Mar",
+      "reportingType": "intercepted",
       "ballisticDetected": 17,
       "ballisticIntercepted": 16,
       "ballisticSea": 1,
@@ -153,6 +163,7 @@
     {
       "date": "2026-03-09",
       "label": "9 Mar",
+      "reportingType": "intercepted",
       "ballisticDetected": 15,
       "ballisticIntercepted": 12,
       "ballisticSea": 3,
@@ -167,6 +178,7 @@
     {
       "date": "2026-03-10",
       "label": "10 Mar",
+      "reportingType": "intercepted",
       "ballisticDetected": 12,
       "ballisticIntercepted": 10,
       "ballisticSea": 2,
@@ -181,6 +193,7 @@
     {
       "date": "2026-03-11",
       "label": "11 Mar",
+      "reportingType": "intercepted",
       "ballisticDetected": 6,
       "ballisticIntercepted": 6,
       "ballisticSea": 0,
@@ -197,6 +210,7 @@
     {
       "date": "2026-03-12",
       "label": "12 Mar",
+      "reportingType": "intercepted",
       "ballisticDetected": 10,
       "ballisticIntercepted": 10,
       "ballisticSea": 0,
@@ -214,6 +228,7 @@
     {
       "date": "2026-03-13",
       "label": "13 Mar",
+      "reportingType": "intercepted",
       "ballisticDetected": 7,
       "ballisticIntercepted": 7,
       "ballisticSea": 0,
@@ -228,6 +243,7 @@
     {
       "date": "2026-03-14",
       "label": "14 Mar",
+      "reportingType": "intercepted",
       "ballisticDetected": 9,
       "ballisticIntercepted": 9,
       "ballisticSea": 0,
@@ -241,6 +257,7 @@
     },
     {
       "date": "2026-03-15",
+      "reportingType": "intercepted",
       "ballisticDetected": 4,
       "ballisticIntercepted": 4,
       "ballisticImpacted": 0,
@@ -256,6 +273,7 @@
     {
       "date": "2026-03-16",
       "label": "16 Mar",
+      "reportingType": "intercepted",
       "ballisticDetected": 6,
       "ballisticIntercepted": 5,
       "ballisticSea": 0,
@@ -271,6 +289,7 @@
     {
       "date": "2026-03-17",
       "label": "17 Mar",
+      "reportingType": "engaged",
       "ballisticDetected": 10,
       "ballisticIntercepted": null,
       "ballisticImpacted": null,
