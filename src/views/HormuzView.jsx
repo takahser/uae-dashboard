@@ -284,6 +284,7 @@ export default function HormuzView({ onBack }) {
   const chartData = data.map((d) => ({ ...d, label: d.date.slice(5) }));
   const status = getStraitStatus(today.ships);
   const { data: marketData, history: marketHistory, error: marketError, lastUpdated, loading: marketLoading, refetch } = useMarketData();
+  const [activeLines, setActiveLines] = useState({ "BZ=F": true, "CL=F": true, "DUBAI": true, "NG=F": false });
 
   return (
     <div style={{ minHeight: '100vh', background: BG, color: TEXT, fontFamily: DM_SANS, padding: '40px 20px', position: 'relative', overflowX: 'hidden' }}>
@@ -353,9 +354,10 @@ export default function HormuzView({ onBack }) {
         {/* Price History Chart */}
         {marketHistory && (() => {
           const PRICE_SYMBOLS = [
-            { key: 'BZ=F', name: 'Brent Crude', color: ACCENT },
-            { key: 'CL=F', name: 'WTI Crude', color: '#4a9eff' },
-            { key: 'NG=F', name: 'Natural Gas', color: '#10B981' },
+            { key: 'BZ=F', name: 'Brent', color: ACCENT, axis: 'crude' },
+            { key: 'CL=F', name: 'WTI', color: '#4a9eff', axis: 'crude' },
+            { key: 'DUBAI', name: 'Dubai', color: '#E74C3C', axis: 'crude' },
+            { key: 'NG=F', name: 'Nat Gas', color: '#10B981', axis: 'gas' },
           ];
           // Merge all dates into a unified dataset
           const dateMap = {};
@@ -370,21 +372,56 @@ export default function HormuzView({ onBack }) {
           const tickInterval = Math.max(1, Math.floor(priceData.length / 6));
           const tickFormatter = (val, idx) => idx % tickInterval === 0 ? val.slice(5) : '';
 
+          const gasActive = activeLines['NG=F'];
+          const crudeActive = activeLines['BZ=F'] || activeLines['CL=F'] || activeLines['DUBAI'];
+
           return (
             <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: `1px solid ${GLASS_BORDER}`, borderRadius: GLASS_RADIUS, padding: 20, marginBottom: 32 }}>
-              <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 16, color: ACCENT }}>Price History (30 Days)</h3>
+              <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 12, color: ACCENT }}>Price History (30 Days)</h3>
+              {/* Toggle buttons */}
+              <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
+                {PRICE_SYMBOLS.map(s => {
+                  const active = activeLines[s.key];
+                  return (
+                    <button
+                      key={s.key}
+                      onClick={() => setActiveLines(prev => ({ ...prev, [s.key]: !prev[s.key] }))}
+                      style={{
+                        background: active ? s.color : 'rgba(255,255,255,0.06)',
+                        color: active ? '#fff' : 'rgba(255,255,255,0.4)',
+                        border: `1px solid ${active ? s.color : 'rgba(255,255,255,0.15)'}`,
+                        borderRadius: 6,
+                        padding: '4px 12px',
+                        fontSize: '0.75rem',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        fontFamily: DM_SANS,
+                        transition: 'all 0.15s ease',
+                      }}
+                    >
+                      {s.name}
+                    </button>
+                  );
+                })}
+              </div>
               <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={priceData}>
                   <XAxis dataKey="date" stroke={GLASS_BORDER} tick={{ fontSize: 11, fill: SUBTEXT }} tickFormatter={tickFormatter} />
-                  <YAxis stroke={GLASS_BORDER} tick={{ fontSize: 11, fill: SUBTEXT }} />
+                  <YAxis yAxisId="crude" stroke={GLASS_BORDER} tick={{ fontSize: 11, fill: SUBTEXT }} hide={!crudeActive} />
+                  <YAxis yAxisId="gas" orientation="right" stroke={GLASS_BORDER} tick={{ fontSize: 11, fill: SUBTEXT }} hide={!gasActive} />
                   <RTooltip contentStyle={{ background: '#0D1525', border: `1px solid ${GLASS_BORDER}`, borderRadius: 6, color: TEXT }} />
                   <Legend />
-                  <ReferenceLine x="2026-02-28" stroke="#C0392B" strokeDasharray="4 4" label={{ value: 'War Start', fill: '#C0392B', fontSize: 11 }} />
-                  {PRICE_SYMBOLS.map(s => (
-                    <Line key={s.key} type="monotone" dataKey={s.key} name={s.name} stroke={s.color} strokeWidth={2} dot={false} />
+                  <ReferenceLine yAxisId="crude" x="2026-02-28" stroke="#C0392B" strokeDasharray="4 4" label={{ value: 'War Start', fill: '#C0392B', fontSize: 11 }} />
+                  {PRICE_SYMBOLS.filter(s => activeLines[s.key]).map(s => (
+                    <Line key={s.key} yAxisId={s.axis} type="monotone" dataKey={s.key} name={s.name} stroke={s.color} strokeWidth={2} dot={false} />
                   ))}
                 </LineChart>
               </ResponsiveContainer>
+              {gasActive && crudeActive && (
+                <div style={{ fontSize: '0.72rem', color: SUBTEXT, marginTop: 8, fontStyle: 'italic' }}>
+                  Note: Natural Gas ($/MMBtu) uses a different scale — compare separately
+                </div>
+              )}
             </div>
           );
         })()}
