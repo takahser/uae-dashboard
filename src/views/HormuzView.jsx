@@ -131,7 +131,7 @@ function HormuzMap() {
             positions={FUJAIRAH_BYPASS}
             pathOptions={{ color: '#27AE60', weight: 2.5, opacity: 0.9 }}
           >
-            <Tooltip sticky>Fujairah Bypass — ACTIVE. Crude piped inland, ships load here and sail east.</Tooltip>
+            <Tooltip sticky>Fujairah Bypass — ACTIVE&#10;Abu Dhabi crude transported by pipeline inland to Fujairah (Gulf of Oman coast). Tankers load here and sail east — no Hormuz transit needed.</Tooltip>
           </Polyline>
 
           {/* Port markers */}
@@ -180,7 +180,11 @@ function HormuzMap() {
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ display: 'inline-block', width: 24, height: 0, borderTop: '2.5px solid #27AE60' }} />
-          <span>Fujairah Bypass <span style={{ color: '#27AE60', fontWeight: 700 }}>ACTIVE</span></span>
+          <span>Fujairah Bypass <span style={{ color: '#27AE60', fontWeight: 700 }}>ACTIVE</span>
+            <span style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.7rem', marginLeft: 6 }}>
+              Abu Dhabi crude piped inland to Fujairah, tankers load &amp; sail east
+            </span>
+          </span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
           <span style={{ display: 'inline-block', width: 10, height: 10, borderRadius: '50%', background: '#4a9eff' }} />
