@@ -1,9 +1,10 @@
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { Tooltip as RTooltip, Legend } from 'recharts';
 import { useState } from 'react';
+import { MapContainer, TileLayer, Polyline, CircleMarker, Popup, Tooltip as LTooltip } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 import data from '../data/hormuz.json';
 import MarketPanel from '../components/MarketPanel';
-import MarketBadge, { SpreadBadge } from '../components/MarketBadge';
 import { useMarketData } from '../hooks/useMarketData';
 
 const BG = '#050B1A';
@@ -70,13 +71,6 @@ const isRecent = (a) => {
   return (RECENT_DATE - d) / 86400000 <= 2;
 };
 
-const GEO_LABELS = [
-  { pos: [27.0, 56.8], label: "\u{1F1EE}\u{1F1F7} Iran \u2014 controls north shore" },
-  { pos: [26.2, 56.3], label: "\u{1F1F4}\u{1F1F2} Oman \u2014 controls south shore" },
-  { pos: [26.8, 55.5], label: "Persian Gulf \u2192" },
-  { pos: [25.5, 58.0], label: "\u2190 Gulf of Oman" },
-];
-
 const PORTS = [
   { pos: [27.18, 56.27], label: "Bandar Abbas \u2014 Iran main port & naval base", country: "Iran" },
   { pos: [24.98, 55.07], label: "Jebel Ali (UAE) \u2014 World largest man-made harbour", country: "UAE" },
@@ -86,188 +80,121 @@ const PORTS = [
   { pos: [24.35, 56.64], label: "Sohar (Oman) \u2014 Oil & industrial port", country: "Oman" },
 ];
 
-const SVG_W = 800;
-const SVG_H = 480;
-const MAP_BOUNDS = { latMin: 23.5, latMax: 27.5, lngMin: 54.5, lngMax: 60.0 };
-
-function toSVG(lat, lng) {
-  return {
-    x: ((lng - MAP_BOUNDS.lngMin) / (MAP_BOUNDS.lngMax - MAP_BOUNDS.lngMin)) * SVG_W,
-    y: ((MAP_BOUNDS.latMax - lat) / (MAP_BOUNDS.latMax - MAP_BOUNDS.latMin)) * SVG_H,
-  };
-}
-
-// Simplified coastline polygons for context
-const IRAN_COAST = [
-  [27.5,54.5],[27.5,60.0],[26.8,60.0],[26.6,58.5],[26.3,57.8],[26.5,57.0],
-  [26.7,56.5],[27.0,56.0],[27.2,55.5],[27.5,54.5],
-];
-const OMAN_UAE_COAST = [
-  [23.5,54.5],[24.0,54.5],[24.5,54.8],[25.0,55.0],[25.4,55.4],[25.6,56.0],
-  [25.8,56.3],[26.2,56.3],[26.4,56.5],[26.0,56.8],[25.6,57.0],[25.3,57.5],
-  [25.0,58.0],[24.5,58.5],[24.0,59.0],[23.5,60.0],[23.5,54.5],
+const HORMUZ_ROUTE = [
+  [24.0, 53.0],
+  [25.5, 56.5],
+  [26.5, 56.8],
+  [25.5, 58.5],
+  [23.5, 60.5],
 ];
 
-function makePath(pts) {
-  return 'M' + pts.map(([lat, lng]) => { const p = toSVG(lat, lng); return `${p.x},${p.y}`; }).join(' L') + ' Z';
-}
+const FUJAIRAH_BYPASS = [
+  [24.0, 53.0],
+  [25.1, 56.3],
+  [25.5, 58.5],
+  [23.5, 60.5],
+];
 
-function HormuzMap({ marketData }) {
-  const [hover, setHover] = useState(null);
+// Map view bounds for filtering attacks
+const MAP_VIEW_BOUNDS = { latMin: 22.5, latMax: 30.5, lngMin: 52.5, lngMax: 60.5 };
 
-  const chokeA = toSVG(26.35, 56.25);
-  const chokeB = toSVG(26.60, 56.95);
-
+function HormuzMap() {
   return (
     <div style={{ position: 'relative', marginBottom: 32 }}>
       <style>{`
-        @keyframes pulse-attack {
-          0% { opacity: 0.85; }
-          50% { opacity: 0.35; }
-          100% { opacity: 0.85; }
+        @keyframes attack-pulse {
+          0% { opacity: 0.9; box-shadow: 0 0 4px #ff4444; }
+          50% { opacity: 0.4; box-shadow: 0 0 12px #ff4444; }
+          100% { opacity: 0.9; box-shadow: 0 0 4px #ff4444; }
         }
-        @keyframes pulse-recent {
-          0% { opacity: 0.9; }
-          50% { opacity: 0.3; }
-          100% { opacity: 0.9; }
+        .attack-pulse {
+          animation: attack-pulse 1.5s ease-in-out infinite;
         }
       `}</style>
       <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: 12, color: TEXT }}>
         Strait of Hormuz — Live Threat Map
       </h3>
-      <div style={{ background: '#070E1E', borderRadius: GLASS_RADIUS, border: `1px solid ${GLASS_BORDER}`, overflow: 'hidden', position: 'relative' }}>
-        <svg viewBox={`0 0 ${SVG_W} ${SVG_H}`} style={{ width: '100%', height: 'auto', display: 'block' }}>
-          {/* Water background */}
-          <rect width={SVG_W} height={SVG_H} fill="#0a1628" />
+      <div style={{ position: 'relative', borderRadius: 12, overflow: 'hidden', border: `1px solid ${GLASS_BORDER}` }}>
+        <MapContainer
+          center={[26.5, 56.5]}
+          zoom={7}
+          style={{ height: 420, width: '100%', borderRadius: 12 }}
+          zoomControl={true}
+          scrollWheelZoom={true}
+        >
+          <TileLayer
+            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+            attribution='&copy; <a href="https://carto.com/">CARTO</a>'
+          />
 
-          {/* Grid lines */}
-          {[55, 56, 57, 58, 59].map(lng => {
-            const p = toSVG(25, lng);
-            return <line key={`g-lng-${lng}`} x1={p.x} y1={0} x2={p.x} y2={SVG_H} stroke="rgba(255,255,255,0.04)" strokeWidth={1} />;
-          })}
-          {[24, 25, 26, 27].map(lat => {
-            const p = toSVG(lat, 57);
-            return <line key={`g-lat-${lat}`} x1={0} y1={p.y} x2={SVG_W} y2={p.y} stroke="rgba(255,255,255,0.04)" strokeWidth={1} />;
-          })}
+          {/* Hormuz Transit Route — CLOSED */}
+          <Polyline
+            positions={HORMUZ_ROUTE}
+            pathOptions={{ color: "#EF4444", weight: 2, dashArray: "8 6", opacity: 0.8 }}
+          >
+            <LTooltip sticky>Hormuz Transit Route — CLOSED</LTooltip>
+          </Polyline>
 
-          {/* Coordinate ticks */}
-          {[55, 56, 57, 58, 59].map(lng => {
-            const p = toSVG(MAP_BOUNDS.latMin, lng);
-            return <text key={`t-lng-${lng}`} x={p.x} y={SVG_H - 6} fill="rgba(255,255,255,0.2)" fontSize={10} textAnchor="middle">{lng}°E</text>;
-          })}
-          {[24, 25, 26, 27].map(lat => {
-            const p = toSVG(lat, MAP_BOUNDS.lngMin);
-            return <text key={`t-lat-${lat}`} x={8} y={p.y + 3} fill="rgba(255,255,255,0.2)" fontSize={10}>{lat}°N</text>;
-          })}
-
-          {/* Land masses */}
-          <path d={makePath(IRAN_COAST)} fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" strokeWidth={1} />
-          <path d={makePath(OMAN_UAE_COAST)} fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" strokeWidth={1} />
-
-          {/* Chokepoint line */}
-          <line x1={chokeA.x} y1={chokeA.y} x2={chokeB.x} y2={chokeB.y}
-            stroke="#ff4444" strokeWidth={2} strokeDasharray="8 6" />
-          <circle cx={(chokeA.x + chokeB.x) / 2} cy={(chokeA.y + chokeB.y) / 2}
-            r={30} fill="rgba(255,68,68,0.12)" stroke="#ff4444" strokeWidth={0.5} />
-          <text x={(chokeA.x + chokeB.x) / 2} y={(chokeA.y + chokeB.y) / 2 - 38}
-            fill="#ff4444" fontSize={9} textAnchor="middle" fontWeight={600}>
-            Narrowest Point — ~3.5 mi
-          </text>
-
-          {/* Geo labels */}
-          {GEO_LABELS.map((g, i) => {
-            const p = toSVG(g.pos[0], g.pos[1]);
-            return <text key={`geo-${i}`} x={p.x} y={p.y} fill="rgba(255,255,255,0.35)" fontSize={10} fontWeight={600} textAnchor="middle">{g.label}</text>;
-          })}
+          {/* Fujairah Bypass — ACTIVE */}
+          <Polyline
+            positions={FUJAIRAH_BYPASS}
+            pathOptions={{ color: "#27AE60", weight: 2.5, opacity: 0.9 }}
+          >
+            <LTooltip sticky>Fujairah Bypass — ACTIVE (India, others using this route)</LTooltip>
+          </Polyline>
 
           {/* Port markers */}
-          {PORTS.map((p, i) => {
-            const pt = toSVG(p.pos[0], p.pos[1]);
-            return (
-              <g key={`port-${i}`}
-                onMouseEnter={() => setHover({ x: pt.x, y: pt.y, text: p.label, type: 'port' })}
-                onMouseLeave={() => setHover(null)}
-                style={{ cursor: 'pointer' }}
-              >
-                <circle cx={pt.x} cy={pt.y} r={6} fill="#4a9eff" fillOpacity={0.8} stroke="#4a9eff" strokeWidth={1} />
-                <circle cx={pt.x} cy={pt.y} r={10} fill="transparent" />
-              </g>
-            );
-          })}
+          {PORTS.map((p, i) => (
+            <CircleMarker
+              key={`port-${i}`}
+              center={p.pos}
+              radius={6}
+              pathOptions={{ color: '#4a9eff', fillColor: '#4a9eff', fillOpacity: 0.8, weight: 1 }}
+            >
+              <Popup>
+                <span style={{ color: '#222', fontWeight: 600, fontSize: '0.85rem' }}>{p.label}</span>
+              </Popup>
+              <LTooltip>{p.label.split(' — ')[0]}</LTooltip>
+            </CircleMarker>
+          ))}
 
           {/* Attack markers */}
-          {ATTACKS.map((a, i) => {
-            const pt = toSVG(a.pos[0], a.pos[1]);
-            if (pt.x < 0 || pt.x > SVG_W || pt.y < 0 || pt.y > SVG_H) return null;
-            const recent = isRecent(a);
-            return (
-              <g key={`atk-${i}`}
-                onMouseEnter={() => setHover({ x: pt.x, y: pt.y, text: a.label, type: 'attack' })}
-                onMouseLeave={() => setHover(null)}
-                style={{ cursor: 'pointer' }}
-              >
-                <circle cx={pt.x} cy={pt.y} r={12}
-                  fill={recent ? "rgba(255,120,0,0.35)" : "rgba(255,68,68,0.2)"}
-                  stroke="none"
-                  style={{ animation: recent ? 'pulse-recent 1s ease-in-out infinite' : 'pulse-attack 2s ease-in-out infinite' }}
-                />
-                <circle cx={pt.x} cy={pt.y} r={6}
-                  fill={recent ? "#FF7800" : "#ff4444"}
-                  fillOpacity={0.9}
-                  stroke={recent ? "#FF7800" : "#ff4444"}
-                  strokeWidth={1}
-                />
-                {recent && (
-                  <>
-                    <rect x={pt.x - 9} y={pt.y - 22} width={18} height={10} rx={2} fill="rgba(5,11,26,0.9)" stroke="#FF7800" strokeWidth={0.5} />
-                    <text x={pt.x} y={pt.y - 14} fill="#FF7800" fontSize={8} textAnchor="middle" fontWeight={700}>NEW</text>
-                  </>
-                )}
-                <circle cx={pt.x} cy={pt.y} r={14} fill="transparent" />
-              </g>
-            );
-          })}
+          {ATTACKS.filter(a =>
+            a.pos[0] >= MAP_VIEW_BOUNDS.latMin && a.pos[0] <= MAP_VIEW_BOUNDS.latMax &&
+            a.pos[1] >= MAP_VIEW_BOUNDS.lngMin && a.pos[1] <= MAP_VIEW_BOUNDS.lngMax
+          ).map((a, i) => (
+            <CircleMarker
+              key={`atk-${i}`}
+              center={a.pos}
+              radius={8}
+              pathOptions={{ color: '#EF4444', fillColor: '#EF4444', fillOpacity: 0.85, weight: 1 }}
+              className="attack-pulse"
+            >
+              <Popup>
+                <span style={{ color: '#222', fontWeight: 600, fontSize: '0.85rem' }}>{a.label}</span>
+              </Popup>
+              <LTooltip>{a.label}</LTooltip>
+            </CircleMarker>
+          ))}
+        </MapContainer>
 
-          {/* Market overlay badges */}
-          {marketData && (
-            <>
-              <MarketBadge
-                x={SVG_W * 0.52} y={SVG_H * 0.40}
-                label="BRENT CRUDE"
-                price={marketData['BZ=F']?.price}
-                change={marketData['BZ=F']?.change}
-                changePercent={marketData['BZ=F']?.changePercent}
-              />
-              <SpreadBadge
-                x={SVG_W * 0.35} y={SVG_H * 0.18}
-                brentPrice={marketData['BZ=F']?.price}
-                wtiPrice={marketData['CL=F']?.price}
-              />
-            </>
-          )}
-
-          {/* Hover tooltip */}
-          {hover && (
-            <g>
-              <rect x={hover.x - 120} y={hover.y - 38} width={240} height={26} rx={4}
-                fill="rgba(5,11,26,0.95)" stroke={hover.type === 'attack' ? '#ff4444' : '#4a9eff'} strokeWidth={1} />
-              <text x={hover.x} y={hover.y - 21} fill={TEXT} fontSize={9.5} textAnchor="middle" fontWeight={500}>
-                {hover.text.length > 55 ? hover.text.slice(0, 55) + '…' : hover.text}
-              </text>
-            </g>
-          )}
-        </svg>
-
-        {/* Legend overlay */}
+        {/* Route legend */}
         <div style={{
-          position: 'absolute', bottom: 12, right: 12,
-          background: 'rgba(5,11,26,0.9)', border: `1px solid ${GLASS_BORDER}`,
-          borderRadius: 6, padding: '6px 12px', fontSize: '0.7rem', color: SUBTEXT
+          position: 'absolute', bottom: 16, left: 16, zIndex: 1000,
+          background: 'rgba(5,11,26,0.85)', backdropFilter: 'blur(12px)',
+          border: `1px solid ${GLASS_BORDER}`, borderRadius: 8,
+          padding: '10px 16px', fontSize: '0.78rem', color: SUBTEXT, lineHeight: 1.8,
         }}>
-          <span style={{ color: '#FF7800' }}>&#9679;</span> Recent attack &nbsp;
-          <span style={{ color: '#ff4444' }}>&#9679;</span> Ship attack &nbsp;
-          <span style={{ color: '#ff4444' }}>- -</span> Chokepoint &nbsp;
-          <span style={{ color: '#4a9eff' }}>&#9679;</span> Port
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{ color: '#EF4444', fontSize: '0.9rem' }}>&#x1F534;</span>
+            <span style={{ color: '#EF4444', letterSpacing: 2 }}>── ──</span>
+            <span>Hormuz Transit (CLOSED)</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{ color: '#27AE60', fontSize: '0.9rem' }}>&#x1F7E2;</span>
+            <span style={{ color: '#27AE60', letterSpacing: 1 }}>──────</span>
+            <span>Fujairah Bypass (ACTIVE)</span>
+          </div>
         </div>
       </div>
     </div>
@@ -341,7 +268,7 @@ export default function HormuzView({ onBack }) {
         </div>
 
         {/* Hormuz Map */}
-        <HormuzMap marketData={marketData} />
+        <HormuzMap />
 
         {/* Market Impact Panel */}
         <MarketPanel
