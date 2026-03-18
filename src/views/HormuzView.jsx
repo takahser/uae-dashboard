@@ -20,6 +20,11 @@ const today = data[data.length - 1];
 const closureDays = data.filter((d) => d.status === 'critical').length;
 
 const intel = [
+  'Mar 18: South Pars gas field (world\'s largest) struck — multiple processing phases offline, fires reported',
+  'Mar 18: Iran orders evacuation of petrochemical plants in UAE, Saudi Arabia and Qatar',
+  'Mar 18: Iran negotiating Hormuz passage with 8 countries in exchange for yuan-denominated oil trade',
+  'Mar 16: DXB fuel depot struck — fire reported, diverted flights, 12 injured',
+  'Mar 13: Iran switches to "continuous engagement" doctrine — no interception reporting since',
   'Mar 11: 3 ships struck near Hormuz — Thai Mayuree Naree on fire, 3 crew missing',
   'Mar 11: Iran planting mines; US Navy refusing escort requests',
   'Mar 11: Iran threatens $200/barrel, switches to continuous strikes doctrine',
@@ -48,6 +53,7 @@ function StatCard({ label, value, color }) {
 }
 
 const ATTACKS = [
+  { pos: [26.2, 56.5], label: "Mar 18: South Pars gas field struck — multiple processing phases offline", date: "2026-03-18" },
   { pos: [25.8, 57.2], label: "Mar 11: Thai Mayuree Naree struck — fire, 3 crew missing", date: "2026-03-11" },
   { pos: [26.1, 56.9], label: "Mar 9: Container vessel Meridian Star hit by drone", date: "2026-03-09" },
   { pos: [25.6, 58.1], label: "Mar 7: Oil tanker Gulf Pioneer attacked, diverted to Fujairah", date: "2026-03-07" },
