@@ -25,11 +25,12 @@ jobs:
           import requests, json, time
           from datetime import datetime, timezone
 
-          SYMBOLS = ["BZ=F", "CL=F", "NG=F", "FRO", "STNG", "RTX", "LMT"]
+          SYMBOLS = ["BZ=F", "CL=F", "NG=F", "2222.SR", "FRO", "STNG", "RTX", "LMT"]
           NAMES = {
               "BZ=F": "Brent Crude",
               "CL=F": "WTI Crude",
               "NG=F": "Natural Gas",
+              "2222.SR": "Saudi Aramco",
               "FRO": "Frontline",
               "STNG": "Scorpio Tankers",
               "RTX": "RTX Corp",

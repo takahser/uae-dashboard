@@ -12,9 +12,11 @@ const OIL_SYMBOLS = [
   { key: 'BZ=F', label: 'Brent Crude', unit: '$/bbl' },
   { key: 'CL=F', label: 'WTI Crude', unit: '$/bbl' },
   { key: 'NG=F', label: 'Natural Gas', unit: '$/MMBtu' },
+  { key: 'DUBAI', label: 'Dubai Crude', unit: '$/bbl', placeholder: true },
 ];
 
 const STOCK_SYMBOLS = [
+  { key: '2222.SR', label: 'Saudi Aramco', sector: 'Producer' },
   { key: 'FRO', label: 'Frontline', sector: 'Tanker' },
   { key: 'STNG', label: 'Scorpio Tnk', sector: 'Tanker' },
   { key: 'RTX', label: 'RTX Corp', sector: 'Defense' },
@@ -116,6 +118,16 @@ export default function MarketPanel({ data, error, lastUpdated, loading, refetch
           {/* Oil prices row */}
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 14 }}>
             {OIL_SYMBOLS.map(s => {
+              if (s.placeholder) return (
+                <div key={s.key} style={{
+                  background: 'rgba(255,255,255,0.04)', border: `1px solid ${GLASS_BORDER}`,
+                  borderRadius: 8, padding: '12px 14px', flex: '1 1 140px', minWidth: 140
+                }}>
+                  <div style={{ fontSize: '0.7rem', color: SUBTEXT, marginBottom: 4 }}>{s.label}</div>
+                  <div style={{ fontSize: '1.3rem', fontWeight: 700, color: SUBTEXT }}>--</div>
+                  <div style={{ fontSize: '0.6rem', color: SUBTEXT }}>EIA key pending</div>
+                </div>
+              );
               const q = data?.[s.key];
               if (!q) return (
                 <div key={s.key} style={{
