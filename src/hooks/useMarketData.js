@@ -1,13 +1,12 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-const SYMBOLS = 'BZ=F,CL=F,NG=F,FRO,STNG,RTX,LMT';
-const YAHOO_URL = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${SYMBOLS}`;
-const PROXY_URL = `https://corsproxy.io/?url=${encodeURIComponent(YAHOO_URL)}`;
+const MARKET_URL = `${import.meta.env.BASE_URL}data-market.json`;
 const POLL_INTERVAL = 60_000;
 const MAX_BACKOFF = 600_000; // 10 min
 
 export function useMarketData() {
   const [data, setData] = useState(null);
+  const [history, setHistory] = useState(null);
   const [error, setError] = useState(null);
   const [lastUpdated, setLastUpdated] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -21,33 +20,31 @@ export function useMarketData() {
 
   const fetchData = useCallback(async () => {
     try {
-      const res = await fetch(PROXY_URL);
+      const res = await fetch(MARKET_URL);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = await res.json();
 
-      const quotes = json.quoteResponse?.result || [];
       const mapped = {};
-      for (const q of quotes) {
-        mapped[q.symbol] = {
+      for (const [sym, q] of Object.entries(json.quotes || {})) {
+        mapped[sym] = {
           symbol: q.symbol,
-          price: q.regularMarketPrice,
-          change: q.regularMarketChange,
-          changePercent: q.regularMarketChangePercent,
-          previousClose: q.regularMarketPreviousClose,
-          name: q.shortName,
-          marketState: q.marketState,
+          price: q.price,
+          change: q.change,
+          changePercent: q.changePercent,
+          previousClose: q.previousClose,
+          name: q.name,
         };
       }
 
       setData(mapped);
-      setLastUpdated(new Date());
+      setHistory(json.history || null);
+      setLastUpdated(json.updated ? new Date(json.updated) : new Date());
       setError(null);
       backoffRef.current = POLL_INTERVAL;
       scheduleNext(POLL_INTERVAL);
     } catch (err) {
       console.error('Market data fetch failed:', err);
       setError(err.message);
-      // Exponential backoff: 2min -> 5min -> 10min cap
       backoffRef.current = Math.min(backoffRef.current * 2, MAX_BACKOFF);
       scheduleNext(backoffRef.current);
     } finally {
@@ -67,5 +64,5 @@ export function useMarketData() {
     fetchData();
   }, [fetchData]);
 
-  return { data, error, lastUpdated, loading, refetch };
+  return { data, history, error, lastUpdated, loading, refetch };
 }

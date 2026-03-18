@@ -245,7 +245,7 @@ const FACTS = [
 export default function HormuzView({ onBack }) {
   const chartData = data.map((d) => ({ ...d, label: d.date.slice(5) }));
   const status = getStraitStatus(today.ships);
-  const { data: marketData, error: marketError, lastUpdated, loading: marketLoading, refetch } = useMarketData();
+  const { data: marketData, history: marketHistory, error: marketError, lastUpdated, loading: marketLoading, refetch } = useMarketData();
 
   return (
     <div style={{ minHeight: '100vh', background: BG, color: TEXT, fontFamily: DM_SANS, padding: '40px 20px', position: 'relative', overflowX: 'hidden' }}>
@@ -311,6 +311,45 @@ export default function HormuzView({ onBack }) {
           loading={marketLoading}
           refetch={refetch}
         />
+
+        {/* Price History Chart */}
+        {marketHistory && (() => {
+          const PRICE_SYMBOLS = [
+            { key: 'BZ=F', name: 'Brent Crude', color: ACCENT },
+            { key: 'CL=F', name: 'WTI Crude', color: '#4a9eff' },
+            { key: 'NG=F', name: 'Natural Gas', color: '#10B981' },
+          ];
+          // Merge all dates into a unified dataset
+          const dateMap = {};
+          for (const s of PRICE_SYMBOLS) {
+            for (const pt of (marketHistory[s.key] || [])) {
+              if (!dateMap[pt.date]) dateMap[pt.date] = { date: pt.date };
+              dateMap[pt.date][s.key] = pt.close;
+            }
+          }
+          const priceData = Object.values(dateMap).sort((a, b) => a.date.localeCompare(b.date));
+          // Show ~6 tick labels
+          const tickInterval = Math.max(1, Math.floor(priceData.length / 6));
+          const tickFormatter = (val, idx) => idx % tickInterval === 0 ? val.slice(5) : '';
+
+          return (
+            <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: `1px solid ${GLASS_BORDER}`, borderRadius: GLASS_RADIUS, padding: 20, marginBottom: 32 }}>
+              <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 16, color: ACCENT }}>Price History (30 Days)</h3>
+              <ResponsiveContainer width="100%" height={300}>
+                <LineChart data={priceData}>
+                  <XAxis dataKey="date" stroke={GLASS_BORDER} tick={{ fontSize: 11, fill: SUBTEXT }} tickFormatter={tickFormatter} />
+                  <YAxis stroke={GLASS_BORDER} tick={{ fontSize: 11, fill: SUBTEXT }} />
+                  <RTooltip contentStyle={{ background: '#0D1525', border: `1px solid ${GLASS_BORDER}`, borderRadius: 6, color: TEXT }} />
+                  <Legend />
+                  <ReferenceLine x="2026-02-28" stroke="#C0392B" strokeDasharray="4 4" label={{ value: 'War Start', fill: '#C0392B', fontSize: 11 }} />
+                  {PRICE_SYMBOLS.map(s => (
+                    <Line key={s.key} type="monotone" dataKey={s.key} name={s.name} stroke={s.color} strokeWidth={2} dot={false} />
+                  ))}
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          );
+        })()}
 
         {/* Chokepoint Facts */}
         <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: `1px solid ${GLASS_BORDER}`, borderRadius: GLASS_RADIUS, padding: 20, marginBottom: 32 }}>

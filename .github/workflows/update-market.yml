@@ -1,0 +1,102 @@
+name: Update Market Data
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fetch market data
+        run: |
+          pip install requests
+          python - <<'PYEOF'
+          import requests, json, time
+          from datetime import datetime, timezone
+
+          SYMBOLS = ["BZ=F", "CL=F", "NG=F", "FRO", "STNG", "RTX", "LMT"]
+          NAMES = {
+              "BZ=F": "Brent Crude",
+              "CL=F": "WTI Crude",
+              "NG=F": "Natural Gas",
+              "FRO": "Frontline",
+              "STNG": "Scorpio Tankers",
+              "RTX": "RTX Corp",
+              "LMT": "Lockheed Martin",
+          }
+
+          quotes = {}
+          history = {}
+
+          for sym in SYMBOLS:
+              try:
+                  # Quote data via v8 chart API (1d range, 1d interval = latest quote)
+                  url = f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range=1d&interval=1d"
+                  headers = {"User-Agent": "Mozilla/5.0"}
+                  r = requests.get(url, headers=headers, timeout=15)
+                  r.raise_for_status()
+                  chart = r.json()["chart"]["result"][0]
+                  meta = chart["meta"]
+                  price = meta.get("regularMarketPrice", 0)
+                  prev = meta.get("chartPreviousClose", meta.get("previousClose", 0))
+                  change = round(price - prev, 2)
+                  change_pct = round((change / prev) * 100, 2) if prev else 0
+
+                  quotes[sym] = {
+                      "symbol": sym,
+                      "name": NAMES.get(sym, sym),
+                      "price": round(price, 2),
+                      "change": change,
+                      "changePercent": change_pct,
+                      "previousClose": round(prev, 2),
+                  }
+
+                  # 30-day history via v8 chart API
+                  hurl = f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range=30d&interval=1d"
+                  hr = requests.get(hurl, headers=headers, timeout=15)
+                  hr.raise_for_status()
+                  hchart = hr.json()["chart"]["result"][0]
+                  timestamps = hchart.get("timestamp", [])
+                  closes = hchart["indicators"]["quote"][0].get("close", [])
+                  hist = []
+                  for ts, c in zip(timestamps, closes):
+                      if c is not None:
+                          dt = datetime.fromtimestamp(ts, tz=timezone.utc).strftime("%Y-%m-%d")
+                          hist.append({"date": dt, "close": round(c, 2)})
+                  history[sym] = hist
+
+                  time.sleep(0.5)
+              except Exception as e:
+                  print(f"Warning: failed to fetch {sym}: {e}")
+
+          output = {
+              "updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+              "quotes": quotes,
+              "history": history,
+          }
+
+          with open("public/data-market.json", "w") as f:
+              json.dump(output, f, indent=2)
+
+          print(f"Updated {len(quotes)} quotes, {len(history)} histories")
+          PYEOF
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/data-market.json
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "data: update market prices $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git push
