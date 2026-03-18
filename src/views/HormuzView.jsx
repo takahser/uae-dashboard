@@ -88,6 +88,17 @@ const HORMUZ_ROUTE = [
   [24.0, 58.5],  // Open Indian Ocean
 ];
 
+// Abu Dhabi Crude Oil Pipeline (ADCOP) — land route from Habshan fields to Fujairah terminal
+// Approximate waypoints through UAE interior / Hajar mountains
+const ADCOP_PIPELINE = [
+  [24.47, 54.37], // Abu Dhabi / offshore fields area
+  [24.18, 54.90], // Habshan / Ruwais inland
+  [24.10, 55.50], // UAE desert interior
+  [24.35, 55.85], // Approaching Hajar mountains
+  [24.72, 56.10], // Through the mountains
+  [25.13, 56.36], // Fujairah terminal
+];
+
 // Fujairah bypass: crude piped INLAND from Abu Dhabi fields to Fujairah terminal,
 // then ships load at Fujairah and sail east — never entering the strait
 const FUJAIRAH_BYPASS = [
@@ -124,6 +135,14 @@ function HormuzMap() {
             pathOptions={{ color: '#EF4444', weight: 2.5, dashArray: '8 6', opacity: 0.85 }}
           >
             <Tooltip sticky>Hormuz Transit — CLOSED since Mar 13</Tooltip>
+          </Polyline>
+
+          {/* ADCOP Pipeline — land route Abu Dhabi to Fujairah */}
+          <Polyline
+            positions={ADCOP_PIPELINE}
+            pathOptions={{ color: '#27AE60', weight: 2, dashArray: '4 5', opacity: 0.7 }}
+          >
+            <Tooltip sticky>Abu Dhabi Crude Oil Pipeline (ADCOP) — land route&#10;Crude pumped from Abu Dhabi fields inland through UAE to Fujairah terminal, bypassing Hormuz entirely.</Tooltip>
           </Polyline>
 
           {/* Fujairah Bypass — ACTIVE */}
@@ -177,6 +196,10 @@ function HormuzMap() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ display: 'inline-block', width: 24, height: 0, borderTop: '2px dashed #EF4444' }} />
           <span>Hormuz Transit <span style={{ color: '#EF4444', fontWeight: 700 }}>CLOSED</span></span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ display: 'inline-block', width: 24, height: 0, borderTop: '2px dashed #27AE60', opacity: 0.7 }} />
+          <span>ADCOP Pipeline (land)</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ display: 'inline-block', width: 24, height: 0, borderTop: '2.5px solid #27AE60' }} />
