@@ -1856,6 +1856,9 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                   <Line type="monotone" dataKey="droneRate" name="Drone %" stroke={UAE_GOLD} strokeWidth={2} dot={{ r: 2.5 }} connectNulls strokeDasharray="5 3" />
                 </LineChart>
               </ResponsiveContainer>
+              <p style={{ margin: "12px 0 0", fontSize: 10, color: SUBTEXT, fontStyle: "italic", borderTop: `1px solid ${BORDER}`, paddingTop: 10 }}>
+                ⚠ From 13 Mar: UAE MoD reports &quot;engaged&quot; only — no intercepted/impacted breakdown available. 100% shown as convention.
+              </p>
             </div>
           </div>
         )}
