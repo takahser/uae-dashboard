@@ -1,99 +1,69 @@
 {
-  "updated": "2026-03-18T18:10:38Z",
+  "updated": "2026-03-18T18:17:46Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
-      "name": "Brent Crude Oil Last Day Financ",
-      "price": 102.58,
-      "change": null,
-      "changePercent": null,
-      "previousClose": 69.4,
-      "marketState": null
+      "name": "Brent Crude",
+      "price": 102.14,
+      "change": 2.75,
+      "changePercent": 2.77,
+      "previousClose": 99.39
     },
     "CL=F": {
       "symbol": "CL=F",
-      "name": "Crude Oil Apr 26",
-      "price": 95.63,
-      "change": null,
-      "changePercent": null,
-      "previousClose": 64.63,
-      "marketState": null
+      "name": "WTI Crude",
+      "price": 94.78,
+      "change": -0.75,
+      "changePercent": -0.79,
+      "previousClose": 95.53
     },
     "NG=F": {
       "symbol": "NG=F",
-      "name": "Natural Gas Apr 26",
-      "price": 3.036,
-      "change": null,
-      "changePercent": null,
-      "previousClose": 3.159,
-      "marketState": null
-    },
-    "FRO": {
-      "symbol": "FRO",
-      "name": "Frontline Plc",
-      "price": 32.15,
-      "change": null,
-      "changePercent": null,
-      "previousClose": 28.84,
-      "marketState": null
-    },
-    "STNG": {
-      "symbol": "STNG",
-      "name": "Scorpio Tankers Inc.",
-      "price": 68.225,
-      "change": null,
-      "changePercent": null,
-      "previousClose": 64.97,
-      "marketState": null
-    },
-    "RTX": {
-      "symbol": "RTX",
-      "name": "RTX Corporation",
-      "price": 206.36,
-      "change": null,
-      "changePercent": null,
-      "previousClose": 203.5,
-      "marketState": null
-    },
-    "LMT": {
-      "symbol": "LMT",
-      "name": "Lockheed Martin Corporation",
-      "price": 643.605,
-      "change": null,
-      "changePercent": null,
-      "previousClose": 628.26,
-      "marketState": null
+      "name": "Natural Gas",
+      "price": 3.03,
+      "change": -0.0,
+      "changePercent": -0.0,
+      "previousClose": 3.03
     },
     "2222.SR": {
       "symbol": "2222.SR",
       "name": "Saudi Aramco",
       "price": 27.06,
-      "change": null,
-      "changePercent": null,
-      "previousClose": 25.6,
-      "marketState": null
+      "change": -0.04,
+      "changePercent": -0.15,
+      "previousClose": 27.1
     },
-    "DUBAI": {
-      "symbol": "DUBAI",
-      "name": "Dubai Crude",
-      "price": 130.0,
-      "change": null,
-      "changePercent": null,
-      "previousClose": null,
-      "marketState": "REGULAR",
-      "source": "@KobeissiLetter (verified Mar 18)",
-      "note": "Physical Gulf benchmark"
+    "FRO": {
+      "symbol": "FRO",
+      "name": "Frontline",
+      "price": 32.16,
+      "change": 0.86,
+      "changePercent": 2.75,
+      "previousClose": 31.3
     },
-    "OMAN": {
-      "symbol": "OMAN",
-      "name": "Oman Crude",
-      "price": 154.0,
-      "change": null,
-      "changePercent": null,
-      "previousClose": null,
-      "marketState": "REGULAR",
-      "source": "@KobeissiLetter (verified Mar 18)",
-      "note": "Historic high \u2014 first ever >$150"
+    "STNG": {
+      "symbol": "STNG",
+      "name": "Scorpio Tankers",
+      "price": 68.28,
+      "change": 1.98,
+      "changePercent": 2.99,
+      "previousClose": 66.3
+    },
+    "RTX": {
+      "symbol": "RTX",
+      "name": "RTX Corp",
+      "price": 206.55,
+      "change": 3.22,
+      "changePercent": 1.58,
+      "previousClose": 203.33
+    },
+    "LMT": {
+      "symbol": "LMT",
+      "name": "Lockheed Martin",
+      "price": 643.85,
+      "change": 7.52,
+      "changePercent": 1.18,
+      "previousClose": 636.33
     }
   },
   "history": {
@@ -196,7 +166,7 @@
       },
       {
         "date": "2026-03-18",
-        "close": 102.58
+        "close": 102.14
       }
     ],
     "CL=F": [
@@ -298,7 +268,7 @@
       },
       {
         "date": "2026-03-18",
-        "close": 95.63
+        "close": 94.77
       }
     ],
     "NG=F": [
@@ -400,7 +370,7 @@
       },
       {
         "date": "2026-03-18",
-        "close": 3.04
+        "close": 3.03
       }
     ],
     "2222.SR": [
@@ -527,6 +497,494 @@
       {
         "date": "2026-03-16",
         "close": 27.06
+      }
+    ],
+    "FRO": [
+      {
+        "date": "2026-02-04",
+        "close": 28.2
+      },
+      {
+        "date": "2026-02-05",
+        "close": 28.0
+      },
+      {
+        "date": "2026-02-06",
+        "close": 29.37
+      },
+      {
+        "date": "2026-02-09",
+        "close": 29.1
+      },
+      {
+        "date": "2026-02-10",
+        "close": 29.05
+      },
+      {
+        "date": "2026-02-11",
+        "close": 30.12
+      },
+      {
+        "date": "2026-02-12",
+        "close": 29.69
+      },
+      {
+        "date": "2026-02-13",
+        "close": 30.92
+      },
+      {
+        "date": "2026-02-17",
+        "close": 31.52
+      },
+      {
+        "date": "2026-02-18",
+        "close": 33.28
+      },
+      {
+        "date": "2026-02-19",
+        "close": 33.82
+      },
+      {
+        "date": "2026-02-20",
+        "close": 34.72
+      },
+      {
+        "date": "2026-02-23",
+        "close": 35.09
+      },
+      {
+        "date": "2026-02-24",
+        "close": 36.52
+      },
+      {
+        "date": "2026-02-25",
+        "close": 36.46
+      },
+      {
+        "date": "2026-02-26",
+        "close": 37.28
+      },
+      {
+        "date": "2026-02-27",
+        "close": 37.95
+      },
+      {
+        "date": "2026-03-02",
+        "close": 39.62
+      },
+      {
+        "date": "2026-03-03",
+        "close": 37.14
+      },
+      {
+        "date": "2026-03-04",
+        "close": 36.28
+      },
+      {
+        "date": "2026-03-05",
+        "close": 34.92
+      },
+      {
+        "date": "2026-03-06",
+        "close": 34.56
+      },
+      {
+        "date": "2026-03-09",
+        "close": 35.49
+      },
+      {
+        "date": "2026-03-10",
+        "close": 35.24
+      },
+      {
+        "date": "2026-03-11",
+        "close": 33.5
+      },
+      {
+        "date": "2026-03-12",
+        "close": 30.77
+      },
+      {
+        "date": "2026-03-13",
+        "close": 30.18
+      },
+      {
+        "date": "2026-03-16",
+        "close": 31.83
+      },
+      {
+        "date": "2026-03-17",
+        "close": 31.3
+      },
+      {
+        "date": "2026-03-18",
+        "close": 32.16
+      }
+    ],
+    "STNG": [
+      {
+        "date": "2026-02-04",
+        "close": 64.5
+      },
+      {
+        "date": "2026-02-05",
+        "close": 65.4
+      },
+      {
+        "date": "2026-02-06",
+        "close": 68.43
+      },
+      {
+        "date": "2026-02-09",
+        "close": 67.71
+      },
+      {
+        "date": "2026-02-10",
+        "close": 68.14
+      },
+      {
+        "date": "2026-02-11",
+        "close": 69.89
+      },
+      {
+        "date": "2026-02-12",
+        "close": 67.77
+      },
+      {
+        "date": "2026-02-13",
+        "close": 70.51
+      },
+      {
+        "date": "2026-02-17",
+        "close": 70.02
+      },
+      {
+        "date": "2026-02-18",
+        "close": 70.74
+      },
+      {
+        "date": "2026-02-19",
+        "close": 72.44
+      },
+      {
+        "date": "2026-02-20",
+        "close": 71.66
+      },
+      {
+        "date": "2026-02-23",
+        "close": 71.8
+      },
+      {
+        "date": "2026-02-24",
+        "close": 73.37
+      },
+      {
+        "date": "2026-02-25",
+        "close": 73.8
+      },
+      {
+        "date": "2026-02-26",
+        "close": 77.01
+      },
+      {
+        "date": "2026-02-27",
+        "close": 79.08
+      },
+      {
+        "date": "2026-03-02",
+        "close": 78.28
+      },
+      {
+        "date": "2026-03-03",
+        "close": 79.41
+      },
+      {
+        "date": "2026-03-04",
+        "close": 80.19
+      },
+      {
+        "date": "2026-03-05",
+        "close": 78.72
+      },
+      {
+        "date": "2026-03-06",
+        "close": 76.85
+      },
+      {
+        "date": "2026-03-09",
+        "close": 76.28
+      },
+      {
+        "date": "2026-03-10",
+        "close": 75.29
+      },
+      {
+        "date": "2026-03-11",
+        "close": 73.26
+      },
+      {
+        "date": "2026-03-12",
+        "close": 67.42
+      },
+      {
+        "date": "2026-03-13",
+        "close": 66.39
+      },
+      {
+        "date": "2026-03-16",
+        "close": 68.42
+      },
+      {
+        "date": "2026-03-17",
+        "close": 66.3
+      },
+      {
+        "date": "2026-03-18",
+        "close": 68.24
+      }
+    ],
+    "RTX": [
+      {
+        "date": "2026-02-04",
+        "close": 196.74
+      },
+      {
+        "date": "2026-02-05",
+        "close": 195.97
+      },
+      {
+        "date": "2026-02-06",
+        "close": 198.66
+      },
+      {
+        "date": "2026-02-09",
+        "close": 196.19
+      },
+      {
+        "date": "2026-02-10",
+        "close": 195.19
+      },
+      {
+        "date": "2026-02-11",
+        "close": 196.51
+      },
+      {
+        "date": "2026-02-12",
+        "close": 201.14
+      },
+      {
+        "date": "2026-02-13",
+        "close": 200.06
+      },
+      {
+        "date": "2026-02-17",
+        "close": 203.5
+      },
+      {
+        "date": "2026-02-18",
+        "close": 204.81
+      },
+      {
+        "date": "2026-02-19",
+        "close": 205.41
+      },
+      {
+        "date": "2026-02-20",
+        "close": 204.92
+      },
+      {
+        "date": "2026-02-23",
+        "close": 201.92
+      },
+      {
+        "date": "2026-02-24",
+        "close": 198.46
+      },
+      {
+        "date": "2026-02-25",
+        "close": 195.98
+      },
+      {
+        "date": "2026-02-26",
+        "close": 197.63
+      },
+      {
+        "date": "2026-02-27",
+        "close": 202.62
+      },
+      {
+        "date": "2026-03-02",
+        "close": 212.16
+      },
+      {
+        "date": "2026-03-03",
+        "close": 206.52
+      },
+      {
+        "date": "2026-03-04",
+        "close": 208.82
+      },
+      {
+        "date": "2026-03-05",
+        "close": 203.86
+      },
+      {
+        "date": "2026-03-06",
+        "close": 209.76
+      },
+      {
+        "date": "2026-03-09",
+        "close": 208.23
+      },
+      {
+        "date": "2026-03-10",
+        "close": 207.0
+      },
+      {
+        "date": "2026-03-11",
+        "close": 207.26
+      },
+      {
+        "date": "2026-03-12",
+        "close": 203.04
+      },
+      {
+        "date": "2026-03-13",
+        "close": 204.52
+      },
+      {
+        "date": "2026-03-16",
+        "close": 206.06
+      },
+      {
+        "date": "2026-03-17",
+        "close": 203.33
+      },
+      {
+        "date": "2026-03-18",
+        "close": 206.55
+      }
+    ],
+    "LMT": [
+      {
+        "date": "2026-02-04",
+        "close": 602.76
+      },
+      {
+        "date": "2026-02-05",
+        "close": 609.18
+      },
+      {
+        "date": "2026-02-06",
+        "close": 623.58
+      },
+      {
+        "date": "2026-02-09",
+        "close": 638.29
+      },
+      {
+        "date": "2026-02-10",
+        "close": 629.56
+      },
+      {
+        "date": "2026-02-11",
+        "close": 628.7
+      },
+      {
+        "date": "2026-02-12",
+        "close": 637.43
+      },
+      {
+        "date": "2026-02-13",
+        "close": 652.58
+      },
+      {
+        "date": "2026-02-17",
+        "close": 649.58
+      },
+      {
+        "date": "2026-02-18",
+        "close": 649.81
+      },
+      {
+        "date": "2026-02-19",
+        "close": 666.51
+      },
+      {
+        "date": "2026-02-20",
+        "close": 658.26
+      },
+      {
+        "date": "2026-02-23",
+        "close": 660.62
+      },
+      {
+        "date": "2026-02-24",
+        "close": 664.43
+      },
+      {
+        "date": "2026-02-25",
+        "close": 647.5
+      },
+      {
+        "date": "2026-02-26",
+        "close": 641.63
+      },
+      {
+        "date": "2026-02-27",
+        "close": 658.08
+      },
+      {
+        "date": "2026-03-02",
+        "close": 676.7
+      },
+      {
+        "date": "2026-03-03",
+        "close": 667.82
+      },
+      {
+        "date": "2026-03-04",
+        "close": 664.48
+      },
+      {
+        "date": "2026-03-05",
+        "close": 655.0
+      },
+      {
+        "date": "2026-03-06",
+        "close": 671.77
+      },
+      {
+        "date": "2026-03-09",
+        "close": 664.15
+      },
+      {
+        "date": "2026-03-10",
+        "close": 651.22
+      },
+      {
+        "date": "2026-03-11",
+        "close": 649.47
+      },
+      {
+        "date": "2026-03-12",
+        "close": 652.83
+      },
+      {
+        "date": "2026-03-13",
+        "close": 646.0
+      },
+      {
+        "date": "2026-03-16",
+        "close": 645.2
+      },
+      {
+        "date": "2026-03-17",
+        "close": 636.33
+      },
+      {
+        "date": "2026-03-18",
+        "close": 643.85
       }
     ]
   }
