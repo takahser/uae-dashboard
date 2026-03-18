@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-18T18:08:54Z",
+  "updated": "2026-03-18T18:10:38Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
@@ -72,6 +72,28 @@
       "changePercent": null,
       "previousClose": 25.6,
       "marketState": null
+    },
+    "DUBAI": {
+      "symbol": "DUBAI",
+      "name": "Dubai Crude",
+      "price": 130.0,
+      "change": null,
+      "changePercent": null,
+      "previousClose": null,
+      "marketState": "REGULAR",
+      "source": "@KobeissiLetter (verified Mar 18)",
+      "note": "Physical Gulf benchmark"
+    },
+    "OMAN": {
+      "symbol": "OMAN",
+      "name": "Oman Crude",
+      "price": 154.0,
+      "change": null,
+      "changePercent": null,
+      "previousClose": null,
+      "marketState": "REGULAR",
+      "source": "@KobeissiLetter (verified Mar 18)",
+      "note": "Historic high \u2014 first ever >$150"
     }
   },
   "history": {

@@ -9,10 +9,11 @@ const SUBTEXT = 'rgba(255,255,255,0.5)';
 const ACCENT = '#F59E0B';
 
 const OIL_SYMBOLS = [
-  { key: 'BZ=F', label: 'Brent Crude', unit: '$/bbl' },
-  { key: 'CL=F', label: 'WTI Crude', unit: '$/bbl' },
-  { key: 'NG=F', label: 'Natural Gas', unit: '$/MMBtu' },
-  { key: 'DUBAI', label: 'Dubai Crude', unit: '$/bbl', placeholder: true },
+  { key: "BZ=F",  label: "Brent Crude",  unit: "$/bbl" },
+  { key: "CL=F",  label: "WTI Crude",    unit: "$/bbl" },
+  { key: "DUBAI", label: "Dubai Crude",  unit: "$/bbl" },
+  { key: "OMAN",  label: "Oman Crude",   unit: "$/bbl" },
+  { key: "NG=F",  label: "Natural Gas",  unit: "$/MMBtu" },
 ];
 
 const STOCK_SYMBOLS = [
@@ -22,9 +23,6 @@ const STOCK_SYMBOLS = [
   { key: 'RTX', label: 'RTX Corp', sector: 'Defense' },
   { key: 'LMT', label: 'Lockheed', sector: 'Defense' },
 ];
-
-// Platts Dubai crude — no live API available; static latest known value
-const DUBAI_CRUDE = { price: 150.42, date: 'Mar 16', label: 'Dubai Crude (Platts)' };
 
 export default function MarketPanel({ data, error, lastUpdated, loading, refetch }) {
   const [collapsed, setCollapsed] = useState(false);
@@ -91,43 +89,9 @@ export default function MarketPanel({ data, error, lastUpdated, loading, refetch
             </div>
           )}
 
-          {/* Dubai Crude (Platts) — prominent featured price */}
-          <div style={{
-            background: 'rgba(245,158,11,0.08)', border: `1px solid rgba(245,158,11,0.25)`,
-            borderRadius: 10, padding: '14px 18px', marginBottom: 14, display: 'flex',
-            justifyContent: 'space-between', alignItems: 'center'
-          }}>
-            <div>
-              <div style={{ fontSize: '0.7rem', color: ACCENT, fontWeight: 600, marginBottom: 4 }}>
-                {DUBAI_CRUDE.label}
-              </div>
-              <div style={{ fontSize: '1.6rem', fontWeight: 800, color: TEXT }}>
-                ${DUBAI_CRUDE.price.toFixed(2)}
-                <span style={{ fontSize: '0.7rem', color: SUBTEXT, marginLeft: 6 }}>$/bbl</span>
-              </div>
-            </div>
-            <div style={{
-              fontSize: '0.6rem', color: SUBTEXT, background: 'rgba(255,255,255,0.06)',
-              borderRadius: 4, padding: '3px 8px', textAlign: 'right', lineHeight: 1.5
-            }}>
-              Static &middot; {DUBAI_CRUDE.date}<br />
-              No live feed available
-            </div>
-          </div>
-
           {/* Oil prices row */}
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 14 }}>
             {OIL_SYMBOLS.map(s => {
-              if (s.placeholder) return (
-                <div key={s.key} style={{
-                  background: 'rgba(255,255,255,0.04)', border: `1px solid ${GLASS_BORDER}`,
-                  borderRadius: 8, padding: '12px 14px', flex: '1 1 140px', minWidth: 140
-                }}>
-                  <div style={{ fontSize: '0.7rem', color: SUBTEXT, marginBottom: 4 }}>{s.label}</div>
-                  <div style={{ fontSize: '1.3rem', fontWeight: 700, color: SUBTEXT }}>--</div>
-                  <div style={{ fontSize: '0.6rem', color: SUBTEXT }}>EIA key pending</div>
-                </div>
-              );
               const q = data?.[s.key];
               if (!q) return (
                 <div key={s.key} style={{
@@ -138,7 +102,8 @@ export default function MarketPanel({ data, error, lastUpdated, loading, refetch
                   <div style={{ fontSize: '1.3rem', fontWeight: 700, color: SUBTEXT }}>--</div>
                 </div>
               );
-              const isUp = q.change >= 0;
+              const hasChange = q.change != null && q.changePercent != null;
+              const isUp = hasChange ? q.change >= 0 : null;
               return (
                 <div key={s.key} style={{
                   background: 'rgba(255,255,255,0.04)', border: `1px solid ${GLASS_BORDER}`,
@@ -148,9 +113,14 @@ export default function MarketPanel({ data, error, lastUpdated, loading, refetch
                   <div style={{ fontSize: '1.3rem', fontWeight: 700, color: TEXT }}>
                     ${q.price?.toFixed(2)}
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: isUp ? '#27AE60' : '#EF4444', fontWeight: 600 }}>
-                    {isUp ? '\u25B2' : '\u25BC'} {Math.abs(q.change).toFixed(2)} ({Math.abs(q.changePercent).toFixed(1)}%)
-                  </div>
+                  {hasChange && (
+                    <div style={{ fontSize: '0.75rem', color: isUp ? '#27AE60' : '#EF4444', fontWeight: 600 }}>
+                      {isUp ? '\u25B2' : '\u25BC'} {Math.abs(q.change).toFixed(2)} ({Math.abs(q.changePercent).toFixed(1)}%)
+                    </div>
+                  )}
+                  {q.source && (
+                    <div style={{ fontSize: '0.6rem', color: SUBTEXT, marginTop: 2 }}>{q.source}</div>
+                  )}
                 </div>
               );
             })}
@@ -174,6 +144,28 @@ export default function MarketPanel({ data, error, lastUpdated, loading, refetch
                 </div>
               </div>
             )}
+
+            {/* Gulf-WTI Premium */}
+            {data?.['OMAN'] && data?.['CL=F'] && (() => {
+              const gulfPremium = (data['OMAN'].price ?? 0) - wti;
+              const gpColor = gulfPremium > 60 ? '#EF4444' : gulfPremium > 40 ? '#E67E22' : gulfPremium > 20 ? '#F1C40F' : '#27AE60';
+              const gpBg = gulfPremium > 40 ? 'rgba(239,68,68,0.1)' : 'rgba(255,255,255,0.04)';
+              const gpBorder = gulfPremium > 60 ? '#EF4444' : gulfPremium > 40 ? '#E67E22' : GLASS_BORDER;
+              return (
+                <div style={{
+                  background: gpBg, border: `1px solid ${gpBorder}`,
+                  borderRadius: 8, padding: '12px 14px', flex: '1 1 140px', minWidth: 140
+                }}>
+                  <div style={{ fontSize: '0.7rem', color: SUBTEXT, marginBottom: 4 }}>Gulf-WTI Premium</div>
+                  <div style={{ fontSize: '1.3rem', fontWeight: 700, color: gpColor }}>
+                    +${gulfPremium.toFixed(2)}
+                  </div>
+                  <div style={{ fontSize: '0.65rem', color: SUBTEXT }}>
+                    Hormuz closure risk premium
+                  </div>
+                </div>
+              );
+            })()}
           </div>
 
           {/* Watchlist */}
