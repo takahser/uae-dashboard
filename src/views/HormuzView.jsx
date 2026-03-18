@@ -103,8 +103,9 @@ const ADCOP_PIPELINE = [
 // then ships load at Fujairah and sail east — never entering the strait
 const FUJAIRAH_BYPASS = [
   [25.13, 56.36], // Fujairah terminal (loading point)
-  [24.5, 57.5],   // Gulf of Oman
-  [23.0, 59.0],   // Open Indian Ocean
+  [24.6, 57.8],   // Gulf of Oman, offshore
+  [23.6, 59.2],   // Further offshore, past Muscat
+  [22.4, 60.5],   // Past Ras al Hadd (eastern tip of Oman) — open Arabian Sea
 ];
 
 // Map view bounds for filtering attacks
