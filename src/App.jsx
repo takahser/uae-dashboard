@@ -282,7 +282,7 @@ const MAP_CONFIGS = {
     ],
   },
   israel: {
-    bounds: { latMin: 29.3, latMax: 33.5, lngMin: 33.5, lngMax: 36.8 },
+    bounds: { latMin: 29.3, latMax: 33.5, lngMin: 34.0, lngMax: 36.2 },
     title: "LIVE INTEL — ISRAEL IMPACT MAP",
     subtitle: "CONFIRMED STRIKE LOCATIONS",
     regions: [
