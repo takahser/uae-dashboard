@@ -1,7 +1,7 @@
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { Tooltip as RTooltip, Legend } from 'recharts';
 import { useState } from 'react';
-import { MapContainer, TileLayer, Polyline, CircleMarker } from 'react-leaflet';
+import { MapContainer, TileLayer, CircleMarker } from 'react-leaflet';
 import data from '../data/hormuz.json';
 import MarketPanel from '../components/MarketPanel';
 import { useMarketData } from '../hooks/useMarketData';
@@ -116,18 +116,6 @@ function HormuzMap() {
             attribution='&copy; <a href="https://carto.com/">CARTO</a>'
           />
 
-          {/* Hormuz Transit Route — CLOSED */}
-          <Polyline
-            positions={HORMUZ_ROUTE}
-            pathOptions={{ color: "#EF4444", weight: 2, dashArray: "8 6", opacity: 0.8 }}
-          />
-
-          {/* Fujairah Bypass — ACTIVE */}
-          <Polyline
-            positions={FUJAIRAH_BYPASS}
-            pathOptions={{ color: "#27AE60", weight: 2.5, opacity: 0.9 }}
-          />
-
           {/* Port markers */}
           {PORTS.map((p, i) => (
             <CircleMarker
@@ -152,23 +140,21 @@ function HormuzMap() {
           ))}
         </MapContainer>
 
-        {/* Route legend */}
-        <div style={{
-          position: 'absolute', bottom: 16, left: 16, zIndex: 1000,
-          background: 'rgba(5,11,26,0.85)', backdropFilter: 'blur(12px)',
-          border: `1px solid ${GLASS_BORDER}`, borderRadius: 8,
-          padding: '10px 16px', fontSize: '0.78rem', color: SUBTEXT, lineHeight: 1.8,
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ color: '#EF4444', fontSize: '0.9rem' }}>&#x1F534;</span>
-            <span style={{ color: '#EF4444', letterSpacing: 2 }}>── ──</span>
-            <span>Hormuz Transit (CLOSED)</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ color: '#27AE60', fontSize: '0.9rem' }}>&#x1F7E2;</span>
-            <span style={{ color: '#27AE60', letterSpacing: 1 }}>──────</span>
-            <span>Fujairah Bypass (ACTIVE)</span>
-          </div>
+      </div>
+      {/* Route status bar */}
+      <div style={{
+        marginTop: 8, display: 'flex', gap: 16, alignItems: 'center',
+        background: 'rgba(5,11,26,0.75)', backdropFilter: 'blur(16px)',
+        border: `1px solid ${GLASS_BORDER}`, borderRadius: 8,
+        padding: '12px 16px', fontSize: '0.82rem', color: SUBTEXT,
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ display: 'inline-block', width: 28, height: 0, borderTop: '2px dashed #EF4444' }} />
+          <span>Hormuz Transit <span style={{ color: '#EF4444', fontWeight: 700 }}>CLOSED</span> since Mar 13</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ display: 'inline-block', width: 28, height: 0, borderTop: '2px solid #27AE60' }} />
+          <span>Fujairah Bypass <span style={{ color: '#27AE60', fontWeight: 700 }}>ACTIVE</span> — India loading here</span>
         </div>
       </div>
     </div>
