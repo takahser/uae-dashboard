@@ -141,7 +141,9 @@ function HormuzMap() {
               center={p.pos}
               radius={6}
               pathOptions={{ color: '#4a9eff', fillColor: '#4a9eff', fillOpacity: 0.8, weight: 1 }}
-            />
+            >
+              <Tooltip>{p.label}</Tooltip>
+            </CircleMarker>
           ))}
 
           {/* Attack markers */}
@@ -152,28 +154,47 @@ function HormuzMap() {
             <CircleMarker
               key={`atk-${i}`}
               center={a.pos}
-              radius={8}
-              pathOptions={{ color: '#EF4444', fillColor: '#EF4444', fillOpacity: 0.85, weight: 1 }}
-            />
+              radius={isRecent(a) ? 10 : 8}
+              pathOptions={{
+                color: isRecent(a) ? '#FF7800' : '#EF4444',
+                fillColor: isRecent(a) ? '#FF7800' : '#EF4444',
+                fillOpacity: 0.85, weight: isRecent(a) ? 2 : 1
+              }}
+            >
+              <Tooltip>{a.label}</Tooltip>
+            </CircleMarker>
           ))}
         </MapContainer>
 
       </div>
-      {/* Route status bar */}
+      {/* Map legend */}
       <div style={{
-        marginTop: 8, display: 'flex', gap: 16, alignItems: 'center',
+        marginTop: 8, display: 'flex', gap: 20, flexWrap: 'wrap', alignItems: 'center',
         background: 'rgba(5,11,26,0.75)', backdropFilter: 'blur(16px)',
         border: `1px solid ${GLASS_BORDER}`, borderRadius: 8,
-        padding: '12px 16px', fontSize: '0.82rem', color: SUBTEXT,
+        padding: '12px 16px', fontSize: '0.78rem', color: SUBTEXT,
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ display: 'inline-block', width: 28, height: 0, borderTop: '2px dashed #EF4444' }} />
-          <span>Hormuz Transit <span style={{ color: '#EF4444', fontWeight: 700 }}>CLOSED</span> since Mar 13</span>
+          <span style={{ display: 'inline-block', width: 24, height: 0, borderTop: '2px dashed #EF4444' }} />
+          <span>Hormuz Transit <span style={{ color: '#EF4444', fontWeight: 700 }}>CLOSED</span></span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ display: 'inline-block', width: 28, height: 0, borderTop: '2px solid #27AE60' }} />
-          <span>Fujairah Bypass <span style={{ color: '#27AE60', fontWeight: 700 }}>ACTIVE</span> — India loading here</span>
+          <span style={{ display: 'inline-block', width: 24, height: 0, borderTop: '2.5px solid #27AE60' }} />
+          <span>Fujairah Bypass <span style={{ color: '#27AE60', fontWeight: 700 }}>ACTIVE</span></span>
         </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <span style={{ display: 'inline-block', width: 10, height: 10, borderRadius: '50%', background: '#4a9eff' }} />
+          <span>Port / Terminal</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <span style={{ display: 'inline-block', width: 10, height: 10, borderRadius: '50%', background: '#EF4444' }} />
+          <span>Attack / Incident</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <span style={{ display: 'inline-block', width: 12, height: 12, borderRadius: '50%', background: '#FF7800' }} />
+          <span style={{ color: '#FF7800', fontWeight: 600 }}>Recent (&lt;48h)</span>
+        </div>
+        <span style={{ marginLeft: 'auto', fontSize: '0.7rem' }}>Hover markers for details</span>
       </div>
     </div>
   );
