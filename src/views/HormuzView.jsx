@@ -1,8 +1,7 @@
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { Tooltip as RTooltip, Legend } from 'recharts';
 import { useState } from 'react';
-import { MapContainer, TileLayer, Polyline, CircleMarker, Popup, Tooltip as LTooltip } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+import { MapContainer, TileLayer, Polyline, CircleMarker } from 'react-leaflet';
 import data from '../data/hormuz.json';
 import MarketPanel from '../components/MarketPanel';
 import { useMarketData } from '../hooks/useMarketData';
@@ -101,16 +100,6 @@ const MAP_VIEW_BOUNDS = { latMin: 22.5, latMax: 30.5, lngMin: 52.5, lngMax: 60.5
 function HormuzMap() {
   return (
     <div style={{ position: 'relative', marginBottom: 32 }}>
-      <style>{`
-        @keyframes attack-pulse {
-          0% { opacity: 0.9; box-shadow: 0 0 4px #ff4444; }
-          50% { opacity: 0.4; box-shadow: 0 0 12px #ff4444; }
-          100% { opacity: 0.9; box-shadow: 0 0 4px #ff4444; }
-        }
-        .attack-pulse {
-          animation: attack-pulse 1.5s ease-in-out infinite;
-        }
-      `}</style>
       <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: 12, color: TEXT }}>
         Strait of Hormuz — Live Threat Map
       </h3>
@@ -131,17 +120,13 @@ function HormuzMap() {
           <Polyline
             positions={HORMUZ_ROUTE}
             pathOptions={{ color: "#EF4444", weight: 2, dashArray: "8 6", opacity: 0.8 }}
-          >
-            <LTooltip sticky>Hormuz Transit Route — CLOSED</LTooltip>
-          </Polyline>
+          />
 
           {/* Fujairah Bypass — ACTIVE */}
           <Polyline
             positions={FUJAIRAH_BYPASS}
             pathOptions={{ color: "#27AE60", weight: 2.5, opacity: 0.9 }}
-          >
-            <LTooltip sticky>Fujairah Bypass — ACTIVE (India, others using this route)</LTooltip>
-          </Polyline>
+          />
 
           {/* Port markers */}
           {PORTS.map((p, i) => (
@@ -150,12 +135,7 @@ function HormuzMap() {
               center={p.pos}
               radius={6}
               pathOptions={{ color: '#4a9eff', fillColor: '#4a9eff', fillOpacity: 0.8, weight: 1 }}
-            >
-              <Popup>
-                <span style={{ color: '#222', fontWeight: 600, fontSize: '0.85rem' }}>{p.label}</span>
-              </Popup>
-              <LTooltip>{p.label.split(' — ')[0]}</LTooltip>
-            </CircleMarker>
+            />
           ))}
 
           {/* Attack markers */}
@@ -168,13 +148,7 @@ function HormuzMap() {
               center={a.pos}
               radius={8}
               pathOptions={{ color: '#EF4444', fillColor: '#EF4444', fillOpacity: 0.85, weight: 1 }}
-              className="attack-pulse"
-            >
-              <Popup>
-                <span style={{ color: '#222', fontWeight: 600, fontSize: '0.85rem' }}>{a.label}</span>
-              </Popup>
-              <LTooltip>{a.label}</LTooltip>
-            </CircleMarker>
+            />
           ))}
         </MapContainer>
 
