@@ -1,12 +1,12 @@
 {
-  "lastUpdated": "2026-03-16",
+  "lastUpdated": "2026-03-17",
   "sources": {
     "modgovae": {
       "lastTweetId": "2030989828712759428"
     }
   },
   "cumulative": {
-    "ballisticDetected": 304,
+    "ballisticDetected": 314,
     "ballisticIntercepted": 303,
     "ballisticSea": 20,
     "ballisticImpacted": 3,
@@ -14,14 +14,14 @@
     "cruiseIntercepted": 15,
     "cruiseSea": 0,
     "cruiseImpacted": 0,
-    "dronesDetected": 1627,
+    "dronesDetected": 1672,
     "dronesIntercepted": 1542,
     "dronesSea": 0,
     "dronesImpacted": 85,
-    "killed": 7,
-    "injured": 145,
+    "killed": 8,
+    "injured": 157,
     "killedMilitary": 2,
-    "killedCivilian": 5
+    "killedCivilian": 6
   },
   "daily": [
     {
@@ -266,7 +266,22 @@
       "dronesIntercepted": 20,
       "dronesImpacted": 1,
       "total": 27,
-      "notes": "1 killed (Al Bahia missile impact). Drone struck DXB T3 fuel depot — fire, 65 flights diverted, airport temporarily closed then resumed restricted schedule."
+      "notes": "1 killed (Al Bahia missile impact). Drone struck DXB T3 fuel depot \u2014 fire, 65 flights diverted, airport temporarily closed then resumed restricted schedule."
+    },
+    {
+      "date": "2026-03-17",
+      "label": "17 Mar",
+      "ballisticDetected": 10,
+      "ballisticIntercepted": null,
+      "ballisticImpacted": null,
+      "dronesDetected": 45,
+      "dronesIntercepted": null,
+      "dronesImpacted": null,
+      "total": 55,
+      "killed": 1,
+      "injured": 12,
+      "notes": "+1 civilian killed. Source: @modgovae infographic Mar 17 2026.",
+      "source": "https://x.com/modgovae/status/2033870782473113960"
     }
   ]
 }
