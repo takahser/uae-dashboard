@@ -22,7 +22,7 @@ jobs:
         run: |
           pip install requests
           python - <<'PYEOF'
-          import requests, json, time
+          import requests, json, time, os
           from datetime import datetime, timezone
 
           SYMBOLS = ["BZ=F", "CL=F", "NG=F", "2222.SR", "FRO", "STNG", "RTX", "LMT"]
@@ -36,6 +36,7 @@ jobs:
               "RTX": "RTX Corp",
               "LMT": "Lockheed Martin",
           }
+          EIA_KEY = "SWpk1JtQ4j8iB6FAHUOnT1LS88T6uCHhTbeMJbgO"  # free rate-limited EIA key
 
           quotes = {}
           history = {}
@@ -80,6 +81,48 @@ jobs:
                   time.sleep(0.5)
               except Exception as e:
                   print(f"Warning: failed to fetch {sym}: {e}")
+
+          # Fetch Dubai + Oman crude from EIA API (v2)
+          if EIA_KEY:
+              eia_series = {
+                  "DUBAI": ("EER_EPJK_PF4_RGC_DPG", "Dubai Fateh Crude", "Physical Gulf benchmark"),
+                  "OMAN":  ("EER_EPOMNL_PF4_RGC_DPG", "Oman Crude", "DME Oman — loads at Hormuz ports"),
+              }
+              for sym, (series_id, name, note) in eia_series.items():
+                  try:
+                      url = (
+                          f"https://api.eia.gov/v2/petroleum/pri/spt/data/"
+                          f"?api_key={EIA_KEY}&frequency=daily"
+                          f"&data%5B0%5D=value"
+                          f"&facets%5Bseries%5D%5B%5D={series_id}"
+                          f"&sort%5B0%5D%5Bcolumn%5D=period&sort%5B0%5D%5Bdirection%5D=desc&length=31"
+                      )
+                      r = requests.get(url, timeout=15)
+                      r.raise_for_status()
+                      rows = r.json().get("response", {}).get("data", [])
+                      if rows:
+                          latest = rows[0]
+                          price = float(latest.get("value", 0))
+                          prev_price = float(rows[1].get("value", 0)) if len(rows) > 1 else price
+                          change = round(price - prev_price, 2)
+                          change_pct = round((change / prev_price) * 100, 2) if prev_price else 0
+                          quotes[sym] = {
+                              "symbol": sym,
+                              "name": name,
+                              "price": round(price, 2),
+                              "change": change,
+                              "changePercent": change_pct,
+                              "previousClose": round(prev_price, 2),
+                              "note": note,
+                              "source": f"EIA (updated {latest.get('period','')})",
+                          }
+                          history[sym] = [
+                              {"date": row["period"], "close": round(float(row["value"]), 2)}
+                              for row in reversed(rows) if row.get("value") is not None
+                          ]
+                          print(f"EIA {sym}: ${price}")
+                  except Exception as e:
+                      print(f"Warning: EIA fetch failed for {sym}: {e}")
 
           output = {
               "updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),

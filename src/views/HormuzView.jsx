@@ -20,9 +20,11 @@ const today = data[data.length - 1];
 const closureDays = data.filter((d) => d.status === 'critical').length;
 
 const intel = [
+  'Mar 18: Missile strikes on Aramco refinery in Riyadh — Saudi Arabia capital hit (via @IranObserver0)',
   'Mar 18: South Pars gas field (world\'s largest) struck — multiple processing phases offline, fires reported',
   'Mar 18: Iran orders evacuation of petrochemical plants in UAE, Saudi Arabia and Qatar',
   'Mar 18: Iran negotiating Hormuz passage with 8 countries in exchange for yuan-denominated oil trade',
+  'Mar 18: Strait status — commercial traffic unconfirmed; at least one vessel transit reported but unverified',
   'Mar 16: DXB fuel depot struck — fire reported, diverted flights, 12 injured',
   'Mar 13: Iran switches to "continuous engagement" doctrine — no interception reporting since',
   'Mar 11: 3 ships struck near Hormuz — Thai Mayuree Naree on fire, 3 crew missing',
@@ -54,11 +56,18 @@ function StatCard({ label, value, color }) {
 
 const ATTACKS = [
   { pos: [26.2, 56.5], label: "Mar 18: South Pars gas field struck — multiple processing phases offline", date: "2026-03-18" },
+  { pos: [24.68, 46.72], label: "Mar 18: Missile strikes on Aramco refinery — Riyadh, Saudi Arabia", date: "2026-03-18" },
   { pos: [25.8, 57.2], label: "Mar 11: Thai Mayuree Naree struck — fire, 3 crew missing", date: "2026-03-11" },
   { pos: [26.1, 56.9], label: "Mar 9: Container vessel Meridian Star hit by drone", date: "2026-03-09" },
   { pos: [25.6, 58.1], label: "Mar 7: Oil tanker Gulf Pioneer attacked, diverted to Fujairah", date: "2026-03-07" },
   { pos: [26.4, 56.4], label: "Mar 5: Mine detected near shipping lane — US Navy warning issued", date: "2026-03-05" },
 ];
+
+const RECENT_DATE = new Date("2026-03-18");
+const isRecent = (a) => {
+  const d = new Date(a.date);
+  return (RECENT_DATE - d) / 86400000 <= 2;
+};
 
 const GEO_LABELS = [
   { pos: [27.0, 56.8], label: "\u{1F1EE}\u{1F1F7} Iran \u2014 controls north shore" },
@@ -115,6 +124,11 @@ function HormuzMap({ marketData }) {
           0% { opacity: 0.85; }
           50% { opacity: 0.35; }
           100% { opacity: 0.85; }
+        }
+        @keyframes pulse-recent {
+          0% { opacity: 0.9; }
+          50% { opacity: 0.3; }
+          100% { opacity: 0.9; }
         }
       `}</style>
       <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: 12, color: TEXT }}>
@@ -183,14 +197,31 @@ function HormuzMap({ marketData }) {
           {/* Attack markers */}
           {ATTACKS.map((a, i) => {
             const pt = toSVG(a.pos[0], a.pos[1]);
+            if (pt.x < 0 || pt.x > SVG_W || pt.y < 0 || pt.y > SVG_H) return null;
+            const recent = isRecent(a);
             return (
               <g key={`atk-${i}`}
                 onMouseEnter={() => setHover({ x: pt.x, y: pt.y, text: a.label, type: 'attack' })}
                 onMouseLeave={() => setHover(null)}
                 style={{ cursor: 'pointer' }}
               >
-                <circle cx={pt.x} cy={pt.y} r={12} fill="rgba(255,68,68,0.2)" stroke="none" style={{ animation: 'pulse-attack 2s ease-in-out infinite' }} />
-                <circle cx={pt.x} cy={pt.y} r={6} fill="#ff4444" fillOpacity={0.9} stroke="#ff4444" strokeWidth={1} />
+                <circle cx={pt.x} cy={pt.y} r={12}
+                  fill={recent ? "rgba(255,120,0,0.35)" : "rgba(255,68,68,0.2)"}
+                  stroke="none"
+                  style={{ animation: recent ? 'pulse-recent 1s ease-in-out infinite' : 'pulse-attack 2s ease-in-out infinite' }}
+                />
+                <circle cx={pt.x} cy={pt.y} r={6}
+                  fill={recent ? "#FF7800" : "#ff4444"}
+                  fillOpacity={0.9}
+                  stroke={recent ? "#FF7800" : "#ff4444"}
+                  strokeWidth={1}
+                />
+                {recent && (
+                  <>
+                    <rect x={pt.x - 9} y={pt.y - 22} width={18} height={10} rx={2} fill="rgba(5,11,26,0.9)" stroke="#FF7800" strokeWidth={0.5} />
+                    <text x={pt.x} y={pt.y - 14} fill="#FF7800" fontSize={8} textAnchor="middle" fontWeight={700}>NEW</text>
+                  </>
+                )}
                 <circle cx={pt.x} cy={pt.y} r={14} fill="transparent" />
               </g>
             );
@@ -232,6 +263,7 @@ function HormuzMap({ marketData }) {
           background: 'rgba(5,11,26,0.9)', border: `1px solid ${GLASS_BORDER}`,
           borderRadius: 6, padding: '6px 12px', fontSize: '0.7rem', color: SUBTEXT
         }}>
+          <span style={{ color: '#FF7800' }}>&#9679;</span> Recent attack &nbsp;
           <span style={{ color: '#ff4444' }}>&#9679;</span> Ship attack &nbsp;
           <span style={{ color: '#ff4444' }}>- -</span> Chokepoint &nbsp;
           <span style={{ color: '#4a9eff' }}>&#9679;</span> Port
