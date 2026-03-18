@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-03-17",
+  "lastUpdated": "2026-03-18",
   "sources": {
     "modgovae": {
       "lastTweetId": "2030989828712759428"
@@ -7,7 +7,7 @@
     "notes": "From 13 Mar 2026, UAE MoD changed reporting from intercepted/impacted breakdown to 'engaged' count only. See reportingType field on daily entries."
   },
   "cumulative": {
-    "ballisticDetected": 314,
+    "ballisticDetected": 327,
     "ballisticIntercepted": 303,
     "ballisticSea": 20,
     "ballisticImpacted": 3,
@@ -15,12 +15,12 @@
     "cruiseIntercepted": 15,
     "cruiseSea": 0,
     "cruiseImpacted": 0,
-    "dronesDetected": 1672,
+    "dronesDetected": 1699,
     "dronesIntercepted": 1542,
     "dronesSea": 0,
     "dronesImpacted": 85,
     "killed": 8,
-    "injured": 157,
+    "injured": 158,
     "killedMilitary": 2,
     "killedCivilian": 6
   },
@@ -305,6 +305,22 @@
       "injured": 12,
       "notes": "+1 civilian killed. Source: @modgovae infographic Mar 17 2026.",
       "source": "https://x.com/modgovae/status/2033870782473113960"
+    },
+    {
+      "date": "2026-03-18",
+      "label": "18 Mar",
+      "ballisticDetected": 13,
+      "ballisticIntercepted": null,
+      "ballisticImpacted": null,
+      "dronesDetected": 27,
+      "dronesIntercepted": null,
+      "dronesImpacted": null,
+      "total": 40,
+      "killed": 0,
+      "injured": 1,
+      "reportingType": "engaged",
+      "notes": "+1 injured cumulative.",
+      "source": "https://x.com/modgovae/status/2034224417996476422"
     }
   ]
 }
