@@ -1794,7 +1794,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                   <Bar dataKey="ballisticSea" name={t("chart.sea")} fill={SEA} radius={[3, 3, 0, 0]} stackId="a" />
                 </BarChart>
               </ResponsiveContainer>
-              <p style={{ margin: "8px 0 0", fontSize: 10, color: SUBTEXT, fontStyle: "italic" }}>† From 17 Mar: MoD reports "engaged" only (no intercepted/impacted breakdown)</p>
+              <p style={{ margin: "8px 0 0", fontSize: 10, color: SUBTEXT, fontStyle: "italic" }}>† From 13 Mar: MoD reports "engaged" only (no intercepted/impacted breakdown)</p>
             </div>
 
             <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20 }}>
@@ -1812,7 +1812,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                   <Bar dataKey="droneImpact" name={t("chart.impacted")} fill={IMPACTED} radius={[3, 3, 0, 0]} stackId="a" />
                 </BarChart>
               </ResponsiveContainer>
-              <p style={{ margin: "8px 0 0", fontSize: 10, color: SUBTEXT, fontStyle: "italic" }}>† From 17 Mar: MoD reports "engaged" only (no intercepted/impacted breakdown)</p>
+              <p style={{ margin: "8px 0 0", fontSize: 10, color: SUBTEXT, fontStyle: "italic" }}>† From 13 Mar: MoD reports "engaged" only (no intercepted/impacted breakdown)</p>
             </div>
 
             <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: GLASS_BORDER, borderRadius: GLASS_RADIUS, padding: 20, gridColumn: "1 / -1" }}>
