@@ -55,6 +55,7 @@ export default function MarketPanel({ data, error, lastUpdated, loading, refetch
           Market Impact
         </h3>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+          <span style={{ fontSize: '0.65rem', color: SUBTEXT }}>Delayed up to 30 min</span>
           {lastUpdated && (
             <span style={{ fontSize: '0.65rem', color: isStale ? '#F59E0B' : SUBTEXT }}>
               {isStale ? 'Stale — ' : ''}{lastUpdated.toLocaleTimeString()}
