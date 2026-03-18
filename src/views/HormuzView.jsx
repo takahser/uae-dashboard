@@ -1,7 +1,7 @@
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { Tooltip as RTooltip, Legend } from 'recharts';
 import { useState } from 'react';
-import { MapContainer, TileLayer, CircleMarker } from 'react-leaflet';
+import { MapContainer, TileLayer, CircleMarker, Polyline, Tooltip } from 'react-leaflet';
 import data from '../data/hormuz.json';
 import MarketPanel from '../components/MarketPanel';
 import { useMarketData } from '../hooks/useMarketData';
@@ -79,19 +79,21 @@ const PORTS = [
   { pos: [24.35, 56.64], label: "Sohar (Oman) \u2014 Oil & industrial port", country: "Oman" },
 ];
 
+// Ships leaving Persian Gulf ports, transiting through the strait
 const HORMUZ_ROUTE = [
-  [24.0, 53.0],
-  [25.5, 56.5],
-  [26.5, 56.8],
-  [25.5, 58.5],
-  [23.5, 60.5],
+  [25.5, 54.5],  // Persian Gulf (Abu Dhabi / Dubai offshore)
+  [26.0, 55.8],  // Approaching strait
+  [26.55, 56.25], // Narrowest point (Musandam)
+  [25.8, 57.2],  // Gulf of Oman exit
+  [24.0, 58.5],  // Open Indian Ocean
 ];
 
+// Fujairah bypass: crude piped INLAND from Abu Dhabi fields to Fujairah terminal,
+// then ships load at Fujairah and sail east — never entering the strait
 const FUJAIRAH_BYPASS = [
-  [24.0, 53.0],
-  [25.1, 56.3],
-  [25.5, 58.5],
-  [23.5, 60.5],
+  [25.13, 56.36], // Fujairah terminal (loading point)
+  [24.5, 57.5],   // Gulf of Oman
+  [23.0, 59.0],   // Open Indian Ocean
 ];
 
 // Map view bounds for filtering attacks
@@ -115,6 +117,22 @@ function HormuzMap() {
             url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
             attribution='&copy; <a href="https://carto.com/">CARTO</a>'
           />
+
+          {/* Hormuz Transit Route — CLOSED */}
+          <Polyline
+            positions={HORMUZ_ROUTE}
+            pathOptions={{ color: '#EF4444', weight: 2.5, dashArray: '8 6', opacity: 0.85 }}
+          >
+            <Tooltip sticky>Hormuz Transit — CLOSED since Mar 13</Tooltip>
+          </Polyline>
+
+          {/* Fujairah Bypass — ACTIVE */}
+          <Polyline
+            positions={FUJAIRAH_BYPASS}
+            pathOptions={{ color: '#27AE60', weight: 2.5, opacity: 0.9 }}
+          >
+            <Tooltip sticky>Fujairah Bypass — ACTIVE. Crude piped inland, ships load here and sail east.</Tooltip>
+          </Polyline>
 
           {/* Port markers */}
           {PORTS.map((p, i) => (
