@@ -479,17 +479,9 @@ const GCC_COVERED_COUNTRIES = new Set(["UAE", "QATAR", "KUWAIT", "BAHRAIN"]);
 
 // UAE emirate boundary pts (raw lat/lng) — projected dynamically at render time
 // using the per-country UAE_BOUNDS projection to avoid overlap artifacts
+// Abu Dhabi omitted — its outline IS the UAE outer border, covered by NaturalEarth fill
 const UAE_EMIRATES = [
-  { name: "ABU DHABI", labelLat: 23.6, labelLng: 53.5, pts: [
-    [24.15,51.57],[24.30,51.65],[24.28,51.82],[24.13,52.28],[24.04,52.82],
-    [23.98,53.38],[24.08,53.82],[24.22,54.10],[24.42,54.40],[24.75,54.68],
-    [25.01,55.07],[25.20,55.28],[25.28,55.40],[25.34,55.51],[25.58,55.85],
-    [25.80,56.02],[25.97,56.08],
-    [25.60,56.18],[25.36,56.29],[25.21,56.36],[25.02,56.34],[24.87,56.37],
-    [24.46,56.28],[24.23,55.97],[24.08,55.80],[23.63,55.55],[23.10,55.20],
-    [22.63,55.14],[22.52,55.00],[22.72,54.00],[23.00,52.50],[23.50,51.80],
-    [24.15,51.57],
-  ]},
+  { name: "ABU DHABI", labelLat: 23.6, labelLng: 53.5, pts: [] }, // label only, no border line (outer border = NaturalEarth)
   { name: "DUBAI", labelLat: 25.15, labelLng: 55.22, pts: [
     [25.27,55.28],[25.31,55.45],[25.19,55.62],[25.05,55.66],[24.98,55.62],
     [24.90,55.66],[24.72,55.68],[24.61,55.46],[24.60,55.16],[24.98,55.01],
