@@ -46,11 +46,12 @@ function parseIntelItem(text) {
   return { timestamp: '', body: text };
 }
 
-function StatCard({ label, value, color }) {
+function StatCard({ label, value, color, unit }) {
   return (
     <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: `1px solid ${GLASS_BORDER}`, borderRadius: GLASS_RADIUS, padding: '20px 16px', flex: 1, minWidth: 140, borderTop: `3px solid ${color || ACCENT}` }}>
       <div style={{ color: SUBTEXT, fontSize: '0.8rem', marginBottom: 6 }}>{label}</div>
       <div style={{ fontSize: '1.6rem', fontWeight: 700, color: color || TEXT }}>{value}</div>
+      {unit && <div style={{ color: SUBTEXT, fontSize: '0.72rem', marginTop: 4, opacity: 0.75 }}>{unit}</div>}
     </div>
   );
 }
@@ -275,7 +276,7 @@ export default function HormuzView({ onBack }) {
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 32 }}>
           <StatCard label="Ships Today" value={today.ships} color={today.ships === 0 ? '#C0392B' : undefined} />
           <StatCard label="Tankers Today" value={today.tankers} color={today.tankers === 0 ? '#C0392B' : undefined} />
-          <StatCard label="Oil Blocked" value={`${(20.5 - today.oil_mbpd).toFixed(1)} mb/d`} color="#C0392B" />
+          <StatCard label="Oil Blocked" value={`${(20.5 - today.oil_mbpd).toFixed(1)} mb/d`} color="#C0392B" unit="million barrels per day" />
           <StatCard label="Days Since Closure" value={closureDays} color="#C0392B" />
         </div>
 
