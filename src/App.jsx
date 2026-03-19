@@ -201,12 +201,6 @@ const MAP_CONFIGS = {
       { id: "s3", name: "US Embassy Abu Dhabi", type: "US Embassy", lat: 24.4539, lng: 54.3773 },
       { id: "s4", name: "US Consulate Dubai", type: "US Consulate", lat: 25.2601, lng: 55.3091 },
       { id: "s7", name: "Fujairah Naval Facility", type: "US Navy", lat: 25.1612, lng: 56.3658 },
-      { id: "d1", name: "Jebel Ali Desal", type: "Desalination", siteType: "desal", lat: 25.0597, lng: 55.1172 },
-      { id: "d2", name: "Taweelah Desal", type: "Desalination", siteType: "desal", lat: 24.7680, lng: 54.6873 },
-      { id: "d3", name: "Fujairah Desal (Qidfa)", type: "Desalination", siteType: "desal", lat: 25.3141, lng: 56.3728 },
-      { id: "d4", name: "Umm Al Nar Desal", type: "Desalination", siteType: "desal", lat: 24.4348, lng: 54.4876 },
-      { id: "d5", name: "Shuweihat Desal", type: "Desalination", siteType: "desal", lat: 24.32, lng: 52.60 },
-      { id: "d6", name: "Al Mirfa Desal", type: "Desalination", siteType: "desal", lat: 24.28, lng: 53.48 },
     ],
   },
   qatar: {
