@@ -60,3 +60,62 @@ body {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
 }
+
+/* ── Print styles ─────────────────────────────────────────── */
+@media print {
+  /* Force dark background and light text */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  body {
+    background: #050B1A !important;
+    color: #E8E8ED !important;
+  }
+
+  /* Hide interactive/nav elements */
+  button,
+  [role="button"],
+  nav,
+  .leaflet-control,
+  .leaflet-pane.leaflet-shadow-pane {
+    display: none !important;
+  }
+
+  /* Remove glassmorphism blur (doesn't print) */
+  * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Make cards solid dark instead of transparent */
+  [style*="rgba(255,255,255,0.0"],
+  [style*="rgba(255,255,255,0.1"] {
+    background: #0D1B2A !important;
+    border-color: #FFFFFF22 !important;
+  }
+
+  /* Page breaks */
+  .recharts-responsive-container {
+    break-inside: avoid;
+  }
+
+  /* Ensure SVG maps print */
+  svg {
+    overflow: visible !important;
+  }
+
+  /* Remove fixed positioning artifacts */
+  #root {
+    position: static !important;
+    overflow: visible !important;
+  }
+
+  /* Page margins */
+  @page {
+    margin: 1.5cm;
+    size: A4 landscape;
+  }
+}
