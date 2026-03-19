@@ -479,55 +479,9 @@ const GCC_COVERED_COUNTRIES = new Set(["UAE", "QATAR", "KUWAIT", "BAHRAIN"]);
 
 // UAE emirate boundary pts (raw lat/lng) — projected dynamically at render time
 // using the per-country UAE_BOUNDS projection to avoid overlap artifacts
-// Abu Dhabi omitted — its outline IS the UAE outer border, covered by NaturalEarth fill
-const UAE_EMIRATES = [
-  { name: "ABU DHABI", labelLat: 23.6, labelLng: 53.5, pts: [] }, // label only, no border line (outer border = NaturalEarth)
-  { name: "DUBAI", labelLat: 25.15, labelLng: 55.22, pts: [
-    [25.27,55.28],[25.31,55.45],[25.19,55.62],[25.05,55.66],[24.98,55.62],
-    [24.90,55.66],[24.72,55.68],[24.61,55.46],[24.60,55.16],[24.98,55.01],
-    [25.04,55.04],[25.09,55.11],[25.15,55.10],[25.19,55.18],[25.22,55.22],
-    [25.25,55.25],[25.27,55.28],
-  ]},
-  { name: "SHARJAH", labelLat: 25.35, labelLng: 55.60, pts: [
-    [24.98,55.98],[24.95,55.87],[24.88,55.81],[24.70,55.82],[24.71,55.67],
-    [24.90,55.66],[24.98,55.62],[25.05,55.66],[25.19,55.62],[25.31,55.45],
-    [25.40,55.42],[25.36,55.61],[25.42,55.63],[25.45,55.50],[25.51,55.52],
-    [25.42,55.71],[25.28,55.82],[25.30,55.91],[25.33,55.94],[25.39,55.98],
-    [25.30,55.96],[25.18,55.95],[25.08,55.95],[24.98,55.98],
-  ]},
-  { name: "SHARJAH", labelLat: 0, labelLng: 0, pts: [
-    [25.23,56.21],[25.31,56.21],[25.32,56.26],[25.36,56.27],[25.42,56.36],
-    [25.31,56.37],[25.22,56.27],[25.23,56.21],
-  ]},
-  { name: "AJMAN", labelLat: 25.42, labelLng: 55.48, pts: [
-    [25.40,55.42],[25.45,55.50],[25.42,55.63],[25.36,55.60],[25.36,55.51],[25.40,55.42],
-  ]},
-  { name: "UMM AL QUWAIN", labelLat: 25.56, labelLng: 55.65, pts: [
-    [25.51,55.52],[25.66,55.75],[25.64,55.80],[25.47,55.84],[25.43,55.89],
-    [25.35,55.93],[25.30,55.91],[25.28,55.81],[25.35,55.78],[25.42,55.71],[25.51,55.52],
-  ]},
-  { name: "RAS AL KHAIMAH", labelLat: 25.80, labelLng: 55.97, pts: [
-    [25.74,55.89],[25.88,56.05],[26.07,56.09],[26.08,56.16],[25.66,56.16],
-    [25.58,55.96],[25.49,55.98],[25.50,56.10],[25.47,56.13],[25.42,56.09],
-    [25.40,56.14],[25.34,56.08],[25.39,55.97],[25.33,55.94],[25.40,55.87],
-    [25.43,55.89],[25.47,55.84],[25.63,55.80],[25.66,55.75],[25.72,55.80],[25.74,55.89],
-  ]},
-  { name: "RAS AL KHAIMAH", labelLat: 0, labelLng: 0, pts: [
-    [24.82,56.19],[24.85,56.06],[24.96,56.03],[25.04,55.95],[25.14,55.98],
-    [25.20,55.96],[25.22,56.12],[25.29,56.18],[25.31,56.12],[25.34,56.15],
-    [25.31,56.21],[24.94,56.21],[24.85,56.28],[24.82,56.19],
-  ]},
-  { name: "FUJAIRAH", labelLat: 25.40, labelLng: 56.28, pts: [
-    [25.42,56.36],[25.31,56.23],[25.32,56.12],[25.22,56.12],[25.23,55.99],
-    [25.38,56.00],[25.34,56.09],[25.38,56.15],[25.42,56.09],[25.47,56.13],
-    [25.50,56.10],[25.49,55.98],[25.59,55.97],[25.66,56.16],[25.61,56.22],
-    [25.60,56.36],[25.42,56.36],
-  ]},
-  { name: "FUJAIRAH", labelLat: 0, labelLng: 0, pts: [
-    [25.07,56.36],[24.98,56.37],[24.85,56.28],[24.94,56.21],[25.23,56.21],
-    [25.22,56.27],[25.31,56.37],[25.07,56.36],
-  ]},
-];
+// UAE emirate boundaries from NaturalEarth admin-1 (10m) — stored in gcc-borders.json
+// UAE emirate boundaries from NaturalEarth admin-1 (10m) via gcc-borders.json
+const UAE_EMIRATES = gccBorders.uae_emirates || [];
 
 // Safe number helper: treat null/undefined as 0 for math
 const n = (v) => (v == null ? 0 : v);
@@ -1434,7 +1388,10 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                       const d = "M" + uaePts.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z";
                       return <path d={d} fill={MAP_LAND} stroke={MAP_BORDER_COLOR} strokeWidth="1.2" opacity="0.95" />;
                     })()}
-                    {/* Emirate divider lines removed — inaccurate pts spill outside UAE outline */}
+                    {/* Emirate boundaries from NaturalEarth admin-1 — fill each emirate */}
+                    {regionPaths.map((e, i) => (
+                      <path key={`${e.name}-${i}`} d={e.path} fill="none" stroke={MAP_BORDER_COLOR} strokeWidth="0.8" opacity="0.7" />
+                    ))}
                   </>
                 ) : (
                   regionPaths.map((e, i) => (
