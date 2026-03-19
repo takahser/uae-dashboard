@@ -84,47 +84,49 @@ jobs:
               except Exception as e:
                   print(f"Warning: failed to fetch {sym}: {e}")
 
-          # Fetch Dubai + Oman crude from EIA API (v2)
-          if EIA_KEY:
-              eia_series = {
-                  "DUBAI": ("EER_EPJK_PF4_RGC_DPG", "Dubai Fateh Crude", "Physical Gulf benchmark"),
-                  "OMAN":  ("EER_EPOMNL_PF4_RGC_DPG", "Oman Crude", "DME Oman — loads at Hormuz ports"),
+          # Fetch Dubai Platts crude from investing.com scraper
+          try:
+              dubai_url = "https://www.investing.com/commodities/dubai-crude-oil-platts-futures"
+              headers_inv = {
+                  "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                  "Accept-Language": "en-US,en;q=0.9",
               }
-              for sym, (series_id, name, note) in eia_series.items():
-                  try:
-                      url = (
-                          f"https://api.eia.gov/v2/petroleum/pri/spt/data/"
-                          f"?api_key={EIA_KEY}&frequency=daily"
-                          f"&data%5B0%5D=value"
-                          f"&facets%5Bseries%5D%5B%5D={series_id}"
-                          f"&sort%5B0%5D%5Bcolumn%5D=period&sort%5B0%5D%5Bdirection%5D=desc&length=31"
-                      )
-                      r = requests.get(url, timeout=15)
-                      r.raise_for_status()
-                      rows = r.json().get("response", {}).get("data", [])
-                      if rows:
-                          latest = rows[0]
-                          price = float(latest.get("value", 0))
-                          prev_price = float(rows[1].get("value", 0)) if len(rows) > 1 else price
-                          change = round(price - prev_price, 2)
-                          change_pct = round((change / prev_price) * 100, 2) if prev_price else 0
-                          quotes[sym] = {
-                              "symbol": sym,
-                              "name": name,
-                              "price": round(price, 2),
-                              "change": change,
-                              "changePercent": change_pct,
-                              "previousClose": round(prev_price, 2),
-                              "note": note,
-                              "source": f"EIA (updated {latest.get('period','')})",
-                          }
-                          history[sym] = [
-                              {"date": row["period"], "close": round(float(row["value"]), 2)}
-                              for row in reversed(rows) if row.get("value") is not None
-                          ]
-                          print(f"EIA {sym}: ${price}")
-                  except Exception as e:
-                      print(f"Warning: EIA fetch failed for {sym}: {e}")
+              r = requests.get(dubai_url, headers=headers_inv, timeout=15)
+              import re
+              m_price = re.search(r'instrument-price-last[^>]*>([^<]+)<', r.text)
+              m_change = re.search(r'instrument-price-change-percent[^>]*>\(([^%)]+)%\)', r.text)
+              if m_price:
+                  dubai_price = float(m_price.group(1).replace(",", ""))
+                  dubai_pct = float(m_change.group(1)) if m_change else 0.0
+                  quotes["DUBAI"] = {
+                      "symbol": "DUBAI",
+                      "name": "Dubai Platts Crude",
+                      "price": dubai_price,
+                      "change": round(dubai_price * dubai_pct / 100, 2),
+                      "changePercent": dubai_pct,
+                      "note": "Physical Gulf benchmark",
+                      "source": "investing.com (Platts)",
+                  }
+                  print(f"Dubai Platts: ${dubai_price}")
+              else:
+                  print("Warning: Dubai Platts price not found in page")
+          except Exception as e:
+              print(f"Warning: Dubai Platts scrape failed: {e}")
+
+          # Oman crude — manual update only (no free live source available)
+          # Update this value manually when @KobeissiLetter or verified sources report a new price
+          OMAN_PRICE = 200.0   # Updated Mar 19 2026 — @SprinterPress confirmed $200
+          OMAN_PREV  = 154.0   # Mar 18 close per @KobeissiLetter
+          quotes["OMAN"] = {
+              "symbol": "OMAN",
+              "name": "Oman Crude",
+              "price": OMAN_PRICE,
+              "change": round(OMAN_PRICE - OMAN_PREV, 2),
+              "changePercent": round((OMAN_PRICE - OMAN_PREV) / OMAN_PREV * 100, 2),
+              "previousClose": OMAN_PREV,
+              "note": "DME Oman benchmark — manual update",
+              "source": "Manual (SprinterPress Mar 19)",
+          }
 
           output = {
               "updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
