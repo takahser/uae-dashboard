@@ -2579,7 +2579,7 @@ export default function App() {
 
   if (appState.view === null) return <Landing onSelect={handleSelect} />;
   if (appState.view === "designs") return <DesignShowcase />;
-  if (appState.view === "hormuz") return <HormuzView onBack={handleBack} experimental={experimental} toggleExperimental={toggleExperimental} />;
+  if (appState.view === "hormuz") return <HormuzView onBack={handleBack} />;
   if (appState.view === "flights") return <FlightsView onBack={handleBack} />;
   if (appState.view === "sources") return <SourcesView onBack={handleBack} />;
   return <Dashboard onBack={handleBack} initialTab={appState.tab} initialCountry={appState.country} />;

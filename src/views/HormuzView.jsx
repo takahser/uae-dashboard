@@ -1,6 +1,6 @@
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { Tooltip as RTooltip, Legend } from 'recharts';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Polyline, Tooltip } from 'react-leaflet';
 import data from '../data/hormuz.json';
 import MarketPanel from '../components/MarketPanel';
@@ -239,11 +239,13 @@ const FACTS = [
   { value: 'Divided', desc: 'Iran controls north shore; Oman controls south shore' },
 ];
 
-export default function HormuzView({ onBack, experimental, toggleExperimental }) {
+export default function HormuzView({ onBack }) {
   const chartData = data.map((d) => ({ ...d, label: d.date.slice(5) }));
   const status = getStraitStatus(today.ships);
   const { data: marketData, history: marketHistory, error: marketError, lastUpdated, loading: marketLoading, refetch } = useMarketData();
   const [activeLines, setActiveLines] = useState({ "BZ=F": true, "CL=F": true, "DUBAI": true, "NG=F": false });
+  const [expOn, setExpOn] = useState(() => { try { return localStorage.getItem("ww3_experimental") === "true"; } catch { return false; } });
+  const toggleExp = useCallback(() => setExpOn(v => { const next = !v; try { localStorage.setItem("ww3_experimental", String(next)); } catch {} return next; }), []);
 
   return (
     <div style={{ minHeight: '100vh', background: BG, color: TEXT, fontFamily: DM_SANS, padding: '40px 20px', position: 'relative', overflowX: 'hidden' }}>
@@ -431,17 +433,15 @@ export default function HormuzView({ onBack, experimental, toggleExperimental })
       </div>
       {/* Global footer */}
       <div style={{ textAlign: 'center', marginTop: 32, paddingBottom: 24, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
-        {toggleExperimental && (
-          <button onClick={toggleExperimental} style={{
-            background: '#FFFFFF0A', backdropFilter: 'blur(10px)',
-            border: experimental ? '1px solid #F59E0B44' : '1px solid #FFFFFF11',
-            color: experimental ? '#F59E0B' : 'rgba(255,255,255,0.5)',
-            borderRadius: 100, padding: '4px 12px', cursor: 'pointer',
-            fontSize: 11, fontWeight: 500, letterSpacing: 0.5, display: 'flex', alignItems: 'center', gap: 4
-          }}>
-            ⚗️ {experimental ? 'Experimental: ON' : 'Experimental'}
-          </button>
-        )}
+        <button onClick={toggleExp} style={{
+          background: '#FFFFFF0A', backdropFilter: 'blur(10px)',
+          border: expOn ? '1px solid #F59E0B44' : '1px solid #FFFFFF11',
+          color: expOn ? '#F59E0B' : 'rgba(255,255,255,0.5)',
+          borderRadius: 100, padding: '4px 12px', cursor: 'pointer',
+          fontSize: 11, fontWeight: 500, letterSpacing: 0.5, display: 'flex', alignItems: 'center', gap: 4
+        }}>
+          ⚗️ {expOn ? 'Experimental: ON' : 'Experimental'}
+        </button>
         <a href="https://x.com/the_seraya" target="_blank" rel="noopener noreferrer"
           style={{ color: 'rgba(255,255,255,0.35)', textDecoration: 'none', fontSize: 11, display: 'flex', alignItems: 'center', gap: 4 }}>
           <svg width="11" height="11" viewBox="0 0 1200 1227" fill="currentColor"><path d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284zM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854z"/></svg>
