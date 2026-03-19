@@ -8,10 +8,13 @@ const TEXT = '#E8EDF5';
 const SUBTEXT = 'rgba(255,255,255,0.5)';
 const ACCENT = '#F59E0B';
 
+// Feature flags — set to true once data source is verified
+const FEATURE_DUBAI_PRICE = false;  // investing.com scraper — pending verification
+
 const OIL_SYMBOLS = [
   { key: "BZ=F",  label: "Brent Crude",  unit: "$/bbl" },
   { key: "CL=F",  label: "WTI Crude",    unit: "$/bbl" },
-  { key: "DUBAI", label: "Dubai Crude",  unit: "$/bbl" },
+  ...(FEATURE_DUBAI_PRICE ? [{ key: "DUBAI", label: "Dubai Crude", unit: "$/bbl" }] : []),
   { key: "OMAN",  label: "Oman Crude",   unit: "$/bbl" },
   { key: "NG=F",  label: "Natural Gas",  unit: "$/MMBtu" },
 ];
