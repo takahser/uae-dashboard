@@ -20,6 +20,7 @@ const today = data[data.length - 1];
 const closureDays = data.filter((d) => d.status === 'critical').length;
 
 const intel = [
+  'Mar 19: Qatar declares force majeure on LNG contracts to Italy, Belgium, South Korea, China — 2 of 14 LNG trains offline, 12.8M tpa capacity lost for 3–5 years (QatarEnergy CEO, Reuters)',
   'Mar 19: Kuwait — drone strikes on Mina al-Ahmadi (730K bpd) and Mina Abdullah (454K bpd) refineries; both ablaze (Reuters, AP)',
   'Mar 18: Missile strikes on Aramco refinery in Riyadh — Saudi Arabia capital hit (via @IranObserver0)',
   'Mar 18: South Pars gas field (world\'s largest) struck — multiple processing phases offline, fires reported',
