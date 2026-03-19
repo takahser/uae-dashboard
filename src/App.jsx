@@ -205,8 +205,8 @@ const MAP_CONFIGS = {
       { id: "d2", name: "Taweelah Desal", type: "Desalination", siteType: "desal", lat: 24.7680, lng: 54.6873 },
       { id: "d3", name: "Fujairah Desal (Qidfa)", type: "Desalination", siteType: "desal", lat: 25.3141, lng: 56.3728 },
       { id: "d4", name: "Umm Al Nar Desal", type: "Desalination", siteType: "desal", lat: 24.4348, lng: 54.4876 },
-      { id: "d5", name: "Shuweihat Desal", type: "Desalination", siteType: "desal", lat: 24.1650, lng: 52.5680 },
-      { id: "d6", name: "Al Mirfa Desal", type: "Desalination", siteType: "desal", lat: 24.1210, lng: 53.4470 },
+      { id: "d5", name: "Shuweihat Desal", type: "Desalination", siteType: "desal", lat: 24.32, lng: 52.60 },
+      { id: "d6", name: "Al Mirfa Desal", type: "Desalination", siteType: "desal", lat: 24.28, lng: 53.48 },
     ],
   },
   qatar: {
