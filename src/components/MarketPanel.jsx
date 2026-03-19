@@ -9,7 +9,7 @@ const SUBTEXT = 'rgba(255,255,255,0.5)';
 const ACCENT = '#F59E0B';
 
 // Feature flags — set to true once data source is verified
-const FEATURE_DUBAI_PRICE = false;  // investing.com scraper — pending verification
+const FEATURE_DUBAI_PRICE = true;  // investing.com scraper — verified $136.42 Mar 19
 
 const OIL_SYMBOLS = [
   { key: "BZ=F",  label: "Brent Crude",  unit: "$/bbl" },
