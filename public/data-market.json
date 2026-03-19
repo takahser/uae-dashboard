@@ -1,20 +1,20 @@
 {
-  "updated": "2026-03-19T08:09:58Z",
+  "updated": "2026-03-19T08:44:35Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude",
-      "price": 108.67,
-      "change": 5.75,
-      "changePercent": 5.59,
+      "price": 108.5,
+      "change": 5.58,
+      "changePercent": 5.42,
       "previousClose": 102.92
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude",
-      "price": 96.73,
-      "change": 1.27,
-      "changePercent": 1.33,
+      "price": 96.34,
+      "change": 0.88,
+      "changePercent": 0.92,
       "previousClose": 95.46
     },
     "NG=F": {
@@ -68,9 +68,9 @@
     "DUBAI": {
       "symbol": "DUBAI",
       "name": "Dubai Platts Crude",
-      "price": 122.84,
-      "change": 0.0,
-      "changePercent": 0.0,
+      "price": 136.42,
+      "change": 15.07,
+      "changePercent": 11.05,
       "note": "Physical Gulf benchmark",
       "source": "investing.com (Platts)"
     },
@@ -185,7 +185,7 @@
       },
       {
         "date": "2026-03-19",
-        "close": 108.67
+        "close": 108.5
       }
     ],
     "CL=F": [
@@ -287,7 +287,7 @@
       },
       {
         "date": "2026-03-19",
-        "close": 96.76
+        "close": 96.34
       }
     ],
     "NG=F": [
