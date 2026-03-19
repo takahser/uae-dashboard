@@ -1384,11 +1384,18 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                 {/* UAE: draw NaturalEarth country outline as fill, then emirate dividers as stroke-only lines */}
                 {isUAE ? (
                   <>
-                    {/* UAE country fill — NaturalEarth 50m mainland ring (120+ pts, accurate coastline) */}
+                    {/* UAE country fill — NaturalEarth 50m mainland ring */}
                     {(() => {
                       const rings = gccBorders.gcc?.uae?.multiPolygon ? gccBorders.gcc.uae.pts : [gccBorders.gcc.uae.pts];
                       const d = "M" + rings[0].map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z";
                       return <path d={d} fill={MAP_LAND} stroke={MAP_BORDER_COLOR} strokeWidth="1.2" opacity="0.95" />;
+                    })()}
+                    {/* Abu Dhabi emirate overlay — includes the Abu Dhabi island (NE admin-1) */}
+                    {(() => {
+                      const adPts = (gccBorders.uae_emirates || []).find(e => e.name === "ABU DHABI")?.pts || [];
+                      if (!adPts.length) return null;
+                      const d = "M" + adPts.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z";
+                      return <path d={d} fill={MAP_LAND} stroke={MAP_BORDER_COLOR} strokeWidth="0.8" opacity="0.9" />;
                     })()}
                   </>
                 ) : (
