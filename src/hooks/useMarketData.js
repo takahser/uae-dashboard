@@ -20,7 +20,7 @@ export function useMarketData() {
 
   const fetchData = useCallback(async () => {
     try {
-      const res = await fetch(MARKET_URL);
+      const res = await fetch(`${MARKET_URL}?v=${Date.now()}`, { cache: 'no-store' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = await res.json();
 
