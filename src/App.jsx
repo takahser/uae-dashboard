@@ -1434,10 +1434,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                       const d = "M" + uaePts.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z";
                       return <path d={d} fill={MAP_LAND} stroke={MAP_BORDER_COLOR} strokeWidth="1.2" opacity="0.95" />;
                     })()}
-                    {/* Emirate internal boundaries — stroke only, no fill */}
-                    {regionPaths.filter(e => e.pts.length > 0).map((e, i) => (
-                      <path key={`${e.name}-${i}`} d={e.path} fill="none" stroke={MAP_BORDER_COLOR} strokeWidth="0.8" opacity="0.6" />
-                    ))}
+                    {/* Emirate divider lines removed — inaccurate pts spill outside UAE outline */}
                   </>
                 ) : (
                   regionPaths.map((e, i) => (
