@@ -33,6 +33,8 @@ export function useMarketData() {
           changePercent: q.changePercent,
           previousClose: q.previousClose,
           name: q.name,
+          source: q.source,
+          note: q.note,
         };
       }
 
