@@ -197,10 +197,18 @@ const MAP_CONFIGS = {
       { id: 16, name: "Al Bahia (vehicle)", type: "drone_hit", date: "16 Mar", casualties: "1 killed", lat: 24.5200, lng: 54.4000, region: "Abu Dhabi" },
     ],
     strategicSites: [
-      { id: "s1", name: "Al Dhafra Air Base", type: "US/UAE Air Base", lat: 24.2482, lng: 54.5477 },
-      { id: "s3", name: "US Embassy Abu Dhabi", type: "US Embassy", lat: 24.4539, lng: 54.3773 },
+      // NOTE: lat values shifted -0.0222° south (visual correction so markers land inside NE50m polygon)
+      // Calibrated: Shuweihat cy 275→278 (+3px). Same offset applied to all coastal sites.
+      { id: "s1", name: "Al Dhafra Air Base", type: "US/UAE Air Base", lat: 24.226, lng: 54.5477 },
+      { id: "s3", name: "US Embassy Abu Dhabi", type: "US Embassy", lat: 24.4317, lng: 54.3773 },
       { id: "s4", name: "US Consulate Dubai", type: "US Consulate", lat: 25.2601, lng: 55.3091 },
       { id: "s7", name: "Fujairah Naval Facility", type: "US Navy", lat: 25.1612, lng: 56.3658 },
+      { id: "d1", name: "Jebel Ali Desal", type: "Desalination", siteType: "desal", lat: 25.0375, lng: 55.1172 },
+      { id: "d2", name: "Taweelah Desal", type: "Desalination", siteType: "desal", lat: 24.7458, lng: 54.6873 },
+      { id: "d3", name: "Fujairah Desal (Qidfa)", type: "Desalination", siteType: "desal", lat: 25.2919, lng: 56.3728 },
+      { id: "d4", name: "Umm Al Nar Desal", type: "Desalination", siteType: "desal", lat: 24.4126, lng: 54.4876 },
+      { id: "d5", name: "Shuweihat Desal", type: "Desalination", siteType: "desal", lat: 24.1428, lng: 52.5680 },
+      { id: "d6", name: "Al Mirfa Desal", type: "Desalination", siteType: "desal", lat: 24.0988, lng: 53.4470 },
     ],
   },
   qatar: {
