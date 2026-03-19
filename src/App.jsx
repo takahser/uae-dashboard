@@ -1433,14 +1433,17 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                 })}
 
                 {/* Covered country regions (GCC members) */}
-                {/* UAE: draw one unified fill first, then emirate dividers as stroke-only to avoid overlap artifacts */}
+                {/* UAE: draw NaturalEarth country outline as fill, then emirate dividers as stroke-only lines */}
                 {isUAE ? (
                   <>
-                    {/* Single UAE background fill using Abu Dhabi outline (largest, covers full country) */}
-                    <path d={regionPaths[0]?.path} fill={MAP_LAND} stroke="none" opacity="0.95" />
+                    {/* UAE country fill from NaturalEarth 50m pts (accurate outer border) */}
+                    {(gccBorders.gcc?.uae?.multiPolygon ? gccBorders.gcc.uae.pts : [gccBorders.gcc.uae.pts]).map((ring, ri) => {
+                      const d = "M" + ring.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z";
+                      return <path key={`uae-fill-${ri}`} d={d} fill={MAP_LAND} stroke={MAP_BORDER_COLOR} strokeWidth="1.2" opacity="0.95" />;
+                    })}
                     {/* Emirate internal boundaries — stroke only, no fill */}
                     {regionPaths.map((e, i) => (
-                      <path key={`${e.name}-${i}`} d={e.path} fill="none" stroke={MAP_BORDER_COLOR} strokeWidth="1" opacity="0.8" />
+                      <path key={`${e.name}-${i}`} d={e.path} fill="none" stroke={MAP_BORDER_COLOR} strokeWidth="0.8" opacity="0.6" />
                     ))}
                   </>
                 ) : (
