@@ -1433,9 +1433,21 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                 })}
 
                 {/* Covered country regions (GCC members) */}
-                {regionPaths.map((e, i) => (
-                  <path key={`${e.name}-${i}`} d={e.path} fill={isAllGCC ? "#FFFFFF10" : MAP_LAND} stroke={isAllGCC ? "#FFFFFF40" : MAP_BORDER_COLOR} strokeWidth={isAllGCC ? "1.5" : "1.2"} opacity="0.95" />
-                ))}
+                {/* UAE: draw one unified fill first, then emirate dividers as stroke-only to avoid overlap artifacts */}
+                {isUAE ? (
+                  <>
+                    {/* Single UAE background fill using Abu Dhabi outline (largest, covers full country) */}
+                    <path d={regionPaths[0]?.path} fill={MAP_LAND} stroke="none" opacity="0.95" />
+                    {/* Emirate internal boundaries — stroke only, no fill */}
+                    {regionPaths.map((e, i) => (
+                      <path key={`${e.name}-${i}`} d={e.path} fill="none" stroke={MAP_BORDER_COLOR} strokeWidth="1" opacity="0.8" />
+                    ))}
+                  </>
+                ) : (
+                  regionPaths.map((e, i) => (
+                    <path key={`${e.name}-${i}`} d={e.path} fill={isAllGCC ? "#FFFFFF10" : MAP_LAND} stroke={isAllGCC ? "#FFFFFF40" : MAP_BORDER_COLOR} strokeWidth={isAllGCC ? "1.5" : "1.2"} opacity="0.95" />
+                  ))
+                )}
 
                 {/* Region labels */}
                 {regionPaths.filter(e => e.labelLat > 0).map((e, i) => {
