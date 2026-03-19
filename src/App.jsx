@@ -1428,15 +1428,14 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                 {/* UAE: draw NaturalEarth country outline as fill, then emirate dividers as stroke-only lines */}
                 {isUAE ? (
                   <>
-                    {/* UAE country fill from NaturalEarth 50m pts — first ring only (mainland, skip offshore enclaves) */}
+                    {/* UAE country fill — MAP_CONFIGS.uae.regions[0].pts (clean 36-pt NE50m outline) */}
                     {(() => {
-                      const rings = gccBorders.gcc?.uae?.multiPolygon ? gccBorders.gcc.uae.pts : [gccBorders.gcc.uae.pts];
-                      const mainland = rings[0];
-                      const d = "M" + mainland.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z";
+                      const uaePts = MAP_CONFIGS.uae.regions[0].pts;
+                      const d = "M" + uaePts.map(([lat,lng]) => { const {x,y} = proj(lat,lng); return `${x},${y}`; }).join(" L") + " Z";
                       return <path d={d} fill={MAP_LAND} stroke={MAP_BORDER_COLOR} strokeWidth="1.2" opacity="0.95" />;
                     })()}
                     {/* Emirate internal boundaries — stroke only, no fill */}
-                    {regionPaths.map((e, i) => (
+                    {regionPaths.filter(e => e.pts.length > 0).map((e, i) => (
                       <path key={`${e.name}-${i}`} d={e.path} fill="none" stroke={MAP_BORDER_COLOR} strokeWidth="0.8" opacity="0.6" />
                     ))}
                   </>
