@@ -1,12 +1,12 @@
 {
-  "updated": "2026-03-19T03:56:33Z",
+  "updated": "2026-03-19T04:13:44Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude",
-      "price": 106.1,
-      "change": 3.18,
-      "changePercent": 3.09,
+      "price": 106.63,
+      "change": 3.71,
+      "changePercent": 3.6,
       "previousClose": 102.92
     },
     "CL=F": {
@@ -20,7 +20,7 @@
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 3.19,
+      "price": 3.18,
       "change": 0.12,
       "changePercent": 3.92,
       "previousClose": 3.06
@@ -67,21 +67,26 @@
     },
     "DUBAI": {
       "symbol": "DUBAI",
-      "name": "Dubai Fateh Crude",
-      "price": 3.64,
-      "change": -0.15,
-      "changePercent": -3.96,
-      "previousClose": 3.79,
+      "name": "Dubai Platts Crude",
+      "price": 122.84,
+      "change": -6.67,
+      "changePercent": -5.43,
       "note": "Physical Gulf benchmark",
-      "source": "EIA (updated 2026-03-16)"
+      "source": "investing.com (Platts)"
+    },
+    "OMAN": {
+      "symbol": "OMAN",
+      "name": "Oman Crude",
+      "price": 200.0,
+      "change": 46.0,
+      "changePercent": 29.87,
+      "previousClose": 154.0,
+      "note": "DME Oman benchmark \u2014 manual update",
+      "source": "Manual (SprinterPress Mar 19)"
     }
   },
   "history": {
     "BZ=F": [
-      {
-        "date": "2026-02-11",
-        "close": 69.4
-      },
       {
         "date": "2026-02-12",
         "close": 67.52
@@ -180,14 +185,10 @@
       },
       {
         "date": "2026-03-19",
-        "close": 106.1
+        "close": 106.63
       }
     ],
     "CL=F": [
-      {
-        "date": "2026-02-11",
-        "close": 64.63
-      },
       {
         "date": "2026-02-12",
         "close": 62.84
@@ -291,10 +292,6 @@
     ],
     "NG=F": [
       {
-        "date": "2026-02-11",
-        "close": 3.16
-      },
-      {
         "date": "2026-02-12",
         "close": 3.22
       },
@@ -392,7 +389,7 @@
       },
       {
         "date": "2026-03-19",
-        "close": 3.19
+        "close": 3.18
       }
     ],
     "2222.SR": [
@@ -1023,132 +1020,6 @@
       {
         "date": "2026-03-18",
         "close": 642.28
-      }
-    ],
-    "DUBAI": [
-      {
-        "date": "2026-01-30",
-        "close": 2.28
-      },
-      {
-        "date": "2026-02-02",
-        "close": 2.08
-      },
-      {
-        "date": "2026-02-03",
-        "close": 2.15
-      },
-      {
-        "date": "2026-02-04",
-        "close": 2.17
-      },
-      {
-        "date": "2026-02-05",
-        "close": 2.1
-      },
-      {
-        "date": "2026-02-06",
-        "close": 2.11
-      },
-      {
-        "date": "2026-02-09",
-        "close": 2.17
-      },
-      {
-        "date": "2026-02-10",
-        "close": 2.14
-      },
-      {
-        "date": "2026-02-11",
-        "close": 2.18
-      },
-      {
-        "date": "2026-02-12",
-        "close": 2.11
-      },
-      {
-        "date": "2026-02-13",
-        "close": 2.18
-      },
-      {
-        "date": "2026-02-17",
-        "close": 2.18
-      },
-      {
-        "date": "2026-02-18",
-        "close": 2.31
-      },
-      {
-        "date": "2026-02-19",
-        "close": 2.4
-      },
-      {
-        "date": "2026-02-20",
-        "close": 2.38
-      },
-      {
-        "date": "2026-02-23",
-        "close": 2.48
-      },
-      {
-        "date": "2026-02-24",
-        "close": 2.52
-      },
-      {
-        "date": "2026-02-25",
-        "close": 2.47
-      },
-      {
-        "date": "2026-02-26",
-        "close": 2.44
-      },
-      {
-        "date": "2026-02-27",
-        "close": 2.43
-      },
-      {
-        "date": "2026-03-02",
-        "close": 2.74
-      },
-      {
-        "date": "2026-03-03",
-        "close": 2.97
-      },
-      {
-        "date": "2026-03-04",
-        "close": 3.13
-      },
-      {
-        "date": "2026-03-05",
-        "close": 3.26
-      },
-      {
-        "date": "2026-03-06",
-        "close": 3.42
-      },
-      {
-        "date": "2026-03-09",
-        "close": 3.1
-      },
-      {
-        "date": "2026-03-10",
-        "close": 3.2
-      },
-      {
-        "date": "2026-03-11",
-        "close": 3.54
-      },
-      {
-        "date": "2026-03-12",
-        "close": 3.75
-      },
-      {
-        "date": "2026-03-13",
-        "close": 3.79
-      },
-      {
-        "date": "2026-03-16",
-        "close": 3.64
       }
     ]
   }
