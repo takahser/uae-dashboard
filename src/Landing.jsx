@@ -85,7 +85,7 @@ const cards = [
 const DEFAULT_STATS = [
   { label: 'threats detected', value: '1,816' },
   { label: 'intercepted', value: '94.2%' },
-  { label: 'Hormuz', value: 'CLOSED' },
+  { label: 'Hormuz', value: 'RESTRICTED' },
 ];
 
 const keyframesStyle = `
@@ -114,7 +114,7 @@ export default function Landing({ onSelect }) {
       setStats([
         { label: 'threats detected', value: det.toLocaleString() },
         { label: 'intercepted', value: rate },
-        { label: 'Hormuz', value: 'CLOSED' },
+        { label: 'Hormuz', value: 'RESTRICTED' },
       ]);
     }).catch(() => {});
   }, []);
