@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-03-19",
+  "lastUpdated": "2026-03-20",
   "sources": {
     "modgovae": {
       "lastTweetId": "2030989828712759428"
@@ -7,7 +7,7 @@
     "notes": "From 13 Mar 2026, UAE MoD changed reporting from intercepted/impacted breakdown to 'engaged' count only. See reportingType field on daily entries."
   },
   "cumulative": {
-    "ballisticDetected": 334,
+    "ballisticDetected": 338,
     "ballisticIntercepted": 303,
     "ballisticSea": 20,
     "ballisticImpacted": 3,
@@ -15,14 +15,17 @@
     "cruiseIntercepted": 15,
     "cruiseSea": 0,
     "cruiseImpacted": 0,
-    "dronesDetected": 1714,
+    "dronesDetected": 1740,
     "dronesIntercepted": 1542,
     "dronesSea": 0,
     "dronesImpacted": 85,
     "killed": 8,
     "injured": 158,
     "killedMilitary": 2,
-    "killedCivilian": 6
+    "killedCivilian": 6,
+    "ballistic": 338,
+    "cruise": 15,
+    "drones": 1740
   },
   "daily": [
     {
@@ -338,6 +341,15 @@
       "reportingType": "engaged",
       "notes": "Day 20. Cumulative: 334 ballistic, 15 cruise, 1714 UAVs.",
       "source": "https://x.com/modgovae/status/2034584995155870038"
+    },
+    {
+      "date": "2026-03-20",
+      "day": 21,
+      "ballistic": 4,
+      "cruise": 0,
+      "drones": 26,
+      "total": 30,
+      "notes": "Arabic tweet only \u2014 EN pending"
     }
   ]
 }
