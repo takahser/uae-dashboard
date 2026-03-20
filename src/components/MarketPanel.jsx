@@ -142,6 +142,9 @@ export default function MarketPanel({ data, error, lastUpdated, loading, refetch
                 }}>
                   +${spread.toFixed(2)}
                 </div>
+                <div style={{ fontSize: '0.72rem', color: spread > 10 ? '#E67E22' : SUBTEXT, fontWeight: 600, marginTop: 2 }}>
+                  +{wti > 0 ? (spread / wti * 100).toFixed(1) : '0.0'}%
+                </div>
                 <div style={{ fontSize: '0.65rem', color: SUBTEXT }}>
                   {spread > 20 ? 'Severe disruption signal' : spread > 10 ? 'Significant premium' : spread > 5 ? 'Elevated' : 'Normal range'}
                 </div>
@@ -162,6 +165,9 @@ export default function MarketPanel({ data, error, lastUpdated, loading, refetch
                   <div style={{ fontSize: '0.7rem', color: SUBTEXT, marginBottom: 4 }}>Gulf-WTI Premium</div>
                   <div style={{ fontSize: '1.3rem', fontWeight: 700, color: gpColor }}>
                     +${gulfPremium.toFixed(2)}
+                  </div>
+                  <div style={{ fontSize: '0.72rem', color: gpColor, fontWeight: 600, marginTop: 2 }}>
+                    +{wti > 0 ? (gulfPremium / wti * 100).toFixed(1) : '0.0'}%
                   </div>
                   <div style={{ fontSize: '0.65rem', color: SUBTEXT }}>
                     Hormuz closure risk premium
