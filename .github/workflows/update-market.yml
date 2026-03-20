@@ -101,68 +101,16 @@ jobs:
                       existing_data = _json.load(_f)
               except:
                   pass
-          dubai_history = existing_data.get("history", {}).get("DUBAI", [])
+          # Dubai Platts crude — MANUAL UPDATE ONLY
+          # investing.com scraper returns stale/cached data; removed to prevent overwrites
+          # Update manually when verified sources report a new price (same as Oman)
           dubai_existing_quote = existing_data.get("quotes", {}).get("DUBAI", {})
-
-          # Fetch Dubai Platts crude from investing.com scraper
-          try:
-              dubai_url = "https://www.investing.com/commodities/dubai-crude-oil-platts-futures"
-              headers_inv = {
-                  "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-                  "Accept-Language": "en-US,en;q=0.9",
-              }
-              r = requests.get(dubai_url, headers=headers_inv, timeout=15)
-              import re
-              m_price = re.search(r'instrument-price-last[^>]*>([^<]+)<', r.text)
-              m_change = re.search(r'instrument-price-change-percent[^>]*>\(([^%)]+)%\)', r.text)
-              if m_price:
-                  dubai_price = float(m_price.group(1).replace(",", ""))
-                  dubai_pct = float(m_change.group(1)) if m_change else 0.0
-                  quotes["DUBAI"] = {
-                      "symbol": "DUBAI",
-                      "name": "Dubai Platts Crude",
-                      "price": dubai_price,
-                      "change": round(dubai_price * dubai_pct / 100, 2),
-                      "changePercent": dubai_pct,
-                      "note": "Physical Gulf benchmark",
-                      "source": "investing.com (Platts)",
-                  }
-                  # Accumulate daily Dubai history (one entry per UTC date)
-                  today_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-                  if not any(pt["date"] == today_str for pt in dubai_history):
-                      dubai_history.append({"date": today_str, "close": round(dubai_price, 2)})
-                  else:
-                      # Update today's entry with latest price
-                      for pt in dubai_history:
-                          if pt["date"] == today_str:
-                              pt["close"] = round(dubai_price, 2)
-                  # Keep last 30 days only
-                  dubai_history = sorted(dubai_history, key=lambda x: x["date"])[-30:]
-                  history["DUBAI"] = dubai_history
-                  print(f"Dubai Platts: ${dubai_price}, history: {len(dubai_history)} days")
-              else:
-                  print("Warning: Dubai Platts price not found in page — preserving last known price")
-                  if dubai_existing_quote:
-                      quotes["DUBAI"] = dubai_existing_quote
-                      # Sync today's history entry with preserved quote price
-                      preserved_price = dubai_existing_quote.get("price")
-                      if preserved_price and dubai_history:
-                          today_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-                          dubai_history = [pt for pt in dubai_history if pt["date"] != today_str]
-                          dubai_history.append({"date": today_str, "close": round(preserved_price, 2)})
-                  if dubai_history:
-                      history["DUBAI"] = sorted(dubai_history, key=lambda x: x["date"])
-          except Exception as e:
-              print(f"Warning: Dubai Platts scrape failed: {e} — preserving last known price")
-              if dubai_existing_quote:
-                  quotes["DUBAI"] = dubai_existing_quote
-                  preserved_price = dubai_existing_quote.get("price")
-                  if preserved_price and dubai_history:
-                      today_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-                      dubai_history = [pt for pt in dubai_history if pt["date"] != today_str]
-                      dubai_history.append({"date": today_str, "close": round(preserved_price, 2)})
-              if dubai_history:
-                  history["DUBAI"] = sorted(dubai_history, key=lambda x: x["date"])
+          dubai_history = existing_data.get("history", {}).get("DUBAI", [])
+          if dubai_existing_quote:
+              quotes["DUBAI"] = dubai_existing_quote
+          if dubai_history:
+              history["DUBAI"] = dubai_history
+          print(f"Dubai: preserved manual price ${dubai_existing_quote.get('price', 'N/A')}")
 
           # Oman crude — manual update only (no free live source available)
           # Update this value manually when @KobeissiLetter or verified sources report a new price
