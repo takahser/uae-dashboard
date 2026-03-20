@@ -102,6 +102,7 @@ jobs:
               except:
                   pass
           dubai_history = existing_data.get("history", {}).get("DUBAI", [])
+          dubai_existing_quote = existing_data.get("quotes", {}).get("DUBAI", {})
 
           # Fetch Dubai Platts crude from investing.com scraper
           try:
@@ -140,11 +141,15 @@ jobs:
                   history["DUBAI"] = dubai_history
                   print(f"Dubai Platts: ${dubai_price}, history: {len(dubai_history)} days")
               else:
-                  print("Warning: Dubai Platts price not found in page")
+                  print("Warning: Dubai Platts price not found in page — preserving last known price")
+                  if dubai_existing_quote:
+                      quotes["DUBAI"] = dubai_existing_quote
                   if dubai_history:
                       history["DUBAI"] = dubai_history
           except Exception as e:
-              print(f"Warning: Dubai Platts scrape failed: {e}")
+              print(f"Warning: Dubai Platts scrape failed: {e} — preserving last known price")
+              if dubai_existing_quote:
+                  quotes["DUBAI"] = dubai_existing_quote
               if dubai_history:
                   history["DUBAI"] = dubai_history
 
