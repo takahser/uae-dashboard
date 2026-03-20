@@ -144,14 +144,25 @@ jobs:
                   print("Warning: Dubai Platts price not found in page — preserving last known price")
                   if dubai_existing_quote:
                       quotes["DUBAI"] = dubai_existing_quote
+                      # Sync today's history entry with preserved quote price
+                      preserved_price = dubai_existing_quote.get("price")
+                      if preserved_price and dubai_history:
+                          today_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+                          dubai_history = [pt for pt in dubai_history if pt["date"] != today_str]
+                          dubai_history.append({"date": today_str, "close": round(preserved_price, 2)})
                   if dubai_history:
-                      history["DUBAI"] = dubai_history
+                      history["DUBAI"] = sorted(dubai_history, key=lambda x: x["date"])
           except Exception as e:
               print(f"Warning: Dubai Platts scrape failed: {e} — preserving last known price")
               if dubai_existing_quote:
                   quotes["DUBAI"] = dubai_existing_quote
+                  preserved_price = dubai_existing_quote.get("price")
+                  if preserved_price and dubai_history:
+                      today_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+                      dubai_history = [pt for pt in dubai_history if pt["date"] != today_str]
+                      dubai_history.append({"date": today_str, "close": round(preserved_price, 2)})
               if dubai_history:
-                  history["DUBAI"] = dubai_history
+                  history["DUBAI"] = sorted(dubai_history, key=lambda x: x["date"])
 
           # Oman crude — manual update only (no free live source available)
           # Update this value manually when @KobeissiLetter or verified sources report a new price
