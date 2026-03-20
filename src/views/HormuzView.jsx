@@ -21,7 +21,8 @@ const closureDays = data.filter((d) => d.status === 'critical').length;
 
 const intel = [
   'Mar 19: Qatar declares force majeure on LNG contracts to Italy, Belgium, South Korea, China — 2 of 14 LNG trains offline, 12.8M tpa capacity lost for 3–5 years (QatarEnergy CEO, Reuters)',
-  'Mar 19: Kuwait — drone strikes on Mina al-Ahmadi (730K bpd) and Mina Abdullah (454K bpd) refineries; both ablaze (Reuters, AP)',
+  'Mar 20: Kuwait — Mina al-Ahmadi fire contained; damage confirmed. Combined Mina complex ~800K bpd offline (@DD_Geopolitics)',
+  'Mar 19: Kuwait — drone strikes on Mina al-Ahmadi (346K bpd) and Mina Abdullah (454K bpd) refineries; both ablaze (Reuters, AP)',
   'Mar 19: SAMREF refinery, Yanbu (Aramco-ExxonMobil JV, Red Sea) struck by drone — minimal damage confirmed; Saudi Defense Ministry (Reuters, AP)',
   'Mar 18: South Pars gas field (world\'s largest) struck — several phases offline; Asaluyeh processing facility hit (FARS)',
   'Mar 18: Aramco Riyadh — ballistic missile intercepted by Saudi defenses; no confirmed impact on facility (Reuters)',
@@ -81,7 +82,7 @@ const STRATEGIC_SITES = [
     recoveryEst: null,
     recoverySource: null,
     attacked: "2026-03-19",
-    notes: "730K bpd capacity; ablaze as of Mar 19 — damage assessment ongoing",
+    notes: "346K bpd capacity; fire contained Mar 20, damage confirmed. Combined complex with Mina Abdullah = ~800K bpd offline.",
   },
   {
     pos: [28.96, 48.17],
@@ -119,7 +120,7 @@ const STRATEGIC_SITES = [
 ];
 
 const ATTACKS = [
-  { pos: [29.07, 48.13], label: "Mar 19: Drone strike — Mina al-Ahmadi refinery, Kuwait (730,000 bpd capacity)", date: "2026-03-19" },
+  { pos: [29.07, 48.13], label: "Mar 19: Drone strike — Mina al-Ahmadi refinery, Kuwait (346K bpd). Fire contained Mar 20, damage confirmed.", date: "2026-03-19" },
   { pos: [28.96, 48.17], label: "Mar 19: Drone strike — Mina Abdullah refinery ablaze, Kuwait (454,000 bpd capacity)", date: "2026-03-19" },
   { pos: [27.1, 52.6], label: "Mar 18: South Pars gas field struck — multiple processing phases offline", date: "2026-03-18" },
   // Riyadh Mar 18: missile intercepted, no confirmed facility impact — removed
