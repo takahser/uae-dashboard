@@ -179,6 +179,7 @@ const FUJAIRAH_BYPASS = [
 const MAP_VIEW_BOUNDS = { latMin: 22.5, latMax: 30.5, lngMin: 52.5, lngMax: 60.5 };
 
 function HormuzMap() {
+  const [expOn] = useState(() => { try { return localStorage.getItem("ww3_experimental") === "true"; } catch { return false; } });
   return (
     <div style={{ position: 'relative', marginBottom: 32 }}>
       <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: 12, color: TEXT }}>
