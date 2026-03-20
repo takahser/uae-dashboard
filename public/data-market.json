@@ -1,28 +1,28 @@
 {
-  "updated": "2026-03-20T07:28:02Z",
+  "updated": "2026-03-20T07:29:33Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude",
-      "price": 103.75,
-      "change": 3.54,
-      "changePercent": 3.53,
+      "price": 103.84,
+      "change": 0.06,
+      "changePercent": 0.06,
       "previousClose": 103.78
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude",
-      "price": 94.47,
-      "change": 0.97,
-      "changePercent": 1.04,
+      "price": 94.45,
+      "change": -1.1,
+      "changePercent": -1.15,
       "previousClose": 95.55
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 3.14,
-      "change": -0.03,
-      "changePercent": -0.95,
+      "price": 3.13,
+      "change": -0.04,
+      "changePercent": -1.26,
       "previousClose": 3.17
     },
     "2222.SR": {
@@ -68,11 +68,11 @@
     "DUBAI": {
       "symbol": "DUBAI",
       "name": "Dubai Platts Crude",
-      "price": 176.8,
-      "change": 40.38,
-      "changePercent": 29.6,
+      "price": 136.42,
+      "change": 0.0,
+      "changePercent": 0.0,
       "note": "Physical Gulf benchmark",
-      "source": "@silvertrade Mar 20 \u2014 Cash Dubai BOM"
+      "source": "investing.com (Platts)"
     },
     "OMAN": {
       "symbol": "OMAN",
@@ -185,7 +185,7 @@
       },
       {
         "date": "2026-03-20",
-        "close": 103.75
+        "close": 103.84
       }
     ],
     "CL=F": [
@@ -287,7 +287,7 @@
       },
       {
         "date": "2026-03-20",
-        "close": 94.47
+        "close": 94.45
       }
     ],
     "NG=F": [
@@ -389,7 +389,7 @@
       },
       {
         "date": "2026-03-20",
-        "close": 3.14
+        "close": 3.13
       }
     ],
     "2222.SR": [
@@ -1105,13 +1105,13 @@
       },
       {
         "date": "2026-03-20",
-        "close": 176.8
+        "close": 136.42
       }
     ]
   },
   "gulf": {
-    "ships": 20,
+    "ships": 18,
     "tankers": 0,
-    "sampled_at": "2026-03-20T07:27:00Z"
+    "sampled_at": "2026-03-20T07:29:24Z"
   }
 }
