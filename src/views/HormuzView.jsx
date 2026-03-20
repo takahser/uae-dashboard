@@ -243,7 +243,7 @@ const FACTS = [
 export default function HormuzView({ onBack }) {
   const chartData = data.map((d) => ({ ...d, label: d.date.slice(5) }));
   const status = getStraitStatus(today.ships);
-  const { data: marketData, history: marketHistory, error: marketError, lastUpdated, loading: marketLoading, refetch } = useMarketData();
+  const { data: marketData, history: marketHistory, gulf: gulfAIS, error: marketError, lastUpdated, loading: marketLoading, refetch } = useMarketData();
   const [activeLines, setActiveLines] = useState({ "BZ=F": true, "CL=F": true, "DUBAI": true, "NG=F": false });
   const [expOn, setExpOn] = useState(() => { try { return localStorage.getItem("ww3_experimental") === "true"; } catch { return false; } });
   const toggleExp = useCallback(() => setExpOn(v => { const next = !v; try { localStorage.setItem("ww3_experimental", String(next)); } catch {} return next; }), []);
@@ -283,6 +283,24 @@ export default function HormuzView({ onBack }) {
           <StatCard label="Ships Today" value={today.ships} color={today.ships === 0 ? '#C0392B' : undefined} />
           <StatCard label="Tankers Today" value={today.tankers} color={today.tankers === 0 ? '#C0392B' : undefined} />
           <StatCard label="Oil Blocked" value={`${(20.5 - today.oil_mbpd).toFixed(1)} mb/d`} color="#C0392B" unit="million barrels per day" />
+          {gulfAIS && gulfAIS.ships !== null && (
+            <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, padding: '12px 18px', minWidth: 140 }}>
+              <div style={{ fontSize: 11, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 4 }}>
+                AIS Live — Gulf
+              </div>
+              <div style={{ fontSize: 26, fontWeight: 700, color: '#F59E0B' }}>
+                {gulfAIS.ships.toLocaleString()}
+              </div>
+              <div style={{ fontSize: 11, color: '#6B7280', marginTop: 2 }}>
+                vessels detected · {gulfAIS.tankers} tankers
+              </div>
+              {gulfAIS.sampled_at && (
+                <div style={{ fontSize: 10, color: '#4B5563', marginTop: 4 }}>
+                  sampled {new Date(gulfAIS.sampled_at).toUTCString().slice(0,22)}
+                </div>
+              )}
+            </div>
+          )}
           <StatCard label="Days Since Closure" value={closureDays} color="#C0392B" />
         </div>
 

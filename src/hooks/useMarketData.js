@@ -7,6 +7,7 @@ const MAX_BACKOFF = 600_000; // 10 min
 export function useMarketData() {
   const [data, setData] = useState(null);
   const [history, setHistory] = useState(null);
+  const [gulf, setGulf] = useState(null);
   const [error, setError] = useState(null);
   const [lastUpdated, setLastUpdated] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -40,6 +41,7 @@ export function useMarketData() {
 
       setData(mapped);
       setHistory(json.history || null);
+      setGulf(json.gulf || null);
       setLastUpdated(json.updated ? new Date(json.updated) : new Date());
       setError(null);
       backoffRef.current = POLL_INTERVAL;
@@ -66,5 +68,5 @@ export function useMarketData() {
     fetchData();
   }, [fetchData]);
 
-  return { data, history, error, lastUpdated, loading, refetch };
+  return { data, history, gulf, error, lastUpdated, loading, refetch };
 }
