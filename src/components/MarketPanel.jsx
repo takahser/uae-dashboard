@@ -16,27 +16,33 @@ function InfoTip({ text }) {
   return (
     <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', marginLeft: 5 }}>
       <span
-        onMouseEnter={() => setShow(true)}
-        onMouseLeave={() => setShow(false)}
+        onClick={e => { e.stopPropagation(); setShow(v => !v); }}
         style={{
           display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
           width: 13, height: 13, borderRadius: '50%',
-          border: '1px solid rgba(255,255,255,0.25)', color: 'rgba(255,255,255,0.4)',
-          fontSize: 9, cursor: 'default', fontStyle: 'normal', lineHeight: 1,
+          border: `1px solid ${show ? 'rgba(245,158,11,0.6)' : 'rgba(255,255,255,0.25)'}`,
+          color: show ? '#F59E0B' : 'rgba(255,255,255,0.4)',
+          fontSize: 9, cursor: 'pointer', fontStyle: 'normal', lineHeight: 1,
           userSelect: 'none', flexShrink: 0,
         }}
       >i</span>
       {show && (
-        <span style={{
-          position: 'absolute', bottom: '120%', left: '50%', transform: 'translateX(-50%)',
-          background: '#0D1525', border: '1px solid rgba(255,255,255,0.15)',
-          borderRadius: 6, padding: '7px 10px', fontSize: 11, color: 'rgba(255,255,255,0.75)',
-          whiteSpace: 'pre-line', lineHeight: 1.5,
-          width: 220, zIndex: 9999, pointerEvents: 'none',
-          boxShadow: '0 4px 16px rgba(0,0,0,0.5)',
-        }}>
-          {text}
-        </span>
+        <>
+          <span
+            onClick={() => setShow(false)}
+            style={{ position: 'fixed', inset: 0, zIndex: 9998 }}
+          />
+          <span style={{
+            position: 'absolute', bottom: '120%', left: '50%', transform: 'translateX(-50%)',
+            background: '#0D1525', border: '1px solid rgba(255,255,255,0.15)',
+            borderRadius: 6, padding: '7px 10px', fontSize: 11, color: 'rgba(255,255,255,0.75)',
+            whiteSpace: 'pre-line', lineHeight: 1.5,
+            width: 220, zIndex: 9999, pointerEvents: 'none',
+            boxShadow: '0 4px 16px rgba(0,0,0,0.5)',
+          }}>
+            {text}
+          </span>
+        </>
       )}
     </span>
   );
