@@ -192,7 +192,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/data-market.json
+          git add public/data-market.json public/data-substitution.json
           git diff --cached --quiet && echo "No changes" && exit 0
-          git commit -m "data: update market prices $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git commit -m "data: update market + substitution $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           git push
