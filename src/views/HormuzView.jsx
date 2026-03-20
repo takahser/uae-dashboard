@@ -268,25 +268,14 @@ function HormuzMap() {
                 dashArray: '4 3',
               }}
             >
-              <Tooltip sticky>
-                <div style={{ minWidth: 200, fontFamily: 'sans-serif', fontSize: 12 }}>
-                  <div style={{ fontWeight: 700, marginBottom: 4 }}>{s.name}</div>
-                  <div style={{ color: '#9CA3AF', marginBottom: 6 }}>{s.country} · {s.type}</div>
-                  {s.capacityPct !== null ? (
-                    <>
-                      <div style={{ marginBottom: 3 }}>Capacity: <b>{s.capacityPct}%</b> operational</div>
-                      <div style={{ background: '#1F2937', borderRadius: 4, height: 6, marginBottom: 6 }}>
-                        <div style={{ background: s.capacityPct >= 80 ? '#F59E0B' : '#EF4444', width: `${s.capacityPct}%`, height: '100%', borderRadius: 4 }} />
-                      </div>
-                      <div style={{ marginBottom: 3 }}>Recovery: <b>{s.recoveryEst}</b></div>
-                      <div style={{ color: '#6B7280', fontSize: 10 }}>Source: {s.recoverySource}</div>
-                    </>
-                  ) : (
-                    <div style={{ color: '#6B7280', fontStyle: 'italic' }}>Capacity data unconfirmed</div>
-                  )}
-                  {s.notes && <div style={{ marginTop: 6, color: '#9CA3AF', fontSize: 10 }}>{s.notes}</div>}
-                </div>
-              </Tooltip>
+              <Tooltip sticky>{
+                s.name + ' · ' + s.country + '\n' +
+                s.type + '\n' +
+                (s.capacityPct !== null
+                  ? 'Capacity: ' + s.capacityPct + '% operational\nRecovery: ' + s.recoveryEst + '\nSource: ' + s.recoverySource
+                  : 'Capacity: unconfirmed') +
+                (s.notes ? '\n' + s.notes : '')
+              }</Tooltip>
             </CircleMarker>
           ))}
         </MapContainer>
