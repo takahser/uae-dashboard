@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-20T06:48:00Z",
+  "updated": "2026-03-20T06:51:05Z",
   "hormuz": {
     "pre_war_mbpd": 21.0,
     "current_mbpd": 0.0,
@@ -11,21 +11,58 @@
       "name": "Yanbu (Saudi Red Sea)",
       "pipeline": "East-West Pipeline (746mi)",
       "pre_war_mbpd": 1.47,
-      "live_vessel_count": null,
-      "sampled_at": null,
+      "live_vessel_count": 0,
+      "sampled_at": "2026-03-20T06:51:05Z",
       "history": [
-        {"date": "2026-01-15", "mbpd": 1.29, "vessel_count": null, "source": "Bloomberg/KobeissiLetter avg"},
-        {"date": "2026-02-15", "mbpd": 1.47, "vessel_count": null, "source": "Bloomberg/KobeissiLetter avg"},
-        {"date": "2026-03-05", "mbpd": 1.50, "vessel_count": null, "source": "Bloomberg/KobeissiLetter"},
-        {"date": "2026-03-10", "mbpd": 2.80, "vessel_count": null, "source": "Bloomberg/KobeissiLetter"},
-        {"date": "2026-03-15", "mbpd": 3.20, "vessel_count": null, "source": "Bloomberg/KobeissiLetter"},
-        {"date": "2026-03-17", "mbpd": 4.19, "vessel_count": null, "source": "Bloomberg/KobeissiLetter"}
-      ]
+        {
+          "date": "2026-01-15",
+          "mbpd": 1.29,
+          "vessel_count": null,
+          "source": "Bloomberg/KobeissiLetter avg"
+        },
+        {
+          "date": "2026-02-15",
+          "mbpd": 1.47,
+          "vessel_count": null,
+          "source": "Bloomberg/KobeissiLetter avg"
+        },
+        {
+          "date": "2026-03-05",
+          "mbpd": 1.5,
+          "vessel_count": null,
+          "source": "Bloomberg/KobeissiLetter"
+        },
+        {
+          "date": "2026-03-10",
+          "mbpd": 2.8,
+          "vessel_count": null,
+          "source": "Bloomberg/KobeissiLetter"
+        },
+        {
+          "date": "2026-03-15",
+          "mbpd": 3.2,
+          "vessel_count": null,
+          "source": "Bloomberg/KobeissiLetter"
+        },
+        {
+          "date": "2026-03-17",
+          "mbpd": 4.19,
+          "vessel_count": null,
+          "source": "Bloomberg/KobeissiLetter"
+        },
+        {
+          "date": "2026-03-20",
+          "mbpd": null,
+          "vessel_count": 0,
+          "source": "aisstream.io"
+        }
+      ],
+      "live_tanker_count": 0
     },
     "fujairah": {
       "name": "Fujairah Bypass (UAE)",
       "pipeline": "ADCOP (Abu Dhabi Crude Oil Pipeline)",
-      "pre_war_mbpd": 1.50,
+      "pre_war_mbpd": 1.5,
       "live_vessel_count": null,
       "sampled_at": null,
       "history": []
