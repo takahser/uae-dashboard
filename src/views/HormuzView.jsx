@@ -58,6 +58,65 @@ function StatCard({ label, value, color, unit }) {
   );
 }
 
+// Strategic infrastructure sites — capacity/recovery data (experimental)
+const STRATEGIC_SITES = [
+  {
+    pos: [25.93, 51.53],
+    name: "Ras Laffan Industrial City",
+    country: "Qatar",
+    type: "LNG / Petrochemical",
+    capacityPct: 83,
+    recoveryEst: "3–5 years",
+    recoverySource: "QatarEnergy CEO, Reuters Mar 19",
+    attacked: "2026-03-04",
+    notes: "2 of 14 LNG trains offline; 1 of 2 GTL facilities damaged; 12.8M tpa offline",
+  },
+  {
+    pos: [29.07, 48.13],
+    name: "Mina al-Ahmadi Refinery",
+    country: "Kuwait",
+    type: "Refinery",
+    capacityPct: null,
+    recoveryEst: null,
+    recoverySource: null,
+    attacked: "2026-03-19",
+    notes: "730K bpd capacity; ablaze as of Mar 19 — damage assessment ongoing",
+  },
+  {
+    pos: [28.96, 48.17],
+    name: "Mina Abdullah Refinery",
+    country: "Kuwait",
+    type: "Refinery",
+    capacityPct: null,
+    recoveryEst: null,
+    recoverySource: null,
+    attacked: "2026-03-19",
+    notes: "454K bpd capacity; ablaze as of Mar 19 — damage assessment ongoing",
+  },
+  {
+    pos: [27.1, 52.6],
+    name: "South Pars Gas Field",
+    country: "Iran",
+    type: "Gas Field",
+    capacityPct: null,
+    recoveryEst: null,
+    recoverySource: null,
+    attacked: "2026-03-18",
+    notes: "World's largest gas field; multiple processing phases offline",
+  },
+  {
+    pos: [24.68, 46.72],
+    name: "Aramco Riyadh Refinery",
+    country: "Saudi Arabia",
+    type: "Refinery",
+    capacityPct: null,
+    recoveryEst: null,
+    recoverySource: null,
+    attacked: "2026-03-18",
+    notes: "Missile strikes Mar 18 — damage extent unconfirmed",
+  },
+];
+
 const ATTACKS = [
   { pos: [29.07, 48.13], label: "Mar 19: Drone strike — Mina al-Ahmadi refinery, Kuwait (730,000 bpd capacity)", date: "2026-03-19" },
   { pos: [28.96, 48.17], label: "Mar 19: Drone strike — Mina Abdullah refinery ablaze, Kuwait (454,000 bpd capacity)", date: "2026-03-19" },
@@ -189,6 +248,45 @@ function HormuzMap() {
               <Tooltip>{a.label}</Tooltip>
             </CircleMarker>
           ))}
+
+          {/* Strategic infrastructure — capacity layer (experimental) */}
+          {expOn && STRATEGIC_SITES.filter(s =>
+            s.pos[0] >= MAP_VIEW_BOUNDS.latMin && s.pos[0] <= MAP_VIEW_BOUNDS.latMax &&
+            s.pos[1] >= MAP_VIEW_BOUNDS.lngMin && s.pos[1] <= MAP_VIEW_BOUNDS.lngMax
+          ).map((s, i) => (
+            <CircleMarker
+              key={`site-${i}`}
+              center={s.pos}
+              radius={11}
+              pathOptions={{
+                color: s.capacityPct !== null ? '#F59E0B' : '#9CA3AF',
+                fillColor: s.capacityPct !== null ? '#F59E0B' : '#374151',
+                fillOpacity: 0.25,
+                weight: 2,
+                dashArray: '4 3',
+              }}
+            >
+              <Tooltip sticky>
+                <div style={{ minWidth: 200, fontFamily: 'sans-serif', fontSize: 12 }}>
+                  <div style={{ fontWeight: 700, marginBottom: 4 }}>{s.name}</div>
+                  <div style={{ color: '#9CA3AF', marginBottom: 6 }}>{s.country} · {s.type}</div>
+                  {s.capacityPct !== null ? (
+                    <>
+                      <div style={{ marginBottom: 3 }}>Capacity: <b>{s.capacityPct}%</b> operational</div>
+                      <div style={{ background: '#1F2937', borderRadius: 4, height: 6, marginBottom: 6 }}>
+                        <div style={{ background: s.capacityPct >= 80 ? '#F59E0B' : '#EF4444', width: `${s.capacityPct}%`, height: '100%', borderRadius: 4 }} />
+                      </div>
+                      <div style={{ marginBottom: 3 }}>Recovery: <b>{s.recoveryEst}</b></div>
+                      <div style={{ color: '#6B7280', fontSize: 10 }}>Source: {s.recoverySource}</div>
+                    </>
+                  ) : (
+                    <div style={{ color: '#6B7280', fontStyle: 'italic' }}>Capacity data unconfirmed</div>
+                  )}
+                  {s.notes && <div style={{ marginTop: 6, color: '#9CA3AF', fontSize: 10 }}>{s.notes}</div>}
+                </div>
+              </Tooltip>
+            </CircleMarker>
+          ))}
         </MapContainer>
 
       </div>
@@ -227,6 +325,12 @@ function HormuzMap() {
           <span style={{ display: 'inline-block', width: 12, height: 12, borderRadius: '50%', background: '#FF7800' }} />
           <span style={{ color: '#FF7800', fontWeight: 600 }}>Recent (&lt;48h)</span>
         </div>
+        {expOn && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <span style={{ display: 'inline-block', width: 12, height: 12, borderRadius: '50%', border: '2px dashed #F59E0B', background: 'transparent' }} />
+            <span style={{ color: '#F59E0B' }}>Infrastructure capacity <span style={{ fontSize: '0.68rem', opacity: 0.6 }}>(experimental)</span></span>
+          </div>
+        )}
         <span style={{ marginLeft: 'auto', fontSize: '0.7rem' }}>Hover markers for details</span>
       </div>
     </div>
