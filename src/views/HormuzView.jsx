@@ -20,6 +20,7 @@ const today = data[data.length - 1];
 const closureDays = data.filter((d) => d.status === 'critical').length;
 
 const intel = [
+  'Mar 20: Iran operating toll passage system through Strait of Hormuz — approved vessels only, up to $2M per transit for guaranteed safe passage (FT, Lloyd\'s List Intelligence)',
   'Mar 19: Qatar declares force majeure on LNG contracts to Italy, Belgium, South Korea, China — 2 of 14 LNG trains offline, 12.8M tpa capacity lost for 3–5 years (QatarEnergy CEO, Reuters)',
   'Mar 20: Kuwait — Mina al-Ahmadi fire contained; damage confirmed. Combined Mina complex ~800K bpd offline (@DD_Geopolitics)',
   'Mar 19: Kuwait — drone strikes on Mina al-Ahmadi (346K bpd) and Mina Abdullah (454K bpd) refineries; both ablaze (Reuters, AP)',
@@ -37,7 +38,8 @@ const intel = [
   'Mar 11: Iran threatens $200/barrel, switches to continuous strikes doctrine',
 ];
 
-function getStraitStatus(ships) {
+function getStraitStatus(ships, tollPassage) {
+  if (tollPassage) return { color: '#E67E22', bg: 'rgba(230,126,34,0.15)', border: '#E67E22', label: 'IRAN-CONTROLLED', desc: 'Toll passage — approved vessels only, up to $2M per transit (FT/LLI)' };
   if (ships === 0) return { color: '#C0392B', bg: 'rgba(192,57,43,0.15)', border: '#C0392B', label: 'CLOSED', desc: 'No commercial traffic detected' };
   if (ships < 20) return { color: '#E67E22', bg: 'rgba(230,126,34,0.15)', border: '#E67E22', label: 'RESTRICTED', desc: 'Severely reduced traffic' };
   if (ships < 80) return { color: '#F1C40F', bg: 'rgba(241,196,15,0.15)', border: '#F1C40F', label: 'DISRUPTED', desc: 'Below normal traffic' };
@@ -339,9 +341,9 @@ const FACTS = [
 
 export default function HormuzView({ onBack }) {
   const chartData = data.map((d) => ({ ...d, label: d.date.slice(5) }));
-  const status = getStraitStatus(today.ships);
+  const status = getStraitStatus(today.ships, today.tollPassage);
   const { data: marketData, history: marketHistory, gulf: gulfAIS, error: marketError, lastUpdated, loading: marketLoading, refetch } = useMarketData();
-  const [activeLines, setActiveLines] = useState({ "BZ=F": true, "CL=F": true, "DUBAI": true, "NG=F": false });
+  const [activeLines, setActiveLines] = useState({ "BZ=F": true, "CL=F": true, "DUBAI": false, "OMAN": true, "NG=F": false });
   const [expOn, setExpOn] = useState(() => { try { return localStorage.getItem("ww3_experimental") === "true"; } catch { return false; } });
   const toggleExp = useCallback(() => setExpOn(v => { const next = !v; try { localStorage.setItem("ww3_experimental", String(next)); } catch {} return next; }), []);
 
@@ -433,7 +435,8 @@ export default function HormuzView({ onBack }) {
           const PRICE_SYMBOLS = [
             { key: 'BZ=F', name: 'Brent', color: ACCENT, axis: 'crude' },
             { key: 'CL=F', name: 'WTI', color: '#4a9eff', axis: 'crude' },
-            { key: 'DUBAI', name: 'Dubai', color: '#E74C3C', axis: 'crude' },
+            { key: 'OMAN', name: 'Oman', color: '#E74C3C', axis: 'crude' },
+            { key: 'DUBAI', name: 'Dubai (spot)', color: '#9B59B6', axis: 'crude' },
             { key: 'NG=F', name: 'Nat Gas', color: '#10B981', axis: 'gas' },
           ];
           // Merge all dates into a unified dataset
