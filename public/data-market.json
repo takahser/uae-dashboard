@@ -1,20 +1,20 @@
 {
-  "updated": "2026-03-20T06:59:12Z",
+  "updated": "2026-03-20T07:01:14Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude",
-      "price": 103.35,
-      "change": -0.43,
-      "changePercent": -0.41,
+      "price": 103.5,
+      "change": -0.28,
+      "changePercent": -0.27,
       "previousClose": 103.78
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude",
-      "price": 94.32,
-      "change": -1.23,
-      "changePercent": -1.29,
+      "price": 94.4,
+      "change": -1.15,
+      "changePercent": -1.2,
       "previousClose": 95.55
     },
     "NG=F": {
@@ -68,12 +68,11 @@
     "DUBAI": {
       "symbol": "DUBAI",
       "name": "Dubai Platts Crude",
-      "price": 176.8,
-      "change": 40.38,
-      "changePercent": 29.6,
-      "previousClose": 136.42,
+      "price": 136.42,
+      "change": 0.0,
+      "changePercent": 0.0,
       "note": "Physical Gulf benchmark",
-      "source": "@silvertrade Mar 20 \u2014 Cash Dubai BOM"
+      "source": "investing.com (Platts)"
     },
     "OMAN": {
       "symbol": "OMAN",
@@ -186,7 +185,7 @@
       },
       {
         "date": "2026-03-20",
-        "close": 103.35
+        "close": 103.5
       }
     ],
     "CL=F": [
@@ -288,7 +287,7 @@
       },
       {
         "date": "2026-03-20",
-        "close": 94.32
+        "close": 94.4
       }
     ],
     "NG=F": [
@@ -1106,13 +1105,13 @@
       },
       {
         "date": "2026-03-20",
-        "close": 176.8
+        "close": 136.42
       }
     ]
   },
   "gulf": {
     "ships": 11,
     "tankers": 0,
-    "sampled_at": "2026-03-20T06:58:02Z"
+    "sampled_at": "2026-03-20T07:01:05Z"
   }
 }
