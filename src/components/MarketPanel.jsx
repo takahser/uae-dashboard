@@ -33,7 +33,7 @@ function InfoTip({ text }) {
             marginTop: 4, background: '#0D1B2Aee',
             border: 'rgba(255,255,255,0.11)', borderRadius: 8,
             padding: '10px 14px', fontSize: 11, color: SUBTEXT,
-            maxWidth: 320, lineHeight: 1.5, fontWeight: 400,
+            minWidth: 260, maxWidth: 360, lineHeight: 1.6, fontWeight: 400,
             letterSpacing: 0, whiteSpace: 'pre-line',
             boxShadow: '0 4px 20px rgba(0,0,0,0.6)', pointerEvents: 'none',
           }}>
