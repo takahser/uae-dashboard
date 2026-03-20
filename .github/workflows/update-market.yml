@@ -20,6 +20,14 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Count Gulf ships (AIS)
+        env:
+          AISSTREAM_API_KEY: ${{ secrets.AISSTREAM_API_KEY }}
+        run: |
+          pip install websockets
+          python scripts/count-gulf-ships.py > /tmp/gulf-ships.json || echo '{"ships":null,"tankers":null}' > /tmp/gulf-ships.json
+          cat /tmp/gulf-ships.json
+
       - name: Fetch market data
         run: |
           pip install requests
@@ -155,10 +163,23 @@ jobs:
               "source": "Manual (SprinterPress Mar 19)",
           }
 
+          # Load Gulf ship count from AIS step
+          gulf_ships = {"ships": None, "tankers": None}
+          try:
+              with open("/tmp/gulf-ships.json") as _f:
+                  gulf_ships = _json.load(_f)
+          except:
+              pass
+
           output = {
               "updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
               "quotes": quotes,
               "history": history,
+              "gulf": {
+                  "ships": gulf_ships.get("ships"),
+                  "tankers": gulf_ships.get("tankers"),
+                  "sampled_at": gulf_ships.get("sampled_at"),
+              },
           }
 
           with open("public/data-market.json", "w") as f:
