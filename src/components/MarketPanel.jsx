@@ -18,27 +18,24 @@ function InfoTip({ text }) {
       <span
         onClick={e => { e.stopPropagation(); setShow(v => !v); }}
         style={{
+          cursor: 'pointer', fontSize: 10, color: SUBTEXT,
+          border: 'rgba(255,255,255,0.11)', borderRadius: '50%',
+          width: 16, height: 16,
           display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-          width: 13, height: 13, borderRadius: '50%',
-          border: `1px solid ${show ? 'rgba(245,158,11,0.6)' : 'rgba(255,255,255,0.25)'}`,
-          color: show ? '#F59E0B' : 'rgba(255,255,255,0.4)',
-          fontSize: 9, cursor: 'pointer', fontStyle: 'normal', lineHeight: 1,
-          userSelect: 'none', flexShrink: 0,
+          flexShrink: 0, position: 'relative', userSelect: 'none',
         }}
-      >i</span>
+      >(i)</span>
       {show && (
         <>
-          <span
-            onClick={() => setShow(false)}
-            style={{ position: 'fixed', inset: 0, zIndex: 9998 }}
-          />
+          <span onClick={() => setShow(false)} style={{ position: 'fixed', inset: 0, zIndex: 9998 }} />
           <span style={{
-            position: 'absolute', bottom: '120%', left: '50%', transform: 'translateX(-50%)',
-            background: '#0D1525', border: '1px solid rgba(255,255,255,0.15)',
-            borderRadius: 6, padding: '7px 10px', fontSize: 11, color: 'rgba(255,255,255,0.75)',
-            whiteSpace: 'pre-line', lineHeight: 1.5,
-            width: 220, zIndex: 9999, pointerEvents: 'none',
-            boxShadow: '0 4px 16px rgba(0,0,0,0.5)',
+            position: 'absolute', top: '100%', left: 0, zIndex: 9999,
+            marginTop: 4, background: '#0D1B2Aee',
+            border: 'rgba(255,255,255,0.11)', borderRadius: 8,
+            padding: '10px 14px', fontSize: 11, color: SUBTEXT,
+            maxWidth: 320, lineHeight: 1.5, fontWeight: 400,
+            letterSpacing: 0, whiteSpace: 'pre-line',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.6)', pointerEvents: 'none',
           }}>
             {text}
           </span>
