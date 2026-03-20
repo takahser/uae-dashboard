@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 const CARD_BG = 'rgba(255,255,255,0.08)';
 const GLASS_BORDER = 'rgba(255,255,255,0.11)';
@@ -10,6 +10,45 @@ const ACCENT = '#F59E0B';
 
 // Feature flags — set to true once data source is verified
 const FEATURE_DUBAI_PRICE = true;  // investing.com scraper — verified $136.42 Mar 19
+
+function InfoTip({ text }) {
+  const [show, setShow] = useState(false);
+  return (
+    <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', marginLeft: 5 }}>
+      <span
+        onMouseEnter={() => setShow(true)}
+        onMouseLeave={() => setShow(false)}
+        style={{
+          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+          width: 13, height: 13, borderRadius: '50%',
+          border: '1px solid rgba(255,255,255,0.25)', color: 'rgba(255,255,255,0.4)',
+          fontSize: 9, cursor: 'default', fontStyle: 'normal', lineHeight: 1,
+          userSelect: 'none', flexShrink: 0,
+        }}
+      >i</span>
+      {show && (
+        <span style={{
+          position: 'absolute', bottom: '120%', left: '50%', transform: 'translateX(-50%)',
+          background: '#0D1525', border: '1px solid rgba(255,255,255,0.15)',
+          borderRadius: 6, padding: '7px 10px', fontSize: 11, color: 'rgba(255,255,255,0.75)',
+          whiteSpace: 'pre-line', lineHeight: 1.5,
+          width: 220, zIndex: 9999, pointerEvents: 'none',
+          boxShadow: '0 4px 16px rgba(0,0,0,0.5)',
+        }}>
+          {text}
+        </span>
+      )}
+    </span>
+  );
+}
+
+const OIL_INFOS = {
+  'BZ=F':  'Brent Crude is the global benchmark for oil prices, set in the North Sea. Used to price ~70% of world oil. Reflects European and African supply/demand.',
+  'CL=F':  'WTI (West Texas Intermediate) is the US benchmark crude. Traded on NYMEX. Typically priced below Brent due to landlocked delivery point.',
+  'DUBAI': 'Dubai/Oman Platts crude is the physical benchmark for Gulf oil shipped to Asia. Cash price reflects actual barrels changing hands today — no Hormuz transit means a severe premium.',
+  'OMAN':  'Oman crude trades on the Dubai Mercantile Exchange (DME). Key pricing reference for Middle East oil exports to Asia. Currently reflects extreme Hormuz closure premium.',
+  'NG=F':  'US natural gas futures (Henry Hub). Indirectly affected by LNG disruptions — Qatar force majeure is redirecting global LNG demand toward US exporters.',
+};
 
 const OIL_SYMBOLS = [
   { key: "BZ=F",  label: "Brent Crude",  unit: "$/bbl" },
@@ -101,7 +140,7 @@ export default function MarketPanel({ data, error, lastUpdated, loading, refetch
                   background: 'rgba(255,255,255,0.04)', border: `1px solid ${GLASS_BORDER}`,
                   borderRadius: 8, padding: '12px 14px', flex: '1 1 140px', minWidth: 140
                 }}>
-                  <div style={{ fontSize: '0.7rem', color: SUBTEXT, marginBottom: 4 }}>{s.label}</div>
+                  <div style={{ fontSize: '0.7rem', color: SUBTEXT, marginBottom: 4, display: 'flex', alignItems: 'center' }}>{s.label}{OIL_INFOS[s.key] && <InfoTip text={OIL_INFOS[s.key]} />}</div>
                   <div style={{ fontSize: '1.3rem', fontWeight: 700, color: SUBTEXT }}>--</div>
                 </div>
               );
@@ -112,7 +151,7 @@ export default function MarketPanel({ data, error, lastUpdated, loading, refetch
                   background: 'rgba(255,255,255,0.04)', border: `1px solid ${GLASS_BORDER}`,
                   borderRadius: 8, padding: '12px 14px', flex: '1 1 140px', minWidth: 140
                 }}>
-                  <div style={{ fontSize: '0.7rem', color: SUBTEXT, marginBottom: 4 }}>{s.label}</div>
+                  <div style={{ fontSize: '0.7rem', color: SUBTEXT, marginBottom: 4, display: 'flex', alignItems: 'center' }}>{s.label}{OIL_INFOS[s.key] && <InfoTip text={OIL_INFOS[s.key]} />}</div>
                   <div style={{ fontSize: '1.3rem', fontWeight: 700, color: TEXT }}>
                     ${q.price?.toFixed(2)}
                   </div>
@@ -135,7 +174,7 @@ export default function MarketPanel({ data, error, lastUpdated, loading, refetch
                 border: `1px solid ${spread > 20 ? '#EF4444' : spread > 10 ? '#E67E22' : GLASS_BORDER}`,
                 borderRadius: 8, padding: '12px 14px', flex: '1 1 140px', minWidth: 140
               }}>
-                <div style={{ fontSize: '0.7rem', color: SUBTEXT, marginBottom: 4 }}>Brent-WTI Spread</div>
+                <div style={{ fontSize: '0.7rem', color: SUBTEXT, marginBottom: 4, display: 'flex', alignItems: 'center' }}>Brent-WTI Spread<InfoTip text={'The price gap between Brent (global) and WTI (US) crude.\n\nPre-war: ~$3–5. An elevated spread signals global supply disruption. Brent rises faster when Middle East supply is at risk.'} /></div>
                 <div style={{
                   fontSize: '1.3rem', fontWeight: 700,
                   color: spread > 20 ? '#EF4444' : spread > 10 ? '#E67E22' : spread > 5 ? '#F1C40F' : '#27AE60'
@@ -162,7 +201,7 @@ export default function MarketPanel({ data, error, lastUpdated, loading, refetch
                   background: gpBg, border: `1px solid ${gpBorder}`,
                   borderRadius: 8, padding: '12px 14px', flex: '1 1 140px', minWidth: 140
                 }}>
-                  <div style={{ fontSize: '0.7rem', color: SUBTEXT, marginBottom: 4 }}>Gulf-WTI Premium</div>
+                  <div style={{ fontSize: '0.7rem', color: SUBTEXT, marginBottom: 4, display: 'flex', alignItems: 'center' }}>Gulf-WTI Premium<InfoTip text={'Physical Gulf crude (Oman) vs US paper futures (WTI).\n\nThis spread is the "Hormuz premium" — what Asian buyers actually pay above the futures price when the strait is closed. Pre-war: ~$3. Current: record high.'} /></div>
                   <div style={{ fontSize: '1.3rem', fontWeight: 700, color: gpColor }}>
                     +${gulfPremium.toFixed(2)}
                   </div>
