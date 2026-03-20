@@ -1,29 +1,29 @@
 {
-  "updated": "2026-03-20T05:50:17Z",
+  "updated": "2026-03-20T05:50:35Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude",
-      "price": 101.5,
-      "change": -2.28,
-      "changePercent": -2.2,
+      "price": 102.86,
+      "change": -0.92,
+      "changePercent": -0.89,
       "previousClose": 103.78
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude",
-      "price": 93.21,
-      "change": -2.34,
-      "changePercent": -2.45,
+      "price": 93.81,
+      "change": -1.74,
+      "changePercent": -1.82,
       "previousClose": 95.55
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 3.14,
-      "change": 0.08,
-      "changePercent": 2.61,
-      "previousClose": 3.06
+      "price": 3.13,
+      "change": -0.04,
+      "changePercent": -1.26,
+      "previousClose": 3.17
     },
     "2222.SR": {
       "symbol": "2222.SR",
@@ -36,43 +36,43 @@
     "FRO": {
       "symbol": "FRO",
       "name": "Frontline",
-      "price": 32.89,
-      "change": 0.73,
-      "changePercent": 2.27,
+      "price": 32.88,
+      "change": 0.72,
+      "changePercent": 2.24,
       "previousClose": 32.16
     },
     "STNG": {
       "symbol": "STNG",
       "name": "Scorpio Tankers",
-      "price": 69.14,
-      "change": 0.58,
-      "changePercent": 0.85,
+      "price": 69.16,
+      "change": 0.6,
+      "changePercent": 0.88,
       "previousClose": 68.56
     },
     "RTX": {
       "symbol": "RTX",
       "name": "RTX Corp",
-      "price": 200.69,
-      "change": -3.87,
-      "changePercent": -1.89,
+      "price": 200.73,
+      "change": -3.83,
+      "changePercent": -1.87,
       "previousClose": 204.56
     },
     "LMT": {
       "symbol": "LMT",
       "name": "Lockheed Martin",
-      "price": 637.38,
-      "change": -4.9,
-      "changePercent": -0.76,
+      "price": 637.51,
+      "change": -4.77,
+      "changePercent": -0.74,
       "previousClose": 642.28
     },
     "DUBAI": {
       "symbol": "DUBAI",
       "name": "Dubai Platts Crude",
-      "price": 176.8,
-      "change": 40.38,
-      "changePercent": 29.6,
+      "price": 136.42,
+      "change": 0.0,
+      "changePercent": 0.0,
       "note": "Physical Gulf benchmark",
-      "source": "Cash Dubai BOM \u2014 @silvertrade Mar 20"
+      "source": "investing.com (Platts)"
     },
     "OMAN": {
       "symbol": "OMAN",
@@ -87,10 +87,6 @@
   },
   "history": {
     "BZ=F": [
-      {
-        "date": "2026-02-12",
-        "close": 67.52
-      },
       {
         "date": "2026-02-13",
         "close": 67.75
@@ -185,7 +181,7 @@
       },
       {
         "date": "2026-03-19",
-        "close": 102.9
+        "close": 108.65
       },
       {
         "date": "2026-03-20",
@@ -193,10 +189,6 @@
       }
     ],
     "CL=F": [
-      {
-        "date": "2026-02-12",
-        "close": 62.84
-      },
       {
         "date": "2026-02-13",
         "close": 62.89
@@ -291,18 +283,14 @@
       },
       {
         "date": "2026-03-19",
-        "close": 94.27
+        "close": 96.14
       },
       {
         "date": "2026-03-20",
-        "close": 93.82
+        "close": 93.81
       }
     ],
     "NG=F": [
-      {
-        "date": "2026-02-12",
-        "close": 3.22
-      },
       {
         "date": "2026-02-13",
         "close": 3.24
@@ -397,7 +385,11 @@
       },
       {
         "date": "2026-03-19",
-        "close": 3.14
+        "close": 3.17
+      },
+      {
+        "date": "2026-03-20",
+        "close": 3.13
       }
     ],
     "2222.SR": [
@@ -645,7 +637,7 @@
       },
       {
         "date": "2026-03-19",
-        "close": 32.89
+        "close": 32.88
       }
     ],
     "STNG": [
@@ -767,7 +759,7 @@
       },
       {
         "date": "2026-03-19",
-        "close": 69.14
+        "close": 69.16
       }
     ],
     "RTX": [
@@ -889,7 +881,7 @@
       },
       {
         "date": "2026-03-19",
-        "close": 200.69
+        "close": 200.73
       }
     ],
     "LMT": [
@@ -1011,7 +1003,7 @@
       },
       {
         "date": "2026-03-19",
-        "close": 637.38
+        "close": 637.51
       }
     ],
     "DUBAI": [
@@ -1113,7 +1105,7 @@
       },
       {
         "date": "2026-03-20",
-        "close": 176.8
+        "close": 136.42
       }
     ]
   }
