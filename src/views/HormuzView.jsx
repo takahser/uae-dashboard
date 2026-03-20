@@ -61,7 +61,7 @@ function StatCard({ label, value, color, unit }) {
 const ATTACKS = [
   { pos: [29.07, 48.13], label: "Mar 19: Drone strike — Mina al-Ahmadi refinery, Kuwait (730,000 bpd capacity)", date: "2026-03-19" },
   { pos: [28.96, 48.17], label: "Mar 19: Drone strike — Mina Abdullah refinery ablaze, Kuwait (454,000 bpd capacity)", date: "2026-03-19" },
-  { pos: [26.2, 56.5], label: "Mar 18: South Pars gas field struck — multiple processing phases offline", date: "2026-03-18" },
+  { pos: [27.1, 52.6], label: "Mar 18: South Pars gas field struck — multiple processing phases offline", date: "2026-03-18" },
   { pos: [24.68, 46.72], label: "Mar 18: Missile strikes on Aramco refinery — Riyadh, Saudi Arabia", date: "2026-03-18" },
   { pos: [25.8, 57.2], label: "Mar 11: Thai Mayuree Naree struck — fire, 3 crew missing", date: "2026-03-11" },
   { pos: [26.1, 56.9], label: "Mar 9: Container vessel Meridian Star hit by drone", date: "2026-03-09" },
