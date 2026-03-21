@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-03-20",
+  "lastUpdated": "2026-03-21T12:00:00Z",
   "sources": {
     "modgovae": {
       "lastTweetId": "2030989828712759428"
@@ -344,27 +344,43 @@
     },
     {
       "date": "2026-03-20",
+      "label": "20 Mar",
       "day": 21,
-      "ballistic": 4,
-      "cruise": 0,
-      "drones": 26,
+      "ballisticDetected": 4,
+      "ballisticIntercepted": 4,
+      "ballisticImpacted": 0,
+      "ballisticSea": 0,
+      "cruiseDetected": 0,
+      "cruiseIntercepted": 0,
+      "dronesDetected": 26,
+      "dronesIntercepted": 26,
+      "dronesImpacted": 0,
       "total": 30,
-      "notes": "Arabic tweet only \u2014 EN pending"
-    }
-  ],
-  "days": [
+      "killed": 0,
+      "injured": 0,
+      "reportingType": "engaged",
+      "source": "https://x.com/modgovae/status/2034939949150347483",
+      "notes": "Day 21. Cumulative: 338 ballistic, 15 cruise, 1740 UAVs."
+    },
     {
-      "day": 22,
       "date": "2026-03-21",
-      "ballistic": 3,
-      "cruise": 0,
-      "drones": 8,
+      "label": "21 Mar",
+      "day": 22,
+      "ballisticDetected": 3,
+      "ballisticIntercepted": 3,
+      "ballisticImpacted": 0,
+      "ballisticSea": 0,
+      "cruiseDetected": 0,
+      "cruiseIntercepted": 0,
+      "dronesDetected": 8,
+      "dronesIntercepted": 8,
+      "dronesImpacted": 0,
       "total": 11,
       "killed": 0,
       "injured": 0,
-      "source": "modgovae",
-      "sourceTweetEN": "2035302289943232912",
-      "sourceTweetAR": "2035301652618793282"
+      "reportingType": "engaged",
+      "source": "https://x.com/modgovae/status/2035302289943232912",
+      "notes": "Day 22. Cumulative: 341 ballistic, 15 cruise, 1748 UAVs."
     }
   ]
 }
