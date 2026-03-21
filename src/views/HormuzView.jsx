@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Polyline, Tooltip } from 'react-leaflet';
 import data from '../data/hormuz.json';
 import MarketPanel from '../components/MarketPanel';
+import EnergyAttacksMap from '../components/EnergyAttacksMap';
 import { useMarketData } from '../hooks/useMarketData';
 
 const BG = '#050B1A';
@@ -420,6 +421,19 @@ export default function HormuzView({ onBack }) {
 
         {/* Hormuz Map */}
         <HormuzMap />
+
+        {/* Energy Infrastructure Attacks — experimental */}
+        {expOn && (
+          <div style={{ marginBottom: 32 }}>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: 4, color: TEXT }}>
+              Energy Infrastructure Attacks
+            </h3>
+            <p style={{ fontSize: '0.8rem', color: SUBTEXT, marginBottom: 16, marginTop: 0 }}>
+              20 sites across 8 countries — click markers for details
+            </p>
+            <EnergyAttacksMap />
+          </div>
+        )}
 
         {/* Market Impact Panel */}
         <MarketPanel

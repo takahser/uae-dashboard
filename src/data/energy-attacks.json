@@ -1,0 +1,22 @@
+[
+  {"id":1,"name":"Kharg Island Oil Terminal","country":"Iran","lat":29.26,"lng":50.33,"type":"oil_terminal","date":"2026-02-28","strikes":3,"damage":"severe","notes":"Main Iranian crude export terminal. ~90% of Iranian oil exports"},
+  {"id":2,"name":"South Pars Gas Field","country":"Iran","lat":27.1,"lng":52.6,"type":"gas_field","date":"2026-03-01","strikes":2,"damage":"moderate","notes":"World largest gas field. Shared with Qatar North Dome"},
+  {"id":3,"name":"Asaluyeh Gas Processing","country":"Iran","lat":27.47,"lng":52.61,"type":"gas_processing","date":"2026-03-01","strikes":1,"damage":"moderate","notes":"Onshore processing for South Pars"},
+  {"id":4,"name":"Abadan Refinery","country":"Iran","lat":30.34,"lng":48.3,"type":"refinery","date":"2026-03-02","strikes":1,"damage":"minor","notes":"Historic refinery, 250K bpd capacity"},
+  {"id":5,"name":"Ras Laffan LNG","country":"Qatar","lat":25.93,"lng":51.53,"type":"lng","date":"2026-03-03","strikes":2,"damage":"severe","notes":"2 of 14 LNG trains offline. Force majeure declared. 3-5yr recovery (QatarEnergy CEO, Reuters)"},
+  {"id":6,"name":"Mina al-Ahmadi Refinery","country":"Kuwait","lat":29.07,"lng":48.13,"type":"refinery","date":"2026-03-05","strikes":1,"damage":"moderate","notes":"346K bpd capacity. Fire contained Mar 20"},
+  {"id":7,"name":"Mina Abdullah Refinery","country":"Kuwait","lat":28.96,"lng":48.17,"type":"refinery","date":"2026-03-05","strikes":1,"damage":"minor","notes":"Combined Kuwait complex ~800K bpd"},
+  {"id":8,"name":"Bandar Abbas Oil Terminal","country":"Iran","lat":27.18,"lng":56.27,"type":"oil_terminal","date":"2026-03-06","strikes":2,"damage":"moderate","notes":"Key Persian Gulf export terminal"},
+  {"id":9,"name":"Basra Oil Terminal","country":"Iraq","lat":29.68,"lng":48.82,"type":"oil_terminal","date":"2026-03-04","strikes":1,"damage":"minor","notes":"Iraq main export terminal, 1.8M bpd"},
+  {"id":10,"name":"Lavan Island Refinery","country":"Iran","lat":26.8,"lng":53.37,"type":"refinery","date":"2026-03-07","strikes":1,"damage":"moderate","notes":"60K bpd offshore refinery"},
+  {"id":11,"name":"Jubail Industrial City","country":"Saudi Arabia","lat":27.0,"lng":49.65,"type":"refinery","date":"2026-03-08","strikes":1,"damage":"minor","notes":"World largest industrial city, petrochemical hub"},
+  {"id":12,"name":"Ras Tanura","country":"Saudi Arabia","lat":26.64,"lng":50.17,"type":"oil_terminal","date":"2026-03-09","strikes":1,"damage":"minor","notes":"World largest offshore oil loading facility, 4.5M bpd capacity"},
+  {"id":13,"name":"Abqaiq Processing","country":"Saudi Arabia","lat":25.93,"lng":49.67,"type":"gas_processing","date":"2026-03-10","strikes":1,"damage":"minor","notes":"World largest oil processing facility, 7M bpd"},
+  {"id":14,"name":"Ruwais Refinery","country":"UAE","lat":24.11,"lng":52.73,"type":"refinery","date":"2026-03-11","strikes":1,"damage":"minor","notes":"ADNOC, 817K bpd capacity"},
+  {"id":15,"name":"Jask Oil Terminal","country":"Iran","lat":25.64,"lng":57.77,"type":"oil_terminal","date":"2026-03-03","strikes":1,"damage":"moderate","notes":"Iran new export terminal bypassing Hormuz"},
+  {"id":16,"name":"Sohar Refinery","country":"Oman","lat":24.35,"lng":56.64,"type":"refinery","date":"2026-03-12","strikes":1,"damage":"minor","notes":"116K bpd Omani refinery"},
+  {"id":17,"name":"Kirkuk Oil Fields","country":"Iraq","lat":35.47,"lng":44.39,"type":"oil_field","date":"2026-03-04","strikes":2,"damage":"moderate","notes":"Northern Iraq ~300K bpd"},
+  {"id":18,"name":"Rumaila Oil Field","country":"Iraq","lat":30.4,"lng":47.6,"type":"oil_field","date":"2026-03-04","strikes":1,"damage":"minor","notes":"Iraq largest oil field, 1.4M bpd"},
+  {"id":19,"name":"North Dome Gas Field","country":"Qatar","lat":26.5,"lng":51.5,"type":"gas_field","date":"2026-03-03","strikes":1,"damage":"severe","notes":"Qatar side of South Pars/North Dome. World largest gas reservoir"},
+  {"id":20,"name":"Sitra Refinery","country":"Bahrain","lat":26.15,"lng":50.64,"type":"refinery","date":"2026-03-13","strikes":1,"damage":"minor","notes":"267K bpd Bahrain refinery"}
+]
