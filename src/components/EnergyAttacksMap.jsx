@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import attacksRaw from '../data/energy-attacks.json';
+import threatTargets from '../data/electrical-threats.json';
 
 const GLASS_BORDER = 'rgba(255,255,255,0.11)';
 const TEXT = '#E8EDF5';
@@ -102,6 +103,7 @@ export default function EnergyAttacksMap() {
   const [countryFilter, setCountryFilter] = useState(null);
   const [pulseQueue, setPulseQueue] = useState([]);
   const [flyTarget, setFlyTarget] = useState(null);
+  const [showThreats, setShowThreats] = useState(false);
   const timerRef = useRef(null);
   const shownIdsRef = useRef(new Set());
 
@@ -188,6 +190,23 @@ export default function EnergyAttacksMap() {
   return (
     <div>
       <style>{PULSE_CSS}</style>
+
+      {/* Threat targets toggle */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10, flexWrap: 'wrap' }}>
+        <span style={{ fontSize: '0.7rem', color: '#FBBF24', fontWeight: 700, fontFamily: DM_SANS, letterSpacing: 0.5 }}>
+          IRGC THREAT LIST — Unconfirmed targets. Not confirmed attacks.
+        </span>
+        <button
+          onClick={() => setShowThreats(v => !v)}
+          style={{
+            background: showThreats ? '#FBBF24' : 'rgba(255,255,255,0.06)',
+            color: showThreats ? '#000' : SUBTEXT,
+            border: `1px solid ${showThreats ? '#FBBF24' : GLASS_BORDER}`,
+            borderRadius: 6, padding: '4px 10px', fontSize: '0.72rem',
+            fontWeight: 600, cursor: 'pointer', fontFamily: DM_SANS,
+          }}
+        >{showThreats ? '⚡ Threat Targets ON' : '⚡ Threat Targets'}</button>
+      </div>
 
       {/* Country filter buttons */}
       <div style={{ display: 'flex', gap: 6, marginBottom: 12, flexWrap: 'wrap' }}>
@@ -280,6 +299,39 @@ export default function EnergyAttacksMap() {
               </CircleMarker>
             );
           })}
+
+          {showThreats && threatTargets.map(t => (
+            <CircleMarker
+              key={`threat-${t.id}`}
+              center={[t.lat, t.lng]}
+              radius={10}
+              pathOptions={{
+                color: '#FBBF24',
+                fillColor: '#FBBF24',
+                fillOpacity: 0.25,
+                weight: 2,
+                dashArray: '6 4',
+              }}
+            >
+              <Popup>
+                <div style={{ fontFamily: DM_SANS, minWidth: 200 }}>
+                  <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 2, color: '#92400E' }}>⚡ THREAT TARGET</div>
+                  <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 4 }}>{t.name}</div>
+                  <div style={{ fontSize: 12, color: '#666', marginBottom: 6 }}>{t.country}</div>
+                  <table style={{ fontSize: 12, borderCollapse: 'collapse', width: '100%' }}>
+                    <tbody>
+                      <tr><td style={{ color: '#888', paddingRight: 8, paddingBottom: 3 }}>Capacity</td><td style={{ paddingBottom: 3 }}>{t.capacity_mw.toLocaleString()} MW</td></tr>
+                      <tr><td style={{ color: '#888', paddingRight: 8, paddingBottom: 3 }}>Notes</td><td style={{ paddingBottom: 3 }}>{t.notes}</td></tr>
+                      <tr><td style={{ color: '#888', paddingRight: 8, paddingBottom: 3 }}>Source</td><td style={{ paddingBottom: 3 }}>{t.source}</td></tr>
+                    </tbody>
+                  </table>
+                  <div style={{ fontSize: 10, color: '#B45309', marginTop: 6, borderTop: '1px solid #eee', paddingTop: 6, fontWeight: 600 }}>
+                    UNCONFIRMED — IRGC threat, not a confirmed attack
+                  </div>
+                </div>
+              </Popup>
+            </CircleMarker>
+          ))}
         </MapContainer>
       </div>
 

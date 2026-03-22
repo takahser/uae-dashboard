@@ -21,6 +21,7 @@ const today = data[data.length - 1];
 const closureDays = data.filter((d) => d.status === 'critical').length;
 
 const intel = [
+  'Mar 22: IRGC threatens regional electricity grid — "entire region will go dark" if Iran electricity infrastructure attacked. IRGC-affiliated Mehr news published list of power plant targets across Saudi Arabia, UAE, Kuwait, Qatar, Bahrain, Oman. These are THREATS — not confirmed attacks. (DropSiteNews / Mehr)',
   'Mar 22: Iran\'s IMO representative formalizes Hormuz transit policy — non-enemy ships may transit with security coordination; US/Israel-flagged vessels explicitly excluded. Shift from ad-hoc vetted transits to formal policy statement (Al Jazeera, Mehr news)',
   'Mar 20: Iran selectively approving vetted vessel transits through Hormuz — at least one operator paid ~$2M for guaranteed safe passage; not a formalised system; most traffic remains blocked (~90 tankers total since Mar 1 vs 100+/day pre-war) (FT, Lloyd\'s List Intelligence, S&P Global)',
   'Mar 19: Qatar declares force majeure on LNG contracts to Italy, Belgium, South Korea, China — 2 of 14 LNG trains offline, 12.8M tpa capacity lost for 3–5 years (QatarEnergy CEO, Reuters)',
