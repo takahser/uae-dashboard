@@ -7,25 +7,25 @@
     "notes": "From 13 Mar 2026, UAE MoD changed reporting from intercepted/impacted breakdown to 'engaged' count only. See reportingType field on daily entries."
   },
   "cumulative": {
-    "ballisticDetected": 341,
-    "ballisticIntercepted": 306,
+    "ballisticDetected": 345,
+    "ballisticIntercepted": 310,
     "ballisticSea": 20,
     "ballisticImpacted": 3,
     "cruiseDetected": 15,
     "cruiseIntercepted": 15,
     "cruiseSea": 0,
     "cruiseImpacted": 0,
-    "dronesDetected": 1748,
-    "dronesIntercepted": 1550,
+    "dronesDetected": 1773,
+    "dronesIntercepted": 1575,
     "dronesSea": 0,
     "dronesImpacted": 85,
     "killed": 8,
     "injured": 158,
     "killedMilitary": 2,
     "killedCivilian": 6,
-    "ballistic": 341,
+    "ballistic": 345,
     "cruise": 15,
-    "drones": 1748
+    "drones": 1773
   },
   "daily": [
     {
@@ -381,6 +381,26 @@
       "reportingType": "engaged",
       "source": "https://x.com/modgovae/status/2035302289943232912",
       "notes": "Day 22. Cumulative: 341 ballistic, 15 cruise, 1748 UAVs."
+    },
+    {
+      "date": "2026-03-22",
+      "label": "22 Mar",
+      "day": 23,
+      "ballisticDetected": 4,
+      "ballisticIntercepted": 4,
+      "ballisticImpacted": 0,
+      "ballisticSea": 0,
+      "cruiseDetected": 0,
+      "cruiseIntercepted": 0,
+      "dronesDetected": 25,
+      "dronesIntercepted": 25,
+      "dronesImpacted": 0,
+      "total": 29,
+      "killed": 0,
+      "injured": 0,
+      "reportingType": "engaged",
+      "source": "https://x.com/modgovae/status/2035678544970633367",
+      "notes": "Day 23. Two attack waves (02:49 UTC + 10:54 UTC). Cumulative: 345 ballistic, 15 cruise, 1773 UAVs. Context: Iran struck Dimona nuclear facility (Israel) same day."
     }
   ]
 }
