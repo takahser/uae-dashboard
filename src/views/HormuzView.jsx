@@ -21,6 +21,7 @@ const today = data[data.length - 1];
 const closureDays = data.filter((d) => d.status === 'critical').length;
 
 const intel = [
+  'Mar 22: Iran\'s IMO representative formalizes Hormuz transit policy — non-enemy ships may transit with security coordination; US/Israel-flagged vessels explicitly excluded. Shift from ad-hoc vetted transits to formal policy statement (Al Jazeera, Mehr news)',
   'Mar 20: Iran selectively approving vetted vessel transits through Hormuz — at least one operator paid ~$2M for guaranteed safe passage; not a formalised system; most traffic remains blocked (~90 tankers total since Mar 1 vs 100+/day pre-war) (FT, Lloyd\'s List Intelligence, S&P Global)',
   'Mar 19: Qatar declares force majeure on LNG contracts to Italy, Belgium, South Korea, China — 2 of 14 LNG trains offline, 12.8M tpa capacity lost for 3–5 years (QatarEnergy CEO, Reuters)',
   'Mar 20: Kuwait — Mina al-Ahmadi fire contained; damage confirmed. Combined Mina complex ~800K bpd offline (@DD_Geopolitics)',
@@ -40,7 +41,7 @@ const intel = [
 ];
 
 function getStraitStatus(ships, tollPassage) {
-  if (tollPassage) return { color: '#E67E22', bg: 'rgba(230,126,34,0.15)', border: '#E67E22', label: 'RESTRICTED', desc: 'Severely disrupted — Iran selectively approving vetted transits; most traffic still blocked' };
+  if (tollPassage) return { color: '#E67E22', bg: 'rgba(230,126,34,0.15)', border: '#E67E22', label: 'RESTRICTED', desc: 'Iran formalizes selective transit — non-enemy ships may coordinate passage; US/Israel-flagged excluded' };
   if (ships === 0) return { color: '#C0392B', bg: 'rgba(192,57,43,0.15)', border: '#C0392B', label: 'CLOSED', desc: 'No commercial traffic detected' };
   if (ships < 20) return { color: '#E67E22', bg: 'rgba(230,126,34,0.15)', border: '#E67E22', label: 'RESTRICTED', desc: 'Severely reduced traffic' };
   if (ships < 80) return { color: '#F1C40F', bg: 'rgba(241,196,15,0.15)', border: '#F1C40F', label: 'DISRUPTED', desc: 'Below normal traffic' };
