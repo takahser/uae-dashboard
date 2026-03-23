@@ -15,7 +15,8 @@ on:
 jobs:
   grok-data-review:
     runs-on: ubuntu-latest
-    if: ${{ secrets.LLM_SESSION != '' }}
+    # Only run on PRs from the same repo (not forks) — protects LLM_SESSION
+    if: ${{ secrets.LLM_SESSION != '' && github.event.pull_request.head.repo.full_name == github.repository }}
     steps:
       - uses: actions/checkout@v4
         with:
