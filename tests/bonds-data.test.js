@@ -13,15 +13,17 @@ const data = JSON.parse(readFileSync(join(__dirname, '..', 'public', 'data-bonds
 
 const REQUIRED_SERIES = ['DGS10', 'IRLTLT01DEM156N', 'IRLTLT01GBM156N', 'IRLTLT01JPM156N'];
 const MIN_DATA_POINTS = 3; // monthly series must have at least 3 months of data
+const MIN_DAILY_POINTS = 20; // daily series (Germany ECB) should have >20 points since Jan 2025
 
 for (const id of REQUIRED_SERIES) {
   const s = data.series.find(s => s.id === id);
   assert(s, `Missing series: ${id}`);
+  const minPts = s.frequency === 'daily' ? MIN_DAILY_POINTS : MIN_DATA_POINTS;
   assert(
-    s.data.length >= MIN_DATA_POINTS,
-    `Series ${id} has only ${s.data.length} data points (minimum: ${MIN_DATA_POINTS}). Check observation_start in fetch-bonds.js.`
+    s.data.length >= minPts,
+    `Series ${id} (${s.frequency}) has only ${s.data.length} data points (minimum: ${minPts}). Check fetch-bonds.js.`
   );
-  console.log(`✓ ${id}: ${s.data.length} data points`);
+  console.log(`✓ ${id} (${s.frequency}): ${s.data.length} data points`);
 }
 
 console.log('All bond data validation checks passed.');
