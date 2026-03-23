@@ -6,7 +6,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "fetch": "node scripts/fetch-tweets.js"
+    "fetch": "node scripts/fetch-tweets.js",
+    "test": "node --experimental-vm-modules tests/bonds-data.test.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
