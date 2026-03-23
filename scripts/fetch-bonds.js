@@ -15,7 +15,7 @@ const SERIES = [
 ];
 
 async function fetchSeries(s) {
-  const url = `https://api.stlouisfed.org/fred/series/observations?series_id=${s.id}&observation_start=2026-02-01&api_key=${FRED_API_KEY}&file_type=json`;
+  const url = `https://api.stlouisfed.org/fred/series/observations?series_id=${s.id}&observation_start=2025-01-01&api_key=${FRED_API_KEY}&file_type=json`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`FRED ${s.id}: ${res.status} ${res.statusText}`);
   const json = await res.json();

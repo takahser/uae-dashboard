@@ -532,6 +532,7 @@ export default function HormuzView({ onBack }) {
             </div>
             <BondChart data={bondsData} />
           </div>
+          <div style={{ marginBottom: 32 }} />
         )}
 
         {/* Chokepoint Facts */}
