@@ -531,8 +531,8 @@ export default function HormuzView({ onBack }) {
               BOND MARKET IMPACT
             </div>
             <BondChart data={bondsData} />
+            <div style={{ marginBottom: 32 }} />
           </div>
-          <div style={{ marginBottom: 32 }} />
         )}
 
         {/* Chokepoint Facts */}
