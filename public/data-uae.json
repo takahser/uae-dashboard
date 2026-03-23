@@ -1,22 +1,22 @@
 {
-  "lastUpdated": "2026-03-21T12:00:00Z",
+  "lastUpdated": "2026-03-23T11:30:00Z",
   "sources": {
     "modgovae": {
-      "lastTweetId": "2030989828712759428"
+      "lastTweetId": "2036027164290605338"
     },
     "notes": "From 13 Mar 2026, UAE MoD changed reporting from intercepted/impacted breakdown to 'engaged' count only. See reportingType field on daily entries."
   },
   "cumulative": {
-    "ballisticDetected": 345,
-    "ballisticIntercepted": 310,
+    "ballisticDetected": 352,
+    "ballisticIntercepted": 317,
     "ballisticSea": 20,
     "ballisticImpacted": 3,
     "cruiseDetected": 15,
     "cruiseIntercepted": 15,
     "cruiseSea": 0,
     "cruiseImpacted": 0,
-    "dronesDetected": 1773,
-    "dronesIntercepted": 1575,
+    "dronesDetected": 1789,
+    "dronesIntercepted": 1591,
     "dronesSea": 0,
     "dronesImpacted": 85,
     "killed": 8,
@@ -401,6 +401,25 @@
       "reportingType": "engaged",
       "source": "https://x.com/modgovae/status/2035678544970633367",
       "notes": "Day 23. Two attack waves (02:49 UTC + 10:54 UTC). Cumulative: 345 ballistic, 15 cruise, 1773 UAVs. Context: Iran struck Dimona nuclear facility (Israel) same day."
+    },
+    {
+      "date": "2026-03-23",
+      "day": 24,
+      "ballisticDetected": 7,
+      "ballisticIntercepted": 7,
+      "ballisticImpacted": 0,
+      "ballisticSea": 0,
+      "cruiseDetected": 0,
+      "cruiseIntercepted": 0,
+      "dronesDetected": 16,
+      "dronesIntercepted": 16,
+      "dronesImpacted": 0,
+      "total": 23,
+      "killed": 0,
+      "injured": 0,
+      "reportingType": "engaged",
+      "source": "https://x.com/modgovae/status/2036027164290605338",
+      "notes": "Day 24. First wave: 7 ballistic + 16 UAVs. Second wave announced 11:06 UTC (ballistic + cruise + UAVs) — no final count yet. Cumulative: 352 ballistic, 15 cruise, 1789 UAVs. Cumulative casualties: 2 UAE military martyred, 6 foreign nationals (Pakistani, Nepali, Bangladeshi, Palestinian), 161 injured."
     }
   ]
 }
