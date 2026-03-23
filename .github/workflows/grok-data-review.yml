@@ -1,0 +1,35 @@
+name: Grok Data Review
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'public/data-uae.json'
+      - 'public/data-market.json'
+      - 'public/data-bonds.json'
+      - 'public/data-substitution.json'
+      - 'src/data/energy-attacks.json'
+      - 'src/data/electrical-threats.json'
+      - 'src/data/hormuz.json'
+
+jobs:
+  grok-data-review:
+    runs-on: ubuntu-latest
+    # Only run if XAI_API_KEY secret is configured
+    if: ${{ secrets.XAI_API_KEY != '' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Grok data review
+        env:
+          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: node scripts/grok-review.js
