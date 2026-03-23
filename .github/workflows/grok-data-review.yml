@@ -15,8 +15,7 @@ on:
 jobs:
   grok-data-review:
     runs-on: ubuntu-latest
-    # Only run if XAI_API_KEY secret is configured
-    if: ${{ secrets.XAI_API_KEY != '' }}
+    if: ${{ secrets.LLM_SESSION != '' }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -27,9 +26,12 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install Playwright
+        run: npx playwright install chromium --with-deps
+
       - name: Run Grok data review
         env:
-          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
+          LLM_SESSION: ${{ secrets.LLM_SESSION }}
         run: node scripts/grok-review.js
