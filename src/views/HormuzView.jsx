@@ -1,11 +1,12 @@
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { Tooltip as RTooltip, Legend } from 'recharts';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Polyline, Tooltip } from 'react-leaflet';
 import data from '../data/hormuz.json';
 import MarketPanel from '../components/MarketPanel';
 import EnergyAttacksMap from '../components/EnergyAttacksMap';
 import { useMarketData } from '../hooks/useMarketData';
+import BondChart from '../components/BondChart';
 
 const BG = '#050B1A';
 const CARD_BG = 'rgba(255,255,255,0.08)';
@@ -349,6 +350,8 @@ export default function HormuzView({ onBack }) {
   const [activeLines, setActiveLines] = useState({ "BZ=F": true, "CL=F": true, "DUBAI": false, "OMAN": true, "NG=F": false });
   const [expOn, setExpOn] = useState(() => { try { return localStorage.getItem("ww3_experimental") === "true"; } catch { return false; } });
   const toggleExp = useCallback(() => setExpOn(v => { const next = !v; try { localStorage.setItem("ww3_experimental", String(next)); } catch {} return next; }), []);
+  const [bondsData, setBondsData] = useState(null);
+  useEffect(() => { fetch('/data-bonds.json').then(r => r.ok ? r.json() : null).then(setBondsData).catch(() => {}); }, []);
 
   return (
     <div style={{ minHeight: '100vh', background: BG, color: TEXT, fontFamily: DM_SANS, padding: '40px 20px', position: 'relative', overflowX: 'hidden' }}>
@@ -521,6 +524,15 @@ export default function HormuzView({ onBack }) {
             </div>
           );
         })()}
+
+        {bondsData && (
+          <div style={{ marginTop: 24 }}>
+            <div style={{ color: TEXT, fontFamily: DM_SANS, fontSize: 11, fontWeight: 600, letterSpacing: "0.1em", marginBottom: 12 }}>
+              BOND MARKET IMPACT
+            </div>
+            <BondChart data={bondsData} />
+          </div>
+        )}
 
         {/* Chokepoint Facts */}
         <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: `1px solid ${GLASS_BORDER}`, borderRadius: GLASS_RADIUS, padding: 20, marginBottom: 32 }}>
