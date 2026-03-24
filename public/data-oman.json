@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-03-13",
+  "lastUpdated": "2026-03-24",
   "sources": {
     "MOD_Oman": {
       "lastTweetId": null
@@ -14,13 +14,13 @@
     "cruiseIntercepted": 0,
     "cruiseSea": 0,
     "cruiseImpacted": 0,
-    "dronesDetected": 44,
-    "dronesIntercepted": 42,
+    "dronesDetected": 45,
+    "dronesIntercepted": 41,
     "dronesSea": 0,
-    "dronesImpacted": 2,
-    "killed": 2,
-    "injured": 0,
-    "notes": "Oman maintained neutrality; intercepted overflights of Iranian drones/missiles transiting Omani airspace. Served as diplomatic back-channel broker."
+    "dronesImpacted": 4,
+    "killed": 3,
+    "injured": 15,
+    "notes": "Oman maintained neutrality but was directly struck. 16 drones recorded total per Wikipedia. 3 killed (2 expats in Sohar 13 Mar, 1 tanker crew 2 Mar), 15 injured (1 Duqm worker 1 Mar, 4 Khasab tanker crew 1 Mar, 10 Sohar 13 Mar). No verified strikes after 13 Mar. US Embassy alerts continued through 23 Mar. Iran denied ordering strikes on Oman."
   },
   "daily": [
     {
@@ -189,6 +189,36 @@
       "events": "Minimal overflight activity. Oman continues diplomatic mediation efforts."
     },
     {
+      "date": "2026-03-11",
+      "label": "11 Mar",
+      "ballisticDetected": 0,
+      "ballisticIntercepted": 0,
+      "ballisticSea": 0,
+      "ballisticImpacted": 0,
+      "cruiseDetected": 0,
+      "cruiseIntercepted": 0,
+      "dronesDetected": 4,
+      "dronesIntercepted": 2,
+      "dronesImpacted": 2,
+      "total": 4,
+      "events": "Salalah Port targeted — drones set 2 fuel tanks on fire, port operations suspended. 1 drone intercepted north of Duqm. No casualties. Source: Al Jazeera, Times of Oman, GCC condemnation statement."
+    },
+    {
+      "date": "2026-03-12",
+      "label": "12 Mar",
+      "ballisticDetected": 0,
+      "ballisticIntercepted": 0,
+      "ballisticSea": 0,
+      "ballisticImpacted": 0,
+      "cruiseDetected": 0,
+      "cruiseIntercepted": 0,
+      "dronesDetected": 1,
+      "dronesIntercepted": 1,
+      "dronesImpacted": 0,
+      "total": 1,
+      "events": "Drone downed in Khasab Governorate airspace. No human or material losses. Source: Times of Oman."
+    },
+    {
       "date": "2026-03-13",
       "label": "13 Mar",
       "ballisticDetected": 0,
@@ -198,10 +228,10 @@
       "cruiseDetected": 0,
       "cruiseIntercepted": 0,
       "dronesDetected": 2,
-      "dronesIntercepted": 2,
-      "dronesImpacted": 1,
+      "dronesIntercepted": 0,
+      "dronesImpacted": 2,
       "total": 2,
-      "events": "2 drones hit Sohar province (al-Awahi Industrial Area). 2 foreign nationals killed — first confirmed Oman casualties in the conflict. Source: Al Jazeera, multiple outlets."
+      "events": "2 drones hit Sohar province. One struck al-Awahi Industrial Area — 2 expats killed, 10 injured. Second fell in open area, no casualties. US State Dept ordered non-essential staff departure. Source: Al Jazeera, Times of Oman, Middle East Eye."
     }
   ]
 }
