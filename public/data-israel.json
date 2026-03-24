@@ -1,10 +1,10 @@
 {
   "country": "israel",
-  "flag": "\ud83c\uddee\ud83c\uddf1",
+  "flag": "🇮🇱",
   "capital": "Tel Aviv / Jerusalem",
   "lastUpdated": "2026-03-11",
   "source": "IDF (@IDF), @timesofisrael, @LucasTomlinson",
-  "note": "IDF does not publish daily intercept breakdowns. Cumulative 550 total strikes Feb 28\u2013Mar 11 (IDF via Fox News/Lucas Tomlinson). Daily detail unavailable from official sources.",
+  "note": "IDF does not publish daily intercept breakdowns. Cumulative 550 total strikes Feb 28–Mar 11 (IDF via Fox News/Lucas Tomlinson). Daily detail unavailable from official sources. Reviewed Mar 12–24 2026: no new IDF-confirmed strike data found via available sources for this period; data held at last verified date (Mar 11).",
   "defenceSystems": ["Iron Dome", "David's Sling", "Arrow-2", "Arrow-3"],
   "daily": [],
   "cumulative": {
@@ -23,14 +23,14 @@
     "totalStrikes": 550,
     "killed": null,
     "injured": null,
-    "notes": "Total 550 strikes (ballistic + drone combined) Feb 28\u2013Mar 11"
+    "notes": "Total 550 strikes (ballistic + drone combined) Feb 28–Mar 11. No verified IDF data available for Mar 12–24 2026."
   },
   "airports": [
     {
       "iata": "TLV",
       "name": "Ben Gurion International Airport",
       "status": "operational_restricted",
-      "notes": "Repeatedly targeted; multiple flight diversions"
+      "notes": "Repeatedly targeted; multiple flight diversions. Status for Mar 12–24 2026 unverified."
     }
   ]
 }
