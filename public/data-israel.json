@@ -4,8 +4,13 @@
   "capital": "Tel Aviv / Jerusalem",
   "lastUpdated": "2026-03-11",
   "source": "IDF (@IDF), @timesofisrael, @LucasTomlinson",
-  "note": "IDF does not publish daily intercept breakdowns. Cumulative 550 total strikes Feb 28–Mar 11 (IDF via Fox News/Lucas Tomlinson). Daily detail unavailable from official sources. Reviewed Mar 12–24 2026: no new IDF-confirmed strike data found via available sources for this period; data held at last verified date (Mar 11).",
-  "defenceSystems": ["Iron Dome", "David's Sling", "Arrow-2", "Arrow-3"],
+  "note": "IDF does not publish daily intercept breakdowns. Cumulative 550 total strikes Feb 28–Mar 11 (IDF via Fox News/Lucas Tomlinson). New events confirmed Mar 12–24 per IDF but no updated totals published. Notable: Ben Gurion damaged by Iranian missile debris Mar 18 (Reuters); Arad city attacked Mar 22 injuring 80+ (IDF/Times of Israel).",
+  "defenceSystems": [
+    "Iron Dome",
+    "David's Sling",
+    "Arrow-2",
+    "Arrow-3"
+  ],
   "daily": [],
   "cumulative": {
     "ballisticDetected": null,
@@ -23,14 +28,14 @@
     "totalStrikes": 550,
     "killed": null,
     "injured": null,
-    "notes": "Total 550 strikes (ballistic + drone combined) Feb 28–Mar 11. No verified IDF data available for Mar 12–24 2026."
+    "notes": "Total 550 strikes (ballistic + drone combined) Feb 28–Mar 11. New events confirmed Mar 12–24 per IDF but no updated totals. IDF confirmed long-range missile Mar 21, Arad attack Mar 22."
   },
   "airports": [
     {
       "iata": "TLV",
       "name": "Ben Gurion International Airport",
       "status": "operational_restricted",
-      "notes": "Repeatedly targeted; multiple flight diversions. Status for Mar 12–24 2026 unverified."
+      "notes": "Repeatedly targeted; multiple flight diversions. Damaged by Iranian missile debris Mar 18 per Reuters; further restrictions imposed Mar 23–24 per Times of Israel."
     }
   ]
 }
