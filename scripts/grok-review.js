@@ -68,16 +68,23 @@ Use live web search to verify figures against Reuters, AP, official MOD statemen
 - **WRONG_DATA** — number contradicts a verified source (suggest correct value)
 - **UNCONFIRMED_EVENT** — non-numeric claim (e.g. person killed) with no verified source (move to pendingConfirmation, remove from displayed data)
 
-## Output format — use this exact markdown table:
+## REQUIRED output format — you MUST use this exact 5-column markdown table. Every row MUST include a non-empty "Suggested Fix" column:
 
 | Field | Current Value | Classification | Issue | Suggested Fix |
 |-------|--------------|----------------|-------|---------------|
-| cumulative.killed | 1500 | WRONG_DATA | IDF reported 4,000–5,000 as of Mar 13 [Reuters] | Set to 4500, add \`killedUnconfirmed: true\` |
-| daily.2026-03-11.dronesDetected | 4 | UNCONFIRMED_NUMERIC | No MOD statement found, sourced from LWJ only | Keep value, add \`"unconfirmed": true\` to daily entry |
-| cumulative.notes/Mousavi killed | text | UNCONFIRMED_EVENT | No Reuters/AP/IDF confirmation found | Move to \`pendingConfirmation\` array, remove from notes |
+| cumulative.killed | 1500 | WRONG_DATA | IDF reported 4,000–5,000 as of Mar 13 [Reuters] | Set to 4500; add \`killedUnconfirmed: true\` |
+| daily.2026-03-11.dronesDetected | 4 | UNCONFIRMED_NUMERIC | No MOD statement found, sourced from LWJ only | Keep value; add \`"unconfirmed": true\` to this daily entry |
+| cumulative.notes — Mousavi killed | (text) | UNCONFIRMED_EVENT | No Reuters/AP/IDF confirmation found | Remove from notes; add to \`pendingConfirmation\` array as \`{type:"leadership_killed", description:"...", source:"unverified", addedDate:"YYYY-MM-DD", status:"pending"}\` |
+| cumulative.ballisticDetected | 357 | VERIFIED | Matches UAE MOD Mar 24 statement [source] | No change needed |
 
-After the table:
-**OVERALL: PASS / FLAGGED**
+Rules for "Suggested Fix" column:
+- VERIFIED → "No change needed"
+- WRONG_DATA → "Set to [correct value] per [source]"
+- UNCONFIRMED_NUMERIC → "Keep value; add \`[field]Unconfirmed: true\` to cumulative OR add \`unconfirmed: true\` to daily entry"
+- UNCONFIRMED_EVENT → "Remove from [field]; add to \`pendingConfirmation\` array"
+
+After the table, on separate lines:
+**OVERALL: PASS** or **OVERALL: FLAGGED**
 **CONFIDENCE: high / medium / low**
 
 Do NOT comment on code, JSON structure, or style. Data values only.
