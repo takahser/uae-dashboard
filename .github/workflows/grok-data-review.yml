@@ -23,7 +23,7 @@ on:
 jobs:
   grok-data-review:
     runs-on: ubuntu-latest
-    if: ${{ secrets.XAI_API_KEY != '' }}
+    if: always()
     steps:
       - uses: actions/checkout@v4
         with:
