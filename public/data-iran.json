@@ -13,7 +13,8 @@
     "launchersDisabled": 310,
     "aircraftDestroyed": 46,
     "navalVesselsDestroyed": 100,
-    "notes": "US Operation Epic Fury + Israeli Operation Roaring Lion. As of Mar 24: ~4,500 killed (IDF estimate 4,000–5,000 Iranian soldiers as of Mar 13; midpoint used), 18,551+ injured (Al Jazeera death toll tracker). US: 5,500+ targets hit (LWJ Mar 13). Israeli: 7,600+ strikes in 13 days by Mar 13 (LWJ). 100+ naval vessels destroyed (LWJ Mar 16). Senior leadership casualties unconfirmed beyond Larijani (verified per IDF/Reuters Mar 17)."
+    "notes": "US Operation Epic Fury + Israeli Operation Roaring Lion. As of Mar 24: ~4,500 killed (IDF estimate 4,000–5,000 Iranian soldiers as of Mar 13; midpoint used), 18,551+ injured (Al Jazeera death toll tracker). US: 5,500+ targets hit (LWJ Mar 13). Israeli: 7,600+ strikes in 13 days by Mar 13 (LWJ). 100+ naval vessels destroyed (LWJ Mar 16). Senior leadership casualties unconfirmed beyond Larijani (verified per IDF/Reuters Mar 17).",
+    "killedUnconfirmed": true
   },
   "daily": [
     {
@@ -354,6 +355,36 @@
       "date": "17 Mar",
       "lat": 27.47,
       "lng": 52.61
+    }
+  ],
+  "pendingConfirmation": [
+    {
+      "type": "leadership_killed",
+      "description": "Mousavi (IRGC commander) reportedly killed in strike",
+      "source": "unverified social reports / not confirmed by Reuters/AP/IDF",
+      "addedDate": "2026-03-24",
+      "status": "pending"
+    },
+    {
+      "type": "leadership_killed",
+      "description": "Ahmadinejad reportedly killed",
+      "source": "unverified social reports / not confirmed by Reuters/AP",
+      "addedDate": "2026-03-24",
+      "status": "pending"
+    },
+    {
+      "type": "leadership_killed",
+      "description": "Khatib (Hezbollah commander) reportedly killed",
+      "source": "unverified reports / not confirmed by Reuters/AP/IDF",
+      "addedDate": "2026-03-24",
+      "status": "pending"
+    },
+    {
+      "type": "leadership_killed",
+      "description": "Khamenei reportedly killed/incapacitated",
+      "source": "unverified reports / not confirmed by official sources",
+      "addedDate": "2026-03-24",
+      "status": "pending"
     }
   ]
 }
