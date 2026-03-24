@@ -53,26 +53,31 @@ function getDiff() {
 }
 
 async function askGrok(diff) {
-  const prompt = `You are reviewing a GitHub PR for a conflict tracking dashboard (ww3live.xyz) covering the Iran-GCC war starting Feb 28 2026.
+  const prompt = `You are fact-checking data changes for ww3live.xyz, a conflict tracker covering the Iran-GCC war (started Feb 28, 2026). Claude handles code review separately — your job is DATA ACCURACY ONLY.
 
-Check this diff for DATA ACCURACY only:
-1. Attack numbers (ballistic, cruise, UAVs) — consistent with known reporting?
-2. Cumulative totals — add up correctly from daily data?
-3. Coordinates for attack sites — geographically plausible?
-4. Energy/market figures — match known benchmarks?
-5. Dates — within the conflict timeline (Feb 28 2026 onwards)?
+Use live web search to verify the figures against Reuters, AP, official MOD statements, and X posts from verified sources.
 
-Reply format:
-VERDICT: PASS or FLAGGED
-ISSUES: (list any issues found, or "none")
-CONFIDENCE: high/medium/low
+For each changed data point, check:
+- **Attack counts** (ballistic missiles, cruise missiles, UAVs) — do the numbers match verified reporting?
+- **Cumulative totals** — do they correctly sum the daily entries?
+- **Casualties** (killed/injured) — consistent with official statements?
+- **Dates** — do events fall within the conflict timeline (Feb 28, 2026 onwards)?
+- **Energy/market figures** — match real-world benchmarks (oil price, tanker counts)?
 
-Keep it concise. Only flag clear factual errors, not style issues.
+For each data point you check, give one bullet:
+✅ [field/value] — matches [source]
+⚠️ [field/value] — FLAGGED: [reason]
+
+End with:
+OVERALL: PASS or FLAGGED
+CONFIDENCE: high / medium / low (based on source availability)
+
+Do NOT comment on code structure, JSON formatting, or style. Data only.
 
 Diff:
 ${diff.slice(0, 8000)}`;
 
-  const res = await fetch("https://api.x.ai/v1/chat/completions", {
+  const res = await fetch("https://api.x.ai/v1/responses", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -80,10 +85,9 @@ ${diff.slice(0, 8000)}`;
     },
     body: JSON.stringify({
       model: "grok-4-1-fast",
-      stream: false,
-      temperature: 0,
-      messages: [
-        { role: "system", content: "You are a conflict data accuracy reviewer. Be concise and factual." },
+      tools: [{ type: "web_search" }, { type: "x_search" }],
+      input: [
+        { role: "system", content: "You are a conflict data fact-checker with live web search access. Only flag clear factual errors in data values. Do not review code or JSON structure." },
         { role: "user", content: prompt },
       ],
     }),
@@ -95,7 +99,16 @@ ${diff.slice(0, 8000)}`;
   }
 
   const data = await res.json();
-  return data.choices?.[0]?.message?.content?.trim() || "No response from Grok.";
+  // /v1/responses format
+  if (data.output_text) return data.output_text.trim();
+  for (const item of data.output || []) {
+    if (item.type === "message") {
+      for (const c of item.content || []) {
+        if (c.type === "output_text" && c.text) return c.text.trim();
+      }
+    }
+  }
+  return "No response from Grok.";
 }
 
 async function postComment(body) {
