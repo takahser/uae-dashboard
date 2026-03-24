@@ -5,6 +5,14 @@ on:
     branches: [main]
     paths:
       - 'public/data-uae.json'
+      - 'public/data-oman.json'
+      - 'public/data-saudi.json'
+      - 'public/data-kuwait.json'
+      - 'public/data-bahrain.json'
+      - 'public/data-iran.json'
+      - 'public/data-israel.json'
+      - 'public/data-iraq.json'
+      - 'public/data-qatar.json'
       - 'public/data-market.json'
       - 'public/data-bonds.json'
       - 'public/data-substitution.json'
