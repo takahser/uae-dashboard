@@ -3,10 +3,10 @@ import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ReferenceLine } fro
 import { Tooltip as RTooltip, Legend } from 'recharts';
 
 const COLORS = {
-  DGS10: '#F59E0B',
-  IRLTLT01DEM156N: '#60A5FA',
-  IRLTLT01GBM156N: '#FCD34D',
-  IRLTLT01JPM156N: '#9CA3AF',
+  DGS10: '#EF4444',
+  IRLTLT01DEM156N: '#3B82F6',
+  IRLTLT01GBM156N: '#10B981',
+  IRLTLT01JPM156N: '#F59E0B',
 };
 
 const TIMEFRAMES = [
@@ -55,7 +55,7 @@ const btnActive = {
 export default function BondChart({ data }) {
   if (!data?.series) return null;
 
-  const [timeframe, setTimeframe] = useState('ALL');
+  const [timeframe, setTimeframe] = useState('1M');
   const [visible, setVisible] = useState(() =>
     Object.fromEntries(data.series.map(s => [s.id, true]))
   );

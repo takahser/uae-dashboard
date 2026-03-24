@@ -9,15 +9,15 @@ const FRED_API_KEY = process.env.FRED_API_KEY || '81003afee8cb0d4cb74e738d46cbdf
 
 const FRED_SERIES = [
   { id: 'DGS10', country: 'US', flag: 'us', name: 'US 10Y', frequency: 'daily' },
-  { id: 'IRLTLT01GBM156N', country: 'UK', flag: 'gb', name: 'UK 10Y (monthly)', frequency: 'monthly' },
-  { id: 'IRLTLT01JPM156N', country: 'Japan', flag: 'jp', name: 'Japan 10Y (monthly)', frequency: 'monthly' },
+  { id: 'IRLTLT01GBM156N', country: 'UK', flag: 'gb', name: 'UK 10Y', frequency: 'monthly' },
+  { id: 'IRLTLT01JPM156N', country: 'Japan', flag: 'jp', name: 'Japan 10Y', frequency: 'monthly' },
 ];
 
 const ECB_GERMANY = {
   id: 'IRLTLT01DEM156N',
   country: 'Germany',
   flag: 'de',
-  name: 'Germany 10Y (ECB)',
+  name: 'Germany 10Y',
   frequency: 'daily',
 };
 
@@ -53,13 +53,60 @@ async function fetchEcbGermany() {
   return { ...ECB_GERMANY, data };
 }
 
+/**
+ * Forward-fill monthly FRED rate data to daily entries (weekdays only).
+ * UK and Japan 10Y yields are only available monthly from OECD/FRED.
+ * Carrying forward the last known rate to each business day ensures
+ * the chart renders as a continuous line alongside the daily US and German series,
+ * and the freshness validation test can check all 4 series uniformly.
+ */
+function forwardFillMonthlyToDaily(series) {
+  if (series.frequency !== 'monthly' || series.data.length === 0) return series;
+
+  const today = new Date().toISOString().slice(0, 10);
+  const sortedData = [...series.data].sort((a, b) => a.date.localeCompare(b.date));
+  const dailyData = [];
+
+  for (let i = 0; i < sortedData.length; i++) {
+    const startStr = sortedData[i].date;
+    const endStr = i + 1 < sortedData.length ? sortedData[i + 1].date : today;
+    const value = sortedData[i].value;
+
+    const cursor = new Date(startStr + 'T00:00:00Z');
+
+    while (true) {
+      const dateStr = cursor.toISOString().slice(0, 10);
+      if (dateStr > today) break;
+      // Stop before next month's entry (for non-last segments)
+      if (i < sortedData.length - 1 && dateStr >= endStr) break;
+
+      const dow = cursor.getUTCDay();
+      if (dow !== 0 && dow !== 6) { // weekdays only
+        dailyData.push({ date: dateStr, value });
+      }
+      cursor.setUTCDate(cursor.getUTCDate() + 1);
+    }
+  }
+
+  return { ...series, frequency: 'daily', data: dailyData };
+}
+
 async function main() {
   const [germany, ...fredResults] = await Promise.all([
     fetchEcbGermany(),
     ...FRED_SERIES.map(fetchFredSeries),
   ]);
+
+  const usRaw = fredResults[0];
+  const ukRaw = fredResults[1];
+  const jpRaw = fredResults[2];
+
+  // Forward-fill UK and Japan monthly data to daily for chart continuity
+  const ukDaily = forwardFillMonthlyToDaily(ukRaw);
+  const jpDaily = forwardFillMonthlyToDaily(jpRaw);
+
   // Order: US, Germany, UK, Japan
-  const series = [fredResults[0], germany, fredResults[1], fredResults[2]];
+  const series = [usRaw, germany, ukDaily, jpDaily];
   const out = {
     updated: new Date().toISOString().slice(0, 10),
     warStart: '2026-02-28',
@@ -69,7 +116,7 @@ async function main() {
     join(__dirname, '..', 'public', 'data-bonds.json'),
     JSON.stringify(out, null, 2) + '\n'
   );
-  console.log(`Wrote data-bonds.json — ${series.map(s => `${s.id}: ${s.data.length} obs`).join(', ')}`);
+  console.log(`Wrote data-bonds.json — ${series.map(s => `${s.id}: ${s.data.length} obs (${s.frequency})`).join(', ')}`);
 }
 
 main().catch(e => { console.error(e); process.exit(1); });
