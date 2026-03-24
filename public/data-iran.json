@@ -13,7 +13,8 @@
     "launchersDisabled": 310,
     "aircraftDestroyed": 46,
     "navalVesselsDestroyed": 100,
-    "notes": "US Operation Epic Fury + Israeli Operation Roaring Lion. As of Mar 24: ~1,500 killed, 18,551+ injured (Al Jazeera death toll tracker). US: 5,500+ targets hit (LWJ Mar 13). Israeli: 7,600+ strikes in 13 days by Mar 13 (LWJ). 100+ naval vessels destroyed (LWJ Mar 16). Senior leadership killed includes: Khamenei, Mousavi, Ahmadinejad, Larijani, Gholamreza Soleimani, Khatib."
+    "notes": "US Operation Epic Fury + Israeli Operation Roaring Lion. As of Mar 24: ~1,500 killed, 18,551+ injured (Al Jazeera death toll tracker). US: 5,500+ targets hit (LWJ Mar 13). Israeli: 7,600+ strikes in 13 days by Mar 13 (LWJ). 100+ naval vessels destroyed (LWJ Mar 16). Senior leadership killed includes: Khamenei, Larijani, Gholamreza Soleimani, Khatib.",
+    "navalVesselsDestroyedUnconfirmed": true
   },
   "daily": [
     {
@@ -193,23 +194,183 @@
     }
   ],
   "keyTargets": [
-    { "name": "Khamenei's Compound", "type": "leadership", "city": "Tehran", "status": "destroyed", "date": "28 Feb", "lat": 35.7000, "lng": 51.4200 },
-    { "name": "IRGC Malek-Ashtar Building", "type": "military", "city": "Tehran", "status": "destroyed", "date": "2 Mar", "lat": 35.7150, "lng": 51.3900 },
-    { "name": "IRIB State Broadcaster HQ", "type": "government", "city": "Tehran", "status": "destroyed", "date": "3 Mar", "lat": 35.7100, "lng": 51.4100 },
-    { "name": "Natanz Nuclear Facility", "type": "nuclear", "city": "Isfahan", "status": "damaged", "date": "3 Mar", "lat": 33.7250, "lng": 51.7270 },
-    { "name": "Isfahan Nuclear Complex", "type": "nuclear", "city": "Isfahan", "status": "damaged", "date": "28 Feb", "lat": 32.6500, "lng": 51.6800 },
-    { "name": "Assembly of Experts (Qom)", "type": "leadership", "city": "Qom", "status": "destroyed", "date": "3 Mar", "lat": 34.6350, "lng": 50.8800 },
-    { "name": "Konarak Airbase", "type": "military", "city": "Konarak", "status": "destroyed", "date": "28 Feb", "lat": 25.4400, "lng": 60.3600 },
-    { "name": "Konarak Naval Base", "type": "naval", "city": "Konarak", "status": "damaged", "date": "28 Feb", "lat": 25.3500, "lng": 60.3700 },
-    { "name": "Bandar Abbas Military Port", "type": "naval", "city": "Bandar Abbas", "status": "damaged", "date": "28 Feb", "lat": 27.1900, "lng": 56.2700 },
-    { "name": "Shohada Base", "type": "military", "city": "Urmia", "status": "damaged", "date": "1 Mar", "lat": 37.5500, "lng": 45.0700 },
-    { "name": "Aghdasieh Oil Warehouse", "type": "oil", "city": "Tehran", "status": "destroyed", "date": "8 Mar", "lat": 35.7900, "lng": 51.4700 },
-    { "name": "Tehran Refinery", "type": "oil", "city": "Tehran", "status": "destroyed", "date": "8 Mar", "lat": 35.6200, "lng": 51.4300 },
-    { "name": "Shahran Oil Depot", "type": "oil", "city": "Tehran", "status": "destroyed", "date": "8 Mar", "lat": 35.7600, "lng": 51.2800 },
-    { "name": "Karaj Oil Depot", "type": "oil", "city": "Karaj", "status": "destroyed", "date": "8 Mar", "lat": 35.8400, "lng": 50.9700 },
-    { "name": "Minab (school struck)", "type": "civilian", "city": "Minab", "status": "destroyed", "date": "1 Mar", "lat": 27.1000, "lng": 57.0800 },
-    { "name": "Khatam-al-Anbia Hospital", "type": "civilian", "city": "Tehran", "status": "damaged", "date": "2 Mar", "lat": 35.7300, "lng": 51.3800 },
-    { "name": "Lavisan 2/Mojdeh Complex", "type": "nuclear", "city": "Tehran", "status": "destroyed", "date": "28 Feb", "lat": 35.7500, "lng": 51.5000 },
-    { "name": "Asaluyeh Gas Processing Facilities", "type": "oil", "city": "Asaluyeh", "status": "damaged", "date": "17 Mar", "lat": 27.4700, "lng": 52.6100 }
+    {
+      "name": "Khamenei's Compound",
+      "type": "leadership",
+      "city": "Tehran",
+      "status": "destroyed",
+      "date": "28 Feb",
+      "lat": 35.7,
+      "lng": 51.42
+    },
+    {
+      "name": "IRGC Malek-Ashtar Building",
+      "type": "military",
+      "city": "Tehran",
+      "status": "destroyed",
+      "date": "2 Mar",
+      "lat": 35.715,
+      "lng": 51.39
+    },
+    {
+      "name": "IRIB State Broadcaster HQ",
+      "type": "government",
+      "city": "Tehran",
+      "status": "destroyed",
+      "date": "3 Mar",
+      "lat": 35.71,
+      "lng": 51.41
+    },
+    {
+      "name": "Natanz Nuclear Facility",
+      "type": "nuclear",
+      "city": "Isfahan",
+      "status": "damaged",
+      "date": "3 Mar",
+      "lat": 33.725,
+      "lng": 51.727
+    },
+    {
+      "name": "Isfahan Nuclear Complex",
+      "type": "nuclear",
+      "city": "Isfahan",
+      "status": "damaged",
+      "date": "28 Feb",
+      "lat": 32.65,
+      "lng": 51.68
+    },
+    {
+      "name": "Assembly of Experts (Qom)",
+      "type": "leadership",
+      "city": "Qom",
+      "status": "destroyed",
+      "date": "3 Mar",
+      "lat": 34.635,
+      "lng": 50.88
+    },
+    {
+      "name": "Konarak Airbase",
+      "type": "military",
+      "city": "Konarak",
+      "status": "destroyed",
+      "date": "28 Feb",
+      "lat": 25.44,
+      "lng": 60.36
+    },
+    {
+      "name": "Konarak Naval Base",
+      "type": "naval",
+      "city": "Konarak",
+      "status": "damaged",
+      "date": "28 Feb",
+      "lat": 25.35,
+      "lng": 60.37
+    },
+    {
+      "name": "Bandar Abbas Military Port",
+      "type": "naval",
+      "city": "Bandar Abbas",
+      "status": "damaged",
+      "date": "28 Feb",
+      "lat": 27.19,
+      "lng": 56.27
+    },
+    {
+      "name": "Shohada Base",
+      "type": "military",
+      "city": "Urmia",
+      "status": "damaged",
+      "date": "1 Mar",
+      "lat": 37.55,
+      "lng": 45.07
+    },
+    {
+      "name": "Aghdasieh Oil Warehouse",
+      "type": "oil",
+      "city": "Tehran",
+      "status": "destroyed",
+      "date": "8 Mar",
+      "lat": 35.79,
+      "lng": 51.47
+    },
+    {
+      "name": "Tehran Refinery",
+      "type": "oil",
+      "city": "Tehran",
+      "status": "destroyed",
+      "date": "8 Mar",
+      "lat": 35.62,
+      "lng": 51.43
+    },
+    {
+      "name": "Shahran Oil Depot",
+      "type": "oil",
+      "city": "Tehran",
+      "status": "destroyed",
+      "date": "8 Mar",
+      "lat": 35.76,
+      "lng": 51.28
+    },
+    {
+      "name": "Karaj Oil Depot",
+      "type": "oil",
+      "city": "Karaj",
+      "status": "destroyed",
+      "date": "8 Mar",
+      "lat": 35.84,
+      "lng": 50.97
+    },
+    {
+      "name": "Minab (school struck)",
+      "type": "civilian",
+      "city": "Minab",
+      "status": "destroyed",
+      "date": "1 Mar",
+      "lat": 27.1,
+      "lng": 57.08
+    },
+    {
+      "name": "Khatam-al-Anbia Hospital",
+      "type": "civilian",
+      "city": "Tehran",
+      "status": "damaged",
+      "date": "2 Mar",
+      "lat": 35.73,
+      "lng": 51.38
+    },
+    {
+      "name": "Lavisan 2/Mojdeh Complex",
+      "type": "nuclear",
+      "city": "Tehran",
+      "status": "destroyed",
+      "date": "28 Feb",
+      "lat": 35.75,
+      "lng": 51.5
+    },
+    {
+      "name": "Asaluyeh Gas Processing Facilities",
+      "type": "oil",
+      "city": "Asaluyeh",
+      "status": "damaged",
+      "date": "17 Mar",
+      "lat": 27.47,
+      "lng": 52.61
+    }
+  ],
+  "pendingConfirmation": [
+    {
+      "type": "leadership_killed",
+      "description": "Mousavi reportedly killed",
+      "source": "LWJ only — not confirmed by Reuters/AP/Al Jazeera",
+      "addedDate": "2026-03-24",
+      "status": "pending"
+    },
+    {
+      "type": "leadership_killed",
+      "description": "Ahmadinejad reportedly killed",
+      "source": "LWJ only — not confirmed by Reuters/AP/Al Jazeera",
+      "addedDate": "2026-03-24",
+      "status": "pending"
+    }
   ]
 }
