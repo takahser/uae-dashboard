@@ -1,26 +1,26 @@
 {
-  "updated": "2026-03-24T12:47:51Z",
+  "updated": "2026-03-24T13:30:22Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude",
-      "price": 102.86,
-      "change": 2.92,
-      "changePercent": 2.92,
+      "price": 103.29,
+      "change": 3.35,
+      "changePercent": 3.35,
       "previousClose": 99.94
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude",
-      "price": 91.82,
-      "change": 3.69,
-      "changePercent": 4.19,
+      "price": 92.26,
+      "change": 4.13,
+      "changePercent": 4.69,
       "previousClose": 88.13
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.91,
+      "price": 2.92,
       "change": 0.04,
       "changePercent": 1.39,
       "previousClose": 2.87
@@ -36,34 +36,34 @@
     "FRO": {
       "symbol": "FRO",
       "name": "Frontline",
-      "price": 33.83,
-      "change": 1.66,
-      "changePercent": 5.16,
-      "previousClose": 32.17
+      "price": 34.44,
+      "change": 0.6,
+      "changePercent": 1.77,
+      "previousClose": 33.84
     },
     "STNG": {
       "symbol": "STNG",
       "name": "Scorpio Tankers",
-      "price": 70.68,
-      "change": 2.7,
-      "changePercent": 3.97,
-      "previousClose": 67.98
+      "price": 71.73,
+      "change": 1.06,
+      "changePercent": 1.5,
+      "previousClose": 70.67
     },
     "RTX": {
       "symbol": "RTX",
       "name": "RTX Corp",
-      "price": 194.82,
-      "change": -3.34,
-      "changePercent": -1.69,
-      "previousClose": 198.16
+      "price": 192.51,
+      "change": -2.33,
+      "changePercent": -1.2,
+      "previousClose": 194.84
     },
     "LMT": {
       "symbol": "LMT",
       "name": "Lockheed Martin",
-      "price": 616.25,
-      "change": -11.18,
-      "changePercent": -1.78,
-      "previousClose": 627.43
+      "price": 611.0,
+      "change": -5.24,
+      "changePercent": -0.85,
+      "previousClose": 616.24
     },
     "DUBAI": {
       "symbol": "DUBAI",
@@ -185,7 +185,7 @@
       },
       {
         "date": "2026-03-24",
-        "close": 102.86
+        "close": 103.29
       }
     ],
     "CL=F": [
@@ -287,7 +287,7 @@
       },
       {
         "date": "2026-03-24",
-        "close": 91.82
+        "close": 92.26
       }
     ],
     "NG=F": [
@@ -389,7 +389,7 @@
       },
       {
         "date": "2026-03-24",
-        "close": 2.91
+        "close": 2.92
       }
     ],
     "2222.SR": [
@@ -516,10 +516,6 @@
     ],
     "FRO": [
       {
-        "date": "2026-02-09",
-        "close": 29.1
-      },
-      {
         "date": "2026-02-10",
         "close": 29.05
       },
@@ -636,15 +632,11 @@
         "close": 33.83
       },
       {
-        "date": "2026-03-23",
-        "close": 33.83
+        "date": "2026-03-24",
+        "close": 34.44
       }
     ],
     "STNG": [
-      {
-        "date": "2026-02-09",
-        "close": 67.71
-      },
       {
         "date": "2026-02-10",
         "close": 68.14
@@ -762,15 +754,11 @@
         "close": 70.68
       },
       {
-        "date": "2026-03-23",
-        "close": 70.68
+        "date": "2026-03-24",
+        "close": 71.73
       }
     ],
     "RTX": [
-      {
-        "date": "2026-02-09",
-        "close": 196.19
-      },
       {
         "date": "2026-02-10",
         "close": 195.19
@@ -888,15 +876,11 @@
         "close": 194.82
       },
       {
-        "date": "2026-03-23",
-        "close": 194.82
+        "date": "2026-03-24",
+        "close": 192.1
       }
     ],
     "LMT": [
-      {
-        "date": "2026-02-09",
-        "close": 638.29
-      },
       {
         "date": "2026-02-10",
         "close": 629.56
@@ -1014,8 +998,8 @@
         "close": 616.25
       },
       {
-        "date": "2026-03-23",
-        "close": 616.25
+        "date": "2026-03-24",
+        "close": 611.0
       }
     ],
     "DUBAI": [
@@ -1124,6 +1108,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-03-24T12:47:43Z"
+    "sampled_at": "2026-03-24T13:30:14Z"
   }
 }
