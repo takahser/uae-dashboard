@@ -1,28 +1,28 @@
 {
-  "updated": "2026-03-24T00:51:29Z",
+  "updated": "2026-03-24T01:32:48Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude",
-      "price": 101.75,
-      "change": 1.81,
-      "changePercent": 1.81,
+      "price": 102.8,
+      "change": 2.86,
+      "changePercent": 2.86,
       "previousClose": 99.94
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude",
-      "price": 90.66,
-      "change": 2.53,
-      "changePercent": 2.87,
+      "price": 91.15,
+      "change": 3.02,
+      "changePercent": 3.43,
       "previousClose": 88.13
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.91,
-      "change": 0.04,
-      "changePercent": 1.39,
+      "price": 2.93,
+      "change": 0.05,
+      "changePercent": 1.74,
       "previousClose": 2.87
     },
     "2222.SR": {
@@ -185,7 +185,7 @@
       },
       {
         "date": "2026-03-24",
-        "close": 101.75
+        "close": 102.8
       }
     ],
     "CL=F": [
@@ -287,7 +287,7 @@
       },
       {
         "date": "2026-03-24",
-        "close": 90.66
+        "close": 91.15
       }
     ],
     "NG=F": [
@@ -389,7 +389,7 @@
       },
       {
         "date": "2026-03-24",
-        "close": 2.91
+        "close": 2.93
       }
     ],
     "2222.SR": [
@@ -638,6 +638,10 @@
       {
         "date": "2026-03-23",
         "close": 33.83
+      },
+      {
+        "date": "2026-03-23",
+        "close": 33.83
       }
     ],
     "STNG": [
@@ -756,6 +760,10 @@
       {
         "date": "2026-03-20",
         "close": 67.98
+      },
+      {
+        "date": "2026-03-23",
+        "close": 70.68
       },
       {
         "date": "2026-03-23",
@@ -882,6 +890,10 @@
       {
         "date": "2026-03-23",
         "close": 194.82
+      },
+      {
+        "date": "2026-03-23",
+        "close": 194.82
       }
     ],
     "LMT": [
@@ -1004,6 +1016,10 @@
       {
         "date": "2026-03-23",
         "close": 616.25
+      },
+      {
+        "date": "2026-03-23",
+        "close": 616.25
       }
     ],
     "DUBAI": [
@@ -1112,6 +1128,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-03-24T00:51:19Z"
+    "sampled_at": "2026-03-24T01:32:41Z"
   }
 }
