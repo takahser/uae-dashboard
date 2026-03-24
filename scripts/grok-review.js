@@ -1,140 +1,150 @@
 #!/usr/bin/env node
 /**
- * Grok Data Accuracy Reviewer (Playwright / in-browser Grok)
- * Uses @open_gav session at x.com/i/grok — NO API key needed.
+ * Grok Data Accuracy Reviewer — xAI API version
+ * Uses grok-4-1-fast via https://api.x.ai/v1/chat/completions
  * Called by .github/workflows/grok-data-review.yml
- * IMPORTANT: Always uses @open_gav session — NEVER @ww3_live
  */
-
-import { chromium } from '@playwright/test';
-import { execSync } from 'child_process';
-import { writeFileSync, readFileSync, existsSync } from 'fs';
-import { tmpdir } from 'os';
-import { join } from 'path';
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const PR_NUMBER = process.env.PR_NUMBER;
 const REPO = process.env.GITHUB_REPOSITORY;
-const LLM_SESSION_B64 = process.env.LLM_SESSION; // base64-encoded x-session.json
+const XAI_API_KEY = process.env.XAI_API_KEY;
 
-// Data files that warrant Grok review
-const DATA_FILES = [
-  'public/data-uae.json',
-  'public/data-market.json',
-  'public/data-bonds.json',
-  'public/data-substitution.json',
-  'src/data/energy-attacks.json',
-  'src/data/electrical-threats.json',
-  'src/data/hormuz.json',
-];
-
-if (!LLM_SESSION_B64) {
-  console.log('LLM_SESSION not set — skipping Grok review');
+if (!XAI_API_KEY) {
+  console.log("XAI_API_KEY not set — skipping Grok review");
   process.exit(0);
 }
 
+if (!PR_NUMBER || !REPO) {
+  console.log("Missing PR_NUMBER or GITHUB_REPOSITORY — skipping");
+  process.exit(0);
+}
+
+import { execSync } from "child_process";
+
+// Data files that warrant Grok review
+const DATA_FILES = [
+  "public/data-uae.json",
+  "public/data-oman.json",
+  "public/data-saudi.json",
+  "public/data-kuwait.json",
+  "public/data-bahrain.json",
+  "public/data-iran.json",
+  "public/data-israel.json",
+  "public/data-iraq.json",
+  "public/data-qatar.json",
+  "public/data-market.json",
+  "public/data-bonds.json",
+  "public/data-substitution.json",
+  "src/data/energy-attacks.json",
+  "src/data/electrical-threats.json",
+  "src/data/hormuz.json",
+];
+
 function getDiff() {
   try {
-    return execSync('git diff HEAD~1 HEAD -- ' + DATA_FILES.join(' '), {
-      encoding: 'utf8', maxBuffer: 50 * 1024,
+    return execSync("git diff HEAD~1 HEAD -- " + DATA_FILES.join(" "), {
+      encoding: "utf8",
+      maxBuffer: 50 * 1024,
     }).trim();
-  } catch { return ''; }
+  } catch {
+    return "";
+  }
 }
 
 async function askGrok(diff) {
-  // Restore session from base64 secret
-  const sessionPath = join(tmpdir(), 'open-gav-session.json');
-  writeFileSync(sessionPath, Buffer.from(LLM_SESSION_B64, 'base64').toString('utf8'));
-
-  const browser = await chromium.launch({ headless: true });
-  const ctx = await browser.newContext({ storageState: sessionPath });
-  const page = await ctx.newPage();
-
-  const prompt = `You are reviewing a GitHub PR for a conflict tracking dashboard (ww3live.xyz) covering the Iran-UAE war starting Feb 28 2026.
+  const prompt = `You are reviewing a GitHub PR for a conflict tracking dashboard (ww3live.xyz) covering the Iran-GCC war starting Feb 28 2026.
 
 Check this diff for DATA ACCURACY only:
-1. Attack numbers (ballistic, cruise, UAVs) — match @modgovae official statements?
+1. Attack numbers (ballistic, cruise, UAVs) — consistent with known reporting?
 2. Cumulative totals — add up correctly from daily data?
 3. Coordinates for attack sites — geographically plausible?
 4. Energy/market figures — match known benchmarks?
+5. Dates — within the conflict timeline (Feb 28 2026 onwards)?
 
-Reply with exactly one of:
-PASS: [brief summary]
-FLAGGED: [specific data point and what the correct value should be]
-UNVERIFIED: [data point that cannot be independently verified]
+Reply format:
+VERDICT: PASS or FLAGGED
+ISSUES: (list any issues found, or "none")
+CONFIDENCE: high/medium/low
+
+Keep it concise. Only flag clear factual errors, not style issues.
 
 Diff:
-${diff.slice(0, 3000)}`;
+${diff.slice(0, 8000)}`;
 
-  try {
-    await page.goto('https://x.com/i/grok', { waitUntil: 'domcontentloaded', timeout: 40000 });
-    await page.waitForTimeout(3000);
+  const res = await fetch("https://api.x.ai/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${XAI_API_KEY}`,
+    },
+    body: JSON.stringify({
+      model: "grok-4-1-fast",
+      stream: false,
+      temperature: 0,
+      messages: [
+        { role: "system", content: "You are a conflict data accuracy reviewer. Be concise and factual." },
+        { role: "user", content: prompt },
+      ],
+    }),
+  });
 
-    // Type prompt into Grok input
-    const input = page.locator('textarea, [contenteditable="true"]').first();
-    await input.click();
-    await input.fill(prompt);
-    await page.keyboard.press('Enter');
-
-    // Wait for response (up to 60s)
-    await page.waitForTimeout(8000);
-    for (let i = 0; i < 10; i++) {
-      await page.waitForTimeout(5000);
-      const text = await page.evaluate(() => {
-        const msgs = document.querySelectorAll('[data-testid="grok-message"]');
-        return msgs.length ? msgs[msgs.length - 1].innerText : '';
-      });
-      if (text && (text.startsWith('PASS') || text.startsWith('FLAGGED') || text.startsWith('UNVERIFIED'))) {
-        return text.trim();
-      }
-    }
-
-    // Fallback: grab whatever Grok said
-    const fallback = await page.evaluate(() => {
-      const msgs = document.querySelectorAll('[data-testid="grok-message"]');
-      return msgs.length ? msgs[msgs.length - 1].innerText.slice(0, 500) : 'No response';
-    });
-    return fallback || 'Grok did not respond in time';
-  } finally {
-    await browser.close();
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`xAI API error ${res.status}: ${err.slice(0, 200)}`);
   }
+
+  const data = await res.json();
+  return data.choices?.[0]?.message?.content?.trim() || "No response from Grok.";
 }
 
-async function postComment(verdict) {
-  const badge = verdict.startsWith('PASS') ? '✅' :
-                verdict.startsWith('FLAGGED') ? '🚨' : '⚠️';
-
-  const body = `## ${badge} Grok Data Review
-
-${verdict}
-
----
-*Reviewed via [Grok](https://x.com/i/grok) (in-browser) | Data files: \`${DATA_FILES.slice(0,3).join('`, `')}\` + more*`;
-
+async function postComment(body) {
   const res = await fetch(`https://api.github.com/repos/${REPO}/issues/${PR_NUMBER}/comments`, {
-    method: 'POST',
-    headers: { 'Authorization': `Bearer ${GITHUB_TOKEN}`, 'Content-Type': 'application/json' },
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
+      "Content-Type": "application/json",
+      Accept: "application/vnd.github+json",
+    },
     body: JSON.stringify({ body }),
   });
-  if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
-  const c = await res.json();
-  console.log('Posted comment:', c.html_url);
+  return res.json();
 }
 
 async function main() {
-  console.log('Running Grok data review (Playwright / @open_gav)...');
   const diff = getDiff();
-  if (!diff) { console.log('No data file changes — skipping'); process.exit(0); }
 
-  console.log(`Diff: ${diff.length} chars → sending to Grok...`);
-  try {
-    const verdict = await askGrok(diff);
-    console.log('Verdict:', verdict.slice(0, 80));
-    await postComment(verdict);
-  } catch (e) {
-    console.error('Grok review failed:', e.message);
-    process.exit(0); // advisory only — never fail CI
+  if (!diff) {
+    console.log("No relevant data file changes found — skipping Grok review");
+    await postComment("🤖 **Grok Data Review**: No data file changes detected in this PR. Skipping review.");
+    return;
   }
+
+  console.log(`Sending ${diff.length} chars of diff to Grok API...`);
+  let review;
+  try {
+    review = await askGrok(diff);
+  } catch (err) {
+    console.error("Grok API error:", err.message);
+    await postComment(`🤖 **Grok Data Review**: API error — ${err.message}`);
+    process.exit(1);
+  }
+
+  const verdict = review.includes("FLAGGED") ? "⚠️ FLAGGED" : "✅ PASS";
+  const comment = `## 🤖 Grok Data Accuracy Review
+
+${verdict}
+
+${review}
+
+---
+*Reviewed by [Grok API](https://x.ai) (grok-4-1-fast) via xAI API*`;
+
+  await postComment(comment);
+  console.log("Review posted:", verdict);
 }
 
-main();
+main().catch(err => {
+  console.error("Fatal:", err.message);
+  process.exit(1);
+});
