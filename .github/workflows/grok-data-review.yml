@@ -23,8 +23,7 @@ on:
 jobs:
   grok-data-review:
     runs-on: ubuntu-latest
-    # Only run on PRs from the same repo (not forks) — protects LLM_SESSION
-    if: ${{ secrets.LLM_SESSION != '' && github.event.pull_request.head.repo.full_name == github.repository }}
+    if: always()
     steps:
       - uses: actions/checkout@v4
         with:
@@ -33,14 +32,12 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-
-      - name: Install Playwright
-        run: npx playwright install chromium --with-deps
+          node-version: "20"
 
       - name: Run Grok data review
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-          LLM_SESSION: ${{ secrets.LLM_SESSION }}
-        run: node scripts/grok-review.js
+          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node --input-type=module < scripts/grok-review.js
