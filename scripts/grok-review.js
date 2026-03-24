@@ -53,26 +53,34 @@ function getDiff() {
 }
 
 async function askGrok(diff) {
-  const prompt = `You are fact-checking data changes for ww3live.xyz, a conflict tracker covering the Iran-GCC war (started Feb 28, 2026). Claude handles code review separately — your job is DATA ACCURACY ONLY.
+  const prompt = `You are fact-checking data changes for ww3live.xyz, a conflict tracker covering the Iran-GCC war (started Feb 28, 2026). Claude handles code review — your job is DATA ACCURACY ONLY.
 
-Use live web search to verify the figures against Reuters, AP, official MOD statements, and X posts from verified sources.
+Use live web search to verify figures against Reuters, AP, official MOD statements, and verified X posts.
 
-For each changed data point, check:
-- **Attack counts** (ballistic missiles, cruise missiles, UAVs) — do the numbers match verified reporting?
-- **Cumulative totals** — do they correctly sum the daily entries?
-- **Casualties** (killed/injured) — consistent with official statements?
-- **Dates** — do events fall within the conflict timeline (Feb 28, 2026 onwards)?
-- **Energy/market figures** — match real-world benchmarks (oil price, tanker counts)?
+## Data schema context
+- \`daily[].unconfirmed: true\` = bar shown in different colour on chart
+- \`cumulative.<field>Unconfirmed: true\` = asterisk shown on UI with explanation
+- \`pendingConfirmation[]\` = unconfirmed non-numeric events tracked but NOT shown on UI
 
-For each data point you check, give one bullet:
-✅ [field/value] — matches [source]
-⚠️ [field/value] — FLAGGED: [reason]
+## For each changed data point, classify as one of:
+- **VERIFIED** — matches a named source
+- **UNCONFIRMED_NUMERIC** — number exists in reporting but not officially confirmed (include with unconfirmed flag)
+- **WRONG_DATA** — number contradicts a verified source (suggest correct value)
+- **UNCONFIRMED_EVENT** — non-numeric claim (e.g. person killed) with no verified source (move to pendingConfirmation, remove from displayed data)
 
-End with:
-OVERALL: PASS or FLAGGED
-CONFIDENCE: high / medium / low (based on source availability)
+## Output format — use this exact markdown table:
 
-Do NOT comment on code structure, JSON formatting, or style. Data only.
+| Field | Current Value | Classification | Issue | Suggested Fix |
+|-------|--------------|----------------|-------|---------------|
+| cumulative.killed | 1500 | WRONG_DATA | IDF reported 4,000–5,000 as of Mar 13 [Reuters] | Set to 4500, add \`killedUnconfirmed: true\` |
+| daily.2026-03-11.dronesDetected | 4 | UNCONFIRMED_NUMERIC | No MOD statement found, sourced from LWJ only | Keep value, add \`"unconfirmed": true\` to daily entry |
+| cumulative.notes/Mousavi killed | text | UNCONFIRMED_EVENT | No Reuters/AP/IDF confirmation found | Move to \`pendingConfirmation\` array, remove from notes |
+
+After the table:
+**OVERALL: PASS / FLAGGED**
+**CONFIDENCE: high / medium / low**
+
+Do NOT comment on code, JSON structure, or style. Data values only.
 
 Diff:
 ${diff.slice(0, 8000)}`;
@@ -87,7 +95,7 @@ ${diff.slice(0, 8000)}`;
       model: "grok-4-1-fast",
       tools: [{ type: "web_search" }, { type: "x_search" }],
       input: [
-        { role: "system", content: "You are a conflict data fact-checker with live web search access. Only flag clear factual errors in data values. Do not review code or JSON structure." },
+        { role: "system", content: "You are a conflict data fact-checker with live web search. Output a markdown table classifying each changed data point as VERIFIED, UNCONFIRMED_NUMERIC, WRONG_DATA, or UNCONFIRMED_EVENT. Suggest exact fixes. Do not review code." },
         { role: "user", content: prompt },
       ],
     }),
