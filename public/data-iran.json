@@ -4,7 +4,8 @@
   "cumulative": {
     "totalStrikes": 5500,
     "sorties": 2600,
-    "killed": 4500,
+"killed": 4500,
+    "killedUnconfirmed": true,
     "civilianKilled": null,
     "childrenKilled": null,
     "militaryKilled": null,
@@ -120,6 +121,7 @@
       "label": "14 Mar",
       "strikes": null,
       "killed": 15,
+      "unconfirmed": true,
       "events": "15 killed in Isfahan industrial city strike. 20 arrested in NW Iran for alleged Israel cooperation. 10,000+ residential homes damaged/destroyed in Tehran. Source: Al Jazeera Day 16."
     },
     {
@@ -127,6 +129,7 @@
       "label": "15 Mar",
       "strikes": null,
       "killed": null,
+      "unconfirmed": true,
       "events": "Cumulative: 1,400+ killed. US Defense Sec claims 15,000 'enemy targets' struck (1,000+ daily). Source: Al Jazeera Day 16."
     },
     {
@@ -134,6 +137,7 @@
       "label": "16 Mar",
       "strikes": null,
       "killed": null,
+      "unconfirmed": true,
       "events": "Cumulative: 1,444 killed, 18,551 injured (Al Jazeera Day 17). Iran says missiles are 'from a decade ago' — newer production not yet deployed. Diplomatic channels active."
     },
     {
