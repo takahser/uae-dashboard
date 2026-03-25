@@ -19,6 +19,12 @@ on:
       - 'src/data/energy-attacks.json'
       - 'src/data/electrical-threats.json'
       - 'src/data/hormuz.json'
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to review'
+        required: true
+        type: string
 
 jobs:
   grok-data-review:
@@ -37,7 +43,7 @@ jobs:
       - name: Run Grok data review
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_NUMBER: ${{ github.event.pull_request.number || github.event.inputs.pr_number }}
           XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: node --input-type=module < scripts/grok-review.js
