@@ -700,8 +700,9 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
 
     // Chart data
     const strikeChartData = daily.map(d => ({
-      day: d.label, strikes: d.strikes, killed: d.killed,
+      day: d.label, strikes: d.strikes, killed: d.killed, unconfirmed: d.unconfirmed || false,
     }));
+    const hasUnconfirmedDays = daily.some(d => d.unconfirmed);
     const cumulativeChartData = daily.reduce((acc, d, i) => {
       const prev = i > 0 ? acc[i - 1] : { cumStrikes: 0, cumKilled: 0 };
       acc.push({ day: d.label, cumStrikes: prev.cumStrikes + d.strikes, cumKilled: prev.cumKilled + d.killed });
@@ -773,10 +774,18 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
         <div style={{ display: "flex", gap: 12, padding: "20px 28px", flexWrap: "wrap", position: "relative", zIndex: 2 }}>
           <StatCard label={t("iran.totalStrikes")} value={n(c.totalStrikes).toLocaleString()} sub={t("iran.usIsrael")} color="#EF4444" />
           <StatCard label={t("iran.sorties")} value={n(c.sorties).toLocaleString()} sub={t("iran.sortiesSub")} color="#F59E0B" />
-          <StatCard label={t("iran.killed")} value={n(c.killed).toLocaleString()} sub={`${t("iran.civilian")}: ~${n(c.civilianKilled).toLocaleString()}`} color="#F87171" />
-          <StatCard label={t("iran.injured")} value={n(c.injured).toLocaleString()} sub="" color="#FB923C" />
-          <StatCard label={t("iran.launchersDisabled")} value={n(c.launchersDisabled).toLocaleString()} sub={t("iran.launchersSub")} color="#3B82F6" />
+          <StatCard label={t("iran.killed")} value={n(c.killed).toLocaleString() + (c.killedUnconfirmed ? "*" : "")} sub={`${t("iran.civilian")}: ~${n(c.civilianKilled).toLocaleString()}`} color="#F87171" />
+          <StatCard label={t("iran.injured")} value={n(c.injured).toLocaleString() + (c.injuredUnconfirmed ? "*" : "")} sub="" color="#FB923C" />
+          <StatCard label={t("iran.launchersDisabled")} value={n(c.launchersDisabled).toLocaleString() + (c.launchersDisabledUnconfirmed ? "*" : "")} sub={t("iran.launchersSub")} color="#3B82F6" />
         </div>
+        {/* Unconfirmed footnote — shown when any cumulative field is marked unconfirmed */}
+        {Object.keys(c).some(k => k.endsWith("Unconfirmed") && c[k] === true) && (
+          <div style={{ padding: "0 28px 4px", position: "relative", zIndex: 2 }}>
+            <div style={{ fontSize: 10, color: "#94a3b8", fontStyle: "italic" }}>
+              * Estimate based on available reporting — not officially confirmed
+            </div>
+          </div>
+        )}
 
         <div dir="ltr" style={{ padding: "0 28px", position: "relative", zIndex: 2 }}>
           {/* Daily strikes chart */}
@@ -790,10 +799,20 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
                 <YAxis yAxisId="right" orientation="right" tick={{ fill: "#F87171", fontSize: 10 }} axisLine={false} />
                 <Tooltip content={<CustomTooltip />} />
                 <Legend wrapperStyle={{ fontSize: 11 }} />
-                <Bar yAxisId="left" dataKey="strikes" name={t("iran.strikes")} fill="#EF4444" radius={[4, 4, 0, 0]} opacity={0.85} />
+                <Bar yAxisId="left" dataKey="strikes" name={t("iran.strikes")} radius={[4, 4, 0, 0]}>
+                  {strikeChartData.map((entry, index) => (
+                    <Cell key={index} fill={entry.unconfirmed ? "#94a3b8" : "#EF4444"} opacity={entry.unconfirmed ? 0.55 : 0.85} />
+                  ))}
+                </Bar>
                 <Line yAxisId="right" type="monotone" dataKey="killed" name={t("iran.killed")} stroke="#F87171" strokeWidth={2} dot={{ fill: "#F87171", r: 3 }} />
               </ComposedChart>
             </ResponsiveContainer>
+            {hasUnconfirmedDays && (
+              <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 8, fontSize: 11, color: "#94a3b8" }}>
+                <span style={{ fontSize: 14, lineHeight: 1 }}>■</span>
+                <span>Unconfirmed data</span>
+              </div>
+            )}
           </div>
 
           {/* Cumulative chart */}
