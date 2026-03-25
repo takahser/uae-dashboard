@@ -12,7 +12,9 @@ import { strict as assert } from 'assert';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const data = JSON.parse(readFileSync(join(__dirname, '..', 'public', 'data-bonds.json'), 'utf8'));
 
-const REQUIRED_SERIES = ['DGS10', 'IRLTLT01DEM156N', 'IRLTLT01GBM156N', 'IRLTLT01JPM156N'];
+// UK changed from FRED (IRLTLT01GBM156N, monthly) to BoE (IUDMNPY, daily)
+// Japan kept IRLTLT01JPM156N as series id but now sourced from MoF Japan (daily)
+const REQUIRED_SERIES = ['DGS10', 'IRLTLT01DEM156N', 'IUDMNPY', 'IRLTLT01JPM156N'];
 const MIN_DAILY_POINTS = 20;
 // Allow 5 calendar days lag to handle weekends + holidays
 const FRESHNESS_DAYS = 5;

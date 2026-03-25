@@ -69,31 +69,10 @@ async function fetchBoEUK() {
 }
 
 // Japan 10Y — Ministry of Finance Japan (daily JGB)
-// Uses the full historical CSV; date format is Japanese era (R8.3.2 = 2026-03-02)
+// Fetches historical CSV (all years) + current month CSV and merges them.
+// Date format is Japanese era (R8.3.2 = 2026-03-02, R7.1.6 = 2025-01-06).
 async function fetchMoFJapan() {
-  const url = 'https://www.mof.go.jp/jgbs/reference/interest_rate/data/jgbcm_all.csv';
-  const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
-  if (!res.ok) throw new Error(`MoF Japan: ${res.status} ${res.statusText}`);
-  // Response is Shift-JIS encoded; fetch as arraybuffer and decode
-  const buf = await res.arrayBuffer();
-  const csv = new TextDecoder('shift-jis').decode(buf);
-  const lines = csv.split('\n');
-
-  // Find header row (contains 10年)
-  let headerIdx = -1;
-  let col10Y = -1;
-  for (let i = 0; i < Math.min(5, lines.length); i++) {
-    if (lines[i].includes('10年') || lines[i].includes('10\u5e74')) {
-      headerIdx = i;
-      col10Y = lines[i].split(',').findIndex(c => c.trim() === '10年' || c.trim() === '10\u5e74');
-      break;
-    }
-  }
-  if (col10Y === -1) throw new Error('MoF Japan: could not find 10Y column');
-
-  // Japanese era to Gregorian: Reiwa (R) starts 2019-05-01, year offset = 2018
-  // Showa (S) starts 1926, offset = 1925
-  // Heisei (H) starts 1989, offset = 1988
+  // Japanese era to Gregorian
   function eraToGregorian(eraStr) {
     const m = eraStr.trim().match(/^([RSH])(\d+)\.(\d+)\.(\d+)$/);
     if (!m) return null;
@@ -102,18 +81,58 @@ async function fetchMoFJapan() {
     return `${year}-${String(mo).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
   }
 
-  const cutoff = '2025-01-01';
-  const data = [];
-  for (let i = headerIdx + 1; i < lines.length; i++) {
-    const cols = lines[i].split(',');
-    if (!cols[0] || !cols[col10Y]) continue;
-    const date = eraToGregorian(cols[0]);
-    if (!date || date < cutoff) continue;
-    const value = parseFloat(cols[col10Y]);
-    if (isNaN(value)) continue;
-    data.push({ date, value });
+  function parseJgbCsv(csv, cutoff) {
+    const lines = csv.split('\n');
+    let col10Y = -1, headerIdx = -1;
+    for (let i = 0; i < Math.min(5, lines.length); i++) {
+      if (lines[i].includes('10\u5e74')) {
+        headerIdx = i;
+        col10Y = lines[i].split(',').findIndex(c => c.trim() === '10\u5e74');
+        break;
+      }
+    }
+    if (col10Y === -1) return [];
+    const data = [];
+    for (let i = headerIdx + 1; i < lines.length; i++) {
+      const cols = lines[i].split(',');
+      if (!cols[0] || !cols[col10Y]) continue;
+      const date = eraToGregorian(cols[0]);
+      if (!date || (cutoff && date < cutoff)) continue;
+      const value = parseFloat(cols[col10Y]);
+      if (isNaN(value)) continue;
+      data.push({ date, value });
+    }
+    return data;
   }
-  data.sort((a, b) => a.date.localeCompare(b.date));
+
+  const cutoff = '2025-01-01';
+  const headers = { 'User-Agent': 'Mozilla/5.0' };
+
+  // Fetch historical (all years up to last month) + current month in parallel
+  const [histRes, curRes] = await Promise.all([
+    fetch('https://www.mof.go.jp/jgbs/reference/interest_rate/data/jgbcm_all.csv', { headers }),
+    fetch('https://www.mof.go.jp/jgbs/reference/interest_rate/jgbcm.csv', { headers }),
+  ]);
+  if (!histRes.ok) throw new Error(`MoF Japan historical: ${histRes.status}`);
+  if (!curRes.ok) throw new Error(`MoF Japan current: ${curRes.status}`);
+
+  const [histCsv, curCsv] = await Promise.all([
+    histRes.arrayBuffer().then(b => new TextDecoder('shift-jis').decode(b)),
+    curRes.arrayBuffer().then(b => new TextDecoder('shift-jis').decode(b)),
+  ]);
+
+  const histData = parseJgbCsv(histCsv, cutoff);
+  const curData = parseJgbCsv(curCsv, cutoff);
+
+  // Merge, deduplicate by date (current month takes precedence)
+  const map = new Map();
+  for (const p of histData) map.set(p.date, p.value);
+  for (const p of curData) map.set(p.date, p.value);
+
+  const data = [...map.entries()]
+    .map(([date, value]) => ({ date, value }))
+    .sort((a, b) => a.date.localeCompare(b.date));
+
   return { id: 'IRLTLT01JPM156N', country: 'Japan', flag: 'jp', name: 'Japan 10Y', frequency: 'daily', data };
 }
 
