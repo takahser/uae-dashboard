@@ -24,7 +24,25 @@
     "ballisticInterceptedUnconfirmed": true,
     "dronesDetectedUnconfirmed": true,
     "dronesInterceptedUnconfirmed": true,
-    "dronesImpactedUnconfirmed": true
+    "dronesImpactedUnconfirmed": true,
+    "navalVesselsDestroyed": 100,
+    "navalVesselsDestroyedUnconfirmed": true,
+    "pendingConfirmation": [
+      {
+        "type": "leadership_killed",
+        "description": "Mousavi killed",
+        "source": "LWJ",
+        "addedDate": "2026-03-24",
+        "status": "pending"
+      },
+      {
+        "type": "leadership_killed",
+        "description": "Ahmadinejad killed",
+        "source": "LWJ",
+        "addedDate": "2026-03-24",
+        "status": "pending"
+      }
+    ]
   },
   "daily": [
     {
