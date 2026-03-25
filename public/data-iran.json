@@ -14,8 +14,17 @@
     "launchersDisabled": 310,
     "aircraftDestroyed": 46,
     "navalVesselsDestroyed": 100,
-    "notes": "US Operation Epic Fury + Israeli Operation Roaring Lion. As of Mar 24: ~4,500 killed (IDF estimate 4,000–5,000 Iranian soldiers as of Mar 13; midpoint used), 18,551+ injured (Al Jazeera death toll tracker). US: 5,500+ targets hit (LWJ Mar 13). Israeli: 7,600+ strikes in 13 days by Mar 13 (LWJ). 100+ naval vessels destroyed (LWJ Mar 16). Verified killed: Ali Larijani (IDF/Reuters Mar 17), Gholamreza Soleimani/Basij commander (IDF/AP Mar 17-18). Others unconfirmed.",
-    "navalVesselsDestroyedUnconfirmed": false
+    "notes": "US Operation Epic Fury + Israeli Operation Roaring Lion. As of Mar 24: ~4,500 killed (IDF estimate 4,000\u20135,000 Iranian soldiers as of Mar 13; midpoint used), 18,551+ injured (Al Jazeera death toll tracker). US: 5,500+ targets hit (LWJ Mar 13). Israeli: 7,600+ strikes in 13 days by Mar 13 (LWJ). 100+ naval vessels destroyed (LWJ Mar 16). Verified killed: Ali Larijani (IDF/Reuters Mar 17), Gholamreza Soleimani/Basij commander (IDF/AP Mar 17-18). Others unconfirmed.",
+    "navalVesselsDestroyedUnconfirmed": false,
+    "pendingConfirmation": [
+      {
+        "type": "leadership_killed",
+        "description": "Ahmadinejad killed",
+        "source": "unverified",
+        "addedDate": "2026-03-24",
+        "status": "pending"
+      }
+    ]
   },
   "daily": [
     {
@@ -100,7 +109,7 @@
       "label": "11 Mar",
       "strikes": 35,
       "killed": null,
-      "events": "Continued US/Israeli strikes. LWJ reports US has hit 5,500+ targets total. Iran ballistic launch rate dropped 92% (480→40/day). Drone launch rate dropped from 720→60/day."
+      "events": "Continued US/Israeli strikes. LWJ reports US has hit 5,500+ targets total. Iran ballistic launch rate dropped 92% (480\u219240/day). Drone launch rate dropped from 720\u219260/day."
     },
     {
       "date": "2026-03-12",
@@ -114,7 +123,7 @@
       "label": "13 Mar",
       "strikes": 30,
       "killed": null,
-      "events": "Israel shifts to hyperlocal targeting — repression units and regime figures in Tehran. IDF assessment: 4,000-5,000 Iranian soldiers/commanders killed total. 5 Iranians arrested for filming strikes. Israel: 7,600+ total strikes in 13 days (LWJ). Source: LWJ."
+      "events": "Israel shifts to hyperlocal targeting \u2014 repression units and regime figures in Tehran. IDF assessment: 4,000-5,000 Iranian soldiers/commanders killed total. 5 Iranians arrested for filming strikes. Israel: 7,600+ total strikes in 13 days (LWJ). Source: LWJ."
     },
     {
       "date": "2026-03-14",
@@ -138,7 +147,7 @@
       "strikes": null,
       "killed": null,
       "unconfirmed": true,
-      "events": "Cumulative: 1,444 killed, 18,551 injured (Al Jazeera Day 17). Iran says missiles are 'from a decade ago' — newer production not yet deployed. Diplomatic channels active."
+      "events": "Cumulative: 1,444 killed, 18,551 injured (Al Jazeera Day 17). Iran says missiles are 'from a decade ago' \u2014 newer production not yet deployed. Diplomatic channels active."
     },
     {
       "date": "2026-03-17",
@@ -187,7 +196,7 @@
       "label": "23 Mar",
       "strikes": null,
       "killed": null,
-      "events": "Iran threatens to 'completely close' Strait of Hormuz if power plants struck. Iran fires IRGC missiles at Tel Aviv area — confirmed casualties (Al Jazeera Mar 24 liveblog). Iran denies launching long-range missiles at Diego Garcia US/UK base, calls it a 'false flag attack' (Al Jazeera). Claims Iran brought down a US F-35 jet — disputed/unverified. Emergency personnel respond to residential building strike in northern Tehran (Reuters/WANA)."
+      "events": "Iran threatens to 'completely close' Strait of Hormuz if power plants struck. Iran fires IRGC missiles at Tel Aviv area \u2014 confirmed casualties (Al Jazeera Mar 24 liveblog). Iran denies launching long-range missiles at Diego Garcia US/UK base, calls it a 'false flag attack' (Al Jazeera). Claims Iran brought down a US F-35 jet \u2014 disputed/unverified. Emergency personnel respond to residential building strike in northern Tehran (Reuters/WANA)."
     },
     {
       "date": "2026-03-24",
@@ -366,14 +375,14 @@
     {
       "type": "leadership_killed",
       "description": "Mousavi (IRGC commander) reportedly killed in strike",
-      "source": "LWJ / unverified social reports — not confirmed by Reuters/AP/Al Jazeera/IDF",
+      "source": "LWJ / unverified social reports \u2014 not confirmed by Reuters/AP/Al Jazeera/IDF",
       "addedDate": "2026-03-24",
       "status": "pending"
     },
     {
       "type": "leadership_killed",
       "description": "Ahmadinejad reportedly killed",
-      "source": "LWJ / unverified social reports — not confirmed by Reuters/AP/Al Jazeera",
+      "source": "LWJ / unverified social reports \u2014 not confirmed by Reuters/AP/Al Jazeera",
       "addedDate": "2026-03-24",
       "status": "pending"
     },
