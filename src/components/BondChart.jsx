@@ -13,7 +13,7 @@ const TIMEFRAMES = [
   { key: '1W', days: 7 },
   { key: '2W', days: 14 },
   { key: '1M', days: 30 },
-  { key: 'ALL', days: null },
+  { key: 'ALL', days: null, fromWarStart: true },
 ];
 
 function formatDate(dateStr) {
@@ -83,6 +83,11 @@ export default function BondChart({ data }) {
     cutoff.setDate(cutoff.getDate() - tf.days);
     const cutoffStr = cutoff.toISOString().slice(0, 10);
     chartData = chartData.filter(row => row.date >= cutoffStr);
+  } else if (tf?.fromWarStart && data.warStart) {
+    // "ALL" means all war-period data (from warStart), not full historical pre-war data.
+    // This ensures the ALL view and shorter timeframes show consistent data ranges
+    // and the y-axis scale reflects only the war period.
+    chartData = chartData.filter(row => row.date >= data.warStart);
   }
 
   const warLabel = formatDate(data.warStart);
