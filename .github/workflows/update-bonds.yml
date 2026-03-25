@@ -14,6 +14,7 @@ jobs:
       - run: node scripts/fetch-bonds.js
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          EODHD_API_KEY: ${{ secrets.EODHD_API_KEY }}
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "data: update bond market yields"
