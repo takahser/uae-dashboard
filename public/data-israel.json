@@ -28,8 +28,17 @@
     "totalStrikes": 550,
     "killed": null,
     "injured": null,
-    "notes": "Total 550 strikes (ballistic + drone combined) Feb 28–Mar 11. New events confirmed Mar 12–24 per IDF but no updated totals. IDF confirmed long-range missile Mar 21, Arad attack Mar 22.",
-    "injuredUnconfirmed": true
+    "notes": "Total 550 strikes (ballistic + drone combined) Feb 28–Mar 11. New events confirmed Mar 12–24 per IDF but no updated totals. Arad attack Mar 22.",
+    "injuredUnconfirmed": true,
+    "pendingConfirmation": [
+      {
+        "type": "missile_event",
+        "description": "IDF confirmed long-range missile Mar 21",
+        "source": "unverified",
+        "addedDate": "2026-03-24",
+        "status": "pending"
+      }
+    ]
   },
   "airports": [
     {
