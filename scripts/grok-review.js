@@ -42,20 +42,32 @@ const DATA_FILES = [
 ];
 
 function getDiff() {
+  const MAX_DIFF_BYTES = 80 * 1024; // truncate diff sent to Grok at 80KB
+  let raw = "";
   try {
     // Use PR base SHA when in GitHub Actions, otherwise diff full branch vs main
     const baseSha = process.env.GITHUB_BASE_SHA || "origin/main";
-    return execSync("git diff " + baseSha + "...HEAD -- " + DATA_FILES.join(" "), {
+    raw = execSync("git diff " + baseSha + "...HEAD -- " + DATA_FILES.join(" "), {
       encoding: "utf8",
-      maxBuffer: 100 * 1024,
+      maxBuffer: 10 * 1024 * 1024, // 10MB — enough for any realistic data diff
     }).trim();
   } catch {
     // Fallback to last commit diff
-    return execSync("git diff HEAD~1 HEAD -- " + DATA_FILES.join(" "), {
-      encoding: "utf8",
-      maxBuffer: 50 * 1024,
-    }).trim();
+    try {
+      raw = execSync("git diff HEAD~1 HEAD -- " + DATA_FILES.join(" "), {
+        encoding: "utf8",
+        maxBuffer: 10 * 1024 * 1024,
+      }).trim();
+    } catch {
+      return "";
+    }
   }
+  // Truncate to avoid hitting Grok context limits; append notice so reviewer knows
+  if (Buffer.byteLength(raw, "utf8") > MAX_DIFF_BYTES) {
+    const truncated = Buffer.from(raw, "utf8").slice(0, MAX_DIFF_BYTES).toString("utf8");
+    return truncated + "\n\n[diff truncated at 80KB — review covers changed data fields only]";
+  }
+  return raw;
 }
 
 async function askGrok(diff) {
