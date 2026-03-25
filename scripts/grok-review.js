@@ -43,12 +43,18 @@ const DATA_FILES = [
 
 function getDiff() {
   try {
+    // Use PR base SHA when in GitHub Actions, otherwise diff full branch vs main
+    const baseSha = process.env.GITHUB_BASE_SHA || "origin/main";
+    return execSync("git diff " + baseSha + "...HEAD -- " + DATA_FILES.join(" "), {
+      encoding: "utf8",
+      maxBuffer: 100 * 1024,
+    }).trim();
+  } catch {
+    // Fallback to last commit diff
     return execSync("git diff HEAD~1 HEAD -- " + DATA_FILES.join(" "), {
       encoding: "utf8",
       maxBuffer: 50 * 1024,
     }).trim();
-  } catch {
-    return "";
   }
 }
 

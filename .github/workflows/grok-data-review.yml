@@ -44,6 +44,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number || github.event.inputs.pr_number }}
+          GITHUB_BASE_SHA: ${{ github.event.pull_request.base.sha }}
           XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: node --input-type=module < scripts/grok-review.js
