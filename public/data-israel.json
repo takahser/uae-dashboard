@@ -1,10 +1,10 @@
 {
   "country": "israel",
-  "flag": "🇮🇱",
+  "flag": "\ud83c\uddee\ud83c\uddf1",
   "capital": "Tel Aviv / Jerusalem",
   "lastUpdated": "2026-03-11",
   "source": "IDF (@IDF), @timesofisrael, @LucasTomlinson",
-  "note": "IDF does not publish daily intercept breakdowns. Cumulative 550 total strikes Feb 28–Mar 11 (IDF via Fox News/Lucas Tomlinson). New events confirmed Mar 12–24 per IDF but no updated totals published. Notable: Ben Gurion damaged by Iranian missile debris Mar 18 (Reuters); Arad city attacked Mar 22 injuring 80+ (IDF/Times of Israel).",
+  "note": "IDF does not publish daily intercept breakdowns. Cumulative 550 total strikes Feb 28\u2013Mar 11 (IDF via Fox News/Lucas Tomlinson). New events confirmed Mar 12\u201324 per IDF but no updated totals published. Notable: Ben Gurion damaged by Iranian missile debris Mar 18 (Reuters); Arad city attacked Mar 22 injuring 80+ (IDF/Times of Israel).",
   "defenceSystems": [
     "Iron Dome",
     "David's Sling",
@@ -28,7 +28,7 @@
     "totalStrikes": 550,
     "killed": null,
     "injured": null,
-    "notes": "Total 550 strikes (ballistic + drone combined) Feb 28–Mar 11. New events confirmed Mar 12–24 per IDF but no updated totals. Arad attack Mar 22.",
+    "notes": "Total 550 strikes (ballistic + drone combined) Feb 28\u2013Mar 11. New events confirmed Mar 12\u201324 per IDF but no updated totals. Arad attack Mar 22.",
     "injuredUnconfirmed": true,
     "pendingConfirmation": [
       {
@@ -45,7 +45,8 @@
       "iata": "TLV",
       "name": "Ben Gurion International Airport",
       "status": "operational_restricted",
-      "notes": "Repeatedly targeted; multiple flight diversions. Damaged by Iranian missile debris Mar 18 per Reuters; further restrictions imposed Mar 23–24 per Times of Israel."
+      "notes": "Repeatedly targeted; multiple flight diversions. Damaged by Iranian missile debris Mar 18 per Reuters; further restrictions imposed Mar 23\u201324 per Times of Israel."
     }
-  ]
+  ],
+  "lastChecked": "2026-03-25"
 }
