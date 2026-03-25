@@ -136,6 +136,60 @@ async function fetchMoFJapan() {
   return { id: 'IRLTLT01JPM156N', country: 'Japan', flag: 'jp', name: 'Japan 10Y', frequency: 'daily', data };
 }
 
+// EODHD top-up: fills dates newer than what primary sources have.
+// Uses 4 requests/day (one per ticker). Primary source data is never overwritten.
+// Tickers: US10Y.GBOND, DE10Y.GBOND, UK10Y.GBOND, JP10Y.GBOND
+const EODHD_MAP = {
+  DGS10:           'US10Y.GBOND',
+  IRLTLT01DEM156N: 'DE10Y.GBOND',
+  IUDMNPY:         'UK10Y.GBOND',
+  IRLTLT01JPM156N: 'JP10Y.GBOND',
+};
+
+async function eohdTopUp(series, apiKey) {
+  const today = new Date().toISOString().slice(0, 10);
+  let totalAdded = 0;
+
+  for (const s of series) {
+    const ticker = EODHD_MAP[s.id];
+    if (!ticker) continue;
+
+    const primaryLast = s.data.length ? s.data[s.data.length - 1].date : '2025-01-01';
+    if (primaryLast >= today) continue; // already up to date
+
+    // Fetch only dates after primary last (add 1 day to avoid re-fetching last known)
+    const fromDate = new Date(primaryLast + 'T00:00:00Z');
+    fromDate.setUTCDate(fromDate.getUTCDate() + 1);
+    const fromStr = fromDate.toISOString().slice(0, 10);
+
+    try {
+      const url = `https://eodhd.com/api/eod/${ticker}?api_token=${apiKey}&fmt=json&from=${fromStr}&order=a`;
+      const res = await fetch(url);
+      if (!res.ok) {
+        console.warn(`EODHD ${ticker}: ${res.status} — skipping top-up`);
+        continue;
+      }
+      const eodData = await res.json();
+      if (!Array.isArray(eodData) || eodData.length === 0) continue;
+
+      const newPoints = eodData
+        .map(p => ({ date: p.date, value: p.close }))
+        .filter(p => p.date > primaryLast && !isNaN(p.value));
+
+      if (newPoints.length > 0) {
+        s.data.push(...newPoints);
+        s.data.sort((a, b) => a.date.localeCompare(b.date));
+        totalAdded += newPoints.length;
+        console.log(`EODHD top-up ${ticker}: +${newPoints.length} pts (${newPoints[0].date} → ${newPoints[newPoints.length - 1].date})`);
+      }
+    } catch (e) {
+      console.warn(`EODHD ${ticker} error: ${e.message} — skipping top-up`);
+    }
+  }
+
+  return totalAdded;
+}
+
 async function main() {
   const [us, germany, uk, japan] = await Promise.all([
     fetchFredUS(),
@@ -146,6 +200,12 @@ async function main() {
 
   // Order: US, Germany, UK, Japan
   const series = [us, germany, uk, japan];
+
+  // EODHD top-up: fill any dates newer than primary sources (uses 4 req/day)
+  const eohdKey = process.env.EODHD_API_KEY || '69c3cc97b596f8.98129440';
+  const added = await eohdTopUp(series, eohdKey);
+  if (added === 0) console.log('EODHD top-up: no new dates to fill');
+
   const out = {
     updated: new Date().toISOString().slice(0, 10),
     warStart: '2026-02-28',
@@ -155,7 +215,7 @@ async function main() {
     join(__dirname, '..', 'public', 'data-bonds.json'),
     JSON.stringify(out, null, 2) + '\n'
   );
-  console.log(`Wrote data-bonds.json — ${series.map(s => `${s.id}: ${s.data.length} obs (${s.frequency})`).join(', ')}`);
+  console.log(`Wrote data-bonds.json — ${series.map(s => `${s.id}: ${s.data.length} obs, last: ${s.data[s.data.length-1]?.date}`).join(' | ')}`);
 }
 
 main().catch(e => { console.error(e); process.exit(1); });
