@@ -139,6 +139,85 @@ async function postComment(body) {
   return res.json();
 }
 
+async function ensureLabelsExist() {
+  const labels = [
+    { name: "data-validated", color: "0e8a16", description: "Data verified by Grok review" },
+    { name: "invalid-data", color: "e11d48", description: "Data flagged by Grok review" },
+  ];
+  for (const label of labels) {
+    try {
+      const res = await fetch(`https://api.github.com/repos/${REPO}/labels`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${GITHUB_TOKEN}`,
+          "Content-Type": "application/json",
+          Accept: "application/vnd.github+json",
+        },
+        body: JSON.stringify(label),
+      });
+      if (res.status !== 201 && res.status !== 422) {
+        console.warn(`Unexpected status creating label "${label.name}": ${res.status}`);
+      }
+    } catch (err) {
+      console.warn(`Failed to ensure label "${label.name}": ${err.message}`);
+    }
+  }
+}
+
+async function setLabels(isPass) {
+  try {
+    await ensureLabelsExist();
+
+    // Get current labels on the PR
+    const currentRes = await fetch(`https://api.github.com/repos/${REPO}/issues/${PR_NUMBER}/labels`, {
+      headers: {
+        Authorization: `Bearer ${GITHUB_TOKEN}`,
+        Accept: "application/vnd.github+json",
+      },
+    });
+    const currentLabels = await currentRes.json();
+    const currentNames = Array.isArray(currentLabels) ? currentLabels.map(l => l.name) : [];
+
+    const addLabel = isPass ? "data-validated" : "invalid-data";
+    const removeLabel = isPass ? "invalid-data" : "data-validated";
+
+    // Remove opposite label if present
+    if (currentNames.includes(removeLabel)) {
+      const delRes = await fetch(
+        `https://api.github.com/repos/${REPO}/issues/${PR_NUMBER}/labels/${encodeURIComponent(removeLabel)}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${GITHUB_TOKEN}`,
+            Accept: "application/vnd.github+json",
+          },
+        }
+      );
+      if (!delRes.ok) {
+        console.warn(`Failed to remove label "${removeLabel}": ${delRes.status}`);
+      }
+    }
+
+    // Add the appropriate label
+    const addRes = await fetch(`https://api.github.com/repos/${REPO}/issues/${PR_NUMBER}/labels`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${GITHUB_TOKEN}`,
+        "Content-Type": "application/json",
+        Accept: "application/vnd.github+json",
+      },
+      body: JSON.stringify({ labels: [addLabel] }),
+    });
+    if (!addRes.ok) {
+      console.warn(`Failed to add label "${addLabel}": ${addRes.status}`);
+    } else {
+      console.log(`Label set: ${addLabel}`);
+    }
+  } catch (err) {
+    console.warn(`setLabels error (non-fatal): ${err.message}`);
+  }
+}
+
 async function main() {
   const diff = getDiff();
 
@@ -170,6 +249,9 @@ ${review}
 
   await postComment(comment);
   console.log("Review posted:", verdict);
+
+  const isPass = !review.includes("FLAGGED");
+  await setLabels(isPass);
 }
 
 main().catch(err => {

@@ -1,15 +1,15 @@
 {
-  "lastUpdated": "2026-03-15",
+  "lastUpdated": "2026-03-24",
   "sources": {
     "MOD_Qatar": {
-      "lastTweetId": "2031705827082739788"
+      "lastTweetId": "2036365332491936254"
     }
   },
   "cumulative": {
-    "ballisticDetected": 168,
-    "ballisticIntercepted": 167,
+    "ballisticDetected": 196,
+    "ballisticIntercepted": 193,
     "ballisticSea": 3,
-    "ballisticImpacted": 1,
+    "ballisticImpacted": 3,
     "cruiseDetected": 6,
     "cruiseIntercepted": 6,
     "cruiseSea": 0,
@@ -20,7 +20,7 @@
     "dronesImpacted": 10,
     "killed": 0,
     "injured": 0,
-    "notes": "2 Su-24 jets shot down"
+    "notes": "2 Su-24 jets shot down.. Ras Laffan industrial fire Mar 18."
   },
   "daily": [
     {
@@ -202,6 +202,89 @@
       "dronesIntercepted": null,
       "notes": "UAV attack intercepted — count not released",
       "total": null
+    },
+    {
+      "date": "2026-03-16",
+      "label": "16 Mar",
+      "ballisticDetected": 14,
+      "ballisticIntercepted": 13,
+      "ballisticSea": 0,
+      "ballisticImpacted": 1,
+      "cruiseDetected": 0,
+      "cruiseIntercepted": 0,
+      "dronesDetected": null,
+      "dronesIntercepted": null,
+      "dronesImpacted": null,
+      "unconfirmed": false,
+      "notes": "2 waves. 14 ballistic + drones from Iran. 13/14 intercepted, 1 impacted (location TBC). All drones intercepted.",
+      "sources": [
+        "https://x.com/MOD_Qatar/status/2033619869908779378"
+      ],
+      "total": 14
+    },
+    {
+      "date": "2026-03-17",
+      "label": "17 Mar",
+      "ballisticDetected": 9,
+      "ballisticIntercepted": 9,
+      "ballisticSea": 0,
+      "ballisticImpacted": 0,
+      "cruiseDetected": 0,
+      "cruiseIntercepted": 0,
+      "dronesDetected": null,
+      "dronesIntercepted": null,
+      "dronesImpacted": null,
+      "unconfirmed": false,
+      "notes": "2 waves. 9 ballistic + drones from Iran. All 9 ballistic intercepted. All drones intercepted.",
+      "sources": [
+        "https://x.com/MOD_Qatar/status/2033984489680982157"
+      ],
+      "total": 9
+    },
+    {
+      "date": "2026-03-18",
+      "label": "18 Mar",
+      "ballisticDetected": 5,
+      "ballisticIntercepted": 4,
+      "ballisticSea": 0,
+      "ballisticImpacted": 1,
+      "cruiseDetected": 0,
+      "cruiseIntercepted": 0,
+      "dronesDetected": null,
+      "dronesIntercepted": null,
+      "dronesImpacted": null,
+      "unconfirmed": false,
+      "notes": "5 ballistic from Iran. 4 intercepted, 1 fell at Ras Laffan Industrial City causing fire.",
+      "sources": [
+        "https://x.com/MOD_Qatar/status/2034344764594672041"
+      ],
+      "total": 5
+    },
+    {
+      "date": "2026-03-22",
+      "label": "22 Mar",
+      "ballisticDetected": null,
+      "ballisticIntercepted": null,
+      "cruiseDetected": null,
+      "cruiseIntercepted": null,
+      "dronesDetected": null,
+      "dronesIntercepted": null,
+      "unconfirmed": false,
+      "notes": "MOD announced 4 military martyrs: Captain (pilot) Mubarak Salem Dwai Al-Marri, Captain (pilot) Saeed Nasser Sumaikh, Sergeant Fahad Hadi Ghanem Al-Khayareen, Corporal Mohammad Maher Mohammad.",
+      "sources": [
+        "https://x.com/MOD_Qatar/status/2035787690226934130"
+      ],
+      "total": null,
+      "events": ""
+    }
+  ],
+  "pendingConfirmation": [
+    {
+      "type": "personnel_killed",
+      "description": "4 military personnel killed in helicopter crash (technical malfunction, not enemy action) Mar 22: Captain Mubarak Salem Dwai Al-Marri, Captain Saeed Nasser Sumaikh, Sergeant Fahad Hadi Ghanem Al-Khayareen, Corporal Mohammad Maher Mohammad",
+      "source": "MOD_Qatar tweet 2035787690226934130 / Al Jazeera",
+      "addedDate": "2026-03-24",
+      "status": "pending"
     }
   ]
 }
