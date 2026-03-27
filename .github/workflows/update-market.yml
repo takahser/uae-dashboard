@@ -36,11 +36,6 @@ jobs:
       - name: Append AIS count to hormuz.json
         run: python3 scripts/append-hormuz.py
 
-      - name: Update substitution data
-        run: |
-          pip install requests
-          python scripts/update-substitution.py || echo "substitution update skipped"
-
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"

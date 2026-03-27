@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Append today's AIS vessel count to src/data/hormuz.json"""
+"""Append today's AIS vessel count to src/data/hormuz.json."""
 import json, sys
 from datetime import datetime, timezone
 

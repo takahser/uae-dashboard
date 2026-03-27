@@ -54,8 +54,8 @@ const OIL_INFOS = {
 };
 
 const OIL_SYMBOLS = [
-  { key: "BZ=F",  label: "Brent Crude",  unit: "$/bbl" },
-  { key: "CL=F",  label: "WTI Crude",    unit: "$/bbl" },
+  { key: "BZ=F",  label: "Brent Crude (EU)",  unit: "$/bbl" },
+  { key: "CL=F",  label: "WTI Crude (US)",    unit: "$/bbl" },
   ...(FEATURE_DUBAI_PRICE ? [{ key: "DUBAI", label: "Dubai Crude", unit: "$/bbl" }] : []),
   { key: "OMAN",  label: "Oman Crude",   unit: "$/bbl" },
   { key: "NG=F",  label: "Natural Gas",  unit: "$/MMBtu" },

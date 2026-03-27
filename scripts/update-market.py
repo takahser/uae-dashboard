@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch market data and update public/data-market.json"""
+"""Fetch market data, Dubai/Oman crude prices, and persist to public/data-market.json."""
 import requests, json, time, os, re, urllib.request
 from datetime import datetime, timezone, timedelta
 
@@ -18,27 +18,28 @@ NAMES = {
 quotes = {}
 history = {}
 
-# ── Yahoo Finance quotes + 30d history ──────────────────────────────────────
 for sym in SYMBOLS:
     try:
-        headers = {"User-Agent": "Mozilla/5.0"}
         url = f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range=1d&interval=1d"
-        r = requests.get(url, headers=headers, timeout=15)
+        r = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=15)
         r.raise_for_status()
-        meta = r.json()["chart"]["result"][0]["meta"]
+        chart = r.json()["chart"]["result"][0]
+        meta = chart["meta"]
         price = meta.get("regularMarketPrice", 0)
         prev = meta.get("chartPreviousClose", meta.get("previousClose", 0))
         change = round(price - prev, 2)
         change_pct = round((change / prev) * 100, 2) if prev else 0
         quotes[sym] = {
-            "symbol": sym, "name": NAMES.get(sym, sym),
-            "price": round(price, 2), "change": change,
-            "changePercent": change_pct, "previousClose": round(prev, 2),
+            "symbol": sym,
+            "name": NAMES.get(sym, sym),
+            "price": round(price, 2),
+            "change": change,
+            "changePercent": change_pct,
+            "previousClose": round(prev, 2),
         }
-        # 30d history
-        hr = requests.get(
-            f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range=30d&interval=1d",
-            headers=headers, timeout=15)
+        # 30-day history
+        hurl = f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range=30d&interval=1d"
+        hr = requests.get(hurl, headers={"User-Agent": "Mozilla/5.0"}, timeout=15)
         hr.raise_for_status()
         hchart = hr.json()["chart"]["result"][0]
         timestamps = hchart.get("timestamp", [])
@@ -53,32 +54,31 @@ for sym in SYMBOLS:
     except Exception as e:
         print(f"Warning: failed to fetch {sym}: {e}")
 
-# ── Load existing data (preserve Dubai/Oman history) ────────────────────────
+# Load existing data to preserve history
 existing_data = {}
-if os.path.exists("public/data-market.json"):
+market_path = "public/data-market.json"
+if os.path.exists(market_path):
     try:
-        with open("public/data-market.json") as f:
+        with open(market_path) as f:
             existing_data = json.load(f)
     except Exception:
         pass
 
-# ── Dubai crude — oilprice.com (1-day delay) ────────────────────────────────
+# --- Dubai Crude: oilprice.com (1-day delay) ---
 dubai_existing_quote = existing_data.get("quotes", {}).get("DUBAI", {})
 dubai_history = existing_data.get("history", {}).get("DUBAI", [])
 try:
     req2 = urllib.request.Request(
         "https://oilprice.com/oil-price-charts/",
-        headers={
-            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
-            "Referer": "https://oilprice.com/"
-        }
+        headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36",
+                 "Referer": "https://oilprice.com/"}
     )
     with urllib.request.urlopen(req2, timeout=15) as r2:
         html2 = r2.read().decode("utf-8", errors="ignore")
     dubai_idx = html2.find("data-name='Dubai'")
     if dubai_idx < 0:
         raise ValueError("Dubai not found in oilprice.com page")
-    dsnippet = html2[dubai_idx:dubai_idx + 600]
+    dsnippet = html2[dubai_idx:dubai_idx+600]
     dprices = re.findall(r"data-price='([^']+)'", dsnippet)
     if not dprices:
         raise ValueError("No Dubai price found")
@@ -87,9 +87,12 @@ try:
     dchange = round(dprice - dprev, 2)
     dchange_pct = round((dchange / dprev) * 100, 2) if dprev else 0
     quotes["DUBAI"] = {
-        "symbol": "DUBAI", "name": "Dubai Crude",
-        "price": dprice, "change": dchange,
-        "changePercent": dchange_pct, "previousClose": round(dprev, 2),
+        "symbol": "DUBAI",
+        "name": "Dubai Crude",
+        "price": dprice,
+        "change": dchange,
+        "changePercent": dchange_pct,
+        "previousClose": round(dprev, 2),
         "note": "Dubai crude — oilprice.com (1-day delay)",
         "source": "oilprice.com",
     }
@@ -99,7 +102,7 @@ try:
         dubai_history.append({"date": yesterday, "close": dprice})
         dubai_history.sort(key=lambda x: x["date"])
     history["DUBAI"] = dubai_history
-    print(f"Dubai: ${dprice} (oilprice.com, 1d delay → {yesterday})")
+    print(f"Dubai: ${dprice} (oilprice.com, as of {yesterday})")
 except Exception as e:
     print(f"Dubai scrape failed ({e}), preserving last known price")
     if dubai_existing_quote:
@@ -107,13 +110,13 @@ except Exception as e:
     if dubai_history:
         history["DUBAI"] = dubai_history
 
-# ── Oman crude — cbonds.com index 189217 (today's price) ────────────────────
+# --- Oman Crude: cbonds.com (today's price, no delay) ---
 oman_existing_quote = existing_data.get("quotes", {}).get("OMAN", {})
 oman_history = existing_data.get("history", {}).get("OMAN", [])
 try:
     req = urllib.request.Request(
         "https://cbonds.com/indexes/189217/",
-        headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36"}
+        headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"}
     )
     with urllib.request.urlopen(req, timeout=15) as r:
         html = r.read().decode("utf-8", errors="ignore")
@@ -132,9 +135,12 @@ try:
     change = round(price - prev, 2)
     change_pct = round((change / prev) * 100, 2) if prev else 0
     quotes["OMAN"] = {
-        "symbol": "OMAN", "name": "Oman Crude",
-        "price": price, "change": change,
-        "changePercent": change_pct, "previousClose": round(prev, 2),
+        "symbol": "OMAN",
+        "name": "Oman Crude",
+        "price": price,
+        "change": change,
+        "changePercent": change_pct,
+        "previousClose": round(prev, 2),
         "note": f"DME Oman — cbonds.com ({iso_date})",
         "source": "cbonds.com/indexes/189217",
     }
@@ -151,7 +157,7 @@ except Exception as e:
     if oman_history:
         history["OMAN"] = oman_history
 
-# ── Gulf AIS ship count ──────────────────────────────────────────────────────
+# --- Gulf AIS ships ---
 gulf_ships = {"ships": None, "tankers": None}
 try:
     with open("/tmp/gulf-ships.json") as f:
@@ -159,7 +165,6 @@ try:
 except Exception:
     pass
 
-# ── Write output ─────────────────────────────────────────────────────────────
 output = {
     "updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
     "quotes": quotes,
@@ -170,7 +175,8 @@ output = {
         "sampled_at": gulf_ships.get("sampled_at"),
     },
 }
-with open("public/data-market.json", "w") as f:
+
+with open(market_path, "w") as f:
     json.dump(output, f, indent=2)
 
 print(f"Updated {len(quotes)} quotes, {len(history)} histories")
