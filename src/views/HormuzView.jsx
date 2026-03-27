@@ -347,7 +347,7 @@ export default function HormuzView({ onBack }) {
   const chartData = data.map((d) => ({ ...d, label: d.date.slice(5) }));
   const status = getStraitStatus(today.ships, today.tollPassage);
   const { data: marketData, history: marketHistory, gulf: gulfAIS, error: marketError, lastUpdated, loading: marketLoading, refetch } = useMarketData();
-  const [activeLines, setActiveLines] = useState({ "BZ=F": true, "CL=F": true, "DUBAI": false, "OMAN": true, "NG=F": false });
+  const [activeLines, setActiveLines] = useState({ "BZ=F": true, "CL=F": true, "DUBAI": true, "NG=F": false });
   const [expOn, setExpOn] = useState(() => { try { return localStorage.getItem("ww3_experimental") === "true"; } catch { return false; } });
   const toggleExp = useCallback(() => setExpOn(v => { const next = !v; try { localStorage.setItem("ww3_experimental", String(next)); } catch {} return next; }), []);
   const [bondsData, setBondsData] = useState(null);
@@ -454,8 +454,7 @@ export default function HormuzView({ onBack }) {
           const PRICE_SYMBOLS = [
             { key: 'BZ=F', name: 'Brent', color: ACCENT, axis: 'crude' },
             { key: 'CL=F', name: 'WTI', color: '#4a9eff', axis: 'crude' },
-            { key: 'OMAN', name: 'Oman', color: '#E74C3C', axis: 'crude' },
-            { key: 'DUBAI', name: 'Dubai (futures)', color: '#9B59B6', axis: 'crude' },
+            { key: 'DUBAI', name: 'Dubai', color: '#9B59B6', axis: 'crude' },
             { key: 'NG=F', name: 'Nat Gas', color: '#10B981', axis: 'gas' },
           ];
           // Merge all dates into a unified dataset
@@ -473,6 +472,7 @@ export default function HormuzView({ onBack }) {
 
           const gasActive = activeLines['NG=F'];
           const crudeActive = activeLines['BZ=F'] || activeLines['CL=F'] || activeLines['DUBAI'];
+
 
           return (
             <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: `1px solid ${GLASS_BORDER}`, borderRadius: GLASS_RADIUS, padding: 20, marginBottom: 32 }}>
@@ -505,9 +505,9 @@ export default function HormuzView({ onBack }) {
               </div>
               <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={priceData}>
-                  <XAxis dataKey="date" stroke={GLASS_BORDER} tick={{ fontSize: 11, fill: SUBTEXT }} tickFormatter={tickFormatter} />
-                  <YAxis yAxisId="crude" stroke={GLASS_BORDER} tick={{ fontSize: 11, fill: SUBTEXT }} hide={!crudeActive} />
-                  <YAxis yAxisId="gas" orientation="right" stroke={GLASS_BORDER} tick={{ fontSize: 11, fill: SUBTEXT }} hide={!gasActive} />
+                  <XAxis dataKey="date" tick={{ fontSize: 11, fill: 'rgba(255,255,255,0.5)' }} tickLine={false} tickFormatter={tickFormatter} axisLine={false} />
+                  <YAxis yAxisId="crude" tick={{ fontSize: 11, fill: 'rgba(255,255,255,0.5)' }} tickLine={false} axisLine={false} domain={['auto', 'auto']} hide={!crudeActive} />
+                  <YAxis yAxisId="gas" orientation="right" tick={{ fontSize: 11, fill: 'rgba(255,255,255,0.5)' }} tickLine={false} axisLine={false} domain={['auto', 'auto']} hide={!gasActive} />
                   <RTooltip contentStyle={{ background: '#0D1525', border: `1px solid ${GLASS_BORDER}`, borderRadius: 6, color: TEXT }} />
                   <Legend />
                   <ReferenceLine yAxisId="crude" x="2026-02-28" stroke="#C0392B" strokeDasharray="4 4" label={{ value: 'War Start', fill: '#C0392B', fontSize: 11 }} />
