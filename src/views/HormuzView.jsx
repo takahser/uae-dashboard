@@ -455,7 +455,7 @@ export default function HormuzView({ onBack }) {
             { key: 'BZ=F', name: 'Brent', color: ACCENT, axis: 'crude' },
             { key: 'CL=F', name: 'WTI', color: '#4a9eff', axis: 'crude' },
             { key: 'OMAN', name: 'Oman', color: '#E74C3C', axis: 'crude' },
-            { key: 'DUBAI', name: 'Dubai (spot)', color: '#9B59B6', axis: 'crude' },
+            { key: 'DUBAI', name: 'Dubai (futures)', color: '#9B59B6', axis: 'crude' },
             { key: 'NG=F', name: 'Nat Gas', color: '#10B981', axis: 'gas' },
           ];
           // Merge all dates into a unified dataset
