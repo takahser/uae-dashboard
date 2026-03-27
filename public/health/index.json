@@ -1,0 +1,206 @@
+{
+  "generated_at": "2026-03-27T00:00:00Z",
+  "sources": {
+    "aramco": {
+      "id": "aramco",
+      "label": "Saudi Aramco",
+      "category": "market",
+      "last_updated": null,
+      "stale_after_hours": 36,
+      "market_hours_only": true,
+      "trading_days": "sun-thu",
+      "type": "regular",
+      "override": null
+    },
+    "bahrain_attacks": {
+      "id": "bahrain_attacks",
+      "label": "Bahrain Attack Data",
+      "category": "attacks",
+      "last_updated": null,
+      "type": "event",
+      "override": null
+    },
+    "bonds": {
+      "id": "bonds",
+      "label": "Bond Market Yields",
+      "category": "bonds",
+      "last_updated": null,
+      "stale_after_hours": 36,
+      "market_hours_only": true,
+      "trading_days": "mon-fri",
+      "type": "regular",
+      "override": null
+    },
+    "brent": {
+      "id": "brent",
+      "label": "Brent Crude (EU)",
+      "category": "market",
+      "last_updated": null,
+      "stale_after_hours": 2,
+      "market_hours_only": true,
+      "trading_days": "mon-fri",
+      "type": "regular",
+      "override": null
+    },
+    "dubai": {
+      "id": "dubai",
+      "label": "Dubai Crude",
+      "category": "market",
+      "last_updated": null,
+      "stale_after_hours": 36,
+      "market_hours_only": false,
+      "type": "regular",
+      "override": null
+    },
+    "flight_auh": {
+      "id": "flight_auh",
+      "label": "AUH Flights",
+      "category": "flights",
+      "last_updated": null,
+      "stale_after_hours": 36,
+      "market_hours_only": false,
+      "type": "regular",
+      "override": null
+    },
+    "flight_dxb": {
+      "id": "flight_dxb",
+      "label": "DXB Flights",
+      "category": "flights",
+      "last_updated": null,
+      "stale_after_hours": 36,
+      "market_hours_only": false,
+      "type": "regular",
+      "override": null
+    },
+    "flight_others": {
+      "id": "flight_others",
+      "label": "Other Airports",
+      "category": "flights",
+      "last_updated": null,
+      "stale_after_hours": 36,
+      "market_hours_only": false,
+      "type": "regular",
+      "override": null
+    },
+    "frontline": {
+      "id": "frontline",
+      "label": "Frontline (FRO)",
+      "category": "market",
+      "last_updated": null,
+      "stale_after_hours": 2,
+      "market_hours_only": true,
+      "trading_days": "mon-fri",
+      "type": "regular",
+      "override": null
+    },
+    "gulf_ais": {
+      "id": "gulf_ais",
+      "label": "Gulf AIS Ships",
+      "category": "ais",
+      "last_updated": null,
+      "stale_after_hours": 2,
+      "market_hours_only": false,
+      "type": "regular",
+      "override": null
+    },
+    "hormuz_chart": {
+      "id": "hormuz_chart",
+      "label": "Hormuz Ship Count",
+      "category": "ais",
+      "last_updated": null,
+      "stale_after_hours": 36,
+      "market_hours_only": false,
+      "type": "regular",
+      "override": null
+    },
+    "iran_data": {
+      "id": "iran_data",
+      "label": "Iran Conflict Data",
+      "category": "attacks",
+      "last_updated": null,
+      "type": "event",
+      "override": null
+    },
+    "kuwait_attacks": {
+      "id": "kuwait_attacks",
+      "label": "Kuwait Attack Data",
+      "category": "attacks",
+      "last_updated": null,
+      "type": "event",
+      "override": null
+    },
+    "lmt": {
+      "id": "lmt",
+      "label": "Lockheed Martin",
+      "category": "market",
+      "last_updated": null,
+      "stale_after_hours": 2,
+      "market_hours_only": true,
+      "trading_days": "mon-fri",
+      "type": "regular",
+      "override": null
+    },
+    "natgas": {
+      "id": "natgas",
+      "label": "Natural Gas",
+      "category": "market",
+      "last_updated": null,
+      "stale_after_hours": 2,
+      "market_hours_only": true,
+      "trading_days": "mon-fri",
+      "type": "regular",
+      "override": null
+    },
+    "oman": {
+      "id": "oman",
+      "label": "Oman Crude",
+      "category": "market",
+      "last_updated": null,
+      "stale_after_hours": 36,
+      "market_hours_only": false,
+      "type": "regular",
+      "override": null
+    },
+    "rtx": {
+      "id": "rtx",
+      "label": "RTX Corp",
+      "category": "market",
+      "last_updated": null,
+      "stale_after_hours": 2,
+      "market_hours_only": true,
+      "trading_days": "mon-fri",
+      "type": "regular",
+      "override": null
+    },
+    "stng": {
+      "id": "stng",
+      "label": "Scorpio Tankers",
+      "category": "market",
+      "last_updated": null,
+      "stale_after_hours": 2,
+      "market_hours_only": true,
+      "trading_days": "mon-fri",
+      "type": "regular",
+      "override": null
+    },
+    "uae_attacks": {
+      "id": "uae_attacks",
+      "label": "UAE Attack Data",
+      "category": "attacks",
+      "last_updated": null,
+      "type": "event",
+      "override": null
+    },
+    "wti": {
+      "id": "wti",
+      "label": "WTI Crude (US)",
+      "category": "market",
+      "last_updated": null,
+      "stale_after_hours": 2,
+      "market_hours_only": true,
+      "trading_days": "mon-fri",
+      "type": "regular",
+      "override": null
+    }
+  }
+}

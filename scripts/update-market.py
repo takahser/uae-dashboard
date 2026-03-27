@@ -180,3 +180,16 @@ with open(market_path, "w") as f:
     json.dump(output, f, indent=2)
 
 print(f"Updated {len(quotes)} quotes, {len(history)} histories")
+
+import subprocess as _sp
+
+HEALTH_MAP = {
+    "BZ=F": "brent", "CL=F": "wti", "NG=F": "natgas", "2222.SR": "aramco",
+    "FRO": "frontline", "STNG": "stng", "RTX": "rtx", "LMT": "lmt",
+    "DUBAI": "dubai", "OMAN": "oman"
+}
+for sym, health_id in HEALTH_MAP.items():
+    if sym in quotes:
+        _sp.run(["python", "scripts/write-health.py", health_id], check=False)
+if gulf_ships.get("ships") is not None:
+    _sp.run(["python", "scripts/write-health.py", "gulf_ais"], check=False)
