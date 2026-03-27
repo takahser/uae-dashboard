@@ -149,26 +149,30 @@ jobs:
               if dubai_history:
                   history["DUBAI"] = dubai_history
 
-          # Oman crude — scraped from oilprice.com (1-day delay), fallback to last known price
+          # Oman crude — cbonds.com index 189217 (today's price, no delay)
           oman_existing_quote = existing_data.get("quotes", {}).get("OMAN", {})
           oman_history = existing_data.get("history", {}).get("OMAN", [])
           try:
               import re as _re, urllib.request as _ur
               _req = _ur.Request(
-                  "https://oilprice.com/oil-price-charts/",
-                  headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
-                           "Referer": "https://oilprice.com/"}
+                  "https://cbonds.com/indexes/189217/",
+                  headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36"}
               )
               with _ur.urlopen(_req, timeout=15) as _r:
                   _html = _r.read().decode("utf-8", errors="ignore")
-              _oman_idx = _html.find("DME-Oman")
-              if _oman_idx < 0:
-                  raise ValueError("DME-Oman not found in page")
-              _snippet = _html[_oman_idx:_oman_idx+600]
-              _prices = _re.findall(r"data-price='([^']+)'", _snippet)
-              if not _prices:
-                  raise ValueError("No price found for Oman")
-              _price = round(float(_prices[0]), 2)
+              _actual = _re.search(r'"actual_value"\s*:\s*"([\d.]+)"', _html)
+              _actual_date = _re.search(r'"actual_date"\s*:\s*"([\d\\/]+)"', _html)
+              if not _actual:
+                  raise ValueError("actual_value not found in cbonds page")
+              _price = round(float(_actual.group(1)), 2)
+              # Parse date: "27\/03\/2026" → "2026-03-27"
+              _raw_date = _actual_date.group(1).replace("\\", "") if _actual_date else None
+              if _raw_date:
+                  _dp = _raw_date.split("/")
+                  _iso_date = f"{_dp[2]}-{_dp[1]}-{_dp[0]}" if len(_dp) == 3 else None
+              else:
+                  from datetime import datetime as _dt2, timezone as _tz2
+                  _iso_date = _dt2.now(_tz2.utc).strftime("%Y-%m-%d")
               _prev = oman_existing_quote.get("price", _price)
               _change = round(_price - _prev, 2)
               _change_pct = round((_change / _prev) * 100, 2) if _prev else 0
@@ -179,18 +183,15 @@ jobs:
                   "change": _change,
                   "changePercent": _change_pct,
                   "previousClose": round(_prev, 2),
-                  "note": "DME Oman — oilprice.com (1-day delay)",
-                  "source": "oilprice.com",
+                  "note": f"DME Oman — cbonds.com (today's price, {_iso_date})",
+                  "source": "cbonds.com/indexes/189217",
               }
-              # Append today to Oman history
-              from datetime import datetime as _dt2, timezone as _tz2
-              _yesterday_iso = (_dt2.now(_tz2.utc) - __import__("datetime").timedelta(days=1)).strftime("%Y-%m-%d")
               _oman_dates = {e["date"] for e in oman_history}
-              if _yesterday_iso not in _oman_dates:
-                  oman_history.append({"date": _yesterday_iso, "close": _price})
+              if _iso_date and _iso_date not in _oman_dates:
+                  oman_history.append({"date": _iso_date, "close": _price})
                   oman_history.sort(key=lambda x: x["date"])
               history["OMAN"] = oman_history
-              print(f"Oman: scraped ${_price} from oilprice.com")
+              print(f"Oman: ${_price} on {_iso_date} (cbonds.com)")
           except Exception as _e:
               print(f"Oman scrape failed ({_e}), preserving last known price")
               if oman_existing_quote:
