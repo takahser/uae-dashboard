@@ -101,51 +101,49 @@ jobs:
                       existing_data = _json.load(_f)
               except:
                   pass
-          # Dubai Platts crude — CME calendar swap futures via investiny (1-2 day delay)
-          # investing_id=1161259 = CME DBLc1 (Dubai Crude Oil Platts Financial Futures)
-          # Falls back to preserved manual price if fetch fails
+          # Dubai crude — scraped from oilprice.com (1-day delay, id=144), fallback to last known price
           dubai_existing_quote = existing_data.get("quotes", {}).get("DUBAI", {})
           dubai_history = existing_data.get("history", {}).get("DUBAI", [])
           try:
-              import subprocess as _sp, json as _json2
-              _r = _sp.run(
-                  ["pip", "install", "-q", "investiny"],
-                  capture_output=True
+              import re as _re2, urllib.request as _ur2
+              _req2 = _ur2.Request(
+                  "https://oilprice.com/oil-price-charts/",
+                  headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
+                           "Referer": "https://oilprice.com/"}
               )
-              from investiny import historical_data as _hd
-              from datetime import datetime as _dt, timedelta as _td
-              _today = _dt.now().strftime("%m/%d/%Y")
-              _week_ago = (_dt.now() - _td(days=7)).strftime("%m/%d/%Y")
-              _data = _hd(investing_id=1161259, from_date=_week_ago, to_date=_today)
-              _price = _data["close"][-1]
-              _prev = _data["close"][-2] if len(_data["close"]) > 1 else _price
-              _change = round(_price - _prev, 2)
-              _change_pct = round((_change / _prev) * 100, 2) if _prev else 0
+              with _ur2.urlopen(_req2, timeout=15) as _r2:
+                  _html2 = _r2.read().decode("utf-8", errors="ignore")
+              _dubai_idx = _html2.find("data-name='Dubai'")
+              if _dubai_idx < 0:
+                  raise ValueError("Dubai not found in oilprice.com page")
+              _dsnippet = _html2[_dubai_idx:_dubai_idx+600]
+              _dprices = _re2.findall(r"data-price='([^']+)'", _dsnippet)
+              if not _dprices:
+                  raise ValueError("No Dubai price found")
+              _dprice = round(float(_dprices[0]), 2)
+              _dprev = dubai_existing_quote.get("price", _dprice)
+              _dchange = round(_dprice - _dprev, 2)
+              _dchange_pct = round((_dchange / _dprev) * 100, 2) if _dprev else 0
               quotes["DUBAI"] = {
                   "symbol": "DUBAI",
-                  "name": "Dubai Crude Oil (Platts Futures)",
-                  "price": round(_price, 2),
-                  "change": _change,
-                  "changePercent": _change_pct,
-                  "previousClose": round(_prev, 2),
-                  "note": f"CME DBLc1 futures — data as of {_data['date'][-1]}",
-                  "source": "investiny/investing.com (1-2 day delay)",
+                  "name": "Dubai Crude",
+                  "price": _dprice,
+                  "change": _dchange,
+                  "changePercent": _dchange_pct,
+                  "previousClose": round(_dprev, 2),
+                  "note": "Dubai crude — oilprice.com (1-day delay)",
+                  "source": "oilprice.com",
               }
-              # Auto-append any new dates to history (deduped by date)
-              existing_dates = {e["date"] for e in dubai_history}
-              added = 0
-              for _d, _c in zip(_data["date"], _data["close"]):
-                  _parts = _d.split("/")
-                  _iso = f"{_parts[2]}-{_parts[0]}-{_parts[1]}"
-                  if _iso not in existing_dates:
-                      dubai_history.append({"date": _iso, "close": round(_c, 2)})
-                      existing_dates.add(_iso)
-                      added += 1
-              dubai_history.sort(key=lambda x: x["date"])
+              from datetime import datetime as _dt3, timezone as _tz3
+              _today_iso2 = _dt3.now(_tz3.utc).strftime("%Y-%m-%d")
+              _dubai_dates = {e["date"] for e in dubai_history}
+              if _today_iso2 not in _dubai_dates:
+                  dubai_history.append({"date": _today_iso2, "close": _dprice})
+                  dubai_history.sort(key=lambda x: x["date"])
               history["DUBAI"] = dubai_history
-              print(f"Dubai: CME futures ${round(_price, 2)} (as of {_data['date'][-1]}) — {added} new history entries added")
+              print(f"Dubai: scraped ${_dprice} from oilprice.com")
           except Exception as _e:
-              print(f"Dubai CME fetch failed ({_e}), preserving manual price")
+              print(f"Dubai scrape failed ({_e}), preserving last known price")
               if dubai_existing_quote:
                   quotes["DUBAI"] = dubai_existing_quote
               if dubai_history:
