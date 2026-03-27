@@ -135,10 +135,10 @@ jobs:
                   "source": "oilprice.com",
               }
               from datetime import datetime as _dt3, timezone as _tz3
-              _today_iso2 = _dt3.now(_tz3.utc).strftime("%Y-%m-%d")
+              _yesterday_iso2 = (_dt3.now(_tz3.utc) - __import__("datetime").timedelta(days=1)).strftime("%Y-%m-%d")
               _dubai_dates = {e["date"] for e in dubai_history}
-              if _today_iso2 not in _dubai_dates:
-                  dubai_history.append({"date": _today_iso2, "close": _dprice})
+              if _yesterday_iso2 not in _dubai_dates:
+                  dubai_history.append({"date": _yesterday_iso2, "close": _dprice})
                   dubai_history.sort(key=lambda x: x["date"])
               history["DUBAI"] = dubai_history
               print(f"Dubai: scraped ${_dprice} from oilprice.com")
@@ -184,10 +184,10 @@ jobs:
               }
               # Append today to Oman history
               from datetime import datetime as _dt2, timezone as _tz2
-              _today_iso = _dt2.now(_tz2.utc).strftime("%Y-%m-%d")
+              _yesterday_iso = (_dt2.now(_tz2.utc) - __import__("datetime").timedelta(days=1)).strftime("%Y-%m-%d")
               _oman_dates = {e["date"] for e in oman_history}
-              if _today_iso not in _oman_dates:
-                  oman_history.append({"date": _today_iso, "close": _price})
+              if _yesterday_iso not in _oman_dates:
+                  oman_history.append({"date": _yesterday_iso, "close": _price})
                   oman_history.sort(key=lambda x: x["date"])
               history["OMAN"] = oman_history
               print(f"Oman: scraped ${_price} from oilprice.com")
