@@ -151,20 +151,54 @@ jobs:
               if dubai_history:
                   history["DUBAI"] = dubai_history
 
-          # Oman crude — manual update only (no free live source available)
-          # Update this value manually when @KobeissiLetter or verified sources report a new price
-          OMAN_PRICE = 200.0   # Updated Mar 19 2026 — @SprinterPress confirmed $200
-          OMAN_PREV  = 154.0   # Mar 18 close per @KobeissiLetter
-          quotes["OMAN"] = {
-              "symbol": "OMAN",
-              "name": "Oman Crude",
-              "price": OMAN_PRICE,
-              "change": round(OMAN_PRICE - OMAN_PREV, 2),
-              "changePercent": round((OMAN_PRICE - OMAN_PREV) / OMAN_PREV * 100, 2),
-              "previousClose": OMAN_PREV,
-              "note": "DME Oman benchmark — manual update",
-              "source": "Manual (SprinterPress Mar 19)",
-          }
+          # Oman crude — scraped from oilprice.com (1-day delay), fallback to last known price
+          oman_existing_quote = existing_data.get("quotes", {}).get("OMAN", {})
+          oman_history = existing_data.get("history", {}).get("OMAN", [])
+          try:
+              import re as _re, urllib.request as _ur
+              _req = _ur.Request(
+                  "https://oilprice.com/oil-price-charts/",
+                  headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
+                           "Referer": "https://oilprice.com/"}
+              )
+              with _ur.urlopen(_req, timeout=15) as _r:
+                  _html = _r.read().decode("utf-8", errors="ignore")
+              _oman_idx = _html.find("DME-Oman")
+              if _oman_idx < 0:
+                  raise ValueError("DME-Oman not found in page")
+              _snippet = _html[_oman_idx:_oman_idx+600]
+              _prices = _re.findall(r"data-price='([^']+)'", _snippet)
+              if not _prices:
+                  raise ValueError("No price found for Oman")
+              _price = round(float(_prices[0]), 2)
+              _prev = oman_existing_quote.get("price", _price)
+              _change = round(_price - _prev, 2)
+              _change_pct = round((_change / _prev) * 100, 2) if _prev else 0
+              quotes["OMAN"] = {
+                  "symbol": "OMAN",
+                  "name": "Oman Crude",
+                  "price": _price,
+                  "change": _change,
+                  "changePercent": _change_pct,
+                  "previousClose": round(_prev, 2),
+                  "note": "DME Oman — oilprice.com (1-day delay)",
+                  "source": "oilprice.com",
+              }
+              # Append today to Oman history
+              from datetime import datetime as _dt2, timezone as _tz2
+              _today_iso = _dt2.now(_tz2.utc).strftime("%Y-%m-%d")
+              _oman_dates = {e["date"] for e in oman_history}
+              if _today_iso not in _oman_dates:
+                  oman_history.append({"date": _today_iso, "close": _price})
+                  oman_history.sort(key=lambda x: x["date"])
+              history["OMAN"] = oman_history
+              print(f"Oman: scraped ${_price} from oilprice.com")
+          except Exception as _e:
+              print(f"Oman scrape failed ({_e}), preserving last known price")
+              if oman_existing_quote:
+                  quotes["OMAN"] = oman_existing_quote
+              if oman_history:
+                  history["OMAN"] = oman_history
 
           # Load Gulf ship count from AIS step
           gulf_ships = {"ships": None, "tankers": None}

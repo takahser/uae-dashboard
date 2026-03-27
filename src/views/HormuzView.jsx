@@ -347,7 +347,7 @@ export default function HormuzView({ onBack }) {
   const chartData = data.map((d) => ({ ...d, label: d.date.slice(5) }));
   const status = getStraitStatus(today.ships, today.tollPassage);
   const { data: marketData, history: marketHistory, gulf: gulfAIS, error: marketError, lastUpdated, loading: marketLoading, refetch } = useMarketData();
-  const [activeLines, setActiveLines] = useState({ "BZ=F": true, "CL=F": true, "DUBAI": true, "NG=F": false });
+  const [activeLines, setActiveLines] = useState({ "BZ=F": true, "CL=F": true, "DUBAI": true, "OMAN": true, "NG=F": false });
   const [priceRange, setPriceRange] = useState('ALL');
   const [expOn, setExpOn] = useState(() => { try { return localStorage.getItem("ww3_experimental") === "true"; } catch { return false; } });
   const toggleExp = useCallback(() => setExpOn(v => { const next = !v; try { localStorage.setItem("ww3_experimental", String(next)); } catch {} return next; }), []);
@@ -456,6 +456,7 @@ export default function HormuzView({ onBack }) {
             { key: 'BZ=F', name: 'Brent', color: ACCENT, axis: 'crude' },
             { key: 'CL=F', name: 'WTI', color: '#4a9eff', axis: 'crude' },
             { key: 'DUBAI', name: 'Dubai', color: '#9B59B6', axis: 'crude' },
+            { key: 'OMAN', name: 'Oman', color: '#E74C3C', axis: 'crude' },
             { key: 'NG=F', name: 'Nat Gas', color: '#10B981', axis: 'gas' },
           ];
           // Merge all dates into a unified dataset
@@ -478,7 +479,7 @@ export default function HormuzView({ onBack }) {
           const tickFormatter = (val, idx) => idx % tickInterval === 0 ? val.slice(5) : '';
 
           const gasActive = activeLines['NG=F'];
-          const crudeActive = activeLines['BZ=F'] || activeLines['CL=F'] || activeLines['DUBAI'];
+          const crudeActive = activeLines['BZ=F'] || activeLines['CL=F'] || activeLines['DUBAI'] || activeLines['OMAN'];
 
 
           return (
