@@ -348,6 +348,7 @@ export default function HormuzView({ onBack }) {
   const status = getStraitStatus(today.ships, today.tollPassage);
   const { data: marketData, history: marketHistory, gulf: gulfAIS, error: marketError, lastUpdated, loading: marketLoading, refetch } = useMarketData();
   const [activeLines, setActiveLines] = useState({ "BZ=F": true, "CL=F": true, "DUBAI": true, "NG=F": false });
+  const [priceRange, setPriceRange] = useState('ALL');
   const [expOn, setExpOn] = useState(() => { try { return localStorage.getItem("ww3_experimental") === "true"; } catch { return false; } });
   const toggleExp = useCallback(() => setExpOn(v => { const next = !v; try { localStorage.setItem("ww3_experimental", String(next)); } catch {} return next; }), []);
   const [bondsData, setBondsData] = useState(null);
@@ -465,7 +466,13 @@ export default function HormuzView({ onBack }) {
               dateMap[pt.date][s.key] = pt.close;
             }
           }
-          const priceData = Object.values(dateMap).sort((a, b) => a.date.localeCompare(b.date));
+          const allPriceData = Object.values(dateMap).sort((a, b) => a.date.localeCompare(b.date));
+          // Filter by selected time range
+          const rangeDays = { '1W': 7, '2W': 14, '3W': 21, 'ALL': 999 };
+          const cutoff = rangeDays[priceRange] || 999;
+          const priceData = cutoff < 999
+            ? allPriceData.slice(-cutoff)
+            : allPriceData.filter(d => d.date >= '2026-02-01');
           // Show ~6 tick labels
           const tickInterval = Math.max(1, Math.floor(priceData.length / 6));
           const tickFormatter = (val, idx) => idx % tickInterval === 0 ? val.slice(5) : '';
@@ -476,7 +483,20 @@ export default function HormuzView({ onBack }) {
 
           return (
             <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: `1px solid ${GLASS_BORDER}`, borderRadius: GLASS_RADIUS, padding: 20, marginBottom: 32 }}>
-              <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 12, color: ACCENT }}>Price History (30 Days)</h3>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                <h3 style={{ fontSize: '1rem', fontWeight: 600, margin: 0, color: ACCENT }}>Price History</h3>
+                <div style={{ display: 'flex', gap: 4 }}>
+                  {['1W','2W','3W','ALL'].map(r => (
+                    <button key={r} onClick={() => setPriceRange(r)} style={{
+                      background: priceRange === r ? 'rgba(255,255,255,0.15)' : 'transparent',
+                      color: priceRange === r ? '#fff' : 'rgba(255,255,255,0.4)',
+                      border: `1px solid ${priceRange === r ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.1)'}`,
+                      borderRadius: 5, padding: '3px 10px', fontSize: '0.72rem', fontWeight: 600,
+                      cursor: 'pointer', fontFamily: DM_SANS,
+                    }}>{r}</button>
+                  ))}
+                </div>
+              </div>
               {/* Toggle buttons */}
               <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
                 {PRICE_SYMBOLS.map(s => {
