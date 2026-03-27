@@ -1,0 +1,25 @@
+name: Test cbonds
+on:
+  push:
+    branches: ["main"]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch cbonds Oman price
+        run: |
+          curl -s "https://cbonds.com/indexes/189217/" \
+            -H "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36" \
+            -o /tmp/cbonds.html
+          echo "Size: $(wc -c < /tmp/cbonds.html)"
+          python3 << 'PYEOF'
+import re
+with open('/tmp/cbonds.html') as f:
+    html = f.read()
+print("Has Cloudflare:", "Cloudflare" in html or "__cf_chl" in html)
+prices = re.findall(r'"value"\s*:\s*([\d.]+)', html)
+print("Values:", prices[:5])
+# Also look for the index current value
+val = re.findall(r'[\d]{2,3}\.[\d]{2,3}', html)
+print("All numbers:", sorted(set(val), key=float, reverse=True)[:10])
+PYEOF
