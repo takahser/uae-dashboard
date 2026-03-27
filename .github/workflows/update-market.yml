@@ -131,9 +131,19 @@ jobs:
                   "note": f"CME DBLc1 futures — data as of {_data['date'][-1]}",
                   "source": "investiny/investing.com (1-2 day delay)",
               }
-              if dubai_history:
-                  history["DUBAI"] = dubai_history
-              print(f"Dubai: CME futures ${round(_price, 2)} (as of {_data['date'][-1]})")
+              # Auto-append any new dates to history (deduped by date)
+              existing_dates = {e["date"] for e in dubai_history}
+              added = 0
+              for _d, _c in zip(_data["date"], _data["close"]):
+                  _parts = _d.split("/")
+                  _iso = f"{_parts[2]}-{_parts[0]}-{_parts[1]}"
+                  if _iso not in existing_dates:
+                      dubai_history.append({"date": _iso, "close": round(_c, 2)})
+                      existing_dates.add(_iso)
+                      added += 1
+              dubai_history.sort(key=lambda x: x["date"])
+              history["DUBAI"] = dubai_history
+              print(f"Dubai: CME futures ${round(_price, 2)} (as of {_data['date'][-1]}) — {added} new history entries added")
           except Exception as _e:
               print(f"Dubai CME fetch failed ({_e}), preserving manual price")
               if dubai_existing_quote:
