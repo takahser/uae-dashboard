@@ -453,8 +453,8 @@ export default function HormuzView({ onBack }) {
         {/* Price History Chart */}
         {marketHistory && (() => {
           const PRICE_SYMBOLS = [
-            { key: 'BZ=F', name: 'Brent', color: ACCENT, axis: 'crude' },
-            { key: 'CL=F', name: 'WTI', color: '#4a9eff', axis: 'crude' },
+            { key: 'BZ=F', name: 'Brent (EU)', color: ACCENT, axis: 'crude' },
+            { key: 'CL=F', name: 'WTI (US)', color: '#4a9eff', axis: 'crude' },
             { key: 'DUBAI', name: 'Dubai', color: '#9B59B6', axis: 'crude' },
             { key: 'OMAN', name: 'Oman', color: '#E74C3C', axis: 'crude' },
             { key: 'NG=F', name: 'Nat Gas', color: '#10B981', axis: 'gas' },
