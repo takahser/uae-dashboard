@@ -101,16 +101,45 @@ jobs:
                       existing_data = _json.load(_f)
               except:
                   pass
-          # Dubai Platts crude — MANUAL UPDATE ONLY
-          # investing.com scraper returns stale/cached data; removed to prevent overwrites
-          # Update manually when verified sources report a new price (same as Oman)
+          # Dubai Platts crude — CME calendar swap futures via investiny (1-2 day delay)
+          # investing_id=1161259 = CME DBLc1 (Dubai Crude Oil Platts Financial Futures)
+          # Falls back to preserved manual price if fetch fails
           dubai_existing_quote = existing_data.get("quotes", {}).get("DUBAI", {})
           dubai_history = existing_data.get("history", {}).get("DUBAI", [])
-          if dubai_existing_quote:
-              quotes["DUBAI"] = dubai_existing_quote
-          if dubai_history:
-              history["DUBAI"] = dubai_history
-          print(f"Dubai: preserved manual price ${dubai_existing_quote.get('price', 'N/A')}")
+          try:
+              import subprocess as _sp, json as _json2
+              _r = _sp.run(
+                  ["pip", "install", "-q", "investiny"],
+                  capture_output=True
+              )
+              from investiny import historical_data as _hd
+              from datetime import datetime as _dt, timedelta as _td
+              _today = _dt.now().strftime("%m/%d/%Y")
+              _week_ago = (_dt.now() - _td(days=7)).strftime("%m/%d/%Y")
+              _data = _hd(investing_id=1161259, from_date=_week_ago, to_date=_today)
+              _price = _data["close"][-1]
+              _prev = _data["close"][-2] if len(_data["close"]) > 1 else _price
+              _change = round(_price - _prev, 2)
+              _change_pct = round((_change / _prev) * 100, 2) if _prev else 0
+              quotes["DUBAI"] = {
+                  "symbol": "DUBAI",
+                  "name": "Dubai Crude Oil (Platts Futures)",
+                  "price": round(_price, 2),
+                  "change": _change,
+                  "changePercent": _change_pct,
+                  "previousClose": round(_prev, 2),
+                  "note": f"CME DBLc1 futures — data as of {_data['date'][-1]}",
+                  "source": "investiny/investing.com (1-2 day delay)",
+              }
+              if dubai_history:
+                  history["DUBAI"] = dubai_history
+              print(f"Dubai: CME futures ${round(_price, 2)} (as of {_data['date'][-1]})")
+          except Exception as _e:
+              print(f"Dubai CME fetch failed ({_e}), preserving manual price")
+              if dubai_existing_quote:
+                  quotes["DUBAI"] = dubai_existing_quote
+              if dubai_history:
+                  history["DUBAI"] = dubai_history
 
           # Oman crude — manual update only (no free live source available)
           # Update this value manually when @KobeissiLetter or verified sources report a new price
