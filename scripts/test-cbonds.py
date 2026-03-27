@@ -2,28 +2,20 @@ import urllib.request, re, sys
 
 req = urllib.request.Request(
     "https://cbonds.com/indexes/189217/",
-    headers={
-        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.5",
-    }
+    headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36"}
 )
 with urllib.request.urlopen(req, timeout=15) as r:
     html = r.read().decode("utf-8", errors="ignore")
 
-print(f"Page size: {len(html)}")
-print(f"Has Cloudflare: {'__cf_chl' in html or 'cf-ray' in html.lower()}")
+# Find context around 112.0 (today's known Oman price)
+for m in re.finditer(r'112\.0', html):
+    print("CONTEXT:", html[max(0,m.start()-150):m.start()+100])
+    print("---")
 
-# Try to find the price
-prices = re.findall(r'"current_value"\s*:\s*([\d.]+)', html)
-print("current_value:", prices[:5])
+# Look for date + value patterns
+pairs = re.findall(r'(\d{4}-\d{2}-\d{2})[^0-9]{1,30}(1[0-2]\d\.\d+)', html)
+print("Date+price pairs:", pairs[:10])
 
-vals = re.findall(r'"value"\s*:\s*([\d.]+)', html)
-print("value fields:", vals[:5])
-
-# Large numbers likely to be oil prices
-big_nums = re.findall(r'\b(\d{2,3}\.\d{1,3})\b', html)
-unique = sorted(set(float(x) for x in big_nums if 50 < float(x) < 300), reverse=True)
-print("Plausible oil prices:", unique[:10])
-
-print("First 500 chars:", html[:500])
+# Look for JSON-like structures with dates
+json_dates = re.findall(r'"date"\s*:\s*"(\d{4}-\d{2}-\d{2})"[^}]{1,50}"value"\s*:\s*([\d.]+)', html)
+print("JSON date+value:", json_dates[:10])
