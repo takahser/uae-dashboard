@@ -1,5 +1,6 @@
 name: Test CME API
-on: workflow_dispatch
+on:
+  workflow_dispatch:
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -8,13 +9,18 @@ jobs:
         run: |
           curl -s "https://www.cmegroup.com/CmeWS/mvc/Quotes/Future/424/G" \
             -H "Accept: application/json" \
-            -H "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36" | python3 -c "
-import json,sys
-d=json.load(sys.stdin)
-quotes=d.get('quotes',[])
+            -H "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36" \
+            -o /tmp/cme.json
+          cat /tmp/cme.json | head -c 300
+          python3 << 'PYEOF'
+import json
+with open('/tmp/cme.json') as f:
+    d = json.load(f)
+quotes = d.get('quotes', [])
 if quotes:
-    q=quotes[0]
-    print('Last:', q.get('last'), 'Change:', q.get('change'), 'Updated:', q.get('updated'))
+    q = quotes[0]
+    print('Last:', q.get('last'), '| Change:', q.get('change'), '| Updated:', q.get('updated'))
 else:
-    print(json.dumps(d)[:200])
-"
+    print('No quotes. Keys:', list(d.keys()))
+    print('Raw:', str(d)[:300])
+PYEOF
