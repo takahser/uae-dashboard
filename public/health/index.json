@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-27T00:00:00Z",
+  "generated_at": "2026-03-28T06:22:22Z",
   "sources": {
     "aramco": {
       "id": "aramco",
@@ -21,13 +21,13 @@
       "override": null
     },
     "bonds": {
-      "id": "bonds",
       "label": "Bond Market Yields",
       "category": "bonds",
-      "last_updated": null,
       "stale_after_hours": 36,
       "market_hours_only": true,
       "trading_days": "mon-fri",
+      "id": "bonds",
+      "last_updated": "2026-03-28T06:22:22Z",
       "type": "regular",
       "override": null
     },
