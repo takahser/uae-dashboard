@@ -102,7 +102,7 @@ export default function AdminView({ onBack }) {
   }, [pw]);
 
   const fetchHealth = useCallback(() => {
-    fetch("public/health/index.json")
+    fetch(`${import.meta.env.BASE_URL || '/'}health/index.json`)
       .then((r) => {
         if (!r.ok) throw new Error(r.status);
         return r.json();
