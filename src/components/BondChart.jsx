@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { Tooltip as RTooltip, Legend } from 'recharts';
 
@@ -53,12 +53,18 @@ const btnActive = {
 };
 
 export default function BondChart({ data }) {
-  if (!data?.series) return null;
-
   const [timeframe, setTimeframe] = useState('1M');
-  const [visible, setVisible] = useState(() =>
-    Object.fromEntries(data.series.map(s => [s.id, true]))
-  );
+  const [visible, setVisible] = useState({});
+
+  // Sync visibility state when data.series becomes available
+  const seriesIds = data?.series?.map(s => s.id).join(',') || '';
+  useEffect(() => {
+    if (data?.series) {
+      setVisible(Object.fromEntries(data.series.map(s => [s.id, true])));
+    }
+  }, [seriesIds]);
+
+  if (!data?.series) return null;
 
   const toggleSeries = (id) => {
     setVisible(prev => ({ ...prev, [id]: !prev[id] }));

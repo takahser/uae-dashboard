@@ -134,12 +134,14 @@ function SourceCard({ code, data }) {
 export default function SourcesView({ onBack }) {
   const [sources, setSources] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(false);
 
   useEffect(() => {
-    fetch("/data-sources.json")
-      .then(r => r.json())
+    const base = import.meta.env.BASE_URL || '/';
+    fetch(base + "data-sources.json")
+      .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(d => { setSources(d); setLoading(false); })
-      .catch(() => setLoading(false));
+      .catch(() => { setFetchError(true); setLoading(false); });
   }, []);
 
   return (
@@ -165,6 +167,13 @@ export default function SourcesView({ onBack }) {
 
         {loading && <div style={{ textAlign: "center", padding: 60, color: SUBTEXT }}>Loading sources...</div>}
 
+        {fetchError && !sources && (
+          <div style={{ textAlign: "center", padding: 60, color: SUBTEXT }}>
+            <div style={{ fontSize: 14, marginBottom: 8, color: "#F59E0B" }}>Data sources unavailable</div>
+            <div style={{ fontSize: 12 }}>Could not load data-sources.json</div>
+          </div>
+        )}
+
         {sources && (
           <>
             {/* Methodology callout */}
@@ -182,6 +191,8 @@ export default function SourcesView({ onBack }) {
             </div>
 
             {/* Data Policy cards */}
+            {sources.dataPolicy && (
+            <>
             <h2 style={{ fontSize: 16, fontWeight: 600, marginBottom: 14, color: TEXT }}>Data Policy</h2>
             <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 36 }}>
               <PolicyCard icon="⊘" title="No Estimates" text={sources.dataPolicy.noEstimates} />
@@ -189,16 +200,24 @@ export default function SourcesView({ onBack }) {
               <PolicyCard icon="↻" title="Update Frequency" text={sources.dataPolicy.updateFrequency} />
               <PolicyCard icon="➡" title="Open Source" text={sources.dataPolicy.openSource} />
             </div>
+            </>
+            )}
 
             {/* Per-country sources */}
+            {sources.countries && (
+            <>
             <h2 style={{ fontSize: 16, fontWeight: 600, marginBottom: 14, color: TEXT }}>Country Sources</h2>
             <div style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 36 }}>
               {Object.entries(sources.countries).map(([code, data]) => (
                 <SourceCard key={code} code={code} data={data} />
               ))}
             </div>
+            </>
+            )}
 
             {/* Global sources */}
+            {sources.globalSources && (
+            <>
             <h2 style={{ fontSize: 16, fontWeight: 600, marginBottom: 14, color: TEXT }}>Global Cross-Reference Sources</h2>
             <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 36 }}>
               {sources.globalSources.map((src, i) => (
@@ -221,6 +240,8 @@ export default function SourcesView({ onBack }) {
                 </div>
               ))}
             </div>
+            </>
+            )}
 
             {/* Footer */}
             <div style={{

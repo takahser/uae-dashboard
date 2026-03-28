@@ -26,7 +26,7 @@ const STATUS_STYLES = {
 };
 
 function AirportCard({ airport, data }) {
-  const status = STATUS_STYLES[data?.status] || STATUS_STYLES.closed;
+  const status = data ? (STATUS_STYLES[data.status] || STATUS_STYLES.closed) : { label: 'UNKNOWN', color: '#6B7280', bg: 'rgba(107,114,128,0.15)' };
 
   return (
     <div style={{
@@ -89,9 +89,10 @@ export default function FlightsView({ onBack }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const base = import.meta.env.BASE_URL || '/';
     Promise.all(
       AIRPORTS.map(a =>
-        fetch(`/${a.file}`)
+        fetch(`${base}${a.file}`)
           .then(r => r.ok ? r.json() : null)
           .catch(() => null)
       )

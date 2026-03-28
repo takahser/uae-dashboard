@@ -669,7 +669,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
       allFiles.forEach((c, i) => { if (results[i]) data[c.code] = results[i]; });
       if (Object.keys(data).length === 0) { setError("Failed to load data files"); return; }
       setAllData(data);
-    });
+    }).catch(() => setError("Failed to load data files"));
     // Load flight data for all airports
     fetch(base + "data-flights-dxb.json").then(r => r.ok ? r.json() : null).then(d => setFlightData(d)).catch(() => {});
     fetch(base + "data-flights-dwc.json").then(r => r.ok ? r.json() : null).then(d => setFlightDataDwc(d)).catch(() => {});

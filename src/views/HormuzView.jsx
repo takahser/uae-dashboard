@@ -18,7 +18,7 @@ const SUBTEXT = 'rgba(255,255,255,0.5)';
 const ACCENT = '#F59E0B';
 const DM_SANS = "'DM Sans', -apple-system, sans-serif";
 
-const today = data[data.length - 1];
+const today = data.length > 0 ? data[data.length - 1] : { ships: 0, tankers: 0, oil_mbpd: 0, status: 'critical', tollPassage: false };
 const closureDays = data.filter((d) => d.status === 'critical').length;
 
 const intel = [
@@ -352,7 +352,7 @@ export default function HormuzView({ onBack }) {
   const [expOn, setExpOn] = useState(() => { try { return localStorage.getItem("ww3_experimental") === "true"; } catch { return false; } });
   const toggleExp = useCallback(() => setExpOn(v => { const next = !v; try { localStorage.setItem("ww3_experimental", String(next)); } catch {} return next; }), []);
   const [bondsData, setBondsData] = useState(null);
-  useEffect(() => { fetch('/data-bonds.json').then(r => r.ok ? r.json() : null).then(setBondsData).catch(() => {}); }, []);
+  useEffect(() => { const base = import.meta.env.BASE_URL || '/'; fetch(base + 'data-bonds.json').then(r => r.ok ? r.json() : null).then(setBondsData).catch(() => {}); }, []);
 
   return (
     <div style={{ minHeight: '100vh', background: BG, color: TEXT, fontFamily: DM_SANS, padding: '40px 20px', position: 'relative', overflowX: 'hidden' }}>
