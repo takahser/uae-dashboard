@@ -1,28 +1,28 @@
 {
-  "updated": "2026-03-29T23:46:26Z",
+  "updated": "2026-03-30T00:48:43Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 108.26,
-      "change": 2.94,
-      "changePercent": 2.79,
+      "price": 108.16,
+      "change": 2.84,
+      "changePercent": 2.7,
       "previousClose": 105.32
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 102.61,
-      "change": 2.97,
-      "changePercent": 2.98,
+      "price": 102.19,
+      "change": 2.55,
+      "changePercent": 2.56,
       "previousClose": 99.64
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.97,
-      "change": -0.06,
-      "changePercent": -1.98,
+      "price": 2.93,
+      "change": -0.09,
+      "changePercent": -2.98,
       "previousClose": 3.02
     },
     "2222.SR": {
@@ -189,8 +189,8 @@
         "close": 112.57
       },
       {
-        "date": "2026-03-29",
-        "close": 108.26
+        "date": "2026-03-30",
+        "close": 108.16
       }
     ],
     "CL=F": [
@@ -295,8 +295,8 @@
         "close": 99.64
       },
       {
-        "date": "2026-03-29",
-        "close": 102.61
+        "date": "2026-03-30",
+        "close": 102.19
       }
     ],
     "NG=F": [
@@ -401,8 +401,8 @@
         "close": 3.1
       },
       {
-        "date": "2026-03-29",
-        "close": 2.97
+        "date": "2026-03-30",
+        "close": 2.93
       }
     ],
     "2222.SR": [
@@ -521,6 +521,10 @@
       {
         "date": "2026-03-26",
         "close": 27.0
+      },
+      {
+        "date": "2026-03-29",
+        "close": 26.98
       }
     ],
     "FRO": [
@@ -1171,6 +1175,10 @@
       {
         "date": "2026-03-28",
         "close": 129.99
+      },
+      {
+        "date": "2026-03-29",
+        "close": 129.99
       }
     ],
     "OMAN": [
@@ -1187,6 +1195,6 @@
   "gulf": {
     "ships": 2,
     "tankers": 0,
-    "sampled_at": "2026-03-29T23:46:17Z"
+    "sampled_at": "2026-03-30T00:48:35Z"
   }
 }
