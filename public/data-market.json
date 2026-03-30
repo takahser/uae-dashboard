@@ -1,28 +1,28 @@
 {
-  "updated": "2026-03-30T20:49:41Z",
+  "updated": "2026-03-30T21:21:11Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 108.9,
-      "change": 3.58,
-      "changePercent": 3.4,
+      "price": 108.79,
+      "change": 3.47,
+      "changePercent": 3.29,
       "previousClose": 105.32
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 105.19,
-      "change": 5.55,
-      "changePercent": 5.57,
+      "price": 105.01,
+      "change": 5.37,
+      "changePercent": 5.39,
       "previousClose": 99.64
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.88,
-      "change": -0.15,
-      "changePercent": -4.96,
+      "price": 2.89,
+      "change": -0.14,
+      "changePercent": -4.63,
       "previousClose": 3.02
     },
     "2222.SR": {
@@ -78,9 +78,9 @@
     "OMAN": {
       "symbol": "OMAN",
       "name": "Oman Crude",
-      "price": 112.0,
-      "change": 0.0,
-      "changePercent": 0.0,
+      "price": 116.4,
+      "change": 4.4,
+      "changePercent": 3.93,
       "previousClose": 112.0,
       "note": "DME Oman \u2014 cbonds.com (2026-03-30)",
       "source": "cbonds.com/indexes/189217"
@@ -186,7 +186,7 @@
       },
       {
         "date": "2026-03-30",
-        "close": 108.9
+        "close": 108.79
       }
     ],
     "CL=F": [
@@ -288,7 +288,7 @@
       },
       {
         "date": "2026-03-30",
-        "close": 105.19
+        "close": 105.01
       }
     ],
     "NG=F": [
@@ -390,7 +390,7 @@
       },
       {
         "date": "2026-03-30",
-        "close": 2.88
+        "close": 2.89
       }
     ],
     "2222.SR": [
@@ -509,10 +509,6 @@
       {
         "date": "2026-03-29",
         "close": 26.98
-      },
-      {
-        "date": "2026-03-30",
-        "close": 27.28
       }
     ],
     "FRO": [
@@ -1187,6 +1183,6 @@
   "gulf": {
     "ships": 1,
     "tankers": 0,
-    "sampled_at": "2026-03-30T20:49:32Z"
+    "sampled_at": "2026-03-30T21:21:00Z"
   }
 }
