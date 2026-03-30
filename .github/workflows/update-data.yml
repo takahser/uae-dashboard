@@ -81,6 +81,7 @@ jobs:
             echo "changed=false" >> $GITHUB_OUTPUT
           else
             git commit -m "chore: update attack data"
+            git pull --rebase origin main
             git push
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
