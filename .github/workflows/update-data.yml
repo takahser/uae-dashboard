@@ -54,12 +54,24 @@ jobs:
         run: node scripts/fetch-flights-fr24.js
         continue-on-error: true
 
+      - name: Setup Python for health timestamps
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Write health timestamps
+        run: |
+          pip install requests -q
+          for src in flight_dxb flight_auh flight_others bahrain_attacks iran_data kuwait_attacks uae_attacks; do
+            python scripts/write-health.py $src || true
+          done
+
       - name: Commit updated data files (if changed)
         id: commit
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/data-*.json .github/scripts/tweet-cache/*.json
+          git add public/data-*.json .github/scripts/tweet-cache/*.json public/health/
           if git diff --cached --quiet; then
             echo "No changes to commit."
             echo "changed=false" >> $GITHUB_OUTPUT
