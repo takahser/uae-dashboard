@@ -32,9 +32,11 @@ jobs:
         run: |
           pip install requests
           python scripts/update-market.py
+        continue-on-error: true
 
       - name: Append AIS count to hormuz.json
         run: python3 scripts/append-hormuz.py
+        continue-on-error: true
 
       - name: Write health timestamps
         run: |

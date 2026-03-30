@@ -35,6 +35,7 @@ jobs:
 
       - name: Fetch tweets via Playwright
         run: node .github/scripts/fetch-tweets-playwright.js
+        continue-on-error: true
 
       - name: Fetch DXB flight data (OpenSky)
         env:

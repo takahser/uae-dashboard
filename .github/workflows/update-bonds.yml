@@ -12,6 +12,7 @@ jobs:
         with:
           node-version: "20"
       - run: node scripts/fetch-bonds.js
+        continue-on-error: true
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           EODHD_API_KEY: ${{ secrets.EODHD_API_KEY }}
