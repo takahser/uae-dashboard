@@ -66,10 +66,14 @@ jobs:
           python scripts/write-health.py flight_dxb --method flightradar24 --source-url "https://www.flightradar24.com/" || true
           python scripts/write-health.py flight_auh --method flightradar24 --source-url "https://www.flightradar24.com/" || true
           python scripts/write-health.py flight_others --method flightradar24 --source-url "https://www.flightradar24.com/" || true
-          python scripts/write-health.py bahrain_attacks --method twitter-playwright --source-url "https://x.com/" || true
-          python scripts/write-health.py iran_data --method twitter-playwright --source-url "https://x.com/" || true
-          python scripts/write-health.py kuwait_attacks --method twitter-playwright --source-url "https://x.com/" || true
-          python scripts/write-health.py uae_attacks --method twitter-playwright --source-url "https://x.com/" || true
+          UAE_TOTAL=$(python3 -c "import json; d=json.load(open('public/data-uae.json')); c=d.get('cumulative',{}); print(c.get('ballisticDetected',0)+c.get('cruiseDetected',0)+c.get('dronesDetected',0))" 2>/dev/null || echo "")
+          BHR_TOTAL=$(python3 -c "import json; d=json.load(open('public/data-bahrain.json')); c=d.get('cumulative',{}); print(c.get('total',c.get('ballisticDetected',0)+c.get('dronesDetected',0)))" 2>/dev/null || echo "")
+          KWT_TOTAL=$(python3 -c "import json; d=json.load(open('public/data-kuwait.json')); c=d.get('cumulative',{}); print(c.get('total',c.get('ballisticDetected',0)+c.get('dronesDetected',0)))" 2>/dev/null || echo "")
+          IRN_TOTAL=$(python3 -c "import json; d=json.load(open('public/data-iran.json')); c=d.get('cumulative',{}); print(c.get('total',c.get('ballisticDetected',0)+c.get('dronesDetected',0)))" 2>/dev/null || echo "")
+          python scripts/write-health.py bahrain_attacks --method twitter-playwright --source-url "https://x.com/" ${BHR_TOTAL:+--new-value "$BHR_TOTAL"} || true
+          python scripts/write-health.py iran_data --method twitter-playwright --source-url "https://x.com/" ${IRN_TOTAL:+--new-value "$IRN_TOTAL"} || true
+          python scripts/write-health.py kuwait_attacks --method twitter-playwright --source-url "https://x.com/" ${KWT_TOTAL:+--new-value "$KWT_TOTAL"} || true
+          python scripts/write-health.py uae_attacks --method twitter-playwright --source-url "https://x.com/" ${UAE_TOTAL:+--new-value "$UAE_TOTAL"} || true
 
       - name: Commit updated data files (if changed)
         id: commit

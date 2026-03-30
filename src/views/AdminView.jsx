@@ -32,12 +32,18 @@ function getStatus(src) {
   const now = Date.now();
 
   if (src.type === "event") {
-    return {
-      status: "event",
-      dot: colors.gray,
-      icon: "\u2014",
-      label: src.last_updated ? "last event: " + relativeTime(src.last_updated) : "never",
-    };
+    if (!src.last_updated) {
+      return { status: "never", dot: colors.red, icon: "🔴", label: "never updated" };
+    }
+    const ageHours = (Date.now() - Date.parse(src.last_updated)) / 3600000;
+    const threshold = src.stale_after_hours || 36;
+    if (ageHours < threshold) {
+      return { status: "ok", dot: colors.green, icon: "🟢", label: "last update: " + relativeTime(src.last_updated) };
+    }
+    if (ageHours < 48) {
+      return { status: "warning", dot: colors.orange, icon: "🟠", label: "last update: " + relativeTime(src.last_updated) };
+    }
+    return { status: "critical", dot: colors.red, icon: "🔴", label: "last update: " + relativeTime(src.last_updated) };
   }
 
   if (src.override && src.override.until && Date.parse(src.override.until) > now) {
