@@ -36,11 +36,17 @@ jobs:
       - name: Append AIS count to hormuz.json
         run: python3 scripts/append-hormuz.py
 
+      - name: Write health timestamps
+        run: |
+          for src in brent wti natgas aramco frontline stng rtx lmt dubai oman gulf_ais hormuz_chart; do
+            python scripts/write-health.py $src || true
+          done
+
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/data-market.json public/data-substitution.json src/data/hormuz.json
+          git add public/data-market.json public/data-substitution.json src/data/hormuz.json public/health/
           git diff --cached --quiet && echo "No changes" && exit 0
           git commit -m "data: update market + substitution $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           git push
