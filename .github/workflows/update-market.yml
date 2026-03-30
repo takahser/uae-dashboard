@@ -38,9 +38,18 @@ jobs:
 
       - name: Write health timestamps
         run: |
-          for src in brent wti natgas aramco frontline stng rtx lmt dubai oman gulf_ais hormuz_chart; do
-            python scripts/write-health.py $src || true
-          done
+          python scripts/write-health.py brent --method yahoo-finance --source-url "https://finance.yahoo.com/quote/BZ=F" || true
+          python scripts/write-health.py wti --method yahoo-finance --source-url "https://finance.yahoo.com/quote/CL=F" || true
+          python scripts/write-health.py natgas --method yahoo-finance --source-url "https://finance.yahoo.com/quote/NG=F" || true
+          python scripts/write-health.py aramco --method yahoo-finance --source-url "https://finance.yahoo.com/quote/2222.SR" || true
+          python scripts/write-health.py frontline --method yahoo-finance --source-url "https://finance.yahoo.com/quote/FRO" || true
+          python scripts/write-health.py stng --method yahoo-finance --source-url "https://finance.yahoo.com/quote/STNG" || true
+          python scripts/write-health.py rtx --method yahoo-finance --source-url "https://finance.yahoo.com/quote/RTX" || true
+          python scripts/write-health.py lmt --method yahoo-finance --source-url "https://finance.yahoo.com/quote/LMT" || true
+          python scripts/write-health.py dubai --method oilprice-scrape --source-url "https://oilprice.com/" || true
+          python scripts/write-health.py oman --method cbonds-scrape --source-url "https://cbonds.com/indexes/189217/" || true
+          python scripts/write-health.py gulf_ais --method aisstream --source-url "wss://stream.aisstream.io/v0/stream" || true
+          python scripts/write-health.py hormuz_chart --method aisstream --source-url "wss://stream.aisstream.io/v0/stream" || true
 
       - name: Commit and push
         run: |

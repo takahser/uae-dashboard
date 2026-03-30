@@ -62,9 +62,13 @@ jobs:
       - name: Write health timestamps
         run: |
           pip install requests -q
-          for src in flight_dxb flight_auh flight_others bahrain_attacks iran_data kuwait_attacks uae_attacks; do
-            python scripts/write-health.py $src || true
-          done
+          python scripts/write-health.py flight_dxb --method flightradar24 --source-url "https://www.flightradar24.com/" || true
+          python scripts/write-health.py flight_auh --method flightradar24 --source-url "https://www.flightradar24.com/" || true
+          python scripts/write-health.py flight_others --method flightradar24 --source-url "https://www.flightradar24.com/" || true
+          python scripts/write-health.py bahrain_attacks --method twitter-playwright --source-url "https://x.com/" || true
+          python scripts/write-health.py iran_data --method twitter-playwright --source-url "https://x.com/" || true
+          python scripts/write-health.py kuwait_attacks --method twitter-playwright --source-url "https://x.com/" || true
+          python scripts/write-health.py uae_attacks --method twitter-playwright --source-url "https://x.com/" || true
 
       - name: Commit updated data files (if changed)
         id: commit

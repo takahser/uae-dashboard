@@ -6,7 +6,7 @@ Usage: python scripts/write-health.py <source_id> [source_id2 ...]
 Reads existing file to preserve all fields; only updates last_updated.
 After writing, regenerates public/health/index.json from all source files.
 """
-import json, os, sys, glob
+import argparse, json, os, sys, glob
 from datetime import datetime, timezone
 
 SOURCES_CONFIG = {
@@ -44,11 +44,16 @@ HEALTH_DIR = "public/health"
 os.makedirs(HEALTH_DIR, exist_ok=True)
 
 now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-source_ids = sys.argv[1:]
 
-if not source_ids:
-    print("Usage: write-health.py <source_id> [source_id2 ...]")
-    sys.exit(1)
+parser = argparse.ArgumentParser()
+parser.add_argument("source_ids", nargs="+")
+parser.add_argument("--old-value")
+parser.add_argument("--new-value")
+parser.add_argument("--method")
+parser.add_argument("--source-url")
+args = parser.parse_args()
+
+source_ids = args.source_ids
 
 for source_id in source_ids:
     path = os.path.join(HEALTH_DIR, f"{source_id}.json")
@@ -72,6 +77,38 @@ for source_id in source_ids:
         json.dump(merged, f, indent=2)
 
     print(f"health: {source_id} updated at {now}")
+
+# Append to history if new_value provided
+HISTORY_DIR = os.path.join(HEALTH_DIR, "history")
+os.makedirs(HISTORY_DIR, exist_ok=True)
+
+if args.new_value:
+    for source_id in source_ids:
+        hist_path = os.path.join(HISTORY_DIR, f"{source_id}.json")
+        history = []
+        if os.path.exists(hist_path):
+            try:
+                with open(hist_path) as f:
+                    history = json.load(f)
+            except Exception:
+                pass
+
+        entry = {"timestamp": now}
+        if args.old_value:
+            entry["old_value"] = args.old_value
+        if args.new_value:
+            entry["new_value"] = args.new_value
+        if args.method:
+            entry["method"] = args.method
+        if args.source_url:
+            entry["source_url"] = args.source_url
+
+        history.insert(0, entry)
+        history = history[:90]
+
+        with open(hist_path, "w") as f:
+            json.dump(history, f, indent=2)
+        print(f"history: {source_id} logged ({len(history)} entries)")
 
 # Regenerate index.json from all source files (atomic: write all, then move)
 all_sources = {}

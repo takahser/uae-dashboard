@@ -75,6 +75,50 @@ function getStatus(src) {
 
 const sortOrder = { critical: 0, never: 0, warning: 1, override: 2, event: 3, closed: 4, ok: 4 };
 
+function HistorySlideOver({ source, history, loading, onClose }) {
+  if (!source) return null;
+
+  return (
+    <div style={{
+      position: "fixed", top: 0, right: 0, bottom: 0,
+      width: 400, maxWidth: "90vw",
+      background: colors.bg, borderLeft: `1px solid ${colors.border}`,
+      zIndex: 1000, overflowY: "auto", padding: 20,
+      boxShadow: "-4px 0 20px rgba(0,0,0,0.3)"
+    }}>
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 16 }}>
+        <h2 style={{ margin: 0, fontSize: 18 }}>{source} History</h2>
+        <button onClick={onClose} style={{ background: "none", border: "none", color: colors.text, cursor: "pointer", fontSize: 20 }}>&times;</button>
+      </div>
+
+      {loading ? <div>Loading...</div> : history.length === 0 ? <div style={{ color: colors.subtext }}>No history available</div> : (
+        <table style={{ width: "100%", fontSize: 13, borderCollapse: "collapse" }}>
+          <thead>
+            <tr style={{ color: colors.subtext, textAlign: "left" }}>
+              <th style={{ padding: "8px 4px" }}>Time</th>
+              <th style={{ padding: "8px 4px" }}>Old</th>
+              <th style={{ padding: "8px 4px" }}>New</th>
+              <th style={{ padding: "8px 4px" }}>Method</th>
+            </tr>
+          </thead>
+          <tbody>
+            {history.map((h, i) => (
+              <tr key={i} style={{ borderTop: `1px solid ${colors.border}` }}>
+                <td style={{ padding: "8px 4px" }}>{relativeTime(h.timestamp)}</td>
+                <td style={{ padding: "8px 4px" }}>{h.old_value || "-"}</td>
+                <td style={{ padding: "8px 4px" }}>{h.new_value || "-"}</td>
+                <td style={{ padding: "8px 4px" }}>
+                  {h.source_url ? <a href={h.source_url} target="_blank" rel="noopener" style={{ color: colors.accent }}>{h.method}</a> : h.method || "-"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+}
+
 export default function AdminView({ onBack }) {
   const [authed, setAuthed] = useState(false);
   const [pw, setPw] = useState("");
@@ -83,6 +127,9 @@ export default function AdminView({ onBack }) {
   const [fetchError, setFetchError] = useState(false);
   const [lastFetch, setLastFetch] = useState(null);
   const [secondsAgo, setSecondsAgo] = useState(0);
+  const [selectedSource, setSelectedSource] = useState(null);
+  const [history, setHistory] = useState([]);
+  const [historyLoading, setHistoryLoading] = useState(false);
   const [isMobile, setIsMobile] = useState(
     typeof window !== "undefined" ? window.innerWidth < MOBILE_BREAKPOINT : false
   );
@@ -136,6 +183,17 @@ export default function AdminView({ onBack }) {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const handleRowClick = async (sourceId) => {
+    setSelectedSource(sourceId);
+    setHistoryLoading(true);
+    try {
+      const res = await fetch(`${import.meta.env.BASE_URL || '/'}health/history/${sourceId}.json`);
+      if (res.ok) setHistory(await res.json());
+      else setHistory([]);
+    } catch { setHistory([]); }
+    setHistoryLoading(false);
+  };
 
   if (!authed) {
     return (
@@ -323,12 +381,14 @@ export default function AdminView({ onBack }) {
               return (
                 <div
                   key={s.key || i}
+                  onClick={() => handleRowClick(s.id)}
                   style={{
                     padding: "12px 16px",
                     borderBottom: `1px solid ${colors.border}`,
                     display: "flex",
                     alignItems: "flex-start",
                     gap: 10,
+                    cursor: "pointer",
                   }}
                 >
                   <span
@@ -363,6 +423,7 @@ export default function AdminView({ onBack }) {
             return (
               <div
                 key={s.key || i}
+                onClick={() => handleRowClick(s.id)}
                 style={{
                   display: "grid",
                   gridTemplateColumns: "40px 1fr 120px 1fr",
@@ -370,6 +431,7 @@ export default function AdminView({ onBack }) {
                   borderBottom: `1px solid ${colors.border}`,
                   alignItems: "center",
                   fontSize: 14,
+                  cursor: "pointer",
                 }}
               >
                 <span
@@ -409,6 +471,9 @@ export default function AdminView({ onBack }) {
           })}
         </div>
       </div>
+
+      {selectedSource && <div onClick={() => setSelectedSource(null)} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", zIndex: 999 }} />}
+      <HistorySlideOver source={selectedSource} history={history} loading={historyLoading} onClose={() => setSelectedSource(null)} />
     </div>
   );
 }
