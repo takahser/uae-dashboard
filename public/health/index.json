@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-30T11:54:23Z",
+  "generated_at": "2026-03-30T12:05:23Z",
   "sources": {
     "aramco": {
       "label": "Saudi Aramco",
@@ -13,11 +13,11 @@
       "override": null
     },
     "bahrain_attacks": {
-      "id": "bahrain_attacks",
       "label": "Bahrain Attack Data",
       "category": "attacks",
-      "last_updated": null,
       "type": "event",
+      "id": "bahrain_attacks",
+      "last_updated": "2026-03-30T12:05:23Z",
       "override": null
     },
     "bonds": {
@@ -54,22 +54,24 @@
       "override": null
     },
     "flight_auh": {
-      "id": "flight_auh",
       "label": "AUH Flights",
       "category": "flights",
-      "last_updated": null,
       "stale_after_hours": 36,
       "market_hours_only": false,
+      "trading_days": null,
+      "id": "flight_auh",
+      "last_updated": "2026-03-30T12:05:23Z",
       "type": "regular",
       "override": null
     },
     "flight_dxb": {
-      "id": "flight_dxb",
       "label": "DXB Flights",
       "category": "flights",
-      "last_updated": null,
       "stale_after_hours": 36,
       "market_hours_only": false,
+      "trading_days": null,
+      "id": "flight_dxb",
+      "last_updated": "2026-03-30T12:05:23Z",
       "type": "regular",
       "override": null
     },
@@ -77,7 +79,7 @@
       "id": "flight_others",
       "label": "Other Airports",
       "category": "flights",
-      "last_updated": null,
+      "last_updated": "2026-03-30T12:05:23Z",
       "stale_after_hours": 36,
       "market_hours_only": false,
       "type": "regular",
@@ -117,19 +119,19 @@
       "override": null
     },
     "iran_data": {
-      "id": "iran_data",
       "label": "Iran Conflict Data",
       "category": "attacks",
-      "last_updated": null,
       "type": "event",
+      "id": "iran_data",
+      "last_updated": "2026-03-30T12:05:23Z",
       "override": null
     },
     "kuwait_attacks": {
-      "id": "kuwait_attacks",
       "label": "Kuwait Attack Data",
       "category": "attacks",
-      "last_updated": null,
       "type": "event",
+      "id": "kuwait_attacks",
+      "last_updated": "2026-03-30T12:05:23Z",
       "override": null
     },
     "lmt": {
@@ -188,11 +190,11 @@
       "override": null
     },
     "uae_attacks": {
-      "id": "uae_attacks",
       "label": "UAE Attack Data",
       "category": "attacks",
-      "last_updated": null,
       "type": "event",
+      "id": "uae_attacks",
+      "last_updated": "2026-03-30T12:05:23Z",
       "override": null
     },
     "wti": {
