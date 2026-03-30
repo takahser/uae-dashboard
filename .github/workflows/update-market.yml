@@ -49,4 +49,4 @@ jobs:
           git add public/data-market.json public/data-substitution.json src/data/hormuz.json public/health/
           git diff --cached --quiet && echo "No changes" && exit 0
           git commit -m "data: update market + substitution $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          git push
+          git pull --rebase && git push
