@@ -101,6 +101,7 @@ async function main() {
   let existing;
   try {
     existing = JSON.parse(readFileSync(DATA_FILE, "utf8"));
+    existing.daily = existing.daily || [];
   } catch {
     existing = { airport: AIRPORT, airportName: "Dubai International (DXB)", daily: [] };
   }

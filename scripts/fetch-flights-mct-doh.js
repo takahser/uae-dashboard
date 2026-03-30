@@ -106,6 +106,7 @@ async function processAirport(token, airport) {
   let existing;
   try {
     existing = JSON.parse(readFileSync(dataFile, "utf8"));
+    existing.daily = existing.daily || [];
   } catch {
     existing = { airport: airport.icao, airportName: airport.name, daily: [] };
   }
