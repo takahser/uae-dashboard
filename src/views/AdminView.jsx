@@ -19,6 +19,19 @@ const colors = {
 
 const font = '"DM Sans", system-ui, sans-serif';
 
+const CATEGORY_EMOJIS = {
+  market: "📈",
+  ais: "🚢",
+  flights: "✈️",
+  attacks: "💥",
+};
+
+function categoryWithEmoji(cat) {
+  if (!cat) return "";
+  const emoji = CATEGORY_EMOJIS[cat.toLowerCase()];
+  return emoji ? `${emoji} ${cat}` : cat;
+}
+
 function relativeTime(ts) {
   if (!ts) return "never";
   const s = (Date.now() - Date.parse(ts)) / 1000;
@@ -81,7 +94,7 @@ function getStatus(src) {
 
 const sortOrder = { critical: 0, never: 0, warning: 1, override: 2, event: 3, closed: 4, ok: 4 };
 
-function HistorySlideOver({ source, history, loading, onClose }) {
+function HistorySlideOver({ source, history, loading, notFound, onClose }) {
   if (!source) return null;
 
   return (
@@ -97,7 +110,7 @@ function HistorySlideOver({ source, history, loading, onClose }) {
         <button onClick={onClose} style={{ background: "none", border: "none", color: colors.text, cursor: "pointer", fontSize: 20 }}>&times;</button>
       </div>
 
-      {loading ? <div>Loading...</div> : history.length === 0 ? <div style={{ color: colors.subtext }}>No history available</div> : (
+      {loading ? <div>Loading...</div> : history.length === 0 ? <div style={{ color: colors.subtext }}>{notFound ? "No history recorded yet — data will appear after the next workflow run." : "No history available"}</div> : (
         <table style={{ width: "100%", fontSize: 13, borderCollapse: "collapse" }}>
           <thead>
             <tr style={{ color: colors.subtext, textAlign: "left" }}>
@@ -136,6 +149,9 @@ export default function AdminView({ onBack }) {
   const [selectedSource, setSelectedSource] = useState(null);
   const [history, setHistory] = useState([]);
   const [historyLoading, setHistoryLoading] = useState(false);
+  const [historyNotFound, setHistoryNotFound] = useState(false);
+  const [sortCol, setSortCol] = useState(null); // "source" | "category" | "updated"
+  const [sortDir, setSortDir] = useState("asc");
   const [isMobile, setIsMobile] = useState(
     typeof window !== "undefined" ? window.innerWidth < MOBILE_BREAKPOINT : false
   );
@@ -193,10 +209,17 @@ export default function AdminView({ onBack }) {
   const handleRowClick = async (sourceId) => {
     setSelectedSource(sourceId);
     setHistoryLoading(true);
+    setHistoryNotFound(false);
     try {
-      const res = await fetch(`${import.meta.env.BASE_URL || '/'}health/history/${sourceId}.json`);
-      if (res.ok) setHistory(await res.json());
-      else setHistory([]);
+      const res = await fetch(`/health/history/${sourceId}.json`);
+      if (res.ok) {
+        setHistory(await res.json());
+      } else if (res.status === 404) {
+        setHistory([]);
+        setHistoryNotFound(true);
+      } else {
+        setHistory([]);
+      }
     } catch { setHistory([]); }
     setHistoryLoading(false);
   };
@@ -259,12 +282,34 @@ export default function AdminView({ onBack }) {
   const sourcesObj = health ? health.sources || {} : {};
   const sources = Object.values(sourcesObj);
   const enriched = sources.map((s) => ({ ...s, _st: getStatus(s) }));
-  enriched.sort((a, b) => {
-    const oa = sortOrder[a._st.status] ?? 5;
-    const ob = sortOrder[b._st.status] ?? 5;
-    if (oa !== ob) return oa - ob;
-    return (a.label || "").localeCompare(b.label || "");
-  });
+
+  const handleSort = (col) => {
+    if (sortCol === col) {
+      setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+    } else {
+      setSortCol(col);
+      setSortDir("asc");
+    }
+  };
+
+  if (sortCol) {
+    const dir = sortDir === "asc" ? 1 : -1;
+    enriched.sort((a, b) => {
+      if (sortCol === "source") return dir * (a.label || "").localeCompare(b.label || "");
+      if (sortCol === "category") return dir * (a.category || "").localeCompare(b.category || "");
+      // "updated"
+      const ta = a.last_updated ? Date.parse(a.last_updated) : 0;
+      const tb = b.last_updated ? Date.parse(b.last_updated) : 0;
+      return dir * (ta - tb);
+    });
+  } else {
+    enriched.sort((a, b) => {
+      const oa = sortOrder[a._st.status] ?? 5;
+      const ob = sortOrder[b._st.status] ?? 5;
+      if (oa !== ob) return oa - ob;
+      return (a.label || "").localeCompare(b.label || "");
+    });
+  }
 
   const counts = { critical: 0, warning: 0, ok: 0, override: 0, event: 0 };
   enriched.forEach((s) => {
@@ -347,6 +392,48 @@ export default function AdminView({ onBack }) {
           <span>🟢 {counts.ok} ok</span>
           <span>⚫ {counts.override} override</span>
           <span>— {counts.event} event</span>
+        </div>
+
+        <div style={{ display: "flex", gap: 8, marginBottom: 12, flexWrap: "wrap" }}>
+          {[["source", "Source"], ["category", "Category"], ["updated", "Last Updated"]].map(([col, label]) => {
+            const active = sortCol === col;
+            return (
+              <button
+                key={col}
+                onClick={() => handleSort(col)}
+                style={{
+                  padding: "6px 14px",
+                  fontSize: 13,
+                  fontFamily: font,
+                  borderRadius: 6,
+                  border: `1px solid ${active ? colors.accent : colors.border}`,
+                  background: active ? "rgba(245,158,11,0.12)" : colors.card,
+                  color: active ? colors.accent : colors.subtext,
+                  cursor: "pointer",
+                  fontWeight: active ? 600 : 400,
+                }}
+              >
+                {label} {active ? (sortDir === "asc" ? "▲" : "▼") : ""}
+              </button>
+            );
+          })}
+          {sortCol && (
+            <button
+              onClick={() => { setSortCol(null); setSortDir("asc"); }}
+              style={{
+                padding: "6px 14px",
+                fontSize: 13,
+                fontFamily: font,
+                borderRadius: 6,
+                border: `1px solid ${colors.border}`,
+                background: colors.card,
+                color: colors.subtext,
+                cursor: "pointer",
+              }}
+            >
+              Reset
+            </button>
+          )}
         </div>
 
         <div
@@ -450,7 +537,7 @@ export default function AdminView({ onBack }) {
                   }}
                 />
                 <div style={{ fontWeight: 500 }}>{s.label}</div>
-                <div style={{ fontSize: 13, color: colors.subtext }}>{s.category || ""}</div>
+                <div style={{ fontSize: 13, color: colors.subtext }}>{categoryWithEmoji(s.category)}</div>
                 <div>
                   {s._st.status === "event" || s._st.status === "override" ? (
                     <span style={{ fontSize: 13, color: colors.subtext }}>{s._st.label}</span>
@@ -479,7 +566,7 @@ export default function AdminView({ onBack }) {
       </div>
 
       {selectedSource && <div onClick={() => setSelectedSource(null)} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", zIndex: 999 }} />}
-      <HistorySlideOver source={selectedSource} history={history} loading={historyLoading} onClose={() => setSelectedSource(null)} />
+      <HistorySlideOver source={selectedSource} history={history} loading={historyLoading} notFound={historyNotFound} onClose={() => setSelectedSource(null)} />
     </div>
   );
 }
