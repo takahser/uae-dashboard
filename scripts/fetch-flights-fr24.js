@@ -108,6 +108,19 @@ async function processAirport(airport) {
   existing.todayTotal = total;
   existing.todayFetched = new Date().toISOString();
 
+  // Also append today's result into the daily history array
+  const todayDate = new Date().toISOString().slice(0, 10);
+  if (!existing.daily) existing.daily = [];
+  const existingDayIdx = existing.daily.findIndex((d) => d.date === todayDate);
+  if (existingDayIdx === -1) {
+    existing.daily.push({ date: todayDate, departures, arrivals, total, regions: {}, flights: [] });
+    existing.daily.sort((a, b) => a.date.localeCompare(b.date));
+    console.log(`[${airport.iata}] Appended daily entry for ${todayDate}`);
+  } else {
+    existing.daily[existingDayIdx] = { ...existing.daily[existingDayIdx], departures, arrivals, total };
+    console.log(`[${airport.iata}] Updated daily entry for ${todayDate}`);
+  }
+
   writeFileSync(dataFile, JSON.stringify(existing, null, 2) + "\n");
   console.log(`[${airport.iata}] Wrote ${dataFile}`);
 }
