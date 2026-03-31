@@ -7,6 +7,7 @@ import MarketPanel from '../components/MarketPanel';
 import EnergyAttacksMap from '../components/EnergyAttacksMap';
 import { useMarketData } from '../hooks/useMarketData';
 import BondChart from '../components/BondChart';
+import FlightChart from '../components/FlightChart';
 
 const BG = '#050B1A';
 const CARD_BG = 'rgba(255,255,255,0.08)';
@@ -555,6 +556,14 @@ export default function HormuzView({ onBack }) {
             <div style={{ marginBottom: 32 }} />
           </div>
         )}
+
+        {/* Airport Flight Volume */}
+        <div style={{ marginTop: 24, marginBottom: 32 }}>
+          <div style={{ color: TEXT, fontFamily: DM_SANS, fontSize: 11, fontWeight: 600, letterSpacing: "0.1em", marginBottom: 12 }}>
+            AIRPORT OPERATIONS
+          </div>
+          <FlightChart />
+        </div>
 
         {/* Chokepoint Facts */}
         <div style={{ background: CARD_BG, backdropFilter: GLASS_BLUR, border: `1px solid ${GLASS_BORDER}`, borderRadius: GLASS_RADIUS, padding: 20, marginBottom: 32 }}>

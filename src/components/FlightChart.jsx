@@ -1,0 +1,190 @@
+import { useState, useEffect, useMemo } from 'react';
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ReferenceLine } from 'recharts';
+import { Tooltip as RTooltip } from 'recharts';
+
+const AIRPORTS = [
+  { key: 'DXB', name: 'Dubai (DXB)', file: 'data-flights-dxb.json', color: '#EF4444' },
+  { key: 'AUH', name: 'Abu Dhabi (AUH)', file: 'data-flights-auh.json', color: '#3B82F6' },
+  { key: 'DWC', name: 'Al Maktoum (DWC)', file: 'data-flights-dwc.json', color: '#10B981' },
+  { key: 'MCT', name: 'Muscat (MCT)', file: 'data-flights-mct.json', color: '#F59E0B' },
+  { key: 'DOH', name: 'Doha (DOH)', file: 'data-flights-doh.json', color: '#8B5CF6' },
+  { key: 'TLV', name: 'Tel Aviv (TLV)', file: 'data-flights-tlv.json', color: '#EC4899' },
+];
+
+const TIMEFRAMES = [
+  { key: '1W', days: 7 },
+  { key: '2W', days: 14 },
+  { key: '4W', days: 28 },
+  { key: 'ALL', days: null },
+];
+
+function formatDate(dateStr) {
+  const d = new Date(dateStr + 'T00:00:00');
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+function CustomTooltip({ active, payload, label }) {
+  if (!active || !payload?.length) return null;
+  return (
+    <div style={{ background: '#050B1A', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 8, padding: '10px 14px' }}>
+      <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: 11, marginBottom: 6 }}>{label}</div>
+      {payload.map(p => (
+        <div key={p.dataKey} style={{ color: p.color, fontSize: 12, marginBottom: 2 }}>
+          {p.name}: {p.value != null ? p.value.toLocaleString() : 'N/A'}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+const btnBase = {
+  border: '1px solid rgba(255,255,255,0.2)',
+  borderRadius: 6,
+  padding: '4px 10px',
+  fontSize: 11,
+  cursor: 'pointer',
+  background: 'transparent',
+  color: 'rgba(255,255,255,0.6)',
+};
+
+const btnActive = {
+  ...btnBase,
+  background: 'rgba(255,255,255,0.15)',
+  color: '#fff',
+  borderColor: 'rgba(255,255,255,0.4)',
+};
+
+export default function FlightChart() {
+  const [airportData, setAirportData] = useState({});
+  const [timeframe, setTimeframe] = useState('ALL');
+  const [visible, setVisible] = useState(
+    Object.fromEntries(AIRPORTS.map(a => [a.key, true]))
+  );
+
+  useEffect(() => {
+    const base = import.meta.env.BASE_URL || '/';
+    AIRPORTS.forEach(a => {
+      fetch(base + a.file)
+        .then(r => r.ok ? r.json() : null)
+        .then(json => {
+          if (json?.daily) {
+            setAirportData(prev => ({ ...prev, [a.key]: json.daily }));
+          }
+        })
+        .catch(() => {});
+    });
+  }, []);
+
+  const chartData = useMemo(() => {
+    const dateMap = {};
+    for (const a of AIRPORTS) {
+      for (const pt of (airportData[a.key] || [])) {
+        if (!dateMap[pt.date]) dateMap[pt.date] = { date: pt.date };
+        dateMap[pt.date][a.key] = pt.total;
+      }
+    }
+    let rows = Object.values(dateMap)
+      .sort((a, b) => a.date.localeCompare(b.date))
+      .map(row => ({ ...row, dateLabel: formatDate(row.date) }));
+
+    const tf = TIMEFRAMES.find(t => t.key === timeframe);
+    if (tf?.days) {
+      const cutoff = new Date();
+      cutoff.setDate(cutoff.getDate() - tf.days);
+      const cutoffStr = cutoff.toISOString().slice(0, 10);
+      rows = rows.filter(row => row.date >= cutoffStr);
+    }
+    return rows;
+  }, [airportData, timeframe]);
+
+  const warLabel = formatDate('2026-02-28');
+
+  const toggleAirport = (key) => {
+    setVisible(prev => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  if (Object.keys(airportData).length === 0) return null;
+
+  return (
+    <div style={{
+      background: 'rgba(255,255,255,0.08)',
+      border: '1px solid rgba(255,255,255,0.11)',
+      borderRadius: 16,
+      padding: 20,
+    }}>
+      <div style={{ color: '#fff', fontWeight: 600, fontSize: 14, letterSpacing: '0.05em', marginBottom: 2 }}>
+        AIRPORT FLIGHT VOLUME
+      </div>
+      <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 12, marginBottom: 12 }}>
+        Total daily flights per airport since Feb 18
+      </div>
+
+      {/* Timeframe selector */}
+      <div style={{ display: 'flex', gap: 6, marginBottom: 12 }}>
+        {TIMEFRAMES.map(t => (
+          <button
+            key={t.key}
+            style={timeframe === t.key ? btnActive : btnBase}
+            onClick={() => setTimeframe(t.key)}
+          >
+            {t.key}
+          </button>
+        ))}
+      </div>
+
+      {/* Airport toggles */}
+      <div style={{ display: 'flex', gap: 12, marginBottom: 12, flexWrap: 'wrap' }}>
+        {AIRPORTS.map(a => (
+          <div
+            key={a.key}
+            onClick={() => toggleAirport(a.key)}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 5,
+              cursor: 'pointer', fontSize: 11,
+              opacity: visible[a.key] ? 1 : 0.35,
+              color: 'rgba(255,255,255,0.7)',
+            }}
+          >
+            <span style={{
+              width: 10, height: 10, borderRadius: 2,
+              background: a.color,
+              display: 'inline-block',
+            }} />
+            {a.name}
+          </div>
+        ))}
+      </div>
+
+      <ResponsiveContainer width="100%" height={280}>
+        <LineChart data={chartData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+          <XAxis dataKey="dateLabel" tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 11 }} tickLine={false} />
+          <YAxis
+            tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 11 }}
+            tickLine={false}
+            domain={['auto', 'auto']}
+          />
+          <RTooltip content={<CustomTooltip />} />
+          <ReferenceLine
+            x={warLabel}
+            stroke="#EF4444"
+            strokeDasharray="4 4"
+            label={{ value: 'War start', fill: '#EF4444', fontSize: 10, position: 'top' }}
+          />
+          {AIRPORTS.map(a => (
+            <Line
+              key={a.key}
+              type="monotone"
+              dataKey={a.key}
+              name={a.name}
+              stroke={a.color}
+              strokeWidth={2}
+              dot={false}
+              connectNulls
+              hide={!visible[a.key]}
+            />
+          ))}
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
