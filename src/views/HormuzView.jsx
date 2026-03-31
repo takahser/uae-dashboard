@@ -8,6 +8,7 @@ import EnergyAttacksMap from '../components/EnergyAttacksMap';
 import { useMarketData } from '../hooks/useMarketData';
 import BondChart from '../components/BondChart';
 import FlightChart from '../components/FlightChart';
+import SubstitutionChart from '../components/SubstitutionChart';
 
 const EVENT_COLOURS = {
   disrupted: '#F59E0B',
@@ -406,6 +407,8 @@ export default function HormuzView({ onBack }) {
   const toggleExp = useCallback(() => setExpOn(v => { const next = !v; try { localStorage.setItem("ww3_experimental", String(next)); } catch {} return next; }), []);
   const [bondsData, setBondsData] = useState(null);
   useEffect(() => { const base = import.meta.env.BASE_URL || '/'; fetch(base + 'data-bonds.json').then(r => r.ok ? r.json() : null).then(setBondsData).catch(() => {}); }, []);
+  const [subData, setSubData] = useState(null);
+  useEffect(() => { const base = import.meta.env.BASE_URL || '/'; fetch(base + 'data-substitution.json').then(r => r.ok ? r.json() : null).then(setSubData).catch(() => {}); }, []);
 
   return (
     <div style={{ minHeight: '100vh', background: BG, color: TEXT, fontFamily: DM_SANS, padding: '40px 20px', position: 'relative', overflowX: 'hidden' }}>
@@ -616,6 +619,13 @@ export default function HormuzView({ onBack }) {
               BOND MARKET IMPACT
             </div>
             <BondChart data={bondsData} />
+            <div style={{ marginBottom: 32 }} />
+          </div>
+        )}
+
+        {subData && (
+          <div style={{ marginTop: 24 }}>
+            <SubstitutionChart data={subData} />
             <div style={{ marginBottom: 32 }} />
           </div>
         )}
