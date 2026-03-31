@@ -9,6 +9,57 @@ import { useMarketData } from '../hooks/useMarketData';
 import BondChart from '../components/BondChart';
 import FlightChart from '../components/FlightChart';
 
+const EVENT_COLOURS = {
+  disrupted: '#F59E0B',
+  critical: '#EF4444',
+  normal: '#27AE60',
+  toll: '#8B5CF6',
+};
+const EVENT_LABELS = {
+  disrupted: 'Disrupted',
+  critical: 'Critical',
+  normal: 'Normal',
+  toll: 'Toll imposed',
+};
+const EVENT_SHORT_LABELS = {
+  disrupted: 'Disr.',
+  critical: 'Crit.',
+  normal: 'Normal',
+  toll: 'Toll',
+};
+
+function getStatusEvents(data) {
+  const events = [];
+  for (let i = 1; i < data.length; i++) {
+    if (data[i].status !== data[i - 1].status) {
+      events.push({ date: data[i].date, type: 'status', value: data[i].status });
+    }
+    if (data[i].tollPassage && !data[i - 1].tollPassage) {
+      events.push({ date: data[i].date, type: 'toll', value: 'toll' });
+    }
+  }
+  const merged = Object.values(
+    Object.groupBy(events, e => e.date)
+  ).map(group => ({ date: group[0].date, events: group }));
+  return merged;
+}
+
+function EventLabel({ viewBox, events }) {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+  const labels = isMobile ? EVENT_SHORT_LABELS : EVENT_LABELS;
+  const text = events.map(e => labels[e.value]).join(' · ');
+  const colour = EVENT_COLOURS[events[0].value];
+  const textLen = text.length * 5.5 + 12;
+  const x = viewBox.x - textLen / 2;
+  const y = (viewBox.y || 0) - 12;
+  return (
+    <g>
+      <rect x={x} y={y - 10} width={textLen} height={16} rx={4} fill={`${colour}33`} />
+      <text x={x + textLen / 2} y={y} textAnchor="middle" fill={colour} fontSize={10} fontWeight={600}>{text}</text>
+    </g>
+  );
+}
+
 const BG = '#050B1A';
 const CARD_BG = 'rgba(255,255,255,0.08)';
 const GLASS_BORDER = 'rgba(255,255,255,0.11)';
@@ -21,6 +72,7 @@ const DM_SANS = "'DM Sans', -apple-system, sans-serif";
 
 const today = data.length > 0 ? data[data.length - 1] : { ships: 0, tankers: 0, oil_mbpd: 0, status: 'critical', tollPassage: false };
 const closureDays = data.filter((d) => d.status === 'critical').length;
+const statusEvents = getStatusEvents(data);
 
 const intel = [
   'Mar 22: IRGC threatens regional electricity grid — "entire region will go dark" if Iran electricity infrastructure attacked. IRGC-affiliated Mehr news published list of power plant targets across Saudi Arabia, UAE, Kuwait, Qatar, Bahrain, Oman. These are THREATS — not confirmed attacks. (DropSiteNews / Mehr)',
@@ -419,7 +471,18 @@ export default function HormuzView({ onBack }) {
               <YAxis stroke={GLASS_BORDER} tick={{ fontSize: 11, fill: SUBTEXT }} />
               <RTooltip contentStyle={{ background: '#0D1525', border: `1px solid ${GLASS_BORDER}`, borderRadius: 6, color: TEXT }} />
               <Legend />
-              <ReferenceLine x="02-28" stroke="#C0392B" strokeDasharray="4 4" label={{ value: 'Feb 28', fill: '#C0392B', fontSize: 11 }} />
+              {statusEvents.map(({ date, events }) => {
+                const colour = EVENT_COLOURS[events[0].value];
+                return (
+                  <ReferenceLine
+                    key={date}
+                    x={date.slice(5)}
+                    stroke={colour}
+                    strokeDasharray="4 4"
+                    label={<EventLabel events={events} />}
+                  />
+                );
+              })}
               <Line type="monotone" dataKey="ships" stroke={ACCENT} strokeWidth={2} dot={false} />
               <Line type="monotone" dataKey="tankers" stroke="#4a9eff" strokeWidth={2} dot={false} />
             </LineChart>
