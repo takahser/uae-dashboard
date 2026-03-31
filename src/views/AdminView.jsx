@@ -20,7 +20,9 @@ const colors = {
 const font = '"DM Sans", system-ui, sans-serif';
 
 const CATEGORY_EMOJIS = {
-  market: "📈",
+  market: "📉",
+  markets: "📉",
+  bonds: "📈",
   ais: "🚢",
   flights: "✈️",
   attacks: "💥",
