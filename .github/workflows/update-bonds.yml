@@ -20,7 +20,9 @@ jobs:
         with:
           python-version: "3.12"
       - name: Write health timestamp
-        run: python scripts/write-health.py bonds --method treasury-boe-mof --source-url "https://home.treasury.gov/"
+        run: |
+          eval "$(python scripts/extract-health-values.py bonds)"
+          python scripts/write-health.py bonds --method treasury-boe-mof --source-url "https://home.treasury.gov/" ${BONDS_OLD:+--old-value "$BONDS_OLD"} ${BONDS_NEW:+--new-value "$BONDS_NEW"}
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "data: update bond market yields"

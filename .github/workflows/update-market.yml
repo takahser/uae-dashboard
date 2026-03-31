@@ -40,16 +40,17 @@ jobs:
 
       - name: Write health timestamps
         run: |
-          python scripts/write-health.py brent --method yahoo-finance --source-url "https://finance.yahoo.com/quote/BZ=F" || true
-          python scripts/write-health.py wti --method yahoo-finance --source-url "https://finance.yahoo.com/quote/CL=F" || true
-          python scripts/write-health.py natgas --method yahoo-finance --source-url "https://finance.yahoo.com/quote/NG=F" || true
-          python scripts/write-health.py aramco --method yahoo-finance --source-url "https://finance.yahoo.com/quote/2222.SR" || true
-          python scripts/write-health.py frontline --method yahoo-finance --source-url "https://finance.yahoo.com/quote/FRO" || true
-          python scripts/write-health.py stng --method yahoo-finance --source-url "https://finance.yahoo.com/quote/STNG" || true
-          python scripts/write-health.py rtx --method yahoo-finance --source-url "https://finance.yahoo.com/quote/RTX" || true
-          python scripts/write-health.py lmt --method yahoo-finance --source-url "https://finance.yahoo.com/quote/LMT" || true
-          python scripts/write-health.py dubai --method oilprice-scrape --source-url "https://oilprice.com/" || true
-          python scripts/write-health.py oman --method cbonds-scrape --source-url "https://cbonds.com/indexes/189217/" || true
+          eval "$(python scripts/extract-health-values.py market)"
+          python scripts/write-health.py brent --method yahoo-finance --source-url "https://finance.yahoo.com/quote/BZ=F" ${BRENT_OLD:+--old-value "$BRENT_OLD"} ${BRENT_NEW:+--new-value "$BRENT_NEW"} || true
+          python scripts/write-health.py wti --method yahoo-finance --source-url "https://finance.yahoo.com/quote/CL=F" ${WTI_OLD:+--old-value "$WTI_OLD"} ${WTI_NEW:+--new-value "$WTI_NEW"} || true
+          python scripts/write-health.py natgas --method yahoo-finance --source-url "https://finance.yahoo.com/quote/NG=F" ${NATGAS_OLD:+--old-value "$NATGAS_OLD"} ${NATGAS_NEW:+--new-value "$NATGAS_NEW"} || true
+          python scripts/write-health.py aramco --method yahoo-finance --source-url "https://finance.yahoo.com/quote/2222.SR" ${ARAMCO_OLD:+--old-value "$ARAMCO_OLD"} ${ARAMCO_NEW:+--new-value "$ARAMCO_NEW"} || true
+          python scripts/write-health.py frontline --method yahoo-finance --source-url "https://finance.yahoo.com/quote/FRO" ${FRONTLINE_OLD:+--old-value "$FRONTLINE_OLD"} ${FRONTLINE_NEW:+--new-value "$FRONTLINE_NEW"} || true
+          python scripts/write-health.py stng --method yahoo-finance --source-url "https://finance.yahoo.com/quote/STNG" ${STNG_OLD:+--old-value "$STNG_OLD"} ${STNG_NEW:+--new-value "$STNG_NEW"} || true
+          python scripts/write-health.py rtx --method yahoo-finance --source-url "https://finance.yahoo.com/quote/RTX" ${RTX_OLD:+--old-value "$RTX_OLD"} ${RTX_NEW:+--new-value "$RTX_NEW"} || true
+          python scripts/write-health.py lmt --method yahoo-finance --source-url "https://finance.yahoo.com/quote/LMT" ${LMT_OLD:+--old-value "$LMT_OLD"} ${LMT_NEW:+--new-value "$LMT_NEW"} || true
+          python scripts/write-health.py dubai --method oilprice-scrape --source-url "https://oilprice.com/" ${DUBAI_OLD:+--old-value "$DUBAI_OLD"} ${DUBAI_NEW:+--new-value "$DUBAI_NEW"} || true
+          python scripts/write-health.py oman --method cbonds-scrape --source-url "https://cbonds.com/indexes/189217/" ${OMAN_OLD:+--old-value "$OMAN_OLD"} ${OMAN_NEW:+--new-value "$OMAN_NEW"} || true
           python scripts/write-health.py gulf_ais --method aisstream --source-url "wss://stream.aisstream.io/v0/stream" || true
           python scripts/write-health.py hormuz_chart --method aisstream --source-url "wss://stream.aisstream.io/v0/stream" || true
 
