@@ -37,6 +37,34 @@ def extract_market():
     except Exception as e:
         print(f"# Error: {e}", file=sys.stderr)
 
+def extract_ais():
+    """Extract ship counts from /tmp/gulf-ships.json (written by count-gulf-ships.py)."""
+    try:
+        data = json.load(open("/tmp/gulf-ships.json"))
+        ships = data.get("ships")
+        tankers = data.get("tankers")
+        if ships is not None:
+            print(f'GULF_AIS_NEW="{ships}"')
+        if tankers is not None:
+            # Use tankers as old_value (secondary metric, useful context)
+            print(f'GULF_AIS_OLD="{tankers}"')
+    except Exception as e:
+        print(f"# Error: {e}", file=sys.stderr)
+
+def extract_hormuz():
+    try:
+        data = json.load(open("src/data/hormuz.json"))
+        if data:
+            latest = data[-1]  # last entry is newest
+            ships = latest.get("ships")
+            tankers = latest.get("tankers")
+            if ships is not None:
+                print(f'HORMUZ_CHART_NEW="{ships}"')
+            if tankers is not None:
+                print(f'HORMUZ_CHART_OLD="{tankers}"')
+    except Exception as e:
+        print(f"# Error: {e}", file=sys.stderr)
+
 def extract_bonds():
     try:
         data = json.load(open("public/data-bonds.json"))
@@ -60,6 +88,9 @@ if __name__ == "__main__":
         extract_market()
     elif mode == "bonds":
         extract_bonds()
+    elif mode == "ais":
+        extract_ais()
+        extract_hormuz()
     else:
-        print("Usage: extract-health-values.py [market|bonds]", file=sys.stderr)
+        print("Usage: extract-health-values.py [market|bonds|ais]", file=sys.stderr)
         sys.exit(1)
