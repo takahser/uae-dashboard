@@ -1,36 +1,36 @@
 {
-  "updated": "2026-04-01T09:33:59Z",
+  "updated": "2026-04-01T10:29:13Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 103.27,
-      "change": -0.7,
-      "changePercent": -0.67,
+      "price": 103.69,
+      "change": -0.28,
+      "changePercent": -0.27,
       "previousClose": 103.97
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 100.31,
-      "change": -1.07,
-      "changePercent": -1.06,
+      "price": 100.14,
+      "change": -1.24,
+      "changePercent": -1.22,
       "previousClose": 101.38
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.88,
-      "change": -0.01,
-      "changePercent": -0.35,
+      "price": 2.86,
+      "change": -0.02,
+      "changePercent": -0.69,
       "previousClose": 2.88
     },
     "2222.SR": {
       "symbol": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 27.58,
-      "change": 0.18,
-      "changePercent": 0.66,
+      "price": 27.54,
+      "change": 0.14,
+      "changePercent": 0.51,
       "previousClose": 27.4
     },
     "FRO": {
@@ -68,9 +68,9 @@
     "DUBAI": {
       "symbol": "DUBAI",
       "name": "Dubai Crude",
-      "price": 128.51,
-      "change": 0.0,
-      "changePercent": 0.0,
+      "price": 128.52,
+      "change": 0.01,
+      "changePercent": 0.01,
       "previousClose": 128.51,
       "note": "Dubai crude \u2014 oilprice.com (1-day delay)",
       "source": "oilprice.com"
@@ -186,7 +186,7 @@
       },
       {
         "date": "2026-04-01",
-        "close": 103.27
+        "close": 103.69
       }
     ],
     "CL=F": [
@@ -288,7 +288,7 @@
       },
       {
         "date": "2026-04-01",
-        "close": 100.31
+        "close": 100.14
       }
     ],
     "NG=F": [
@@ -390,7 +390,7 @@
       },
       {
         "date": "2026-04-01",
-        "close": 2.88
+        "close": 2.86
       }
     ],
     "2222.SR": [
@@ -512,7 +512,7 @@
       },
       {
         "date": "2026-04-01",
-        "close": 27.58
+        "close": 27.54
       }
     ],
     "FRO": [
@@ -1201,8 +1201,8 @@
     ]
   },
   "gulf": {
-    "ships": 0,
+    "ships": 1,
     "tankers": 0,
-    "sampled_at": "2026-04-01T09:33:50Z"
+    "sampled_at": "2026-04-01T10:29:03Z"
   }
 }
