@@ -1,20 +1,20 @@
 {
-  "updated": "2026-04-01T19:57:26Z",
+  "updated": "2026-04-01T20:22:45Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 100.78,
-      "change": -3.19,
-      "changePercent": -3.07,
+      "price": 100.9,
+      "change": -3.07,
+      "changePercent": -2.95,
       "previousClose": 103.97
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 99.42,
-      "change": -1.96,
-      "changePercent": -1.93,
+      "price": 99.6,
+      "change": -1.78,
+      "changePercent": -1.76,
       "previousClose": 101.38
     },
     "NG=F": {
@@ -36,33 +36,33 @@
     "FRO": {
       "symbol": "FRO",
       "name": "Frontline",
-      "price": 34.79,
-      "change": -0.07,
-      "changePercent": -0.2,
+      "price": 34.83,
+      "change": -0.03,
+      "changePercent": -0.09,
       "previousClose": 34.86
     },
     "STNG": {
       "symbol": "STNG",
       "name": "Scorpio Tankers",
-      "price": 74.25,
-      "change": -0.41,
-      "changePercent": -0.55,
+      "price": 74.1,
+      "change": -0.56,
+      "changePercent": -0.75,
       "previousClose": 74.66
     },
     "RTX": {
       "symbol": "RTX",
       "name": "RTX Corp",
-      "price": 194.63,
-      "change": 1.73,
-      "changePercent": 0.9,
+      "price": 194.72,
+      "change": 1.82,
+      "changePercent": 0.94,
       "previousClose": 192.9
     },
     "LMT": {
       "symbol": "LMT",
       "name": "Lockheed Martin",
-      "price": 618.03,
-      "change": 13.64,
-      "changePercent": 2.26,
+      "price": 617.64,
+      "change": 13.25,
+      "changePercent": 2.19,
       "previousClose": 604.39
     },
     "DUBAI": {
@@ -186,7 +186,7 @@
       },
       {
         "date": "2026-04-01",
-        "close": 100.78
+        "close": 100.9
       }
     ],
     "CL=F": [
@@ -288,7 +288,7 @@
       },
       {
         "date": "2026-04-01",
-        "close": 99.42
+        "close": 99.6
       }
     ],
     "NG=F": [
@@ -634,7 +634,7 @@
       },
       {
         "date": "2026-04-01",
-        "close": 34.79
+        "close": 34.83
       }
     ],
     "STNG": [
@@ -756,7 +756,7 @@
       },
       {
         "date": "2026-04-01",
-        "close": 74.25
+        "close": 74.1
       }
     ],
     "RTX": [
@@ -878,7 +878,7 @@
       },
       {
         "date": "2026-04-01",
-        "close": 194.62
+        "close": 194.72
       }
     ],
     "LMT": [
@@ -1000,7 +1000,7 @@
       },
       {
         "date": "2026-04-01",
-        "close": 618.03
+        "close": 617.64
       }
     ],
     "DUBAI": [
@@ -1201,8 +1201,8 @@
     ]
   },
   "gulf": {
-    "ships": 9,
+    "ships": 8,
     "tankers": 0,
-    "sampled_at": "2026-04-01T19:57:16Z"
+    "sampled_at": "2026-04-01T20:22:36Z"
   }
 }
