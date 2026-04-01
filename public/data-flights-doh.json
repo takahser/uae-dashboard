@@ -2,14 +2,427 @@
   "airport": "OTHH",
   "airportName": "Hamad Intl (DOH)",
   "status": "open",
-  "statusNote": "Operational \u2014 no closure reported",
+  "statusNote": "Operational — no closure reported",
   "lastVerified": "2026-03-15",
   "source": "Qatar MoD statements",
-  "todayArrivals": 233,
-  "todayDepartures": 222,
-  "todayTotal": 455,
-  "todayFetched": "2026-03-31T18:16:20.359Z",
+  "todayArrivals": 238,
+  "todayDepartures": 184,
+  "todayTotal": 422,
+  "todayFetched": "2026-04-01T08:28:16.634Z",
   "daily": [
+    {
+      "date": "2026-02-18",
+      "departures": 326,
+      "arrivals": 351,
+      "total": 677,
+      "regions": {
+        "Europe": 163,
+        "Asia-Pacific": 53,
+        "Other": 3,
+        "Unknown": 259,
+        "Africa": 17,
+        "South Asia": 67,
+        "Middle East": 81,
+        "Americas": 34
+      }
+    },
+    {
+      "date": "2026-02-19",
+      "departures": 361,
+      "arrivals": 357,
+      "total": 718,
+      "regions": {
+        "Unknown": 280,
+        "Middle East": 93,
+        "Europe": 159,
+        "South Asia": 71,
+        "Asia-Pacific": 56,
+        "Americas": 38,
+        "Africa": 19,
+        "Other": 2
+      }
+    },
+    {
+      "date": "2026-02-20",
+      "departures": 351,
+      "arrivals": 363,
+      "total": 714,
+      "regions": {
+        "Europe": 172,
+        "Unknown": 276,
+        "South Asia": 73,
+        "Middle East": 95,
+        "Americas": 38,
+        "Asia-Pacific": 43,
+        "Africa": 15,
+        "Other": 2
+      }
+    },
+    {
+      "date": "2026-02-21",
+      "departures": 370,
+      "arrivals": 363,
+      "total": 733,
+      "regions": {
+        "Middle East": 96,
+        "Europe": 178,
+        "Unknown": 277,
+        "South Asia": 73,
+        "Asia-Pacific": 54,
+        "Americas": 34,
+        "Africa": 19,
+        "Other": 2
+      }
+    },
+    {
+      "date": "2026-02-22",
+      "departures": 350,
+      "arrivals": 364,
+      "total": 714,
+      "regions": {
+        "Asia-Pacific": 59,
+        "Europe": 157,
+        "Unknown": 270,
+        "South Asia": 78,
+        "Middle East": 95,
+        "Africa": 18,
+        "Americas": 35,
+        "Other": 2
+      }
+    },
+    {
+      "date": "2026-02-23",
+      "departures": 340,
+      "arrivals": 353,
+      "total": 693,
+      "regions": {
+        "Asia-Pacific": 56,
+        "Europe": 173,
+        "South Asia": 67,
+        "Unknown": 256,
+        "Middle East": 92,
+        "Americas": 29,
+        "Other": 4,
+        "Africa": 16
+      }
+    },
+    {
+      "date": "2026-02-24",
+      "departures": 332,
+      "arrivals": 327,
+      "total": 659,
+      "regions": {
+        "Europe": 148,
+        "Asia-Pacific": 47,
+        "Unknown": 260,
+        "South Asia": 55,
+        "Americas": 33,
+        "Middle East": 102,
+        "Africa": 12,
+        "Other": 2
+      }
+    },
+    {
+      "date": "2026-02-25",
+      "departures": 251,
+      "arrivals": 251,
+      "total": 502,
+      "regions": {
+        "Unknown": 208,
+        "Asia-Pacific": 32,
+        "Europe": 134,
+        "Middle East": 60,
+        "Americas": 33,
+        "South Asia": 29,
+        "Africa": 5,
+        "Other": 1
+      }
+    },
+    {
+      "date": "2026-02-26",
+      "departures": 220,
+      "arrivals": 208,
+      "total": 428,
+      "regions": {
+        "Europe": 91,
+        "Unknown": 221,
+        "South Asia": 28,
+        "Asia-Pacific": 28,
+        "Middle East": 37,
+        "Other": 4,
+        "Americas": 16,
+        "Africa": 3
+      }
+    },
+    {
+      "date": "2026-02-27",
+      "departures": 161,
+      "arrivals": 147,
+      "total": 308,
+      "regions": {
+        "Europe": 84,
+        "Asia-Pacific": 18,
+        "Unknown": 148,
+        "Americas": 19,
+        "South Asia": 15,
+        "Middle East": 20,
+        "Africa": 2,
+        "Other": 2
+      }
+    },
+    {
+      "date": "2026-02-28",
+      "departures": 89,
+      "arrivals": 144,
+      "total": 233,
+      "regions": {
+        "South Asia": 18,
+        "Middle East": 48,
+        "Asia-Pacific": 14,
+        "Unknown": 101,
+        "Europe": 36,
+        "Americas": 12,
+        "Africa": 2,
+        "Other": 2
+      }
+    },
+    {
+      "date": "2026-03-01",
+      "departures": 0,
+      "arrivals": 0,
+      "total": 0,
+      "regions": {}
+    },
+    {
+      "date": "2026-03-02",
+      "departures": 0,
+      "arrivals": 0,
+      "total": 0,
+      "regions": {}
+    },
+    {
+      "date": "2026-03-03",
+      "departures": 3,
+      "arrivals": 1,
+      "total": 4,
+      "regions": {
+        "Unknown": 4
+      }
+    },
+    {
+      "date": "2026-03-04",
+      "departures": 1,
+      "arrivals": 0,
+      "total": 1,
+      "regions": {
+        "Unknown": 1
+      }
+    },
+    {
+      "date": "2026-03-05",
+      "departures": 0,
+      "arrivals": 1,
+      "total": 1,
+      "regions": {
+        "Unknown": 1
+      }
+    },
+    {
+      "date": "2026-03-06",
+      "departures": 0,
+      "arrivals": 0,
+      "total": 0,
+      "regions": {}
+    },
+    {
+      "date": "2026-03-07",
+      "departures": 1,
+      "arrivals": 0,
+      "total": 1,
+      "regions": {
+        "Unknown": 1
+      }
+    },
+    {
+      "date": "2026-03-08",
+      "departures": 2,
+      "arrivals": 1,
+      "total": 3,
+      "regions": {
+        "Europe": 2,
+        "Unknown": 1
+      }
+    },
+    {
+      "date": "2026-03-09",
+      "departures": 1,
+      "arrivals": 0,
+      "total": 1,
+      "regions": {
+        "Europe": 1
+      }
+    },
+    {
+      "date": "2026-03-10",
+      "departures": 13,
+      "arrivals": 3,
+      "total": 16,
+      "regions": {
+        "Americas": 1,
+        "Europe": 7,
+        "Asia-Pacific": 1,
+        "Unknown": 3,
+        "South Asia": 2,
+        "Africa": 1,
+        "Middle East": 1
+      }
+    },
+    {
+      "date": "2026-03-11",
+      "departures": 3,
+      "arrivals": 1,
+      "total": 4,
+      "regions": {
+        "Europe": 4
+      }
+    },
+    {
+      "date": "2026-03-12",
+      "departures": 1,
+      "arrivals": 1,
+      "total": 2,
+      "regions": {
+        "Europe": 2
+      }
+    },
+    {
+      "date": "2026-03-13",
+      "departures": 0,
+      "arrivals": 1,
+      "total": 1,
+      "regions": {
+        "Europe": 1
+      }
+    },
+    {
+      "date": "2026-03-14",
+      "departures": 0,
+      "arrivals": 0,
+      "total": 0,
+      "regions": {}
+    },
+    {
+      "date": "2026-03-15",
+      "departures": 0,
+      "arrivals": 0,
+      "total": 0,
+      "regions": {}
+    },
+    {
+      "date": "2026-03-16",
+      "departures": 0,
+      "arrivals": 0,
+      "total": 0,
+      "regions": {}
+    },
+    {
+      "date": "2026-03-17",
+      "departures": 0,
+      "arrivals": 0,
+      "total": 0,
+      "regions": {}
+    },
+    {
+      "date": "2026-03-18",
+      "departures": 0,
+      "arrivals": 0,
+      "total": 0,
+      "regions": {}
+    },
+    {
+      "date": "2026-03-19",
+      "departures": 0,
+      "arrivals": 0,
+      "total": 0,
+      "regions": {}
+    },
+    {
+      "date": "2026-03-20",
+      "departures": 0,
+      "arrivals": 0,
+      "total": 0,
+      "regions": {}
+    },
+    {
+      "date": "2026-03-21",
+      "departures": 0,
+      "arrivals": 0,
+      "total": 0,
+      "regions": {}
+    },
+    {
+      "date": "2026-03-22",
+      "departures": 0,
+      "arrivals": 0,
+      "total": 0,
+      "regions": {}
+    },
+    {
+      "date": "2026-03-23",
+      "departures": 0,
+      "arrivals": 0,
+      "total": 0,
+      "regions": {}
+    },
+    {
+      "date": "2026-03-24",
+      "departures": 0,
+      "arrivals": 0,
+      "total": 0,
+      "regions": {}
+    },
+    {
+      "date": "2026-03-25",
+      "departures": 0,
+      "arrivals": 0,
+      "total": 0,
+      "regions": {}
+    },
+    {
+      "date": "2026-03-26",
+      "departures": 0,
+      "arrivals": 0,
+      "total": 0,
+      "regions": {}
+    },
+    {
+      "date": "2026-03-27",
+      "departures": 0,
+      "arrivals": 0,
+      "total": 0,
+      "regions": {}
+    },
+    {
+      "date": "2026-03-28",
+      "departures": 0,
+      "arrivals": 0,
+      "total": 0,
+      "regions": {}
+    },
+    {
+      "date": "2026-03-29",
+      "departures": 0,
+      "arrivals": 0,
+      "total": 0,
+      "regions": {}
+    },
+    {
+      "date": "2026-03-30",
+      "departures": 0,
+      "arrivals": 0,
+      "total": 0,
+      "regions": {}
+    },
     {
       "date": "2026-03-31",
       "departures": 222,
@@ -17,13 +430,30 @@
       "total": 455,
       "regions": {},
       "flights": []
+    },
+    {
+      "date": "2026-04-01",
+      "departures": 184,
+      "arrivals": 238,
+      "total": 422,
+      "regions": {},
+      "flights": []
     }
   ],
   "baselineDailyAvg": {
-    "total": 0,
-    "departures": 0,
-    "arrivals": 0,
-    "regions": {}
+    "total": 615,
+    "departures": 306,
+    "arrivals": 308,
+    "regions": {
+      "Europe": 146,
+      "Asia-Pacific": 45,
+      "Other": 2,
+      "Unknown": 246,
+      "Africa": 13,
+      "South Asia": 56,
+      "Middle East": 77,
+      "Americas": 31
+    }
   },
-  "lastUpdated": "2026-03-31T08:23:48.480Z"
+  "lastUpdated": "2026-04-01T08:28:00.295Z"
 }
