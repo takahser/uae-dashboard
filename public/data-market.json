@@ -1,26 +1,26 @@
 {
-  "updated": "2026-04-01T06:45:34Z",
+  "updated": "2026-04-01T07:39:34Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 100.87,
-      "change": -3.1,
-      "changePercent": -2.98,
+      "price": 100.02,
+      "change": -3.95,
+      "changePercent": -3.8,
       "previousClose": 103.97
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 98.36,
-      "change": -3.02,
-      "changePercent": -2.98,
+      "price": 97.38,
+      "change": -4.0,
+      "changePercent": -3.95,
       "previousClose": 101.38
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.86,
+      "price": 2.87,
       "change": -0.02,
       "changePercent": -0.69,
       "previousClose": 2.88
@@ -28,10 +28,10 @@
     "2222.SR": {
       "symbol": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 27.4,
-      "change": 0.12,
-      "changePercent": 0.44,
-      "previousClose": 27.28
+      "price": 27.7,
+      "change": 0.3,
+      "changePercent": 1.09,
+      "previousClose": 27.4
     },
     "FRO": {
       "symbol": "FRO",
@@ -186,7 +186,7 @@
       },
       {
         "date": "2026-04-01",
-        "close": 100.87
+        "close": 100.02
       }
     ],
     "CL=F": [
@@ -288,7 +288,7 @@
       },
       {
         "date": "2026-04-01",
-        "close": 98.36
+        "close": 97.38
       }
     ],
     "NG=F": [
@@ -390,14 +390,10 @@
       },
       {
         "date": "2026-04-01",
-        "close": 2.86
+        "close": 2.87
       }
     ],
     "2222.SR": [
-      {
-        "date": "2026-02-10",
-        "close": 25.86
-      },
       {
         "date": "2026-02-11",
         "close": 25.82
@@ -513,6 +509,10 @@
       {
         "date": "2026-03-31",
         "close": 27.4
+      },
+      {
+        "date": "2026-04-01",
+        "close": 27.7
       }
     ],
     "FRO": [
@@ -1197,8 +1197,8 @@
     ]
   },
   "gulf": {
-    "ships": 1,
+    "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-04-01T06:45:25Z"
+    "sampled_at": "2026-04-01T07:39:24Z"
   }
 }
