@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import FlightChart from '../components/FlightChart';
 
 const BG = '#050B1A';
 const CARD_BG = 'rgba(255,255,255,0.08)';
@@ -125,6 +126,11 @@ export default function FlightsView({ onBack }) {
         <p style={{ fontSize: '0.85rem', color: SUBTEXT, marginBottom: 32 }}>
           Verified airport status across conflict-zone airports
         </p>
+
+        {/* Flight volume chart */}
+        <div style={{ marginBottom: 24 }}>
+          <FlightChart />
+        </div>
 
         {/* Airport grid */}
         {loading ? (

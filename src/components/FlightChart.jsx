@@ -11,10 +11,12 @@ const AIRPORTS = [
   { key: 'TLV', name: 'Tel Aviv (TLV)', file: 'data-flights-tlv.json', color: '#EC4899' },
 ];
 
+const FULL_DATA_AIRPORTS = new Set(['DXB', 'MCT', 'DOH']);
+
 const TIMEFRAMES = [
   { key: '1W', days: 7 },
   { key: '2W', days: 14 },
-  { key: '4W', days: 28 },
+  { key: '1M', days: 30 },
   { key: 'ALL', days: null },
 ];
 
@@ -58,7 +60,7 @@ export default function FlightChart() {
   const [airportData, setAirportData] = useState({});
   const [timeframe, setTimeframe] = useState('ALL');
   const [visible, setVisible] = useState(
-    Object.fromEntries(AIRPORTS.map(a => [a.key, true]))
+    Object.fromEntries(AIRPORTS.map(a => [a.key, FULL_DATA_AIRPORTS.has(a.key)]))
   );
 
   useEffect(() => {
@@ -75,12 +77,25 @@ export default function FlightChart() {
     });
   }, []);
 
+  // Airports with only 1 data point can't render a meaningful chart line
+  const limitedAirports = useMemo(() => {
+    const limited = [];
+    for (const a of AIRPORTS) {
+      const daily = airportData[a.key];
+      if (daily && daily.length <= 1) limited.push(a.key);
+    }
+    return limited;
+  }, [airportData]);
+
   const chartData = useMemo(() => {
     const dateMap = {};
     for (const a of AIRPORTS) {
+      if (limitedAirports.includes(a.key)) continue;
       for (const pt of (airportData[a.key] || [])) {
         if (!dateMap[pt.date]) dateMap[pt.date] = { date: pt.date };
-        dateMap[pt.date][a.key] = pt.total;
+        dateMap[pt.date][`${a.key}_dep`] = pt.departures;
+        dateMap[pt.date][`${a.key}_arr`] = pt.arrivals;
+        dateMap[pt.date][`${a.key}_total`] = pt.total;
       }
     }
     let rows = Object.values(dateMap)
@@ -95,11 +110,12 @@ export default function FlightChart() {
       rows = rows.filter(row => row.date >= cutoffStr);
     }
     return rows;
-  }, [airportData, timeframe]);
+  }, [airportData, timeframe, limitedAirports]);
 
   const warLabel = formatDate('2026-02-28');
 
   const toggleAirport = (key) => {
+    if (limitedAirports.includes(key)) return;
     setVisible(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
@@ -116,7 +132,7 @@ export default function FlightChart() {
         AIRPORT FLIGHT VOLUME
       </div>
       <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 12, marginBottom: 12 }}>
-        Total daily flights per airport since Feb 18
+        Daily departures &amp; arrivals per airport since Feb 18
       </div>
 
       {/* Timeframe selector */}
@@ -134,28 +150,34 @@ export default function FlightChart() {
 
       {/* Airport toggles */}
       <div style={{ display: 'flex', gap: 12, marginBottom: 12, flexWrap: 'wrap' }}>
-        {AIRPORTS.map(a => (
-          <div
-            key={a.key}
-            onClick={() => toggleAirport(a.key)}
-            style={{
-              display: 'flex', alignItems: 'center', gap: 5,
-              cursor: 'pointer', fontSize: 11,
-              opacity: visible[a.key] ? 1 : 0.35,
-              color: 'rgba(255,255,255,0.7)',
-            }}
-          >
-            <span style={{
-              width: 10, height: 10, borderRadius: 2,
-              background: a.color,
-              display: 'inline-block',
-            }} />
-            {a.name}
-          </div>
-        ))}
+        {AIRPORTS.map(a => {
+          const isLimited = limitedAirports.includes(a.key);
+          return (
+            <div
+              key={a.key}
+              onClick={() => toggleAirport(a.key)}
+              title={isLimited ? 'Limited data — not enough points to chart' : ''}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 5,
+                cursor: isLimited ? 'default' : 'pointer',
+                fontSize: 11,
+                opacity: isLimited ? 0.25 : (visible[a.key] ? 1 : 0.35),
+                color: 'rgba(255,255,255,0.7)',
+              }}
+            >
+              <span style={{
+                width: 10, height: 10, borderRadius: 2,
+                background: a.color,
+                display: 'inline-block',
+              }} />
+              {a.name}
+              {isLimited && <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.4)' }}>(Limited data)</span>}
+            </div>
+          );
+        })}
       </div>
 
-      <ResponsiveContainer width="100%" height={280}>
+      <ResponsiveContainer width="100%" height={300}>
         <LineChart data={chartData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
           <XAxis dataKey="dateLabel" tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 11 }} tickLine={false} />
           <YAxis
@@ -170,21 +192,38 @@ export default function FlightChart() {
             strokeDasharray="4 4"
             label={{ value: 'War start', fill: '#EF4444', fontSize: 10, position: 'top' }}
           />
-          {AIRPORTS.map(a => (
+          {AIRPORTS.filter(a => !limitedAirports.includes(a.key)).map(a => [
             <Line
-              key={a.key}
+              key={`${a.key}_dep`}
               type="monotone"
-              dataKey={a.key}
-              name={a.name}
+              dataKey={`${a.key}_dep`}
+              name={`${a.name} Dep`}
               stroke={a.color}
               strokeWidth={2}
               dot={false}
               connectNulls
               hide={!visible[a.key]}
-            />
-          ))}
+            />,
+            <Line
+              key={`${a.key}_arr`}
+              type="monotone"
+              dataKey={`${a.key}_arr`}
+              name={`${a.name} Arr`}
+              stroke={a.color}
+              strokeWidth={2}
+              strokeDasharray="5 3"
+              dot={false}
+              connectNulls
+              hide={!visible[a.key]}
+            />,
+          ])}
         </LineChart>
       </ResponsiveContainer>
+
+      <div style={{ display: 'flex', gap: 16, marginTop: 8, fontSize: 10, color: 'rgba(255,255,255,0.4)' }}>
+        <span>— Solid = Departures</span>
+        <span>- - Dashed = Arrivals</span>
+      </div>
     </div>
   );
 }
