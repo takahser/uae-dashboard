@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-02T15:02:51.121Z",
+  "lastUpdated": "2026-04-02T15:38:18.553Z",
   "sources": {
     "modgovae": {
       "lastTweetId": "2036027164290605338"
@@ -7,25 +7,25 @@
     "notes": "From 13 Mar 2026, UAE MoD changed reporting from intercepted/impacted breakdown to 'engaged' count only. See reportingType field on daily entries."
   },
   "cumulative": {
-    "ballisticDetected": 355,
-    "ballisticIntercepted": 303,
+    "ballisticDetected": 455,
+    "ballisticIntercepted": 403,
     "ballisticImpacted": 3,
-    "cruiseDetected": 15,
-    "cruiseIntercepted": 15,
+    "cruiseDetected": 19,
+    "cruiseIntercepted": 19,
     "cruiseImpacted": 0,
-    "dronesDetected": 1769,
-    "dronesIntercepted": 1619,
+    "dronesDetected": 1983,
+    "dronesIntercepted": 1833,
     "dronesImpacted": 63,
     "killed": 1,
     "injured": 13,
-    "ballistic": 438,
+    "ballistic": 457,
     "drones": 1804,
     "killedMilitary": 2,
     "killedCivilian": 6,
     "ballisticSea": 20,
     "cruiseSea": 0,
     "dronesSea": 0,
-    "cruise": 15
+    "cruise": 19
   },
   "daily": [
     {
@@ -422,6 +422,109 @@
       "notes": "Day 24. UAE MoD reported 7 ballistic missiles and 16 UAVs engaged. Second wave (ballistic + cruise + UAVs) announced 11:06 UTC — breakdown not published by MoD. LWJ (Ahmad Sharawi, 23 Mar 2026) confirms 7 ballistic + 16 drones total for the day. Cumulative: 352 ballistic, 15 cruise, 1789 UAVs. Cumulative casualties: 2 UAE military martyred, 6 foreign nationals (Pakistani, Nepali, Bangladeshi, Palestinian), 161 injured."
     },
     {
+      "date": "2026-03-24",
+      "label": "24 Mar",
+      "source": "https://x.com/modgovae/status/2036391633927700753",
+      "reportingType": "engaged",
+      "ballisticDetected": 5,
+      "ballisticIntercepted": 5,
+      "ballisticEngaged": 5,
+      "dronesDetected": 17,
+      "dronesIntercepted": 17,
+      "dronesEngaged": 17,
+      "total": 22
+    },
+    {
+      "date": "2026-03-25",
+      "label": "25 Mar",
+      "source": "https://x.com/modgovae/status/2036758348218134543",
+      "reportingType": "engaged",
+      "dronesDetected": 9,
+      "dronesIntercepted": 9,
+      "dronesEngaged": 9,
+      "total": 9
+    },
+    {
+      "date": "2026-03-26",
+      "label": "26 Mar",
+      "source": "https://x.com/modgovae/status/2037155581388349815",
+      "reportingType": "engaged",
+      "ballisticDetected": 15,
+      "ballisticIntercepted": 15,
+      "ballisticEngaged": 15,
+      "dronesDetected": 11,
+      "dronesIntercepted": 11,
+      "dronesEngaged": 11,
+      "total": 26
+    },
+    {
+      "date": "2026-03-27",
+      "label": "27 Mar",
+      "source": "https://x.com/modgovae/status/2037495918136852718",
+      "reportingType": "engaged",
+      "ballisticDetected": 6,
+      "ballisticIntercepted": 6,
+      "ballisticEngaged": 6,
+      "dronesDetected": 9,
+      "dronesIntercepted": 9,
+      "dronesEngaged": 9,
+      "total": 15
+    },
+    {
+      "date": "2026-03-28",
+      "label": "28 Mar",
+      "source": "https://x.com/modgovae/status/2037854374572269790",
+      "reportingType": "engaged",
+      "ballisticDetected": 20,
+      "ballisticIntercepted": 20,
+      "ballisticEngaged": 20,
+      "dronesDetected": 37,
+      "dronesIntercepted": 37,
+      "dronesEngaged": 37,
+      "total": 57
+    },
+    {
+      "date": "2026-03-29",
+      "label": "29 Mar",
+      "source": "https://x.com/modgovae/status/2038210942899769563",
+      "reportingType": "engaged",
+      "ballisticDetected": 16,
+      "ballisticIntercepted": 16,
+      "ballisticEngaged": 16,
+      "dronesDetected": 42,
+      "dronesIntercepted": 42,
+      "dronesEngaged": 42,
+      "total": 58
+    },
+    {
+      "date": "2026-03-30",
+      "label": "30 Mar",
+      "source": "https://x.com/modgovae/status/2038573780877160658",
+      "reportingType": "engaged",
+      "ballisticDetected": 11,
+      "ballisticIntercepted": 11,
+      "ballisticEngaged": 11,
+      "dronesDetected": 27,
+      "dronesIntercepted": 27,
+      "dronesEngaged": 27,
+      "total": 38
+    },
+    {
+      "date": "2026-03-31",
+      "label": "31 Mar",
+      "source": "https://x.com/modgovae/status/2038939423786881399",
+      "reportingType": "engaged",
+      "ballisticDetected": 8,
+      "ballisticIntercepted": 8,
+      "ballisticEngaged": 8,
+      "cruiseDetected": 4,
+      "cruiseIntercepted": 4,
+      "dronesDetected": 36,
+      "dronesIntercepted": 36,
+      "dronesEngaged": 36,
+      "total": 44
+    },
+    {
       "date": "2026-04-01",
       "label": "1 Apr",
       "source": "https://x.com/modgovae/status/2039302488516702588",
@@ -429,6 +532,19 @@
       "ballisticEngaged": 5,
       "dronesEngaged": 35,
       "total": 40
+    },
+    {
+      "date": "2026-04-02",
+      "label": "2 Apr",
+      "source": "https://x.com/modgovae/status/2039665076836397135",
+      "reportingType": "engaged",
+      "ballisticDetected": 19,
+      "ballisticIntercepted": 19,
+      "ballisticEngaged": 19,
+      "dronesDetected": 26,
+      "dronesIntercepted": 26,
+      "dronesEngaged": 26,
+      "total": 45
     }
   ]
 }

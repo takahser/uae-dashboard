@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
  * parse-attack-data.js
- * Parse tweet cache and extract structured attack data using Groq LLM.
- * See tasks/spec-attack-data-parser.md for full specification.
+ * Parse tweet cache and extract structured attack data using regex patterns.
+ * Runs daily via CI to process new tweets from tweet-cache/{country}.json.
  */
 
 import fs from "fs";
@@ -12,24 +12,14 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "../..");
 
-const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
-const GROQ_MODEL = "llama-3.3-70b-versatile";
-const GROQ_API_KEY = process.env.GROQ_API_KEY;
 const DRY_RUN = process.env.DRY_RUN === "true";
 
 const COUNTRIES = ["uae", "bahrain", "qatar", "saudi", "israel", "iran"];
 
-const ARABIC_NUMERALS = {
-  "\u0660": "0", "\u0661": "1", "\u0662": "2", "\u0663": "3", "\u0664": "4",
-  "\u0665": "5", "\u0666": "6", "\u0667": "7", "\u0668": "8", "\u0669": "9"
-};
+// --- Helpers ---
 
-function convertArabicNumerals(text) {
-  return text.replace(/[\u0660-\u0669]/g, char => ARABIC_NUMERALS[char]);
-}
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+function arabicToWestern(s) {
+  return s.replace(/[٠-٩]/g, d => String(d.charCodeAt(0) - 1632));
 }
 
 function formatLabel(dateStr) {
@@ -38,259 +28,120 @@ function formatLabel(dateStr) {
   return `${d.getUTCDate()} ${months[d.getUTCMonth()]}`;
 }
 
+function tweetDate(timeStr) {
+  return timeStr.slice(0, 10); // "YYYY-MM-DD"
+}
+
 function calculateTotal(entry) {
   let total = 0;
-  const countFields = [
-    "ballisticDetected", "ballisticEngaged",
-    "cruiseDetected", "cruiseEngaged",
-    "dronesDetected", "dronesEngaged"
-  ];
-  // For "engaged" reporting, use engaged fields
   if (entry.reportingType === "engaged") {
     if (typeof entry.ballisticEngaged === "number") total += entry.ballisticEngaged;
     if (typeof entry.cruiseEngaged === "number") total += entry.cruiseEngaged;
     if (typeof entry.dronesEngaged === "number") total += entry.dronesEngaged;
   } else {
-    // For "intercepted" reporting, use detected fields
+    if (typeof entry.ballisticIntercepted === "number") total += entry.ballisticIntercepted;
+    if (typeof entry.cruiseIntercepted === "number") total += entry.cruiseIntercepted;
+    if (typeof entry.dronesIntercepted === "number") total += entry.dronesIntercepted;
+  }
+  // Fallback: try detected fields
+  if (total === 0) {
     if (typeof entry.ballisticDetected === "number") total += entry.ballisticDetected;
     if (typeof entry.cruiseDetected === "number") total += entry.cruiseDetected;
     if (typeof entry.dronesDetected === "number") total += entry.dronesDetected;
   }
-  // Fallback: if total is still 0, try summing whatever numeric fields exist
-  if (total === 0) {
-    for (const f of countFields) {
-      if (typeof entry[f] === "number") total += entry[f];
-    }
-  }
   return total || undefined;
 }
 
-// --- Prompt Engineering ---
+// --- Regex extraction ---
 
-const SYSTEM_PROMPT = `You are a military data extraction assistant. Extract ONLY explicitly stated numbers from official Ministry of Defence tweets. Never interpolate, estimate, or infer values.
+function extractUae(text) {
+  const t = arabicToWestern(text);
 
-CRITICAL RULES:
-1. Only extract numbers that are explicitly written in the tweet
-2. If a number is ambiguous or unclear, omit that field entirely
-3. Never use 0 as a placeholder for missing data — omit the field
-4. Return valid JSON only — no prose, no markdown
-5. Arabic numerals (٠١٢٣٤٥٦٧٨٩) must be converted to Western numerals
-6. Handle both Arabic and English text
-7. Distinguish between DAILY counts (for a specific date) and CUMULATIVE totals (running total)
-8. If a tweet only mentions "engaged" or "intercepted" without breakdown, use the sum as the engaged/intercepted count`;
+  // New format (post Mar 13): "engaged X Ballistic missiles, Y Cruise Missiles and Z UAVs"
+  const engagedWithCruise = t.match(/engaged\s+(\d+)\s+ballistic\s+missiles?\s*,\s*(\d+)\s+cruise\s+missiles?\s+and\s+(\d+)\s+UAVs?/i);
+  if (engagedWithCruise) {
+    return {
+      reportingType: "engaged",
+      ballisticEngaged: parseInt(engagedWithCruise[1]),
+      cruiseEngaged: parseInt(engagedWithCruise[2]),
+      dronesEngaged: parseInt(engagedWithCruise[3]),
+    };
+  }
 
-function buildUserPrompt(country, tweets) {
-  const countryHints = {
-    uae: `Country: UAE
-Account: @modgovae
-Reporting format change: From 2026-03-13 onwards, UAE MoD reports "engaged" counts instead of intercepted/impacted breakdown.
-For post-Mar 13: reportingType should be "engaged", use ballisticEngaged and dronesEngaged fields.
-For pre-Mar 13: reportingType should be "intercepted", use full detected/intercepted/impacted breakdown.
-Key Arabic: تعاملت = engaged, اعترضت = intercepted, رصدت = detected, صاروخ باليستي = ballistic, طائرة مسيرة = drone/UAV, صاروخ جوال = cruise missile`,
+  // New format: "engaged X Ballistic missiles and Y UAVs" (comma or no comma variants)
+  const engaged = t.match(/engaged\s+(\d+)\s+ballistic\s+missiles?\s*(?:,\s*|\s+and\s+)(\d+)\s+UAVs?/i);
+  if (engaged) {
+    return {
+      reportingType: "engaged",
+      ballisticEngaged: parseInt(engaged[1]),
+      dronesEngaged: parseInt(engaged[2]),
+    };
+  }
 
-    bahrain: `Country: Bahrain
-Account: @BDF_Bahrain
-Bahrain reports cumulative totals in each infographic tweet. Calculate daily delta from cumulative changes if possible.
-Look for total missiles and drones intercepted numbers.`,
+  // Old format (pre Mar 13): "intercepted X ballistic missiles" ... "Y UAVs"
+  const ballisticMatch = t.match(/intercepted\s+(\d+)\s+ballistic\s+missiles?/i);
+  const uavMatch = t.match(/(\d+)\s+UAVs?/i);
+  if (ballisticMatch) {
+    const entry = {
+      reportingType: "intercepted",
+      ballisticIntercepted: parseInt(ballisticMatch[1]),
+    };
+    if (uavMatch) entry.dronesIntercepted = parseInt(uavMatch[1]);
+    return entry;
+  }
 
-    qatar: `Country: Qatar
-Account: @MOaborki
-Look for any defense-related statistics or attack data.`,
-
-    saudi: `Country: Saudi Arabia
-Account: @modgovksa
-Arabic tweets, similar format to UAE. Look for missile and drone interception reports.`,
-
-    israel: `Country: Israel
-Account: @IDF
-Sparse data — often no daily breakdown. Look for "intercepted X missiles/drones" phrases.`,
-
-    iran: `Country: Iran
-Account: @khamenei_ir
-Claims of attacks launched, not defenses. Different schema: missilesLaunched, dronesLaunched.
-Look for claims about strikes or attacks carried out.`
-  };
-
-  const header = countryHints[country] || `Country: ${country}`;
-
-  const tweetBlocks = tweets.map((t, i) => {
-    const text = convertArabicNumerals(t.text);
-    return `---
-[Tweet ${i + 1}]
-Time: ${t.time}
-URL: ${t.url}
-Text: ${text}
----`;
-  }).join("\n");
-
-  return `${header}
-
-Extract attack data from these tweets. Return JSON with this structure:
-{
-  "entries": [
-    {
-      "type": "daily",
-      "date": "YYYY-MM-DD",
-      "reportingType": "engaged" | "intercepted",
-      "ballisticDetected": <number or omit>,
-      "ballisticIntercepted": <number or omit>,
-      "ballisticEngaged": <number or omit>,
-      "ballisticImpacted": <number or omit>,
-      "cruiseDetected": <number or omit>,
-      "cruiseIntercepted": <number or omit>,
-      "dronesDetected": <number or omit>,
-      "dronesIntercepted": <number or omit>,
-      "dronesEngaged": <number or omit>,
-      "dronesImpacted": <number or omit>,
-      "killed": <number or omit>,
-      "injured": <number or omit>,
-      "source": "<tweet URL>"
-    }
-  ],
-  "cumulative": {
-    "ballistic": <number or omit>,
-    "cruise": <number or omit>,
-    "drones": <number or omit>,
-    "killed": <number or omit>,
-    "injured": <number or omit>,
-    "source": "<tweet URL if stated>"
-  },
-  "skipped": ["<tweet URL>: <reason>", ...]
+  return null;
 }
 
-If no extractable data, return: {"entries": [], "cumulative": null, "skipped": [...]}
+function extractBahrain(text) {
+  const t = arabicToWestern(text);
 
-TWEETS:
-${tweetBlocks}`;
+  const ballisticMatch = t.match(/(\d+)\s*صاروخ/);
+  const droneMatch = t.match(/(\d+)\s*طائر(?:ة|ات)\s*مسيرة/);
+
+  if (!ballisticMatch && !droneMatch) return null;
+
+  const entry = { reportingType: "intercepted" };
+  if (ballisticMatch) entry.ballisticIntercepted = parseInt(ballisticMatch[1]);
+  if (droneMatch) entry.dronesIntercepted = parseInt(droneMatch[1]);
+  return entry;
 }
 
-// --- Groq API ---
+const EXTRACTORS = {
+  uae: extractUae,
+  bahrain: extractBahrain,
+};
 
-async function callGroqExtractor(country, tweets, existingData, retries = 3) {
-  if (!GROQ_API_KEY) {
-    throw new Error("GROQ_API_KEY environment variable is not set");
-  }
-
-  const userPrompt = buildUserPrompt(country, tweets);
-
-  for (let attempt = 1; attempt <= retries; attempt++) {
-    try {
-      console.log(`  [${country}] Groq API attempt ${attempt}/${retries} (${tweets.length} tweets)...`);
-
-      const response = await fetch(GROQ_API_URL, {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${GROQ_API_KEY}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          model: GROQ_MODEL,
-          messages: [
-            { role: "system", content: SYSTEM_PROMPT },
-            { role: "user", content: userPrompt }
-          ],
-          temperature: 0,
-          response_format: { type: "json_object" }
-        })
-      });
-
-      if (response.status === 429) {
-        const waitMs = Math.pow(2, attempt) * 1000;
-        console.log(`  [${country}] Rate limited. Waiting ${waitMs}ms...`);
-        await sleep(waitMs);
-        continue;
-      }
-
-      if (!response.ok) {
-        const body = await response.text();
-        throw new Error(`Groq API error ${response.status}: ${body.slice(0, 300)}`);
-      }
-
-      const json = await response.json();
-      const content = json.choices[0].message.content;
-
-      // Parse and validate JSON
-      try {
-        const extracted = JSON.parse(content);
-        if (!extracted.entries || !Array.isArray(extracted.entries)) {
-          throw new Error("Invalid response structure — missing entries array");
-        }
-        return extracted;
-      } catch (parseErr) {
-        console.error(`  [${country}] Failed to parse Groq response: ${parseErr.message}`);
-        console.error(`  Raw content: ${content.slice(0, 500)}`);
-        return { entries: [], cumulative: null, skipped: ["parse_error"] };
-      }
-
-    } catch (err) {
-      console.error(`  [${country}] Attempt ${attempt} error: ${err.message}`);
-      if (attempt === retries) throw err;
-      await sleep(Math.pow(2, attempt) * 1000);
-    }
-  }
-}
-
-// --- Validation ---
-
-function validateEntry(entry) {
-  if (!entry.date || !/^\d{4}-\d{2}-\d{2}$/.test(entry.date)) {
-    return { valid: false, reason: "invalid_date" };
-  }
-
-  if (!entry.source || !entry.source.startsWith("https://x.com/")) {
-    return { valid: false, reason: "missing_source" };
-  }
-
-  const numericFields = [
-    "ballisticDetected", "ballisticIntercepted", "ballisticEngaged",
-    "dronesDetected", "dronesIntercepted", "dronesEngaged",
-    "cruiseDetected", "cruiseIntercepted", "killed", "injured"
-  ];
-  const hasNumeric = numericFields.some(f => typeof entry[f] === "number");
-  if (!hasNumeric) {
-    return { valid: false, reason: "no_numeric_data" };
-  }
-
-  return { valid: true };
+function extractFromTweet(country, tweet) {
+  const extractor = EXTRACTORS[country];
+  if (!extractor) return null;
+  return extractor(tweet.text);
 }
 
 // --- Merge Logic ---
 
-function mergeEntries(data, extracted) {
+function mergeEntries(data, entries) {
   const existingDates = new Set(data.daily.map(e => e.date));
   let added = 0, skipped = 0;
-  const invalidEntries = [];
 
-  for (const entry of extracted.entries) {
-    if (entry.type !== "daily") continue;
-
-    // Validate
-    const validation = validateEntry(entry);
-    if (!validation.valid) {
-      invalidEntries.push(`${entry.source || entry.date}: ${validation.reason}`);
+  for (const entry of entries) {
+    if (existingDates.has(entry.date)) {
       skipped++;
       continue;
     }
 
-    if (existingDates.has(entry.date)) {
-      skipped++;
-      continue; // Never overwrite existing entries
-    }
-
-    // Build entry with only present fields
     const dailyEntry = {
       date: entry.date,
       label: formatLabel(entry.date),
-      source: entry.source
+      source: entry.source,
     };
 
-    // Copy only non-null fields
     const fields = [
       "reportingType",
       "ballisticDetected", "ballisticIntercepted", "ballisticEngaged", "ballisticImpacted",
-      "cruiseDetected", "cruiseIntercepted",
+      "cruiseDetected", "cruiseIntercepted", "cruiseEngaged",
       "dronesDetected", "dronesIntercepted", "dronesEngaged", "dronesImpacted",
-      "killed", "injured", "notes"
+      "killed", "injured", "notes",
     ];
 
     for (const field of fields) {
@@ -299,37 +150,16 @@ function mergeEntries(data, extracted) {
       }
     }
 
-    // Calculate total
     const total = calculateTotal(dailyEntry);
-    if (total !== undefined) {
-      dailyEntry.total = total;
-    }
+    if (total !== undefined) dailyEntry.total = total;
 
     data.daily.push(dailyEntry);
     existingDates.add(entry.date);
     added++;
   }
 
-  // Sort by date
   data.daily.sort((a, b) => a.date.localeCompare(b.date));
-
-  // Handle cumulative updates
-  if (extracted.cumulative) {
-    updateCumulativeIfHigher(data.cumulative, extracted.cumulative);
-  }
-
-  return { added, skipped, invalidEntries, skippedReasons: extracted.skipped || [] };
-}
-
-function updateCumulativeIfHigher(cumulative, newCum) {
-  const fields = ["ballistic", "cruise", "drones", "killed", "injured"];
-  for (const field of fields) {
-    if (typeof newCum[field] === "number") {
-      if (typeof cumulative[field] !== "number" || newCum[field] > cumulative[field]) {
-        cumulative[field] = newCum[field];
-      }
-    }
-  }
+  return { added, skipped };
 }
 
 // --- Cumulative Recalculation ---
@@ -338,10 +168,10 @@ function recalculateCumulative(data) {
   const cum = {};
 
   const sumFields = [
-    "ballisticDetected", "ballisticIntercepted", "ballisticImpacted",
-    "cruiseDetected", "cruiseIntercepted", "cruiseImpacted",
-    "dronesDetected", "dronesIntercepted", "dronesImpacted",
-    "killed", "injured"
+    "ballisticDetected", "ballisticIntercepted", "ballisticEngaged", "ballisticImpacted",
+    "cruiseDetected", "cruiseIntercepted", "cruiseEngaged", "cruiseImpacted",
+    "dronesDetected", "dronesIntercepted", "dronesEngaged", "dronesImpacted",
+    "killed", "injured",
   ];
 
   for (const field of sumFields) {
@@ -352,7 +182,7 @@ function recalculateCumulative(data) {
     }
   }
 
-  // For "engaged" reporting, sum engaged fields
+  // Aggregate totals for ballistic/drones across reporting types
   const ballisticEngagedSum = data.daily.reduce((acc, e) =>
     acc + (typeof e.ballisticEngaged === "number" ? e.ballisticEngaged : 0), 0);
   const dronesEngagedSum = data.daily.reduce((acc, e) =>
@@ -373,8 +203,7 @@ function recalculateCumulative(data) {
     }
   }
 
-  // Preserve cumulative fields that were set from tweet cumulative data
-  // (only if higher than computed sums)
+  // Preserve cumulative fields set from tweet cumulative data (only if higher)
   const cumulativeOnlyFields = ["ballistic", "cruise", "drones"];
   for (const field of cumulativeOnlyFields) {
     if (data.cumulative && typeof data.cumulative[field] === "number") {
@@ -389,7 +218,7 @@ function recalculateCumulative(data) {
 
 // --- Per-Country Processing ---
 
-async function processCountry(country) {
+function processCountry(country) {
   console.log(`\nProcessing ${country}...`);
 
   // 1. Load tweet cache
@@ -420,24 +249,31 @@ async function processCountry(country) {
 
   console.log(`  Found ${newTweets.length} new tweets (after ${data.lastUpdated || "epoch"})`);
 
-  // 4. Call Groq API
-  let extracted;
-  try {
-    extracted = await callGroqExtractor(country, newTweets, data);
-  } catch (err) {
-    console.error(`  ERROR calling Groq for ${country}: ${err.message}`);
-    return { country, status: "error", reason: err.message };
+  // 4. Extract via regex
+  const entries = [];
+  let noMatch = 0;
+  for (const tweet of newTweets) {
+    const extracted = extractFromTweet(country, tweet);
+    if (extracted) {
+      entries.push({
+        ...extracted,
+        date: tweetDate(tweet.time),
+        source: tweet.url,
+      });
+    } else {
+      noMatch++;
+    }
   }
+  console.log(`  Regex extracted ${entries.length} entries, ${noMatch} unmatched`);
 
-  console.log(`  Groq returned ${extracted.entries.length} entries, ${(extracted.skipped || []).length} skipped`);
+  if (entries.length === 0) {
+    console.log(`  No extractable data`);
+    return { country, status: "skipped", reason: "no regex matches" };
+  }
 
   // 5. Merge entries (idempotent)
-  const updates = mergeEntries(data, extracted);
-  console.log(`  Merged: ${updates.added} added, ${updates.skipped} skipped`);
-
-  if (updates.invalidEntries.length > 0) {
-    console.log(`  Invalid entries: ${updates.invalidEntries.join(", ")}`);
-  }
+  const { added, skipped } = mergeEntries(data, entries);
+  console.log(`  Merged: ${added} added, ${skipped} skipped`);
 
   // 6. Recalculate cumulative
   recalculateCumulative(data);
@@ -454,26 +290,20 @@ async function processCountry(country) {
     console.log(`  Wrote ${dataPath}`);
   }
 
-  return { country, status: "updated", ...updates };
+  return { country, status: "updated", added, skipped };
 }
 
 // --- Main ---
 
-async function main() {
-  console.log("=== parse-attack-data.js ===");
+function main() {
+  console.log("=== parse-attack-data.js (regex) ===");
   console.log(`Date: ${new Date().toISOString()}`);
   console.log(`Dry run: ${DRY_RUN}`);
-  console.log(`Groq API key: ${GROQ_API_KEY ? "set (" + GROQ_API_KEY.slice(0, 8) + "...)" : "NOT SET"}`);
-
-  if (!GROQ_API_KEY) {
-    console.error("ERROR: GROQ_API_KEY is not set. Exiting.");
-    process.exit(1);
-  }
 
   const log = [];
 
   for (const country of COUNTRIES) {
-    const result = await processCountry(country);
+    const result = processCountry(country);
     log.push(result);
   }
 
@@ -490,7 +320,4 @@ async function main() {
   }
 }
 
-main().catch(err => {
-  console.error("Fatal error:", err);
-  process.exit(1);
-});
+main();
