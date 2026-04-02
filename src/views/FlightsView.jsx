@@ -66,6 +66,7 @@ function AirportCard({ airport, data }) {
       {/* Header */}
       <div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+          <span style={{ fontSize: '1.2rem' }}>{airport.flag}</span>
           <span style={{ fontSize: '1.1rem', fontWeight: 700, color: TEXT }}>{airport.code}</span>
           {data?.airport && (
             <span style={{ fontSize: '0.7rem', color: SUBTEXT }}>({data.airport})</span>
@@ -150,31 +151,14 @@ export default function FlightsView({ onBack }) {
         {loading ? (
           <div style={{ textAlign: 'center', padding: 60, color: SUBTEXT }}>Loading flight data...</div>
         ) : (
-          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-            {COUNTRY_GROUPS.map(group => {
-              const groupAirports = AIRPORTS.filter(a => group.codes.includes(a.code));
-              return (
-                <div key={group.country} style={{
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  borderRadius: 16,
-                  padding: "16px 20px",
-                  background: "rgba(255,255,255,0.02)",
-                }}>
-                  {/* Country header: flag emoji only, no text */}
-                  <div style={{ fontSize: 22, marginBottom: 14 }}>{group.flag}</div>
-                  {/* Airport cards in a responsive grid */}
-                  <div style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-                    gap: 14,
-                  }}>
-                    {groupAirports.map(airport => (
-                      <AirportCard key={airport.code} airport={airport} data={airportData[airport.code]} />
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
+            gap: 14,
+          }}>
+            {AIRPORTS.map(airport => (
+              <AirportCard key={airport.code} airport={airport} data={airportData[airport.code]} />
+            ))}
           </div>
         )}
       </div>
