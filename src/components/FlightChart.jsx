@@ -72,6 +72,8 @@ export default function FlightChart() {
   const [visible, setVisible] = useState(
     Object.fromEntries(AIRPORTS.map(a => [a.key, FULL_DATA_AIRPORTS.has(a.key)]))
   );
+  const [cancelVisible, setCancelVisible] = useState({ JED: true, RUH: true, IKA: true });
+  const toggleCancel = (key) => setCancelVisible(v => ({ ...v, [key]: !v[key] }));
 
   useEffect(() => {
     const base = import.meta.env.BASE_URL || '/';
@@ -297,6 +299,29 @@ export default function FlightChart() {
             JED · RUH · IKA only
           </div>
 
+          <div style={{ display: 'flex', gap: 12, marginBottom: 12, flexWrap: 'wrap' }}>
+            {CANCELLATION_AIRPORTS.map(a => (
+              <div
+                key={a.key}
+                onClick={() => toggleCancel(a.key)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 5,
+                  cursor: 'pointer',
+                  fontSize: 11,
+                  opacity: cancelVisible[a.key] ? 1 : 0.35,
+                  color: 'rgba(255,255,255,0.7)',
+                }}
+              >
+                <span style={{
+                  width: 10, height: 10, borderRadius: 2,
+                  background: a.color,
+                  display: 'inline-block',
+                }} />
+                {a.name}
+              </div>
+            ))}
+          </div>
+
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={cancellationData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
               <XAxis dataKey="dateLabel" tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 11 }} tickLine={false} />
@@ -311,22 +336,15 @@ export default function FlightChart() {
               {CANCELLATION_AIRPORTS.map(a => (
                 <Bar
                   key={`${a.key}_cancelled`}
+                  stackId="cancel"
                   dataKey={`${a.key}_cancelled`}
                   name={`${a.name} cancelled`}
                   fill={a.color}
+                  hide={!cancelVisible[a.key]}
                 />
               ))}
             </BarChart>
           </ResponsiveContainer>
-
-          <div style={{ display: 'flex', gap: 16, marginTop: 8 }}>
-            {CANCELLATION_AIRPORTS.map(a => (
-              <div key={a.key} style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>
-                <span style={{ width: 8, height: 8, borderRadius: '50%', background: a.color, display: 'inline-block' }} />
-                {a.key}
-              </div>
-            ))}
-          </div>
         </div>
       )}
     </div>
