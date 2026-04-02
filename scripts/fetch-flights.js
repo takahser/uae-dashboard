@@ -15,7 +15,7 @@ import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const DATA_FILE = join(__dirname, "..", "public", "data-flights-dxb.json");
+const DATA_FILE = join(__dirname, "..", "public", "data-flights-dxb-opensky.json");
 
 const AIRPORT = "OMDB";
 const CONFLICT_START = "2026-02-28";

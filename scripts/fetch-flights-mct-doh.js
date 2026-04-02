@@ -101,7 +101,7 @@ function datesToFetch(existing) {
 }
 
 async function processAirport(token, airport) {
-  const dataFile = join(__dirname, "..", "public", `data-flights-${airport.iata}.json`);
+  const dataFile = join(__dirname, "..", "public", `data-flights-${airport.iata}-opensky.json`);
 
   let existing;
   try {

@@ -167,7 +167,8 @@ function delay(ms) {
 }
 
 async function processAirport(token, airport) {
-  const dataFile = join(PUBLIC_DIR, `data-flights-${airport.iata.toLowerCase()}.json`);
+  // Write to separate OpenSky file — AeroDataBox is master, OpenSky is parallel tracking only
+  const dataFile = join(PUBLIC_DIR, `data-flights-${airport.iata.toLowerCase()}-opensky.json`);
   let existing;
   try {
     existing = JSON.parse(readFileSync(dataFile, "utf8"));
