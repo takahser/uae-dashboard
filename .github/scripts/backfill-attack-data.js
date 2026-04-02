@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 /**
  * backfill-attack-data.js
- * One-off script: query KB database for attack tweets (Mar 24 – today),
- * extract structured counts via regex, and merge into public/data-{country}.json.
+ * One-off script: query KB database for attack tweets (Mar 24 - today),
+ * extract structured counts via Claude CLI, and merge into public/data-{country}.json.
  */
 
 import Database from "better-sqlite3";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { spawnSync } from "child_process";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "../..");
@@ -16,6 +17,7 @@ const ROOT = path.resolve(__dirname, "../..");
 const DB_PATH = "/Users/chou/repos/xpost-automation/memory/kb.db";
 const DRY_RUN = process.env.DRY_RUN === "true";
 const CACHE_DIR = "/tmp/backfill-cache";
+const BATCH_SIZE = 20;
 
 const ATTACK_KEYWORDS = /missile|drone|ballistic|intercept|strike|UAV|rocket|صاروخ|طائرة مسيرة|اعتراض|تعامل/i;
 
@@ -41,86 +43,81 @@ const COUNTRY_QUERIES = {
   },
 };
 
-// --- Helpers ---
+// --- Claude CLI ---
 
-function arabicToWestern(s) {
-  return s.replace(/[٠-٩]/g, d => String(d.charCodeAt(0) - 1632));
+function callClaude(prompt) {
+  const env = { ...process.env };
+  delete env.ANTHROPIC_API_KEY; // force Claude Code subscription
+  const result = spawnSync("claude", ["--print", "--output-format", "json"], {
+    input: prompt,
+    encoding: "utf8",
+    env,
+    maxBuffer: 10 * 1024 * 1024,
+  });
+  if (result.status !== 0) throw new Error(result.stderr || "claude failed");
+  const out = JSON.parse(result.stdout);
+  return out.result || out.content || "";
 }
+
+const SYSTEM_PROMPT = `You are a military data extractor. Extract structured attack data from official MoD tweets. Return ONLY valid JSON — no prose. If a tweet has no numeric attack data, skip it.`;
+
+function buildUserPrompt(country, tweets) {
+  const schema = `{
+  "entries": [
+    {
+      "date": "YYYY-MM-DD (from tweet timestamp)",
+      "reportingType": "engaged" or "intercepted",
+      "ballisticEngaged": number (omit if not present),
+      "ballisticIntercepted": number (omit if not present),
+      "cruiseEngaged": number (omit if not present),
+      "cruiseIntercepted": number (omit if not present),
+      "dronesEngaged": number (omit if not present),
+      "dronesIntercepted": number (omit if not present),
+      "total": sum of all detected/engaged/intercepted counts,
+      "source": "tweet URL"
+    }
+  ],
+  "skipped": ["url: reason", ...]
+}`;
+
+  const tweetBlock = tweets
+    .map(
+      (t, i) =>
+        `Tweet ${i + 1}:\n  Date: ${t.time}\n  URL: ${t.url}\n  Text: ${t.text}`
+    )
+    .join("\n\n");
+
+  return `Country: ${country}
+
+Extract attack data from these tweets. Use "engaged" if the tweet says "engaged", use "intercepted" if it says "intercepted" or uses Arabic interception terms. Use the date from the tweet timestamp (YYYY-MM-DD). Include the tweet URL as source.
+
+Expected JSON schema:
+${schema}
+
+Tweets:
+${tweetBlock}`;
+}
+
+function extractBatch(country, tweets) {
+  const prompt = `${SYSTEM_PROMPT}\n\n${buildUserPrompt(country, tweets)}`;
+  const raw = callClaude(prompt);
+
+  // Parse JSON from response (handle markdown code fences)
+  let jsonStr = raw;
+  const fenceMatch = raw.match(/```(?:json)?\s*([\s\S]*?)```/);
+  if (fenceMatch) jsonStr = fenceMatch[1];
+  jsonStr = jsonStr.trim();
+
+  const parsed = JSON.parse(jsonStr);
+  return parsed;
+}
+
+// --- Helpers ---
 
 function formatLabel(dateStr) {
   const d = new Date(dateStr + "T00:00:00Z");
   const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   return `${d.getUTCDate()} ${months[d.getUTCMonth()]}`;
-}
-
-function tweetDate(timeStr) {
-  return timeStr.slice(0, 10); // "YYYY-MM-DD"
-}
-
-// --- Regex extraction ---
-
-function extractUae(text) {
-  const t = arabicToWestern(text);
-
-  // New format (post Mar 13): "engaged X Ballistic missiles, Y Cruise Missiles and Z UAVs"
-  const engagedWithCruise = t.match(/engaged\s+(\d+)\s+ballistic\s+missiles?\s*,\s*(\d+)\s+cruise\s+missiles?\s+and\s+(\d+)\s+UAVs?/i);
-  if (engagedWithCruise) {
-    return {
-      reportingType: "engaged",
-      ballisticEngaged: parseInt(engagedWithCruise[1]),
-      cruiseEngaged: parseInt(engagedWithCruise[2]),
-      dronesEngaged: parseInt(engagedWithCruise[3]),
-    };
-  }
-
-  // New format: "engaged X Ballistic missiles and Y UAVs" (comma or no comma variants)
-  const engaged = t.match(/engaged\s+(\d+)\s+ballistic\s+missiles?\s*(?:,\s*|\s+and\s+)(\d+)\s+UAVs?/i);
-  if (engaged) {
-    return {
-      reportingType: "engaged",
-      ballisticEngaged: parseInt(engaged[1]),
-      dronesEngaged: parseInt(engaged[2]),
-    };
-  }
-
-  // Old format (pre Mar 13): "intercepted X ballistic missiles" ... "Y UAVs"
-  const ballisticMatch = t.match(/intercepted\s+(\d+)\s+ballistic\s+missiles?/i);
-  const uavMatch = t.match(/(\d+)\s+UAVs?/i);
-  if (ballisticMatch) {
-    const entry = {
-      reportingType: "intercepted",
-      ballisticIntercepted: parseInt(ballisticMatch[1]),
-    };
-    if (uavMatch) entry.dronesIntercepted = parseInt(uavMatch[1]);
-    return entry;
-  }
-
-  return null;
-}
-
-function extractBahrain(text) {
-  const t = arabicToWestern(text);
-
-  const ballisticMatch = t.match(/(\d+)\s*صاروخ/);
-  const droneMatch = t.match(/(\d+)\s*طائر(?:ة|ات)\s*مسيرة/);
-
-  if (!ballisticMatch && !droneMatch) return null;
-
-  const entry = { reportingType: "intercepted" };
-  if (ballisticMatch) entry.ballisticIntercepted = parseInt(ballisticMatch[1]);
-  if (droneMatch) entry.dronesIntercepted = parseInt(droneMatch[1]);
-  return entry;
-}
-
-const EXTRACTORS = {
-  uae: extractUae,
-  bahrain: extractBahrain,
-};
-
-function extractFromTweet(country, tweet) {
-  const extractor = EXTRACTORS[country];
-  if (!extractor) return null;
-  return extractor(tweet.text);
 }
 
 // --- Merge logic ---
@@ -188,7 +185,7 @@ function mergeIntoData(data, entries) {
 // --- Main ---
 
 async function main() {
-  console.log("=== backfill-attack-data.js (regex) ===");
+  console.log("=== backfill-attack-data.js (claude) ===");
   console.log(`Date: ${new Date().toISOString()}`);
   console.log(`DB: ${DB_PATH}`);
   console.log(`DRY_RUN: ${DRY_RUN}`);
@@ -237,22 +234,20 @@ async function main() {
     fs.writeFileSync(cachePath, JSON.stringify(cacheData, null, 2) + "\n");
     console.log(`  Wrote cache: ${cachePath} (${cacheTweets.length} tweets)`);
 
-    // 5. Extract via regex
-    const entries = [];
-    let noMatch = 0;
-    for (const tweet of cacheTweets) {
-      const extracted = extractFromTweet(country, tweet);
-      if (extracted) {
-        entries.push({
-          ...extracted,
-          date: tweetDate(tweet.time),
-          source: tweet.url,
-        });
-      } else {
-        noMatch++;
-      }
+    // 5. Extract via Claude in batches of BATCH_SIZE
+    const allEntries = [];
+    const allSkipped = [];
+    for (let i = 0; i < cacheTweets.length; i += BATCH_SIZE) {
+      const batch = cacheTweets.slice(i, i + BATCH_SIZE);
+      console.log(`  Calling Claude for batch ${Math.floor(i / BATCH_SIZE) + 1} (${batch.length} tweets)...`);
+      const result = extractBatch(country, batch);
+      if (result.entries) allEntries.push(...result.entries);
+      if (result.skipped) allSkipped.push(...result.skipped);
     }
-    console.log(`  Regex extracted ${entries.length} entries, ${noMatch} unmatched`);
+    console.log(`  Claude extracted ${allEntries.length} entries, ${allSkipped.length} skipped`);
+    if (allSkipped.length > 0) {
+      for (const s of allSkipped) console.log(`    Skipped: ${s}`);
+    }
 
     // 6. Load existing data and merge
     const dataPath = path.join(ROOT, `public/data-${country}.json`);
@@ -263,7 +258,7 @@ async function main() {
     if (!data.cumulative) data.cumulative = {};
 
     const before = data.daily.length;
-    const { added, skipped } = mergeIntoData(data, entries);
+    const { added, skipped } = mergeIntoData(data, allEntries);
     data.lastUpdated = new Date().toISOString();
 
     console.log(`  Merged: +${added} new, ${skipped} skipped (was ${before}, now ${data.daily.length})`);
