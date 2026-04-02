@@ -58,6 +58,7 @@ const btnActive = {
 
 export default function FlightChart() {
   const [airportData, setAirportData] = useState({});
+  const [viewMode, setViewMode] = useState('combined');
   const [timeframe, setTimeframe] = useState('ALL');
   const [visible, setVisible] = useState(
     Object.fromEntries(AIRPORTS.map(a => [a.key, FULL_DATA_AIRPORTS.has(a.key)]))
@@ -135,17 +136,30 @@ export default function FlightChart() {
         Daily departures &amp; arrivals per airport since Feb 18
       </div>
 
-      {/* Timeframe selector */}
-      <div style={{ display: 'flex', gap: 6, marginBottom: 12 }}>
-        {TIMEFRAMES.map(t => (
-          <button
-            key={t.key}
-            style={timeframe === t.key ? btnActive : btnBase}
-            onClick={() => setTimeframe(t.key)}
-          >
-            {t.key}
-          </button>
-        ))}
+      {/* View mode + Timeframe selectors */}
+      <div style={{ display: 'flex', gap: 16, marginBottom: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: 6 }}>
+          {['combined', 'split'].map(mode => (
+            <button
+              key={mode}
+              style={viewMode === mode ? btnActive : btnBase}
+              onClick={() => setViewMode(mode)}
+            >
+              {mode === 'combined' ? 'Combined' : 'Split'}
+            </button>
+          ))}
+        </div>
+        <div style={{ display: 'flex', gap: 6 }}>
+          {TIMEFRAMES.map(t => (
+            <button
+              key={t.key}
+              style={timeframe === t.key ? btnActive : btnBase}
+              onClick={() => setTimeframe(t.key)}
+            >
+              {t.key}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Airport toggles */}
@@ -192,38 +206,54 @@ export default function FlightChart() {
             strokeDasharray="4 4"
             label={{ value: 'War start', fill: '#EF4444', fontSize: 10, position: 'top' }}
           />
-          {AIRPORTS.filter(a => !limitedAirports.includes(a.key)).map(a => [
-            <Line
-              key={`${a.key}_dep`}
-              type="monotone"
-              dataKey={`${a.key}_dep`}
-              name={`${a.name} Dep`}
-              stroke={a.color}
-              strokeWidth={2}
-              dot={false}
-              connectNulls
-              hide={!visible[a.key]}
-            />,
-            <Line
-              key={`${a.key}_arr`}
-              type="monotone"
-              dataKey={`${a.key}_arr`}
-              name={`${a.name} Arr`}
-              stroke={a.color}
-              strokeWidth={2}
-              strokeDasharray="5 3"
-              dot={false}
-              connectNulls
-              hide={!visible[a.key]}
-            />,
-          ])}
+          {AIRPORTS.filter(a => !limitedAirports.includes(a.key)).map(a =>
+            viewMode === 'combined' ? (
+              <Line
+                key={`${a.key}_total`}
+                type="monotone"
+                dataKey={`${a.key}_total`}
+                name={a.name}
+                stroke={a.color}
+                strokeWidth={2}
+                dot={false}
+                connectNulls
+                hide={!visible[a.key]}
+              />
+            ) : [
+              <Line
+                key={`${a.key}_dep`}
+                type="monotone"
+                dataKey={`${a.key}_dep`}
+                name={`${a.name} Dep`}
+                stroke={a.color}
+                strokeWidth={2}
+                dot={false}
+                connectNulls
+                hide={!visible[a.key]}
+              />,
+              <Line
+                key={`${a.key}_arr`}
+                type="monotone"
+                dataKey={`${a.key}_arr`}
+                name={`${a.name} Arr`}
+                stroke={a.color}
+                strokeWidth={2}
+                strokeDasharray="5 3"
+                dot={false}
+                connectNulls
+                hide={!visible[a.key]}
+              />,
+            ]
+          )}
         </LineChart>
       </ResponsiveContainer>
 
-      <div style={{ display: 'flex', gap: 16, marginTop: 8, fontSize: 10, color: 'rgba(255,255,255,0.4)' }}>
-        <span>— Solid = Departures</span>
-        <span>- - Dashed = Arrivals</span>
-      </div>
+      {viewMode === 'split' && (
+        <div style={{ display: 'flex', gap: 16, marginTop: 8, fontSize: 10, color: 'rgba(255,255,255,0.4)' }}>
+          <span>— Solid = Departures</span>
+          <span>- - Dashed = Arrivals</span>
+        </div>
+      )}
     </div>
   );
 }
