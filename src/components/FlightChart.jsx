@@ -9,6 +9,9 @@ const AIRPORTS = [
   { key: 'MCT', name: 'Muscat (MCT)', file: 'data-flights-mct.json', color: '#F59E0B' },
   { key: 'DOH', name: 'Doha (DOH)', file: 'data-flights-doh.json', color: '#8B5CF6' },
   { key: 'TLV', name: 'Tel Aviv (TLV)', file: 'data-flights-tlv.json', color: '#EC4899' },
+  { key: 'JED', name: 'Jeddah (JED)', file: 'data-flights-jed.json', color: '#8B5CF6' },
+  { key: 'RUH', name: 'Riyadh (RUH)', file: 'data-flights-ruh.json', color: '#EC4899' },
+  { key: 'IKA', name: 'Tehran (IKA)', file: 'data-flights-ika.json', color: '#06B6D4' },
 ];
 
 const FULL_DATA_AIRPORTS = new Set(['DXB', 'AUH', 'DWC', 'MCT', 'DOH']);

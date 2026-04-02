@@ -21,6 +21,9 @@ const AIRPORTS = [
   { icao: "OOMS", iata: "mct", name: "Muscat International (MCT)" },
   { icao: "OTHH", iata: "doh", name: "Hamad International (DOH)" },
   { icao: "LLBG", iata: "tlv", name: "Ben Gurion International (TLV)" },
+  { icao: "OEJN", iata: "jed", name: "King Abdulaziz International (JED)" },
+  { icao: "OERK", iata: "ruh", name: "King Khalid International (RUH)" },
+  { icao: "OIIE", iata: "ika", name: "Imam Khomeini International (IKA)" },
 ];
 
 const START_DATE = "2026-02-28";
