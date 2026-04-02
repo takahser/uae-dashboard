@@ -16,11 +16,7 @@ const AIRPORTS = [
 
 const FULL_DATA_AIRPORTS = new Set(['DXB', 'AUH', 'DWC', 'MCT', 'DOH']);
 
-const CANCELLATION_AIRPORTS = [
-  { key: 'JED', name: 'JED', color: '#F97316' },
-  { key: 'RUH', name: 'RUH', color: '#A855F7' },
-  { key: 'IKA', name: 'IKA', color: '#06B6D4' },
-];
+const CANCELLATION_AIRPORTS = AIRPORTS.map(a => ({ key: a.key, color: a.color, name: a.name }));
 
 const TIMEFRAMES = [
   { key: '1W', days: 7 },
@@ -89,7 +85,9 @@ export default function FlightChart() {
     }
     return Object.fromEntries(AIRPORTS.map(a => [a.key, FULL_DATA_AIRPORTS.has(a.key)]));
   });
-  const [cancelVisible, setCancelVisible] = useState({ JED: true, RUH: true, IKA: true });
+  const [cancelVisible, setCancelVisible] = useState(
+    Object.fromEntries(AIRPORTS.map(a => [a.key, true]))
+  );
   const toggleCancel = (key) => setCancelVisible(v => ({ ...v, [key]: !v[key] }));
 
   useEffect(() => {
@@ -313,7 +311,7 @@ export default function FlightChart() {
             FLIGHT CANCELLATIONS
           </div>
           <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 12, marginBottom: 12 }}>
-            JED · RUH · IKA only
+            Daily cancelled flights across all airports
           </div>
 
           <div style={{ display: 'flex', gap: 12, marginBottom: 12, flexWrap: 'wrap' }}>
