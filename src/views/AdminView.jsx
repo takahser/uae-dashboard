@@ -450,7 +450,7 @@ export default function AdminView({ onBack }) {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "40px 1fr 120px 1fr",
+                gridTemplateColumns: "40px 1fr 120px 1fr 100px",
                 padding: "10px 16px",
                 fontSize: 12,
                 color: colors.subtext,
@@ -463,6 +463,7 @@ export default function AdminView({ onBack }) {
               <div>Source</div>
               <div>Category</div>
               <div>Last Updated</div>
+              <div>Delay</div>
             </div>
           )}
 
@@ -521,7 +522,7 @@ export default function AdminView({ onBack }) {
                 onClick={() => handleRowClick(s.id)}
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "40px 1fr 120px 1fr",
+                  gridTemplateColumns: "40px 1fr 120px 1fr 100px",
                   padding: "12px 16px",
                   borderBottom: `1px solid ${colors.border}`,
                   alignItems: "center",
@@ -560,6 +561,20 @@ export default function AdminView({ onBack }) {
                       )}
                     </>
                   )}
+                </div>
+                <div style={{ fontSize: 13 }}>
+                  {(() => {
+                    if (!s.last_updated) return "—";
+                    const ageHours = (Date.now() - Date.parse(s.last_updated)) / 3600000;
+                    const threshold = s.stale_after_hours;
+                    if (ageHours < threshold) return <span style={{ color: colors.green }}>on time</span>;
+                    const overdue = ageHours - threshold;
+                    const overdueDays = Math.floor(overdue / 24);
+                    const overdueHrs = Math.floor(overdue % 24);
+                    if (overdue < 24) return <span style={{ color: colors.orange }}>+{Math.floor(overdue)}h</span>;
+                    if (overdueDays <= 7) return <span style={{ color: colors.red }}>+{overdueDays}d {overdueHrs}h</span>;
+                    return <span style={{ color: colors.red, fontWeight: 700 }}>+{overdueDays}d</span>;
+                  })()}
                 </div>
               </div>
             );
