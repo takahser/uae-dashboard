@@ -28,7 +28,7 @@ const COUNTRY_QUERIES = {
     sql: `SELECT tweet_id, author_handle, content, received_at
           FROM tweet_queue
           WHERE relevant = 1
-            AND received_at >= '2026-03-24'
+            AND received_at >= '2026-02-28'
             AND author_handle IN ('modgovae')
           ORDER BY received_at`,
   },
@@ -36,7 +36,7 @@ const COUNTRY_QUERIES = {
     sql: `SELECT tweet_id, author_handle, content, received_at
           FROM tweet_queue
           WHERE relevant = 1
-            AND received_at >= '2026-03-24'
+            AND received_at >= '2026-02-28'
             AND author_handle IN ('BDF_Bahrain', 'dd_geopolitics')
           ORDER BY received_at`,
     contentFilter: /bahrain|manama/i,
@@ -47,6 +47,22 @@ const COUNTRY_QUERIES = {
           WHERE relevant = 1
             AND received_at >= '2026-02-28'
             AND author_handle IN ('KuwaitArmyGHQ')
+          ORDER BY received_at`,
+  },
+  oman: {
+    sql: `SELECT tweet_id, author_handle, content, received_at
+          FROM tweet_queue
+          WHERE relevant = 1
+            AND received_at >= '2026-02-28'
+            AND author_handle IN ('ONA_eng')
+          ORDER BY received_at`,
+  },
+  qatar: {
+    sql: `SELECT tweet_id, author_handle, content, received_at
+          FROM tweet_queue
+          WHERE relevant = 1
+            AND received_at >= '2026-02-28'
+            AND author_handle IN ('MOD_Qatar')
           ORDER BY received_at`,
   },
 };
@@ -67,7 +83,9 @@ function callClaude(prompt) {
   return out.result || out.content || "";
 }
 
-const SYSTEM_PROMPT = `You are a military data extractor. Extract structured attack data from official MoD tweets. Return ONLY valid JSON — no prose. If a tweet has no numeric attack data, skip it.`;
+const SYSTEM_PROMPT = `You are a military data extractor. Extract structured attack data from official MoD tweets. Return ONLY valid JSON — no prose. If a tweet has no numeric attack data, skip it.
+
+IMPORTANT — Bahrain (BDF_Bahrain): Bahrain tweets report CUMULATIVE running totals (e.g. "اعتراض وتدمير X صاروخ و Y طائرة مسيرة"), NOT daily counts. Only extract an entry if the numbers are higher than the previous cumulative value in the existing data. Each entry should contain the new cumulative totals, not a delta.`;
 
 function buildUserPrompt(country, tweets) {
   const schema = `{
