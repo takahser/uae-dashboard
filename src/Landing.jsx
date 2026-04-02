@@ -22,6 +22,21 @@ const ICON_WRAP = {
 };
 
 const CardIcons = {
+  attacks: (
+    <div style={ICON_WRAP}>
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        {/* Bar chart */}
+        <rect x="6"  y="28" width="7" height="12" rx="1"/>
+        <rect x="17" y="20" width="7" height="20" rx="1"/>
+        <rect x="28" y="12" width="7" height="28" rx="1"/>
+        <rect x="39" y="18" width="7" height="22" rx="1"/>
+        {/* Reference line (amber) */}
+        <line x1="28" y1="4" x2="28" y2="44" stroke="#F59E0B" strokeDasharray="3 2" strokeWidth="1"/>
+        {/* X-axis */}
+        <line x1="4" y1="42" x2="48" y2="42" strokeWidth="1" opacity="0.4"/>
+      </svg>
+    </div>
+  ),
   threat: (
     <div style={ICON_WRAP}>
       <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#F59E0B" strokeWidth="1.5">
@@ -69,6 +84,11 @@ const cards = [
     id: 'threat',
     title: 'Threat Tracker',
     desc: 'Missiles, drones, interceptions across UAE/GCC',
+  },
+  {
+    id: 'attacks',
+    title: 'Attack Frequency',
+    desc: 'Daily projectile counts — 6 GCC countries over time',
   },
   {
     id: 'flights',

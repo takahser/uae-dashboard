@@ -2557,6 +2557,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
 import Landing from "./Landing";
 import HormuzView from "./views/HormuzView";
 import FlightsView from "./views/FlightsView";
+import AttacksView from "./views/AttacksView";
 import DesignShowcase from "./designs/DesignShowcase";
 import SourcesView from "./views/SourcesView";
 import AdminView from "./views/AdminView";
@@ -2569,6 +2570,7 @@ function getViewFromHash() {
   if (view === "hormuz") return { view: "hormuz" };
   if (view === "designs") return { view: "designs" };
   if (view === "flights") return { view: "flights" };
+  if (view === "attacks") return { view: "attacks" };
   if (view === "sources") return { view: "sources" };
   if (view === "admin") return { view: "admin" };
   if (view === "threat") return { view: "threat", country: parts[1] || "all", tab: parts[2] || null };
@@ -2579,6 +2581,7 @@ function navigateTo(view, country, tab) {
   if (!view) { window.location.hash = "/"; return; }
   if (view === "hormuz") { window.location.hash = "/hormuz"; return; }
   if (view === "flights") { window.location.hash = "/flights"; return; }
+  if (view === "attacks") { window.location.hash = "/attacks"; return; }
   if (view === "admin") { window.location.hash = "/admin"; return; }
   let hash = "/threat";
   if (country && country !== "uae") hash += "/" + country;
@@ -2603,6 +2606,7 @@ export default function App() {
   if (appState.view === "designs") return <DesignShowcase />;
   if (appState.view === "hormuz") return <HormuzView onBack={handleBack} />;
   if (appState.view === "flights") return <FlightsView onBack={handleBack} />;
+  if (appState.view === "attacks") return <AttacksView onBack={handleBack} />;
   if (appState.view === "sources") return <SourcesView onBack={handleBack} />;
   if (appState.view === "admin") return <AdminView onBack={handleBack} />;
   return <Dashboard onBack={handleBack} initialTab={appState.tab} initialCountry={appState.country} />;
