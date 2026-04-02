@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-02T17:52:54.392Z",
+  "lastUpdated": "2026-04-02T18:48:51.862Z",
   "sources": {
     "MOD_Qatar": {
       "lastTweetId": "2036365332491936254"
@@ -13,13 +13,13 @@
     "cruiseIntercepted": 8,
     "cruiseImpacted": 0,
     "dronesDetected": 52,
-    "dronesIntercepted": 30,
+    "dronesIntercepted": 32,
     "dronesImpacted": 22,
     "notes": "2 Su-24 jets shot down.. Ras Laffan industrial fire Mar 18.",
     "ballisticSea": 3,
     "cruiseSea": 0,
     "dronesSea": 0,
-    "ballisticEngaged": 9
+    "ballisticEngaged": 10
   },
   "daily": [
     {
@@ -269,6 +269,14 @@
       "total": 5
     },
     {
+      "date": "2026-03-19",
+      "label": "19 Mar",
+      "source": "https://x.com/MOD_Qatar/status/2034432881045520612",
+      "reportingType": "engaged",
+      "ballisticEngaged": 1,
+      "total": 1
+    },
+    {
       "date": "2026-03-22",
       "label": "22 Mar",
       "ballisticDetected": null,
@@ -284,6 +292,29 @@
       ],
       "total": null,
       "events": ""
+    },
+    {
+      "date": "2026-03-28",
+      "label": "28 Mar",
+      "source": "https://x.com/QNAEnglish/status/2037916707134623761",
+      "reportingType": "intercepted",
+      "dronesIntercepted": 1,
+      "total": 1
+    },
+    {
+      "date": "2026-03-29",
+      "label": "29 Mar",
+      "source": "https://x.com/QNAEnglish/status/2038276595857698931",
+      "reportingType": "intercepted",
+      "dronesIntercepted": 1,
+      "total": 1
+    },
+    {
+      "date": "2026-03-30",
+      "label": "30 Mar",
+      "source": "https://x.com/QNAEnglish/status/2038640784572887154",
+      "reportingType": "intercepted",
+      "dronesIntercepted": 0
     },
     {
       "date": "2026-04-01",

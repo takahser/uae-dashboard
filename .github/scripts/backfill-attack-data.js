@@ -57,12 +57,20 @@ const COUNTRY_QUERIES = {
             AND author_handle IN ('ONA_eng')
           ORDER BY received_at`,
   },
+  iran: {
+    sql: `SELECT tweet_id, author_handle, content, received_at
+          FROM tweet_queue
+          WHERE relevant = 1
+            AND received_at >= '2026-03-12'
+            AND author_handle IN ('MKhamenei_ir', 'khamenei_ir')
+          ORDER BY received_at`,
+  },
   qatar: {
     sql: `SELECT tweet_id, author_handle, content, received_at
           FROM tweet_queue
           WHERE relevant = 1
             AND received_at >= '2026-02-28'
-            AND author_handle IN ('MOD_Qatar')
+            AND author_handle IN ('MOD_Qatar', 'QNAEnglish')
           ORDER BY received_at`,
   },
 };
