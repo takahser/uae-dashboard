@@ -2,7 +2,7 @@
   "airport": "OMDW",
   "airportName": "Al Maktoum Intl (DWC)",
   "status": "open",
-  "statusNote": "Operational \u2014 no closure reported",
+  "statusNote": "Operational — no closure reported",
   "lastVerified": "2026-03-15",
   "source": "UAE MoD statements",
   "todayArrivals": 26,
@@ -11,12 +11,401 @@
   "todayFetched": "2026-03-31T18:16:14.233Z",
   "daily": [
     {
+      "date": "2026-02-28",
+      "dep": 19,
+      "arr": 18,
+      "total": 37,
+      "regions": {
+        "Unknown": 12,
+        "Europe": 16,
+        "Africa": 2,
+        "Asia-Pacific": 5,
+        "South Asia": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-02",
+      "dep": 1,
+      "arr": 0,
+      "total": 1,
+      "regions": {
+        "Europe": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-03",
+      "dep": 5,
+      "arr": 6,
+      "total": 11,
+      "regions": {
+        "Africa": 1,
+        "Europe": 10
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-04",
+      "dep": 9,
+      "arr": 8,
+      "total": 17,
+      "regions": {
+        "Europe": 15,
+        "Asia-Pacific": 1,
+        "Unknown": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-05",
+      "dep": 17,
+      "arr": 6,
+      "total": 23,
+      "regions": {
+        "Europe": 22,
+        "Africa": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-06",
+      "dep": 33,
+      "arr": 6,
+      "total": 39,
+      "regions": {
+        "Europe": 28,
+        "Middle East": 10,
+        "Africa": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-07",
+      "dep": 32,
+      "arr": 26,
+      "total": 58,
+      "regions": {
+        "Europe": 44,
+        "Africa": 3,
+        "Middle East": 10,
+        "Americas": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-08",
+      "dep": 18,
+      "arr": 7,
+      "total": 25,
+      "regions": {
+        "Europe": 23,
+        "Middle East": 1,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-09",
+      "dep": 14,
+      "arr": 12,
+      "total": 26,
+      "regions": {
+        "Europe": 23,
+        "Middle East": 1,
+        "Africa": 1,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-10",
+      "dep": 15,
+      "arr": 8,
+      "total": 23,
+      "regions": {
+        "Europe": 18,
+        "Middle East": 2,
+        "Africa": 1,
+        "Asia-Pacific": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-11",
+      "dep": 7,
+      "arr": 5,
+      "total": 12,
+      "regions": {
+        "Europe": 10,
+        "Middle East": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-12",
+      "dep": 5,
+      "arr": 6,
+      "total": 11,
+      "regions": {
+        "Europe": 8,
+        "Unknown": 2,
+        "Middle East": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-13",
+      "dep": 6,
+      "arr": 2,
+      "total": 8,
+      "regions": {
+        "Europe": 7,
+        "Middle East": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-14",
+      "dep": 12,
+      "arr": 11,
+      "total": 23,
+      "regions": {
+        "Europe": 10,
+        "Unknown": 8,
+        "Middle East": 5
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-15",
+      "dep": 9,
+      "arr": 5,
+      "total": 14,
+      "regions": {
+        "Europe": 9,
+        "Middle East": 1,
+        "Unknown": 3,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-16",
+      "dep": 8,
+      "arr": 31,
+      "total": 39,
+      "regions": {
+        "Asia-Pacific": 14,
+        "Unknown": 7,
+        "Middle East": 6,
+        "South Asia": 4,
+        "Europe": 3,
+        "Africa": 5
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-17",
+      "dep": 11,
+      "arr": 10,
+      "total": 21,
+      "regions": {
+        "Asia-Pacific": 2,
+        "Europe": 1,
+        "Middle East": 6,
+        "Unknown": 12
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-18",
+      "dep": 4,
+      "arr": 6,
+      "total": 10,
+      "regions": {
+        "Unknown": 4,
+        "Middle East": 4,
+        "Asia-Pacific": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-19",
+      "dep": 4,
+      "arr": 4,
+      "total": 8,
+      "regions": {
+        "Europe": 4,
+        "Middle East": 2,
+        "Unknown": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-20",
+      "dep": 5,
+      "arr": 4,
+      "total": 9,
+      "regions": {
+        "Europe": 5,
+        "Unknown": 2,
+        "Middle East": 1,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-21",
+      "dep": 6,
+      "arr": 8,
+      "total": 14,
+      "regions": {
+        "Europe": 5,
+        "Unknown": 6,
+        "Asia-Pacific": 2,
+        "Middle East": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-22",
+      "dep": 4,
+      "arr": 5,
+      "total": 9,
+      "regions": {
+        "Middle East": 3,
+        "Europe": 5,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-23",
+      "dep": 6,
+      "arr": 5,
+      "total": 11,
+      "regions": {
+        "Middle East": 3,
+        "Europe": 7,
+        "Unknown": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-24",
+      "dep": 1,
+      "arr": 4,
+      "total": 5,
+      "regions": {
+        "Middle East": 2,
+        "Europe": 2,
+        "Unknown": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-25",
+      "dep": 6,
+      "arr": 4,
+      "total": 10,
+      "regions": {
+        "Europe": 7,
+        "Africa": 2,
+        "Unknown": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-26",
+      "dep": 8,
+      "arr": 3,
+      "total": 11,
+      "regions": {
+        "Europe": 5,
+        "Unknown": 3,
+        "Africa": 1,
+        "Asia-Pacific": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-27",
+      "dep": 10,
+      "arr": 4,
+      "total": 14,
+      "regions": {
+        "Unknown": 4,
+        "Europe": 3,
+        "Africa": 2,
+        "Asia-Pacific": 4,
+        "Americas": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-28",
+      "dep": 1,
+      "arr": 2,
+      "total": 3,
+      "regions": {
+        "Europe": 2,
+        "Unknown": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-29",
+      "dep": 2,
+      "arr": 0,
+      "total": 2,
+      "regions": {
+        "Unknown": 1,
+        "Europe": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-30",
+      "dep": 0,
+      "arr": 2,
+      "total": 2,
+      "regions": {
+        "South Asia": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
       "date": "2026-03-31",
       "departures": 28,
       "arrivals": 26,
       "total": 54,
       "regions": {},
       "flights": []
+    },
+    {
+      "date": "2026-04-01",
+      "dep": 3,
+      "arr": 5,
+      "total": 8,
+      "regions": {
+        "Europe": 1,
+        "Unknown": 4,
+        "Asia-Pacific": 3
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-04-02",
+      "dep": 1,
+      "arr": 2,
+      "total": 3,
+      "regions": {
+        "Europe": 2,
+        "Unknown": 1
+      },
+      "source": "aerodatabox"
     }
-  ]
+  ],
+  "lastUpdated": "2026-04-02T00:44:22.099Z"
 }

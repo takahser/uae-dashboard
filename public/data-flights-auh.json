@@ -2,7 +2,7 @@
   "airport": "OMAA",
   "airportName": "Abu Dhabi Intl (AUH)",
   "status": "open",
-  "statusNote": "Operational \u2014 no closure reported",
+  "statusNote": "Operational — no closure reported",
   "lastVerified": "2026-03-15",
   "source": "UAE MoD statements",
   "todayArrivals": 204,
@@ -11,12 +11,491 @@
   "todayFetched": "2026-03-31T18:16:12.950Z",
   "daily": [
     {
+      "date": "2026-02-28",
+      "dep": 130,
+      "arr": 147,
+      "total": 277,
+      "regions": {
+        "South Asia": 110,
+        "Middle East": 53,
+        "Africa": 17,
+        "Europe": 66,
+        "Asia-Pacific": 19,
+        "Americas": 11,
+        "Unknown": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-02",
+      "dep": 17,
+      "arr": 2,
+      "total": 19,
+      "regions": {
+        "South Asia": 7,
+        "Asia-Pacific": 1,
+        "Europe": 4,
+        "Middle East": 6,
+        "Africa": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-03",
+      "dep": 14,
+      "arr": 18,
+      "total": 32,
+      "regions": {
+        "South Asia": 13,
+        "Europe": 13,
+        "Middle East": 5,
+        "Africa": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-04",
+      "dep": 13,
+      "arr": 14,
+      "total": 27,
+      "regions": {
+        "Middle East": 6,
+        "Europe": 11,
+        "South Asia": 8,
+        "Africa": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-05",
+      "dep": 21,
+      "arr": 19,
+      "total": 40,
+      "regions": {
+        "Middle East": 8,
+        "Asia-Pacific": 3,
+        "Americas": 2,
+        "South Asia": 10,
+        "Europe": 11,
+        "Africa": 6
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-06",
+      "dep": 36,
+      "arr": 33,
+      "total": 69,
+      "regions": {
+        "South Asia": 30,
+        "Americas": 3,
+        "Middle East": 11,
+        "Asia-Pacific": 3,
+        "Europe": 15,
+        "Africa": 7
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-07",
+      "dep": 37,
+      "arr": 41,
+      "total": 78,
+      "regions": {
+        "South Asia": 31,
+        "Europe": 16,
+        "Middle East": 10,
+        "Americas": 7,
+        "Asia-Pacific": 6,
+        "Africa": 8
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-08",
+      "dep": 40,
+      "arr": 49,
+      "total": 89,
+      "regions": {
+        "South Asia": 40,
+        "Europe": 19,
+        "Middle East": 8,
+        "Americas": 4,
+        "Asia-Pacific": 9,
+        "Africa": 9
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-09",
+      "dep": 38,
+      "arr": 45,
+      "total": 83,
+      "regions": {
+        "South Asia": 40,
+        "Middle East": 8,
+        "Americas": 6,
+        "Africa": 6,
+        "Asia-Pacific": 8,
+        "Europe": 15
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-10",
+      "dep": 36,
+      "arr": 44,
+      "total": 80,
+      "regions": {
+        "South Asia": 42,
+        "Africa": 5,
+        "Middle East": 9,
+        "Americas": 4,
+        "Europe": 14,
+        "Asia-Pacific": 6
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-11",
+      "dep": 42,
+      "arr": 52,
+      "total": 94,
+      "regions": {
+        "South Asia": 49,
+        "Europe": 19,
+        "Africa": 7,
+        "Middle East": 6,
+        "Americas": 5,
+        "Asia-Pacific": 8
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-12",
+      "dep": 40,
+      "arr": 52,
+      "total": 92,
+      "regions": {
+        "South Asia": 48,
+        "Middle East": 10,
+        "Americas": 5,
+        "Asia-Pacific": 7,
+        "Africa": 12,
+        "Europe": 10
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-13",
+      "dep": 75,
+      "arr": 68,
+      "total": 143,
+      "regions": {
+        "South Asia": 72,
+        "Europe": 27,
+        "Americas": 7,
+        "Africa": 18,
+        "Middle East": 9,
+        "Asia-Pacific": 10
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-14",
+      "dep": 69,
+      "arr": 77,
+      "total": 146,
+      "regions": {
+        "South Asia": 82,
+        "Europe": 23,
+        "Americas": 8,
+        "Africa": 13,
+        "Middle East": 9,
+        "Asia-Pacific": 11
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-15",
+      "dep": 68,
+      "arr": 73,
+      "total": 141,
+      "regions": {
+        "South Asia": 72,
+        "Europe": 28,
+        "Americas": 8,
+        "Middle East": 10,
+        "Asia-Pacific": 13,
+        "Africa": 10
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-16",
+      "dep": 71,
+      "arr": 69,
+      "total": 140,
+      "regions": {
+        "Europe": 27,
+        "Americas": 8,
+        "South Asia": 70,
+        "Middle East": 16,
+        "Africa": 8,
+        "Asia-Pacific": 11
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-17",
+      "dep": 61,
+      "arr": 73,
+      "total": 134,
+      "regions": {
+        "South Asia": 71,
+        "Europe": 23,
+        "Americas": 8,
+        "Africa": 11,
+        "Asia-Pacific": 14,
+        "Middle East": 7
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-18",
+      "dep": 65,
+      "arr": 66,
+      "total": 131,
+      "regions": {
+        "South Asia": 70,
+        "Europe": 25,
+        "Americas": 8,
+        "Africa": 11,
+        "Middle East": 7,
+        "Asia-Pacific": 10
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-19",
+      "dep": 69,
+      "arr": 80,
+      "total": 149,
+      "regions": {
+        "South Asia": 76,
+        "Europe": 23,
+        "Africa": 15,
+        "Americas": 8,
+        "Middle East": 10,
+        "Asia-Pacific": 16,
+        "Unknown": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-20",
+      "dep": 95,
+      "arr": 89,
+      "total": 184,
+      "regions": {
+        "Asia-Pacific": 20,
+        "South Asia": 86,
+        "Africa": 20,
+        "Europe": 32,
+        "Americas": 11,
+        "Middle East": 15
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-21",
+      "dep": 102,
+      "arr": 109,
+      "total": 211,
+      "regions": {
+        "South Asia": 102,
+        "Africa": 23,
+        "Europe": 36,
+        "Americas": 13,
+        "Middle East": 19,
+        "Asia-Pacific": 18
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-22",
+      "dep": 98,
+      "arr": 109,
+      "total": 207,
+      "regions": {
+        "South Asia": 97,
+        "Africa": 19,
+        "Europe": 42,
+        "Americas": 13,
+        "Middle East": 18,
+        "Asia-Pacific": 18
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-23",
+      "dep": 95,
+      "arr": 102,
+      "total": 197,
+      "regions": {
+        "Africa": 18,
+        "Europe": 39,
+        "Americas": 14,
+        "Middle East": 13,
+        "South Asia": 92,
+        "Asia-Pacific": 21
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-24",
+      "dep": 97,
+      "arr": 107,
+      "total": 204,
+      "regions": {
+        "South Asia": 93,
+        "Africa": 21,
+        "Europe": 36,
+        "Americas": 13,
+        "Middle East": 19,
+        "Asia-Pacific": 22
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-25",
+      "dep": 87,
+      "arr": 100,
+      "total": 187,
+      "regions": {
+        "South Asia": 90,
+        "Africa": 14,
+        "Europe": 34,
+        "Americas": 14,
+        "Middle East": 14,
+        "Asia-Pacific": 21
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-26",
+      "dep": 101,
+      "arr": 110,
+      "total": 211,
+      "regions": {
+        "South Asia": 102,
+        "Africa": 19,
+        "Europe": 37,
+        "Americas": 13,
+        "Middle East": 18,
+        "Asia-Pacific": 22
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-27",
+      "dep": 98,
+      "arr": 101,
+      "total": 199,
+      "regions": {
+        "South Asia": 96,
+        "Africa": 14,
+        "Europe": 37,
+        "Americas": 13,
+        "Middle East": 21,
+        "Asia-Pacific": 18
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-28",
+      "dep": 104,
+      "arr": 110,
+      "total": 214,
+      "regions": {
+        "South Asia": 105,
+        "Africa": 21,
+        "Europe": 36,
+        "Americas": 13,
+        "Middle East": 19,
+        "Asia-Pacific": 20
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-29",
+      "dep": 98,
+      "arr": 106,
+      "total": 204,
+      "regions": {
+        "South Asia": 96,
+        "Africa": 20,
+        "Europe": 41,
+        "Americas": 15,
+        "Middle East": 14,
+        "Asia-Pacific": 18
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-30",
+      "dep": 105,
+      "arr": 114,
+      "total": 219,
+      "regions": {
+        "South Asia": 110,
+        "Africa": 20,
+        "Europe": 39,
+        "Americas": 14,
+        "Middle East": 14,
+        "Asia-Pacific": 22
+      },
+      "source": "aerodatabox"
+    },
+    {
       "date": "2026-03-31",
       "departures": 221,
       "arrivals": 204,
       "total": 425,
       "regions": {},
       "flights": []
+    },
+    {
+      "date": "2026-04-01",
+      "dep": 113,
+      "arr": 111,
+      "total": 224,
+      "regions": {
+        "South Asia": 116,
+        "Europe": 40,
+        "Middle East": 22,
+        "Americas": 13,
+        "Asia-Pacific": 22,
+        "Africa": 11
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-04-02",
+      "dep": 156,
+      "arr": 142,
+      "total": 298,
+      "regions": {
+        "South Asia": 122,
+        "Africa": 28,
+        "Europe": 67,
+        "Middle East": 22,
+        "Americas": 14,
+        "Asia-Pacific": 33,
+        "Unknown": 12
+      },
+      "source": "aerodatabox"
     }
-  ]
+  ],
+  "lastUpdated": "2026-04-02T00:41:53.706Z"
 }

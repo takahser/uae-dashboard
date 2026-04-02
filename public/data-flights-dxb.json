@@ -186,6 +186,17 @@
       }
     },
     {
+      "date": "2026-03-01",
+      "dep": 0,
+      "arr": 2,
+      "total": 2,
+      "regions": {
+        "Africa": 1,
+        "Americas": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
       "date": "2026-03-02",
       "departures": 1,
       "arrivals": 1,
@@ -587,6 +598,38 @@
       "total": 848,
       "regions": {},
       "flights": []
+    },
+    {
+      "date": "2026-04-01",
+      "dep": 239,
+      "arr": 233,
+      "total": 472,
+      "regions": {
+        "South Asia": 157,
+        "Europe": 127,
+        "Middle East": 66,
+        "Africa": 51,
+        "Americas": 19,
+        "Asia-Pacific": 52
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-04-02",
+      "dep": 325,
+      "arr": 320,
+      "total": 645,
+      "regions": {
+        "South Asia": 168,
+        "Middle East": 126,
+        "Africa": 64,
+        "Europe": 139,
+        "Asia-Pacific": 58,
+        "Americas": 20,
+        "Unknown": 67,
+        "Other": 3
+      },
+      "source": "aerodatabox"
     }
   ],
   "baselineDailyAvg": {
@@ -604,5 +647,5 @@
       "Other": 2
     }
   },
-  "lastUpdated": "2026-03-31T08:22:59.720Z"
+  "lastUpdated": "2026-04-02T00:39:35.880Z"
 }
