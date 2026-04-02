@@ -43,6 +43,12 @@ jobs:
         run: node .github/scripts/parse-attack-data.js
         continue-on-error: true
 
+      - name: Correct yesterday's flight data
+        env:
+          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+        run: node .github/scripts/correct-yesterday-flights.js
+        continue-on-error: true
+
       - name: Fetch DXB flight data (OpenSky)
         env:
           OPENSKY_CLIENT_ID: ${{ secrets.OPENSKY_CLIENT_ID }}
