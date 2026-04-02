@@ -1,26 +1,24 @@
 {
-  "lastUpdated": "2026-03-24",
+  "lastUpdated": "2026-04-02T15:02:52.312Z",
   "sources": {
     "MOD_Qatar": {
       "lastTweetId": "2036365332491936254"
     }
   },
   "cumulative": {
-    "ballisticDetected": 196,
-    "ballisticIntercepted": 193,
-    "ballisticSea": 3,
-    "ballisticImpacted": 3,
-    "cruiseDetected": 6,
-    "cruiseIntercepted": 6,
-    "cruiseSea": 0,
+    "ballisticDetected": 129,
+    "ballisticIntercepted": 122,
+    "ballisticImpacted": 4,
+    "cruiseDetected": 9,
+    "cruiseIntercepted": 8,
     "cruiseImpacted": 0,
-    "dronesDetected": 69,
-    "dronesIntercepted": 59,
-    "dronesSea": 0,
-    "dronesImpacted": 10,
-    "killed": 0,
-    "injured": 0,
-    "notes": "2 Su-24 jets shot down.. Ras Laffan industrial fire Mar 18."
+    "dronesDetected": 52,
+    "dronesIntercepted": 30,
+    "dronesImpacted": 22,
+    "notes": "2 Su-24 jets shot down.. Ras Laffan industrial fire Mar 18.",
+    "ballisticSea": 3,
+    "cruiseSea": 0,
+    "dronesSea": 0
   },
   "daily": [
     {
@@ -276,6 +274,15 @@
       ],
       "total": null,
       "events": ""
+    },
+    {
+      "date": "2026-04-01",
+      "label": "1 Apr",
+      "source": "https://x.com/MOD_Qatar/status/2039235844545139122",
+      "reportingType": "intercepted",
+      "cruiseDetected": 3,
+      "cruiseIntercepted": 2,
+      "total": 3
     }
   ],
   "pendingConfirmation": [

@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-03-24T09:35:00Z",
+  "lastUpdated": "2026-04-02T15:02:51.121Z",
   "sources": {
     "modgovae": {
       "lastTweetId": "2036027164290605338"
@@ -7,25 +7,25 @@
     "notes": "From 13 Mar 2026, UAE MoD changed reporting from intercepted/impacted breakdown to 'engaged' count only. See reportingType field on daily entries."
   },
   "cumulative": {
-    "ballisticDetected": 352,
-    "ballisticIntercepted": 317,
-    "ballisticSea": 20,
+    "ballisticDetected": 355,
+    "ballisticIntercepted": 303,
     "ballisticImpacted": 3,
     "cruiseDetected": 15,
     "cruiseIntercepted": 15,
-    "cruiseSea": 0,
     "cruiseImpacted": 0,
-    "dronesDetected": 1789,
-    "dronesIntercepted": 1591,
-    "dronesSea": 0,
-    "dronesImpacted": 85,
-    "killed": 8,
-    "injured": 161,
+    "dronesDetected": 1769,
+    "dronesIntercepted": 1619,
+    "dronesImpacted": 63,
+    "killed": 1,
+    "injured": 13,
+    "ballistic": 438,
+    "drones": 1804,
     "killedMilitary": 2,
     "killedCivilian": 6,
-    "ballistic": 345,
-    "cruise": 15,
-    "drones": 1773
+    "ballisticSea": 20,
+    "cruiseSea": 0,
+    "dronesSea": 0,
+    "cruise": 15
   },
   "daily": [
     {
@@ -420,6 +420,15 @@
       "reportingType": "engaged",
       "source": "https://x.com/modgovae/status/2036027164290605338",
       "notes": "Day 24. UAE MoD reported 7 ballistic missiles and 16 UAVs engaged. Second wave (ballistic + cruise + UAVs) announced 11:06 UTC — breakdown not published by MoD. LWJ (Ahmad Sharawi, 23 Mar 2026) confirms 7 ballistic + 16 drones total for the day. Cumulative: 352 ballistic, 15 cruise, 1789 UAVs. Cumulative casualties: 2 UAE military martyred, 6 foreign nationals (Pakistani, Nepali, Bangladeshi, Palestinian), 161 injured."
+    },
+    {
+      "date": "2026-04-01",
+      "label": "1 Apr",
+      "source": "https://x.com/modgovae/status/2039302488516702588",
+      "reportingType": "engaged",
+      "ballisticEngaged": 5,
+      "dronesEngaged": 35,
+      "total": 40
     }
   ]
 }

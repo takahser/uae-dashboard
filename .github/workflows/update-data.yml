@@ -37,6 +37,12 @@ jobs:
         run: node .github/scripts/fetch-tweets-playwright.js
         continue-on-error: true
 
+      - name: Parse attack data from tweets
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: node .github/scripts/parse-attack-data.js
+        continue-on-error: true
+
       - name: Fetch DXB flight data (OpenSky)
         env:
           OPENSKY_CLIENT_ID: ${{ secrets.OPENSKY_CLIENT_ID }}
