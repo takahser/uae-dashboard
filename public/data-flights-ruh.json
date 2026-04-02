@@ -1,1 +1,734 @@
-{ "airport": "RUH", "daily": [] }
+{
+  "airport": "RUH",
+  "daily": [
+    {
+      "date": "2026-02-18",
+      "departures": 316,
+      "arrivals": 331,
+      "total": 647,
+      "cancelled": 1,
+      "regions": {
+        "Middle East": 479,
+        "South Asia": 50,
+        "Africa": 63,
+        "Other": 22,
+        "Europe": 30,
+        "Asia-Pacific": 2,
+        "Americas": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-19",
+      "departures": 337,
+      "arrivals": 339,
+      "total": 676,
+      "cancelled": 0,
+      "regions": {
+        "Middle East": 489,
+        "Other": 31,
+        "Africa": 59,
+        "South Asia": 66,
+        "Europe": 27,
+        "Asia-Pacific": 4
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-20",
+      "departures": 320,
+      "arrivals": 294,
+      "total": 614,
+      "cancelled": 1,
+      "regions": {
+        "Middle East": 462,
+        "Africa": 47,
+        "South Asia": 57,
+        "Other": 12,
+        "Europe": 31,
+        "Americas": 1,
+        "Asia-Pacific": 4
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-21",
+      "departures": 326,
+      "arrivals": 323,
+      "total": 649,
+      "cancelled": 0,
+      "regions": {
+        "Middle East": 494,
+        "Other": 14,
+        "South Asia": 62,
+        "Africa": 49,
+        "Europe": 26,
+        "Americas": 2,
+        "Asia-Pacific": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-22",
+      "departures": 319,
+      "arrivals": 335,
+      "total": 654,
+      "cancelled": 0,
+      "regions": {
+        "Middle East": 489,
+        "Africa": 53,
+        "Other": 16,
+        "South Asia": 61,
+        "Europe": 30,
+        "Asia-Pacific": 4,
+        "Americas": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-23",
+      "departures": 302,
+      "arrivals": 314,
+      "total": 616,
+      "cancelled": 0,
+      "regions": {
+        "Other": 17,
+        "South Asia": 57,
+        "Middle East": 462,
+        "Africa": 45,
+        "Europe": 30,
+        "Americas": 1,
+        "Asia-Pacific": 4
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-24",
+      "departures": 306,
+      "arrivals": 311,
+      "total": 617,
+      "cancelled": 1,
+      "regions": {
+        "Other": 12,
+        "Middle East": 467,
+        "Africa": 54,
+        "South Asia": 59,
+        "Europe": 19,
+        "Americas": 2,
+        "Asia-Pacific": 4
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-25",
+      "departures": 308,
+      "arrivals": 313,
+      "total": 621,
+      "cancelled": 2,
+      "regions": {
+        "Other": 23,
+        "Middle East": 471,
+        "Africa": 58,
+        "South Asia": 49,
+        "Europe": 17,
+        "Asia-Pacific": 2,
+        "Americas": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-26",
+      "departures": 334,
+      "arrivals": 293,
+      "total": 627,
+      "cancelled": 0,
+      "regions": {
+        "Other": 17,
+        "Middle East": 470,
+        "Africa": 51,
+        "South Asia": 68,
+        "Europe": 18,
+        "Asia-Pacific": 3
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-27",
+      "departures": 310,
+      "arrivals": 311,
+      "total": 621,
+      "cancelled": 1,
+      "regions": {
+        "Middle East": 458,
+        "Africa": 51,
+        "South Asia": 55,
+        "Other": 21,
+        "Europe": 32,
+        "Asia-Pacific": 3,
+        "Americas": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-28",
+      "departures": 333,
+      "arrivals": 320,
+      "total": 653,
+      "cancelled": 43,
+      "regions": {
+        "Middle East": 490,
+        "South Asia": 64,
+        "Other": 18,
+        "Africa": 53,
+        "Europe": 24,
+        "Americas": 2,
+        "Asia-Pacific": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-01",
+      "departures": 316,
+      "arrivals": 321,
+      "total": 637,
+      "cancelled": 86,
+      "regions": {
+        "Middle East": 487,
+        "Africa": 52,
+        "Other": 19,
+        "South Asia": 49,
+        "Europe": 27,
+        "Asia-Pacific": 2,
+        "Americas": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-02",
+      "departures": 308,
+      "arrivals": 312,
+      "total": 620,
+      "cancelled": 70,
+      "regions": {
+        "South Asia": 56,
+        "Middle East": 460,
+        "Other": 16,
+        "Africa": 52,
+        "Europe": 33,
+        "Americas": 1,
+        "Asia-Pacific": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-03",
+      "departures": 312,
+      "arrivals": 310,
+      "total": 622,
+      "cancelled": 72,
+      "regions": {
+        "Other": 29,
+        "Middle East": 464,
+        "Africa": 55,
+        "South Asia": 52,
+        "Europe": 18,
+        "Americas": 2,
+        "Asia-Pacific": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-04",
+      "departures": 314,
+      "arrivals": 283,
+      "total": 597,
+      "cancelled": 51,
+      "regions": {
+        "South Asia": 51,
+        "Middle East": 444,
+        "Africa": 53,
+        "Other": 29,
+        "Europe": 18,
+        "Asia-Pacific": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-05",
+      "departures": 347,
+      "arrivals": 342,
+      "total": 689,
+      "cancelled": 31,
+      "regions": {
+        "Other": 58,
+        "Middle East": 473,
+        "Africa": 61,
+        "South Asia": 69,
+        "Europe": 26,
+        "Asia-Pacific": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-06",
+      "departures": 320,
+      "arrivals": 329,
+      "total": 649,
+      "cancelled": 42,
+      "regions": {
+        "Middle East": 438,
+        "Africa": 58,
+        "South Asia": 56,
+        "Europe": 35,
+        "Other": 59,
+        "Americas": 1,
+        "Asia-Pacific": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-07",
+      "departures": 340,
+      "arrivals": 331,
+      "total": 671,
+      "cancelled": 48,
+      "regions": {
+        "South Asia": 60,
+        "Other": 62,
+        "Middle East": 470,
+        "Africa": 53,
+        "Europe": 22,
+        "Americas": 3,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-08",
+      "departures": 328,
+      "arrivals": 330,
+      "total": 658,
+      "cancelled": 102,
+      "regions": {
+        "Middle East": 454,
+        "Africa": 56,
+        "Other": 66,
+        "South Asia": 56,
+        "Europe": 23,
+        "Asia-Pacific": 2,
+        "Americas": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-09",
+      "departures": 319,
+      "arrivals": 323,
+      "total": 642,
+      "cancelled": 28,
+      "regions": {
+        "Other": 67,
+        "Middle East": 439,
+        "Africa": 56,
+        "South Asia": 46,
+        "Europe": 33,
+        "Americas": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-10",
+      "departures": 312,
+      "arrivals": 275,
+      "total": 587,
+      "cancelled": 21,
+      "regions": {
+        "Other": 29,
+        "Middle East": 426,
+        "Africa": 62,
+        "South Asia": 51,
+        "Europe": 17,
+        "Americas": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-11",
+      "departures": 318,
+      "arrivals": 320,
+      "total": 638,
+      "cancelled": 25,
+      "regions": {
+        "South Asia": 51,
+        "Middle East": 449,
+        "Africa": 72,
+        "Other": 41,
+        "Europe": 23,
+        "Americas": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-12",
+      "departures": 357,
+      "arrivals": 350,
+      "total": 707,
+      "cancelled": 35,
+      "regions": {
+        "Other": 57,
+        "Middle East": 489,
+        "Africa": 72,
+        "South Asia": 59,
+        "Europe": 26,
+        "Americas": 2,
+        "Asia-Pacific": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-13",
+      "departures": 328,
+      "arrivals": 345,
+      "total": 673,
+      "cancelled": 32,
+      "regions": {
+        "Middle East": 450,
+        "Africa": 66,
+        "South Asia": 51,
+        "Other": 67,
+        "Europe": 37,
+        "Americas": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-14",
+      "departures": 360,
+      "arrivals": 347,
+      "total": 707,
+      "cancelled": 31,
+      "regions": {
+        "Other": 69,
+        "South Asia": 56,
+        "Middle East": 484,
+        "Africa": 68,
+        "Europe": 28,
+        "Americas": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-15",
+      "departures": 342,
+      "arrivals": 352,
+      "total": 694,
+      "cancelled": 25,
+      "regions": {
+        "Middle East": 466,
+        "Africa": 69,
+        "Other": 89,
+        "South Asia": 45,
+        "Europe": 22,
+        "Asia-Pacific": 2,
+        "Americas": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-16",
+      "departures": 339,
+      "arrivals": 300,
+      "total": 639,
+      "cancelled": 15,
+      "regions": {
+        "Other": 44,
+        "South Asia": 53,
+        "Middle East": 446,
+        "Africa": 61,
+        "Europe": 34,
+        "Americas": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-17",
+      "departures": 358,
+      "arrivals": 349,
+      "total": 707,
+      "cancelled": 22,
+      "regions": {
+        "Other": 21,
+        "Middle East": 514,
+        "Africa": 72,
+        "South Asia": 63,
+        "Europe": 33,
+        "Americas": 2,
+        "Asia-Pacific": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-18",
+      "departures": 368,
+      "arrivals": 358,
+      "total": 726,
+      "cancelled": 30,
+      "regions": {
+        "South Asia": 51,
+        "Middle East": 477,
+        "Africa": 78,
+        "Other": 62,
+        "Europe": 54,
+        "Americas": 2,
+        "Asia-Pacific": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-19",
+      "departures": 381,
+      "arrivals": 369,
+      "total": 750,
+      "cancelled": 23,
+      "regions": {
+        "Other": 75,
+        "Middle East": 489,
+        "Africa": 75,
+        "South Asia": 62,
+        "Europe": 45,
+        "Americas": 2,
+        "Asia-Pacific": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-20",
+      "departures": 372,
+      "arrivals": 376,
+      "total": 748,
+      "cancelled": 35,
+      "regions": {
+        "Middle East": 488,
+        "Africa": 70,
+        "South Asia": 56,
+        "Europe": 52,
+        "Other": 79,
+        "Americas": 2,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-21",
+      "departures": 394,
+      "arrivals": 390,
+      "total": 784,
+      "cancelled": 30,
+      "regions": {
+        "Other": 92,
+        "South Asia": 58,
+        "Middle East": 525,
+        "Africa": 67,
+        "Europe": 40,
+        "Americas": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-22",
+      "departures": 350,
+      "arrivals": 315,
+      "total": 665,
+      "cancelled": 14,
+      "regions": {
+        "Middle East": 476,
+        "Africa": 60,
+        "South Asia": 61,
+        "Other": 36,
+        "Europe": 30,
+        "Americas": 1,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-23",
+      "departures": 348,
+      "arrivals": 353,
+      "total": 701,
+      "cancelled": 11,
+      "regions": {
+        "South Asia": 55,
+        "Middle East": 497,
+        "Africa": 66,
+        "Europe": 44,
+        "Other": 38,
+        "Americas": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-24",
+      "departures": 358,
+      "arrivals": 354,
+      "total": 712,
+      "cancelled": 14,
+      "regions": {
+        "Middle East": 499,
+        "Africa": 69,
+        "Other": 48,
+        "South Asia": 60,
+        "Europe": 34,
+        "Americas": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-25",
+      "departures": 346,
+      "arrivals": 347,
+      "total": 693,
+      "cancelled": 8,
+      "regions": {
+        "Other": 49,
+        "Middle East": 483,
+        "Africa": 71,
+        "Europe": 45,
+        "South Asia": 42,
+        "Americas": 2,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-26",
+      "departures": 369,
+      "arrivals": 367,
+      "total": 736,
+      "cancelled": 8,
+      "regions": {
+        "Other": 51,
+        "Middle East": 499,
+        "Africa": 77,
+        "South Asia": 70,
+        "Europe": 37,
+        "Americas": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-27",
+      "departures": 357,
+      "arrivals": 362,
+      "total": 719,
+      "cancelled": 8,
+      "regions": {
+        "Middle East": 485,
+        "Africa": 73,
+        "South Asia": 52,
+        "Other": 60,
+        "Europe": 47,
+        "Americas": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-28",
+      "departures": 350,
+      "arrivals": 313,
+      "total": 663,
+      "cancelled": 0,
+      "regions": {
+        "Other": 32,
+        "Middle East": 470,
+        "Africa": 64,
+        "South Asia": 61,
+        "Europe": 34,
+        "Americas": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-29",
+      "departures": 345,
+      "arrivals": 347,
+      "total": 692,
+      "cancelled": 3,
+      "regions": {
+        "South Asia": 58,
+        "Africa": 58,
+        "Middle East": 495,
+        "Other": 45,
+        "Europe": 35,
+        "Americas": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-30",
+      "departures": 343,
+      "arrivals": 342,
+      "total": 685,
+      "cancelled": 3,
+      "regions": {
+        "South Asia": 55,
+        "Middle East": 481,
+        "Other": 50,
+        "Africa": 60,
+        "Europe": 38,
+        "Americas": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-31",
+      "departures": 337,
+      "arrivals": 334,
+      "total": 671,
+      "cancelled": 1,
+      "regions": {
+        "Europe": 30,
+        "South Asia": 55,
+        "Middle East": 479,
+        "Other": 48,
+        "Africa": 57,
+        "Americas": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-04-01",
+      "departures": 357,
+      "arrivals": 357,
+      "total": 714,
+      "cancelled": 5,
+      "regions": {
+        "Europe": 43,
+        "Middle East": 499,
+        "South Asia": 47,
+        "Other": 63,
+        "Africa": 60,
+        "Americas": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-04-02",
+      "departures": 377,
+      "arrivals": 370,
+      "total": 747,
+      "cancelled": 8,
+      "regions": {
+        "South Asia": 56,
+        "Middle East": 515,
+        "Other": 63,
+        "Africa": 73,
+        "Europe": 37,
+        "Americas": 2,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    }
+  ],
+  "lastUpdated": "2026-04-02T07:41:09.205Z"
+}

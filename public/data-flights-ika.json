@@ -1,1 +1,636 @@
-{ "airport": "IKA", "daily": [] }
+{
+  "airport": "IKA",
+  "daily": [
+    {
+      "date": "2026-02-18",
+      "departures": 30,
+      "arrivals": 30,
+      "total": 60,
+      "cancelled": 10,
+      "regions": {
+        "Other": 14,
+        "Europe": 22,
+        "Middle East": 19,
+        "Asia-Pacific": 2,
+        "South Asia": 3
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-19",
+      "departures": 32,
+      "arrivals": 34,
+      "total": 66,
+      "cancelled": 6,
+      "regions": {
+        "Other": 19,
+        "Europe": 21,
+        "Middle East": 22,
+        "Asia-Pacific": 1,
+        "South Asia": 3
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-20",
+      "departures": 29,
+      "arrivals": 25,
+      "total": 54,
+      "cancelled": 2,
+      "regions": {
+        "Middle East": 30,
+        "Europe": 10,
+        "Other": 13,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-21",
+      "departures": 20,
+      "arrivals": 24,
+      "total": 44,
+      "cancelled": 2,
+      "regions": {
+        "Europe": 12,
+        "Middle East": 20,
+        "Other": 8,
+        "South Asia": 3,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-22",
+      "departures": 30,
+      "arrivals": 30,
+      "total": 60,
+      "cancelled": 5,
+      "regions": {
+        "Europe": 16,
+        "Other": 16,
+        "Middle East": 24,
+        "Asia-Pacific": 2,
+        "South Asia": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-23",
+      "departures": 24,
+      "arrivals": 24,
+      "total": 48,
+      "cancelled": 2,
+      "regions": {
+        "Other": 12,
+        "Europe": 14,
+        "Middle East": 21,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-24",
+      "departures": 31,
+      "arrivals": 29,
+      "total": 60,
+      "cancelled": 9,
+      "regions": {
+        "Other": 16,
+        "Europe": 17,
+        "Middle East": 22,
+        "South Asia": 4,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-25",
+      "departures": 27,
+      "arrivals": 27,
+      "total": 54,
+      "cancelled": 9,
+      "regions": {
+        "Other": 13,
+        "Europe": 17,
+        "Middle East": 19,
+        "Asia-Pacific": 2,
+        "South Asia": 3
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-26",
+      "departures": 22,
+      "arrivals": 19,
+      "total": 41,
+      "cancelled": 2,
+      "regions": {
+        "Middle East": 21,
+        "Other": 9,
+        "Europe": 9,
+        "Asia-Pacific": 1,
+        "South Asia": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-27",
+      "departures": 25,
+      "arrivals": 23,
+      "total": 48,
+      "cancelled": 0,
+      "regions": {
+        "Middle East": 26,
+        "Other": 15,
+        "Europe": 6,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-28",
+      "departures": 19,
+      "arrivals": 23,
+      "total": 42,
+      "cancelled": 14,
+      "regions": {
+        "Other": 9,
+        "Middle East": 20,
+        "Europe": 9,
+        "South Asia": 3,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-01",
+      "departures": 23,
+      "arrivals": 23,
+      "total": 46,
+      "cancelled": 22,
+      "regions": {
+        "Middle East": 20,
+        "Other": 12,
+        "Europe": 10,
+        "Asia-Pacific": 2,
+        "South Asia": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-02",
+      "departures": 22,
+      "arrivals": 20,
+      "total": 42,
+      "cancelled": 18,
+      "regions": {
+        "Middle East": 18,
+        "Other": 13,
+        "Europe": 10,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-03",
+      "departures": 25,
+      "arrivals": 25,
+      "total": 50,
+      "cancelled": 20,
+      "regions": {
+        "Europe": 14,
+        "Middle East": 16,
+        "Other": 16,
+        "South Asia": 3,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-04",
+      "departures": 20,
+      "arrivals": 16,
+      "total": 36,
+      "cancelled": 13,
+      "regions": {
+        "Middle East": 10,
+        "Other": 14,
+        "Europe": 10,
+        "South Asia": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-05",
+      "departures": 25,
+      "arrivals": 25,
+      "total": 50,
+      "cancelled": 8,
+      "regions": {
+        "Other": 28,
+        "Middle East": 10,
+        "Europe": 9,
+        "South Asia": 3
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-06",
+      "departures": 26,
+      "arrivals": 25,
+      "total": 51,
+      "cancelled": 7,
+      "regions": {
+        "Other": 30,
+        "Middle East": 12,
+        "Europe": 6,
+        "South Asia": 2,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-07",
+      "departures": 19,
+      "arrivals": 23,
+      "total": 42,
+      "cancelled": 7,
+      "regions": {
+        "Other": 23,
+        "Middle East": 6,
+        "Europe": 9,
+        "South Asia": 3,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-08",
+      "departures": 24,
+      "arrivals": 25,
+      "total": 49,
+      "cancelled": 8,
+      "regions": {
+        "Other": 29,
+        "Europe": 9,
+        "Middle East": 8,
+        "Asia-Pacific": 1,
+        "South Asia": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-09",
+      "departures": 23,
+      "arrivals": 20,
+      "total": 43,
+      "cancelled": 6,
+      "regions": {
+        "Other": 23,
+        "Middle East": 11,
+        "Europe": 9
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-10",
+      "departures": 13,
+      "arrivals": 6,
+      "total": 19,
+      "cancelled": 7,
+      "regions": {
+        "Other": 11,
+        "Middle East": 4,
+        "South Asia": 4
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-11",
+      "departures": 11,
+      "arrivals": 11,
+      "total": 22,
+      "cancelled": 7,
+      "regions": {
+        "Other": 12,
+        "Middle East": 5,
+        "Europe": 1,
+        "Asia-Pacific": 1,
+        "South Asia": 3
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-12",
+      "departures": 14,
+      "arrivals": 15,
+      "total": 29,
+      "cancelled": 8,
+      "regions": {
+        "Other": 13,
+        "Middle East": 10,
+        "Europe": 2,
+        "Asia-Pacific": 1,
+        "South Asia": 3
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-13",
+      "departures": 14,
+      "arrivals": 14,
+      "total": 28,
+      "cancelled": 6,
+      "regions": {
+        "Other": 16,
+        "Middle East": 8,
+        "Europe": 2,
+        "South Asia": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-14",
+      "departures": 9,
+      "arrivals": 13,
+      "total": 22,
+      "cancelled": 7,
+      "regions": {
+        "Other": 10,
+        "Middle East": 6,
+        "Europe": 2,
+        "South Asia": 3,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-15",
+      "departures": 14,
+      "arrivals": 15,
+      "total": 29,
+      "cancelled": 7,
+      "regions": {
+        "Other": 16,
+        "Middle East": 8,
+        "Europe": 2,
+        "Asia-Pacific": 1,
+        "South Asia": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-16",
+      "departures": 11,
+      "arrivals": 7,
+      "total": 18,
+      "cancelled": 2,
+      "regions": {
+        "Other": 7,
+        "Middle East": 9,
+        "Europe": 1,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-17",
+      "departures": 14,
+      "arrivals": 11,
+      "total": 25,
+      "cancelled": 9,
+      "regions": {
+        "Middle East": 10,
+        "Other": 7,
+        "Europe": 2,
+        "South Asia": 5,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-18",
+      "departures": 14,
+      "arrivals": 14,
+      "total": 28,
+      "cancelled": 7,
+      "regions": {
+        "Europe": 3,
+        "Other": 13,
+        "Middle East": 8,
+        "South Asia": 3,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-19",
+      "departures": 17,
+      "arrivals": 18,
+      "total": 35,
+      "cancelled": 9,
+      "regions": {
+        "Europe": 5,
+        "Other": 16,
+        "Middle East": 11,
+        "South Asia": 3
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-20",
+      "departures": 18,
+      "arrivals": 17,
+      "total": 35,
+      "cancelled": 7,
+      "regions": {
+        "Europe": 4,
+        "Other": 17,
+        "Middle East": 12,
+        "South Asia": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-21",
+      "departures": 14,
+      "arrivals": 18,
+      "total": 32,
+      "cancelled": 9,
+      "regions": {
+        "Europe": 6,
+        "Other": 16,
+        "Middle East": 8,
+        "South Asia": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-22",
+      "departures": 13,
+      "arrivals": 11,
+      "total": 24,
+      "cancelled": 2,
+      "regions": {
+        "Other": 15,
+        "Middle East": 6,
+        "Europe": 1,
+        "South Asia": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-23",
+      "departures": 12,
+      "arrivals": 8,
+      "total": 20,
+      "cancelled": 3,
+      "regions": {
+        "Other": 10,
+        "Middle East": 7,
+        "Europe": 2,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-24",
+      "departures": 14,
+      "arrivals": 11,
+      "total": 25,
+      "cancelled": 7,
+      "regions": {
+        "Other": 14,
+        "Middle East": 4,
+        "Europe": 2,
+        "South Asia": 5
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-25",
+      "departures": 13,
+      "arrivals": 13,
+      "total": 26,
+      "cancelled": 7,
+      "regions": {
+        "Europe": 4,
+        "Other": 11,
+        "Middle East": 6,
+        "Asia-Pacific": 2,
+        "South Asia": 3
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-26",
+      "departures": 15,
+      "arrivals": 16,
+      "total": 31,
+      "cancelled": 5,
+      "regions": {
+        "Europe": 3,
+        "Other": 17,
+        "Middle East": 7,
+        "Asia-Pacific": 1,
+        "South Asia": 3
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-27",
+      "departures": 16,
+      "arrivals": 15,
+      "total": 31,
+      "cancelled": 3,
+      "regions": {
+        "Europe": 2,
+        "Other": 16,
+        "Middle East": 10,
+        "South Asia": 2,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-28",
+      "departures": 10,
+      "arrivals": 7,
+      "total": 17,
+      "cancelled": 1,
+      "regions": {
+        "Europe": 1,
+        "Other": 10,
+        "Middle East": 4,
+        "South Asia": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-29",
+      "departures": 9,
+      "arrivals": 11,
+      "total": 20,
+      "cancelled": 4,
+      "regions": {
+        "Other": 12,
+        "Middle East": 4,
+        "Asia-Pacific": 2,
+        "South Asia": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-30",
+      "departures": 4,
+      "arrivals": 2,
+      "total": 6,
+      "cancelled": 0,
+      "regions": {
+        "Other": 6
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-31",
+      "departures": 8,
+      "arrivals": 7,
+      "total": 15,
+      "cancelled": 4,
+      "regions": {
+        "Other": 9,
+        "Middle East": 2,
+        "South Asia": 3,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-04-01",
+      "departures": 2,
+      "arrivals": 3,
+      "total": 5,
+      "cancelled": 0,
+      "regions": {
+        "Other": 3,
+        "Middle East": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-04-02",
+      "departures": 2,
+      "arrivals": 2,
+      "total": 4,
+      "cancelled": 0,
+      "regions": {
+        "Other": 1,
+        "Middle East": 2,
+        "Europe": 1
+      },
+      "source": "aerodatabox"
+    }
+  ],
+  "lastUpdated": "2026-04-02T07:44:26.232Z"
+}
