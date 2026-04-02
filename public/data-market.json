@@ -1,20 +1,20 @@
 {
-  "updated": "2026-04-02T19:23:55Z",
+  "updated": "2026-04-02T19:26:34Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 108.21,
-      "change": 7.05,
-      "changePercent": 6.97,
+      "price": 108.58,
+      "change": 7.42,
+      "changePercent": 7.33,
       "previousClose": 101.16
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 111.01,
-      "change": 10.89,
-      "changePercent": 10.88,
+      "price": 111.38,
+      "change": 11.26,
+      "changePercent": 11.25,
       "previousClose": 100.12
     },
     "NG=F": {
@@ -36,17 +36,17 @@
     "FRO": {
       "symbol": "FRO",
       "name": "Frontline",
-      "price": 36.69,
-      "change": 1.86,
-      "changePercent": 5.34,
+      "price": 36.65,
+      "change": 1.82,
+      "changePercent": 5.23,
       "previousClose": 34.83
     },
     "STNG": {
       "symbol": "STNG",
       "name": "Scorpio Tankers",
-      "price": 76.61,
-      "change": 2.51,
-      "changePercent": 3.39,
+      "price": 76.6,
+      "change": 2.5,
+      "changePercent": 3.37,
       "previousClose": 74.1
     },
     "RTX": {
@@ -186,7 +186,7 @@
       },
       {
         "date": "2026-04-02",
-        "close": 108.21
+        "close": 108.58
       }
     ],
     "CL=F": [
@@ -288,7 +288,7 @@
       },
       {
         "date": "2026-04-02",
-        "close": 111.01
+        "close": 111.38
       }
     ],
     "NG=F": [
@@ -634,7 +634,7 @@
       },
       {
         "date": "2026-04-02",
-        "close": 36.69
+        "close": 36.65
       }
     ],
     "STNG": [
@@ -756,7 +756,7 @@
       },
       {
         "date": "2026-04-02",
-        "close": 76.61
+        "close": 76.6
       }
     ],
     "RTX": [
@@ -1211,6 +1211,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-04-02T19:23:46Z"
+    "sampled_at": "2026-04-02T19:26:24Z"
   }
 }
