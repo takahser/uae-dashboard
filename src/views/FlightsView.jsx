@@ -38,6 +38,15 @@ function getTrafficLight(cap) {
   return { color: '#EF4444', label: 'Restricted' };
 }
 
+const COUNTRY_GROUPS = [
+  { country: "UAE",          flag: "🇦🇪", codes: ["DXB","AUH","DWC"] },
+  { country: "Saudi Arabia", flag: "🇸🇦", codes: ["JED","RUH"] },
+  { country: "Qatar",        flag: "🇶🇦", codes: ["DOH"] },
+  { country: "Oman",         flag: "🇴🇲", codes: ["MCT"] },
+  { country: "Israel",       flag: "🇮🇱", codes: ["TLV"] },
+  { country: "Iran",         flag: "🇮🇷", codes: ["IKA"] },
+];
+
 function AirportCard({ airport, data }) {
   const cap = getCapacity(data);
   const light = getTrafficLight(cap);
@@ -57,7 +66,6 @@ function AirportCard({ airport, data }) {
       {/* Header */}
       <div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-          <span style={{ fontSize: 20 }}>{airport.flag}</span>
           <span style={{ fontSize: '1.1rem', fontWeight: 700, color: TEXT }}>{airport.code}</span>
           {data?.airport && (
             <span style={{ fontSize: '0.7rem', color: SUBTEXT }}>({data.airport})</span>
@@ -142,22 +150,31 @@ export default function FlightsView({ onBack }) {
         {loading ? (
           <div style={{ textAlign: 'center', padding: 60, color: SUBTEXT }}>Loading flight data...</div>
         ) : (
-          <div className="flights-grid" style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: 16,
-          }}>
-            <style>{`
-              @media (max-width: 900px) {
-                .flights-grid { grid-template-columns: repeat(2, 1fr) !important; }
-              }
-              @media (max-width: 600px) {
-                .flights-grid { grid-template-columns: 1fr !important; }
-              }
-            `}</style>
-            {AIRPORTS.map(a => (
-              <AirportCard key={a.code} airport={a} data={airportData[a.code]} />
-            ))}
+          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+            {COUNTRY_GROUPS.map(group => {
+              const groupAirports = AIRPORTS.filter(a => group.codes.includes(a.code));
+              return (
+                <div key={group.country} style={{
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: 16,
+                  padding: "16px 20px",
+                  background: "rgba(255,255,255,0.02)",
+                }}>
+                  {/* Country header: flag emoji only, no text */}
+                  <div style={{ fontSize: 22, marginBottom: 14 }}>{group.flag}</div>
+                  {/* Airport cards in a responsive grid */}
+                  <div style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
+                    gap: 14,
+                  }}>
+                    {groupAirports.map(airport => (
+                      <AirportCard key={airport.code} airport={airport} data={airportData[airport.code]} />
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
       </div>
