@@ -564,7 +564,7 @@ export default function AdminView({ onBack }) {
                 </div>
                 <div style={{ fontSize: 13 }}>
                   {(() => {
-                    if (!s.last_updated) return "—";
+                    if (!s.last_updated || s.type === "event" || !s.stale_after_hours) return <span style={{ color: 'rgba(255,255,255,0.25)' }}>—</span>;
                     const ageHours = (Date.now() - Date.parse(s.last_updated)) / 3600000;
                     const threshold = s.stale_after_hours;
                     if (ageHours < threshold) return <span style={{ color: colors.green }}>on time</span>;
