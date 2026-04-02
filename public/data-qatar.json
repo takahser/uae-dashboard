@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-27T00:00:00Z",
+  "lastUpdated": "2026-04-02T17:52:54.392Z",
   "sources": {
     "MOD_Qatar": {
       "lastTweetId": "2036365332491936254"
@@ -7,7 +7,7 @@
   },
   "cumulative": {
     "ballisticDetected": 129,
-    "ballisticIntercepted": 122,
+    "ballisticIntercepted": 130,
     "ballisticImpacted": 4,
     "cruiseDetected": 9,
     "cruiseIntercepted": 8,
@@ -18,7 +18,8 @@
     "notes": "2 Su-24 jets shot down.. Ras Laffan industrial fire Mar 18.",
     "ballisticSea": 3,
     "cruiseSea": 0,
-    "dronesSea": 0
+    "dronesSea": 0,
+    "ballisticEngaged": 9
   },
   "daily": [
     {
@@ -148,6 +149,15 @@
       "total": 4
     },
     {
+      "date": "2026-03-11",
+      "label": "11 Mar",
+      "source": "https://x.com/MOD_Qatar/status/2031823609648279990",
+      "reportingType": "intercepted",
+      "ballisticIntercepted": 8,
+      "ballisticEngaged": 9,
+      "total": 8
+    },
+    {
       "date": "2026-03-12",
       "label": "12 Mar",
       "ballisticDetected": 2,
@@ -172,7 +182,7 @@
       "cruiseIntercepted": null,
       "dronesDetected": null,
       "dronesIntercepted": null,
-      "notes": "Attack intercepted \u2014 no official count released",
+      "notes": "Attack intercepted — no official count released",
       "total": null
     },
     {
@@ -198,7 +208,7 @@
       "cruiseIntercepted": 0,
       "dronesDetected": null,
       "dronesIntercepted": null,
-      "notes": "UAV attack intercepted \u2014 count not released",
+      "notes": "UAV attack intercepted — count not released",
       "total": null
     },
     {
