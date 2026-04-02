@@ -11,7 +11,7 @@ const AIRPORTS = [
   { key: 'TLV', name: 'Tel Aviv (TLV)', file: 'data-flights-tlv.json', color: '#EC4899' },
 ];
 
-const FULL_DATA_AIRPORTS = new Set(['DXB', 'MCT', 'DOH']);
+const FULL_DATA_AIRPORTS = new Set(['DXB', 'AUH', 'DWC', 'MCT', 'DOH']);
 
 const TIMEFRAMES = [
   { key: '1W', days: 7 },
