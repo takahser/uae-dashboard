@@ -18,22 +18,36 @@ const AIRPORTS = [
   { code: 'MCT', name: 'Muscat International', country: 'Oman', flag: '\u{1F1F4}\u{1F1F2}', file: 'data-flights-mct.json' },
   { code: 'DOH', name: 'Hamad International', country: 'Qatar', flag: '\u{1F1F6}\u{1F1E6}', file: 'data-flights-doh.json' },
   { code: 'TLV', name: 'Ben Gurion', country: 'Israel', flag: '\u{1F1EE}\u{1F1F1}', file: 'data-flights-tlv.json' },
+  { code: 'JED', name: 'King Abdulaziz International', country: 'Saudi Arabia', flag: '\u{1F1F8}\u{1F1E6}', file: 'data-flights-jed.json' },
+  { code: 'RUH', name: 'King Khalid International', country: 'Saudi Arabia', flag: '\u{1F1F8}\u{1F1E6}', file: 'data-flights-ruh.json' },
+  { code: 'IKA', name: 'Imam Khomeini International', country: 'Iran', flag: '\u{1F1EE}\u{1F1F7}', file: 'data-flights-ika.json' },
 ];
 
-const STATUS_STYLES = {
-  open:       { label: 'OPEN',       color: '#34D399', bg: 'rgba(52,211,153,0.15)' },
-  restricted: { label: 'RESTRICTED', color: '#F59E0B', bg: 'rgba(245,158,11,0.15)' },
-  closed:     { label: 'CLOSED',     color: '#EF4444', bg: 'rgba(239,68,68,0.15)' },
-};
+function getCapacity(data) {
+  if (!data?.daily?.length || !data.preConflictAvg) return null;
+  const today = new Date().toISOString().slice(0, 10);
+  const yesterday = data.daily.filter(d => d.date < today).at(-1);
+  if (!yesterday) return null;
+  return { pct: Math.round((yesterday.total / data.preConflictAvg) * 100), yesterdayTotal: yesterday.total, baseline: data.preConflictAvg };
+}
+
+function getTrafficLight(cap) {
+  if (!cap) return { color: '#6B7280', label: 'No data' };
+  if (cap.pct >= 80) return { color: '#34D399', label: 'Operational' };
+  if (cap.pct >= 20) return { color: '#F59E0B', label: 'Partial' };
+  return { color: '#EF4444', label: 'Restricted' };
+}
 
 function AirportCard({ airport, data }) {
-  const status = data ? (STATUS_STYLES[data.status] || STATUS_STYLES.closed) : { label: 'UNKNOWN', color: '#6B7280', bg: 'rgba(107,114,128,0.15)' };
+  const cap = getCapacity(data);
+  const light = getTrafficLight(cap);
 
   return (
     <div style={{
       background: CARD_BG,
       backdropFilter: GLASS_BLUR,
       border: `1px solid ${GLASS_BORDER}`,
+      borderLeft: `3px solid ${light.color}`,
       borderRadius: GLASS_RADIUS,
       padding: 24,
       display: 'flex',
@@ -52,35 +66,27 @@ function AirportCard({ airport, data }) {
         <div style={{ fontSize: '0.8rem', color: SUBTEXT }}>{data?.airportName || airport.name}</div>
       </div>
 
-      {/* Status badge */}
-      <div style={{
-        display: 'inline-flex', alignItems: 'center', gap: 6,
-        background: status.bg, borderRadius: 8, padding: '6px 12px', alignSelf: 'flex-start',
-      }}>
-        <div style={{ width: 8, height: 8, borderRadius: '50%', background: status.color, boxShadow: `0 0 8px ${status.color}` }} />
-        <span style={{ fontSize: '0.75rem', fontWeight: 700, color: status.color, letterSpacing: 0.5 }}>{status.label}</span>
+      {/* Capacity */}
+      <div>
+        <div style={{ fontSize: '2rem', fontWeight: 700, color: light.color, lineHeight: 1.1 }}>
+          {cap ? `${cap.pct}%` : '—'}
+        </div>
+        <div style={{ fontSize: '0.8rem', fontWeight: 600, color: light.color, marginTop: 2 }}>
+          {light.label}
+        </div>
+        {cap && (
+          <div style={{ fontSize: 11, color: SUBTEXT, marginTop: 6 }}>
+            Yesterday: {cap.yesterdayTotal.toLocaleString()} flights · Baseline: {cap.baseline.toLocaleString()}/day
+          </div>
+        )}
       </div>
 
-      {/* Status note */}
-      {data?.statusNote && (
-        <div style={{ fontSize: '0.8rem', color: TEXT, lineHeight: 1.5 }}>
-          {data.statusNote}
+      {/* Today scheduled */}
+      {data?.todayTotal != null && (
+        <div style={{ fontSize: 11, color: SUBTEXT, marginTop: 'auto' }}>
+          Today: {data.todayTotal.toLocaleString()} scheduled
         </div>
       )}
-
-      {/* Source + last verified */}
-      <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 4 }}>
-        {data?.source && (
-          <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.35)' }}>
-            Source: {data.source}
-          </div>
-        )}
-        {data?.lastVerified && (
-          <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.3)' }}>
-            Last verified: {data.lastVerified}
-          </div>
-        )}
-      </div>
     </div>
   );
 }
