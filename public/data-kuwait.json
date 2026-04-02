@@ -1,21 +1,21 @@
 {
-  "lastUpdated": "2026-03-24",
+  "lastUpdated": "2026-04-02T16:48:28.458Z",
   "sources": {
     "MOD_KW": {
       "lastTweetId": null
     }
   },
   "cumulative": {
-    "ballisticDetected": 239,
-    "ballisticIntercepted": 237,
+    "ballisticDetected": 262,
+    "ballisticIntercepted": 291,
     "ballisticSea": null,
-    "ballisticImpacted": null,
+    "ballisticImpacted": 2,
     "cruiseDetected": null,
     "cruiseIntercepted": null,
     "cruiseSea": null,
     "cruiseImpacted": null,
-    "dronesDetected": 453,
-    "dronesIntercepted": 436,
+    "dronesDetected": 744,
+    "dronesIntercepted": 720,
     "dronesSea": null,
     "dronesImpacted": 6,
     "killed": 1,
@@ -24,9 +24,20 @@
     "ballisticInterceptedUnconfirmed": true,
     "dronesDetectedUnconfirmed": true,
     "dronesInterceptedUnconfirmed": true,
-    "dronesImpactedUnconfirmed": true
+    "dronesImpactedUnconfirmed": true,
+    "ballisticEngaged": 61,
+    "cruiseEngaged": 6,
+    "dronesEngaged": 60
   },
   "daily": [
+    {
+      "date": "2026-02-28",
+      "label": "28 Feb",
+      "source": "https://x.com/KuwaitArmyGHQ/status/2027836986808004905",
+      "reportingType": "intercepted",
+      "dronesIntercepted": 1,
+      "total": 1
+    },
     {
       "date": "2026-03-01",
       "label": "1 Mar",
@@ -154,6 +165,22 @@
       "total": 19
     },
     {
+      "date": "2026-03-12",
+      "label": "12 Mar",
+      "source": "https://x.com/KuwaitArmyGHQ/status/2032119680316686691",
+      "reportingType": "engaged",
+      "ballisticEngaged": 5,
+      "total": 5
+    },
+    {
+      "date": "2026-03-13",
+      "label": "13 Mar",
+      "source": "https://x.com/KuwaitArmyGHQ/status/2032480523755331811",
+      "reportingType": "intercepted",
+      "ballisticIntercepted": 1,
+      "total": 1
+    },
+    {
       "date": "2026-03-14",
       "label": "13–14 Mar",
       "ballisticDetected": 2,
@@ -279,6 +306,77 @@
       "total": 1,
       "events": "Kuwaiti authorities intercepted a ballistic missile. Source: Long War Journal Mar 20–23.",
       "unconfirmed": true
+    },
+    {
+      "date": "2026-03-24",
+      "label": "24 Mar",
+      "source": "https://x.com/KuwaitArmyGHQ/status/2036455186860749236",
+      "reportingType": "intercepted",
+      "ballisticIntercepted": 13,
+      "ballisticEngaged": 17,
+      "total": 13
+    },
+    {
+      "date": "2026-03-25",
+      "label": "25 Mar",
+      "source": "https://x.com/KuwaitArmyGHQ/status/2036816673261359521",
+      "reportingType": "intercepted",
+      "ballisticIntercepted": 13,
+      "ballisticEngaged": 20,
+      "total": 13
+    },
+    {
+      "date": "2026-03-27",
+      "label": "27 Mar",
+      "source": "https://x.com/KuwaitArmyGHQ/status/2037541507511525560",
+      "reportingType": "intercepted",
+      "ballisticIntercepted": 4,
+      "cruiseEngaged": 1,
+      "total": 4
+    },
+    {
+      "date": "2026-03-29",
+      "label": "29 Mar",
+      "source": "https://x.com/KuwaitArmyGHQ/status/2038266252154589653",
+      "reportingType": "engaged",
+      "ballisticEngaged": 14,
+      "dronesEngaged": 12,
+      "total": 26
+    },
+    {
+      "date": "2026-03-30",
+      "label": "30 Mar",
+      "source": "https://x.com/KuwaitArmyGHQ/status/2038628736212291918",
+      "reportingType": "engaged",
+      "dronesEngaged": 13,
+      "total": 13
+    },
+    {
+      "date": "2026-03-31",
+      "label": "31 Mar",
+      "source": "https://x.com/KuwaitArmyGHQ/status/2038990976119701974",
+      "reportingType": "engaged",
+      "ballisticEngaged": 5,
+      "dronesEngaged": 7,
+      "total": 12
+    },
+    {
+      "date": "2026-04-01",
+      "label": "1 Apr",
+      "source": "https://x.com/KuwaitArmyGHQ/status/2039353368712261784",
+      "reportingType": "engaged",
+      "cruiseEngaged": 3,
+      "dronesEngaged": 15,
+      "total": 18
+    },
+    {
+      "date": "2026-04-02",
+      "label": "2 Apr",
+      "source": "https://x.com/KuwaitArmyGHQ/status/2039715183283580990",
+      "reportingType": "engaged",
+      "cruiseEngaged": 2,
+      "dronesEngaged": 13,
+      "total": 15
     }
   ],
   "notes": [

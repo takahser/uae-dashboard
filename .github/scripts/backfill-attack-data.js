@@ -41,6 +41,14 @@ const COUNTRY_QUERIES = {
           ORDER BY received_at`,
     contentFilter: /bahrain|manama/i,
   },
+  kuwait: {
+    sql: `SELECT tweet_id, author_handle, content, received_at
+          FROM tweet_queue
+          WHERE relevant = 1
+            AND received_at >= '2026-02-28'
+            AND author_handle IN ('KuwaitArmyGHQ')
+          ORDER BY received_at`,
+  },
 };
 
 // --- Claude CLI ---

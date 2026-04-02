@@ -8,7 +8,7 @@ const CACHE_DIR = path.join(__dirname, "tweet-cache");
 
 const ACCOUNTS = {
   uae: "@modgovae",
-  kuwait: "@MOD_KW",
+  kuwait: "@KuwaitArmyGHQ",
   qatar: "@MOD_Qatar",
   bahrain: "@BDF_Bahrain",
   oman: "@RoyalArmyOfOman",
