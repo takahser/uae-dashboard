@@ -3,15 +3,15 @@ import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ReferenceLine } fro
 import { Tooltip as RTooltip } from 'recharts';
 
 const AIRPORTS = [
-  { key: 'DXB', name: 'Dubai (DXB)', file: 'data-flights-dxb.json', color: '#EF4444' },
-  { key: 'AUH', name: 'Abu Dhabi (AUH)', file: 'data-flights-auh.json', color: '#3B82F6' },
-  { key: 'DWC', name: 'Al Maktoum (DWC)', file: 'data-flights-dwc.json', color: '#10B981' },
-  { key: 'MCT', name: 'Muscat (MCT)', file: 'data-flights-mct.json', color: '#F59E0B' },
-  { key: 'DOH', name: 'Doha (DOH)', file: 'data-flights-doh.json', color: '#8B5CF6' },
-  { key: 'TLV', name: 'Tel Aviv (TLV)', file: 'data-flights-tlv.json', color: '#EC4899' },
-  { key: 'JED', name: 'Jeddah (JED)', file: 'data-flights-jed.json', color: '#8B5CF6' },
-  { key: 'RUH', name: 'Riyadh (RUH)', file: 'data-flights-ruh.json', color: '#EC4899' },
-  { key: 'IKA', name: 'Tehran (IKA)', file: 'data-flights-ika.json', color: '#06B6D4' },
+  { key: 'DXB', name: 'Dubai (DXB)', file: 'data-flights-dxb.json', color: '#EF4444', country: '🇦🇪' },
+  { key: 'AUH', name: 'Abu Dhabi (AUH)', file: 'data-flights-auh.json', color: '#3B82F6', country: '🇦🇪' },
+  { key: 'DWC', name: 'Al Maktoum (DWC)', file: 'data-flights-dwc.json', color: '#10B981', country: '🇦🇪' },
+  { key: 'MCT', name: 'Muscat (MCT)', file: 'data-flights-mct.json', color: '#F59E0B', country: '🇴🇲' },
+  { key: 'DOH', name: 'Doha (DOH)', file: 'data-flights-doh.json', color: '#8B5CF6', country: '🇶🇦' },
+  { key: 'TLV', name: 'Tel Aviv (TLV)', file: 'data-flights-tlv.json', color: '#EC4899', country: '🇮🇱' },
+  { key: 'JED', name: 'Jeddah (JED)', file: 'data-flights-jed.json', color: '#F97316', country: '🇸🇦' },
+  { key: 'RUH', name: 'Riyadh (RUH)', file: 'data-flights-ruh.json', color: '#A855F7', country: '🇸🇦' },
+  { key: 'IKA', name: 'Tehran (IKA)', file: 'data-flights-ika.json', color: '#06B6D4', country: '🇮🇷' },
 ];
 
 const FULL_DATA_AIRPORTS = new Set(['DXB', 'AUH', 'DWC', 'MCT', 'DOH']);
@@ -166,32 +166,47 @@ export default function FlightChart() {
       </div>
 
       {/* Airport toggles */}
-      <div style={{ display: 'flex', gap: 12, marginBottom: 12, flexWrap: 'wrap' }}>
-        {AIRPORTS.map(a => {
-          const isLimited = limitedAirports.includes(a.key);
-          return (
-            <div
-              key={a.key}
-              onClick={() => toggleAirport(a.key)}
-              title={isLimited ? 'Limited data — not enough points to chart' : ''}
-              style={{
-                display: 'flex', alignItems: 'center', gap: 5,
-                cursor: isLimited ? 'default' : 'pointer',
-                fontSize: 11,
-                opacity: isLimited ? 0.25 : (visible[a.key] ? 1 : 0.35),
-                color: 'rgba(255,255,255,0.7)',
-              }}
-            >
-              <span style={{
-                width: 10, height: 10, borderRadius: 2,
-                background: a.color,
-                display: 'inline-block',
-              }} />
-              {a.name}
-              {isLimited && <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.4)' }}>(Limited data)</span>}
+      <div style={{ display: 'flex', gap: 12, marginBottom: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+        {(() => {
+          const groups = [];
+          const seen = new Set();
+          for (const a of AIRPORTS) {
+            if (!seen.has(a.country)) {
+              seen.add(a.country);
+              groups.push({ country: a.country, airports: AIRPORTS.filter(b => b.country === a.country) });
+            }
+          }
+          return groups.map(g => (
+            <div key={g.country} style={{ display: 'contents' }}>
+              <span style={{ fontSize: 14, marginRight: -4 }}>{g.country}</span>
+              {g.airports.map(a => {
+                const isLimited = limitedAirports.includes(a.key);
+                return (
+                  <div
+                    key={a.key}
+                    onClick={() => toggleAirport(a.key)}
+                    title={isLimited ? 'Limited data — not enough points to chart' : ''}
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: 5,
+                      cursor: isLimited ? 'default' : 'pointer',
+                      fontSize: 11,
+                      opacity: isLimited ? 0.25 : (visible[a.key] ? 1 : 0.35),
+                      color: 'rgba(255,255,255,0.7)',
+                    }}
+                  >
+                    <span style={{
+                      width: 10, height: 10, borderRadius: 2,
+                      background: a.color,
+                      display: 'inline-block',
+                    }} />
+                    {a.name}
+                    {isLimited && <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.4)' }}>(Limited data)</span>}
+                  </div>
+                );
+              })}
             </div>
-          );
-        })}
+          ));
+        })()}
       </div>
 
       <ResponsiveContainer width="100%" height={300}>
