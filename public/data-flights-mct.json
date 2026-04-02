@@ -12,8 +12,6 @@
   "daily": [
     {
       "date": "2026-02-28",
-      "dep": 99,
-      "arr": 95,
       "total": 194,
       "regions": {
         "South Asia": 70,
@@ -23,12 +21,12 @@
         "Asia-Pacific": 3,
         "Africa": 8
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 99,
+      "arrivals": 95
     },
     {
       "date": "2026-03-01",
-      "dep": 88,
-      "arr": 90,
       "total": 178,
       "regions": {
         "South Asia": 61,
@@ -38,12 +36,12 @@
         "Africa": 7,
         "Asia-Pacific": 6
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 88,
+      "arrivals": 90
     },
     {
       "date": "2026-03-02",
-      "dep": 80,
-      "arr": 82,
       "total": 162,
       "regions": {
         "South Asia": 70,
@@ -53,12 +51,12 @@
         "Africa": 6,
         "Asia-Pacific": 4
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 80,
+      "arrivals": 82
     },
     {
       "date": "2026-03-03",
-      "dep": 81,
-      "arr": 81,
       "total": 162,
       "regions": {
         "South Asia": 61,
@@ -68,12 +66,12 @@
         "Middle East": 62,
         "Asia-Pacific": 3
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 81,
+      "arrivals": 81
     },
     {
       "date": "2026-03-04",
-      "dep": 87,
-      "arr": 72,
       "total": 159,
       "regions": {
         "South Asia": 67,
@@ -83,12 +81,12 @@
         "Asia-Pacific": 4,
         "Africa": 6
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 87,
+      "arrivals": 72
     },
     {
       "date": "2026-03-05",
-      "dep": 108,
-      "arr": 103,
       "total": 211,
       "regions": {
         "South Asia": 80,
@@ -98,12 +96,12 @@
         "Africa": 12,
         "Asia-Pacific": 4
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 108,
+      "arrivals": 103
     },
     {
       "date": "2026-03-06",
-      "dep": 97,
-      "arr": 102,
       "total": 199,
       "regions": {
         "South Asia": 79,
@@ -113,12 +111,12 @@
         "Africa": 9,
         "Asia-Pacific": 5
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 97,
+      "arrivals": 102
     },
     {
       "date": "2026-03-07",
-      "dep": 103,
-      "arr": 97,
       "total": 200,
       "regions": {
         "South Asia": 73,
@@ -128,12 +126,12 @@
         "Asia-Pacific": 5,
         "Africa": 6
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 103,
+      "arrivals": 97
     },
     {
       "date": "2026-03-08",
-      "dep": 95,
-      "arr": 97,
       "total": 192,
       "regions": {
         "South Asia": 67,
@@ -143,12 +141,12 @@
         "Africa": 9,
         "Asia-Pacific": 6
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 95,
+      "arrivals": 97
     },
     {
       "date": "2026-03-09",
-      "dep": 94,
-      "arr": 98,
       "total": 192,
       "regions": {
         "Unknown": 30,
@@ -158,12 +156,12 @@
         "Africa": 6,
         "Asia-Pacific": 5
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 94,
+      "arrivals": 98
     },
     {
       "date": "2026-03-10",
-      "dep": 88,
-      "arr": 70,
       "total": 158,
       "regions": {
         "South Asia": 68,
@@ -173,12 +171,12 @@
         "Africa": 12,
         "Asia-Pacific": 3
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 88,
+      "arrivals": 70
     },
     {
       "date": "2026-03-11",
-      "dep": 91,
-      "arr": 90,
       "total": 181,
       "regions": {
         "South Asia": 78,
@@ -188,12 +186,12 @@
         "Asia-Pacific": 6,
         "Africa": 8
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 91,
+      "arrivals": 90
     },
     {
       "date": "2026-03-12",
-      "dep": 108,
-      "arr": 97,
       "total": 205,
       "regions": {
         "South Asia": 84,
@@ -203,12 +201,12 @@
         "Africa": 12,
         "Asia-Pacific": 4
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 108,
+      "arrivals": 97
     },
     {
       "date": "2026-03-13",
-      "dep": 90,
-      "arr": 95,
       "total": 185,
       "regions": {
         "South Asia": 65,
@@ -218,12 +216,12 @@
         "Africa": 10,
         "Asia-Pacific": 4
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 90,
+      "arrivals": 95
     },
     {
       "date": "2026-03-14",
-      "dep": 106,
-      "arr": 96,
       "total": 202,
       "regions": {
         "South Asia": 80,
@@ -233,12 +231,12 @@
         "Asia-Pacific": 7,
         "Africa": 9
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 106,
+      "arrivals": 96
     },
     {
       "date": "2026-03-15",
-      "dep": 100,
-      "arr": 103,
       "total": 203,
       "regions": {
         "South Asia": 67,
@@ -248,12 +246,12 @@
         "Africa": 11,
         "Asia-Pacific": 7
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 100,
+      "arrivals": 103
     },
     {
       "date": "2026-03-16",
-      "dep": 97,
-      "arr": 80,
       "total": 177,
       "regions": {
         "South Asia": 78,
@@ -263,12 +261,12 @@
         "Africa": 8,
         "Unknown": 4
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 97,
+      "arrivals": 80
     },
     {
       "date": "2026-03-17",
-      "dep": 94,
-      "arr": 96,
       "total": 190,
       "regions": {
         "South Asia": 74,
@@ -278,12 +276,12 @@
         "Asia-Pacific": 6,
         "Africa": 11
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 94,
+      "arrivals": 96
     },
     {
       "date": "2026-03-18",
-      "dep": 97,
-      "arr": 97,
       "total": 194,
       "regions": {
         "South Asia": 82,
@@ -293,12 +291,12 @@
         "Asia-Pacific": 7,
         "Africa": 7
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 97,
+      "arrivals": 97
     },
     {
       "date": "2026-03-19",
-      "dep": 104,
-      "arr": 101,
       "total": 205,
       "regions": {
         "South Asia": 76,
@@ -308,12 +306,12 @@
         "Asia-Pacific": 6,
         "Africa": 9
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 104,
+      "arrivals": 101
     },
     {
       "date": "2026-03-20",
-      "dep": 101,
-      "arr": 101,
       "total": 202,
       "regions": {
         "South Asia": 77,
@@ -323,12 +321,12 @@
         "Africa": 14,
         "Asia-Pacific": 4
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 101,
+      "arrivals": 101
     },
     {
       "date": "2026-03-21",
-      "dep": 111,
-      "arr": 110,
       "total": 221,
       "regions": {
         "South Asia": 78,
@@ -338,12 +336,12 @@
         "Asia-Pacific": 7,
         "Africa": 10
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 111,
+      "arrivals": 110
     },
     {
       "date": "2026-03-22",
-      "dep": 89,
-      "arr": 75,
       "total": 164,
       "regions": {
         "South Asia": 66,
@@ -353,12 +351,12 @@
         "Africa": 9,
         "Unknown": 7
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 89,
+      "arrivals": 75
     },
     {
       "date": "2026-03-23",
-      "dep": 90,
-      "arr": 95,
       "total": 185,
       "regions": {
         "South Asia": 79,
@@ -368,12 +366,12 @@
         "Africa": 9,
         "Unknown": 4
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 90,
+      "arrivals": 95
     },
     {
       "date": "2026-03-24",
-      "dep": 90,
-      "arr": 94,
       "total": 184,
       "regions": {
         "Unknown": 16,
@@ -383,12 +381,12 @@
         "Europe": 21,
         "Africa": 14
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 90,
+      "arrivals": 94
     },
     {
       "date": "2026-03-25",
-      "dep": 91,
-      "arr": 93,
       "total": 184,
       "regions": {
         "South Asia": 72,
@@ -398,12 +396,12 @@
         "Africa": 9,
         "Unknown": 20
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 91,
+      "arrivals": 93
     },
     {
       "date": "2026-03-26",
-      "dep": 97,
-      "arr": 97,
       "total": 194,
       "regions": {
         "South Asia": 79,
@@ -413,12 +411,12 @@
         "Asia-Pacific": 7,
         "Africa": 12
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 97,
+      "arrivals": 97
     },
     {
       "date": "2026-03-27",
-      "dep": 91,
-      "arr": 88,
       "total": 179,
       "regions": {
         "South Asia": 70,
@@ -428,12 +426,12 @@
         "Africa": 14,
         "Unknown": 15
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 91,
+      "arrivals": 88
     },
     {
       "date": "2026-03-28",
-      "dep": 97,
-      "arr": 75,
       "total": 172,
       "regions": {
         "Unknown": 15,
@@ -443,12 +441,12 @@
         "Asia-Pacific": 6,
         "Africa": 10
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 97,
+      "arrivals": 75
     },
     {
       "date": "2026-03-29",
-      "dep": 91,
-      "arr": 98,
       "total": 189,
       "regions": {
         "South Asia": 76,
@@ -458,12 +456,12 @@
         "Africa": 9,
         "Unknown": 13
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 91,
+      "arrivals": 98
     },
     {
       "date": "2026-03-30",
-      "dep": 88,
-      "arr": 87,
       "total": 175,
       "regions": {
         "South Asia": 70,
@@ -473,7 +471,9 @@
         "Africa": 8,
         "Unknown": 16
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 88,
+      "arrivals": 87
     },
     {
       "date": "2026-03-31",
@@ -485,8 +485,6 @@
     },
     {
       "date": "2026-04-01",
-      "dep": 106,
-      "arr": 106,
       "total": 212,
       "regions": {
         "South Asia": 70,
@@ -496,12 +494,12 @@
         "Africa": 13,
         "Unknown": 38
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 106,
+      "arrivals": 106
     },
     {
       "date": "2026-04-02",
-      "dep": 109,
-      "arr": 105,
       "total": 214,
       "regions": {
         "South Asia": 73,
@@ -511,7 +509,9 @@
         "Unknown": 19,
         "Africa": 11
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "departures": 109,
+      "arrivals": 105
     }
   ],
   "baselineDailyAvg": {

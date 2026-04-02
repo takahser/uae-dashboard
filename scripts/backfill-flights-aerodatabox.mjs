@@ -119,8 +119,8 @@ async function backfillAirport(airport) {
 
       const entry = {
         date,
-        dep: allDep.length,
-        arr: allArr.length,
+        departures: allDep.length,
+        arrivals: allArr.length,
         total,
         regions,
         source: "aerodatabox",
