@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ReferenceLine } from 'recharts';
+import { LineChart, Line, BarChart, Bar, XAxis, YAxis, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { Tooltip as RTooltip } from 'recharts';
 
 const AIRPORTS = [
@@ -15,6 +15,12 @@ const AIRPORTS = [
 ];
 
 const FULL_DATA_AIRPORTS = new Set(['DXB', 'AUH', 'DWC', 'MCT', 'DOH']);
+
+const CANCELLATION_AIRPORTS = [
+  { key: 'JED', name: 'JED', color: '#F97316' },
+  { key: 'RUH', name: 'RUH', color: '#A855F7' },
+  { key: 'IKA', name: 'IKA', color: '#06B6D4' },
+];
 
 const TIMEFRAMES = [
   { key: '1W', days: 7 },
@@ -115,6 +121,29 @@ export default function FlightChart() {
     }
     return rows;
   }, [airportData, timeframe, limitedAirports]);
+
+  const cancellationData = useMemo(() => {
+    const dateMap = {};
+    for (const a of CANCELLATION_AIRPORTS) {
+      for (const pt of (airportData[a.key] || [])) {
+        if (pt.cancelled == null) continue;
+        if (!dateMap[pt.date]) dateMap[pt.date] = { date: pt.date };
+        dateMap[pt.date][`${a.key}_cancelled`] = pt.cancelled;
+      }
+    }
+    let rows = Object.values(dateMap)
+      .sort((a, b) => a.date.localeCompare(b.date))
+      .map(row => ({ ...row, dateLabel: formatDate(row.date) }));
+
+    const tf = TIMEFRAMES.find(t => t.key === timeframe);
+    if (tf?.days) {
+      const cutoff = new Date();
+      cutoff.setDate(cutoff.getDate() - tf.days);
+      const cutoffStr = cutoff.toISOString().slice(0, 10);
+      rows = rows.filter(row => row.date >= cutoffStr);
+    }
+    return rows;
+  }, [airportData, timeframe]);
 
   const warLabel = formatDate('2026-02-28');
 
@@ -255,6 +284,49 @@ export default function FlightChart() {
         <div style={{ display: 'flex', gap: 16, marginTop: 8, fontSize: 10, color: 'rgba(255,255,255,0.4)' }}>
           <span>— Solid = Departures</span>
           <span>- - Dashed = Arrivals</span>
+        </div>
+      )}
+
+      {/* Cancellations chart */}
+      {cancellationData.length > 0 && (
+        <div style={{ marginTop: 24, paddingTop: 20, borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+          <div style={{ color: '#fff', fontWeight: 600, fontSize: 14, letterSpacing: '0.05em', marginBottom: 2 }}>
+            FLIGHT CANCELLATIONS
+          </div>
+          <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 12, marginBottom: 12 }}>
+            JED · RUH · IKA only
+          </div>
+
+          <ResponsiveContainer width="100%" height={250}>
+            <BarChart data={cancellationData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+              <XAxis dataKey="dateLabel" tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 11 }} tickLine={false} />
+              <YAxis tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 11 }} tickLine={false} />
+              <RTooltip content={<CustomTooltip />} />
+              <ReferenceLine
+                x={warLabel}
+                stroke="#EF4444"
+                strokeDasharray="4 4"
+                label={{ value: 'War start', fill: '#EF4444', fontSize: 10, position: 'top' }}
+              />
+              {CANCELLATION_AIRPORTS.map(a => (
+                <Bar
+                  key={`${a.key}_cancelled`}
+                  dataKey={`${a.key}_cancelled`}
+                  name={`${a.name} cancelled`}
+                  fill={a.color}
+                />
+              ))}
+            </BarChart>
+          </ResponsiveContainer>
+
+          <div style={{ display: 'flex', gap: 16, marginTop: 8 }}>
+            {CANCELLATION_AIRPORTS.map(a => (
+              <div key={a.key} style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: a.color, display: 'inline-block' }} />
+                {a.key}
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
