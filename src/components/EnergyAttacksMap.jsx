@@ -10,6 +10,15 @@ const SUBTEXT = 'rgba(255,255,255,0.5)';
 const ACCENT = '#F59E0B';
 const DM_SANS = "'DM Sans', -apple-system, sans-serif";
 
+const COUNTRY_FLIGHTS = [
+  { country: 'UAE', flag: '🇦🇪', label: 'UAE', airports: ['DXB', 'AUH', 'DWC'] },
+  { country: 'Oman', flag: '🇴🇲', label: 'Oman', airports: ['MCT'] },
+  { country: 'Qatar', flag: '🇶🇦', label: 'Qatar', airports: ['DOH'] },
+  { country: 'Saudi Arabia', flag: '🇸🇦', label: 'Saudi', airports: ['JED', 'RUH'] },
+  { country: 'Iran', flag: '🇮🇷', label: 'Iran', airports: ['IKA'] },
+  { country: 'Israel', flag: '🇮🇱', label: 'Israel', airports: ['TLV'] },
+];
+
 const DAMAGE_COLORS = { severe: '#EF4444', moderate: '#F59E0B', minor: '#EAB308' };
 const DAMAGE_RADII = { severe: 14, moderate: 10, minor: 7 };
 
@@ -232,6 +241,29 @@ export default function EnergyAttacksMap() {
               fontWeight: 600, cursor: 'pointer', fontFamily: DM_SANS,
             }}
           >{c}</button>
+        ))}
+      </div>
+
+      {/* Flights deep links */}
+      <div style={{ display: 'flex', gap: 6, marginBottom: 12, flexWrap: 'wrap' }}>
+        {COUNTRY_FLIGHTS.map(cf => (
+          <a
+            key={cf.country}
+            href={`#/flights?airports=${cf.airports.join(',')}`}
+            style={{
+              background: 'rgba(255,255,255,0.06)',
+              color: SUBTEXT,
+              border: `1px solid ${GLASS_BORDER}`,
+              borderRadius: 6,
+              padding: '4px 10px',
+              fontSize: '0.72rem',
+              fontWeight: 600,
+              textDecoration: 'none',
+              fontFamily: DM_SANS,
+            }}
+          >
+            {cf.flag} {cf.label} Flights
+          </a>
         ))}
       </div>
 

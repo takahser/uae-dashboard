@@ -65,13 +65,30 @@ const btnActive = {
   borderColor: 'rgba(255,255,255,0.4)',
 };
 
+function parseAirportsParam() {
+  const hash = window.location.hash;
+  const queryStart = hash.indexOf('?');
+  if (queryStart === -1) return null;
+  const params = new URLSearchParams(hash.slice(queryStart + 1));
+  const airportsParam = params.get('airports');
+  if (!airportsParam?.trim()) return null;
+  const requested = airportsParam.toUpperCase().split(',').map(s => s.trim()).filter(Boolean);
+  const validCodes = new Set(AIRPORTS.map(a => a.key));
+  const filtered = requested.filter(code => validCodes.has(code));
+  return filtered.length > 0 ? new Set(filtered) : null;
+}
+
 export default function FlightChart() {
   const [airportData, setAirportData] = useState({});
   const [viewMode, setViewMode] = useState('combined');
   const [timeframe, setTimeframe] = useState('ALL');
-  const [visible, setVisible] = useState(
-    Object.fromEntries(AIRPORTS.map(a => [a.key, FULL_DATA_AIRPORTS.has(a.key)]))
-  );
+  const [visible, setVisible] = useState(() => {
+    const fromUrl = parseAirportsParam();
+    if (fromUrl) {
+      return Object.fromEntries(AIRPORTS.map(a => [a.key, fromUrl.has(a.key)]));
+    }
+    return Object.fromEntries(AIRPORTS.map(a => [a.key, FULL_DATA_AIRPORTS.has(a.key)]));
+  });
   const [cancelVisible, setCancelVisible] = useState({ JED: true, RUH: true, IKA: true });
   const toggleCancel = (key) => setCancelVisible(v => ({ ...v, [key]: !v[key] }));
 
