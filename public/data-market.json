@@ -1,26 +1,26 @@
 {
-  "updated": "2026-04-02T07:48:13Z",
+  "updated": "2026-04-02T08:30:17Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 107.68,
-      "change": 6.52,
-      "changePercent": 6.45,
+      "price": 108.44,
+      "change": 7.28,
+      "changePercent": 7.2,
       "previousClose": 101.16
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 106.42,
-      "change": 6.3,
-      "changePercent": 6.29,
+      "price": 106.92,
+      "change": 6.8,
+      "changePercent": 6.79,
       "previousClose": 100.12
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.85,
+      "price": 2.86,
       "change": 0.04,
       "changePercent": 1.42,
       "previousClose": 2.82
@@ -28,9 +28,9 @@
     "2222.SR": {
       "symbol": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 27.62,
-      "change": 0.06,
-      "changePercent": 0.22,
+      "price": 27.64,
+      "change": 0.08,
+      "changePercent": 0.29,
       "previousClose": 27.56
     },
     "FRO": {
@@ -82,7 +82,7 @@
       "change": 0.0,
       "changePercent": 0.0,
       "previousClose": 108.86,
-      "note": "DME Oman \u2014 cbonds.com (2026-04-01)",
+      "note": "DME Oman \u2014 cbonds.com (2026-04-02)",
       "source": "cbonds.com/indexes/189217"
     }
   },
@@ -186,7 +186,7 @@
       },
       {
         "date": "2026-04-02",
-        "close": 107.68
+        "close": 108.44
       }
     ],
     "CL=F": [
@@ -288,7 +288,7 @@
       },
       {
         "date": "2026-04-02",
-        "close": 106.41
+        "close": 106.92
       }
     ],
     "NG=F": [
@@ -390,7 +390,7 @@
       },
       {
         "date": "2026-04-02",
-        "close": 2.85
+        "close": 2.86
       }
     ],
     "2222.SR": [
@@ -512,7 +512,7 @@
       },
       {
         "date": "2026-04-02",
-        "close": 27.62
+        "close": 27.64
       }
     ],
     "FRO": [
@@ -1201,12 +1201,16 @@
       {
         "date": "2026-04-01",
         "close": 94.49
+      },
+      {
+        "date": "2026-04-02",
+        "close": 108.86
       }
     ]
   },
   "gulf": {
-    "ships": 2,
+    "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-04-02T07:48:05Z"
+    "sampled_at": "2026-04-02T08:30:09Z"
   }
 }
