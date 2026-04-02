@@ -2,7 +2,7 @@
   "airport": "OMAA",
   "airportName": "Abu Dhabi Intl (AUH)",
   "status": "open",
-  "statusNote": "Operational \u2014 no closure reported",
+  "statusNote": "Operational — no closure reported",
   "lastVerified": "2026-03-15",
   "source": "UAE MoD statements",
   "todayArrivals": 220,
@@ -10,6 +10,170 @@
   "todayTotal": 451,
   "todayFetched": "2026-04-01T08:28:09.286Z",
   "daily": [
+    {
+      "date": "2026-02-18",
+      "departures": 220,
+      "arrivals": 200,
+      "total": 420,
+      "regions": {
+        "Asia-Pacific": 20,
+        "Europe": 113,
+        "Other": 7,
+        "Middle East": 85,
+        "South Asia": 158,
+        "Africa": 22,
+        "Americas": 14,
+        "Unknown": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-19",
+      "departures": 217,
+      "arrivals": 198,
+      "total": 415,
+      "regions": {
+        "South Asia": 148,
+        "Europe": 114,
+        "Middle East": 93,
+        "Africa": 21,
+        "Other": 8,
+        "Americas": 14,
+        "Asia-Pacific": 17
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-20",
+      "departures": 203,
+      "arrivals": 200,
+      "total": 403,
+      "regions": {
+        "South Asia": 153,
+        "Africa": 27,
+        "Middle East": 83,
+        "Europe": 107,
+        "Other": 8,
+        "Americas": 13,
+        "Asia-Pacific": 12
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-21",
+      "departures": 212,
+      "arrivals": 203,
+      "total": 415,
+      "regions": {
+        "South Asia": 156,
+        "Asia-Pacific": 20,
+        "Europe": 105,
+        "Middle East": 89,
+        "Africa": 24,
+        "Other": 6,
+        "Americas": 13,
+        "Unknown": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-22",
+      "departures": 233,
+      "arrivals": 205,
+      "total": 438,
+      "regions": {
+        "Europe": 123,
+        "Middle East": 85,
+        "South Asia": 156,
+        "Africa": 24,
+        "Other": 8,
+        "Americas": 14,
+        "Asia-Pacific": 27,
+        "Unknown": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-23",
+      "departures": 218,
+      "arrivals": 201,
+      "total": 419,
+      "regions": {
+        "Africa": 22,
+        "Other": 9,
+        "South Asia": 165,
+        "Middle East": 78,
+        "Europe": 110,
+        "Americas": 11,
+        "Asia-Pacific": 23,
+        "Unknown": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-24",
+      "departures": 200,
+      "arrivals": 195,
+      "total": 395,
+      "regions": {
+        "South Asia": 140,
+        "Middle East": 80,
+        "Europe": 114,
+        "Africa": 24,
+        "Other": 7,
+        "Americas": 10,
+        "Asia-Pacific": 20
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-25",
+      "departures": 200,
+      "arrivals": 199,
+      "total": 399,
+      "regions": {
+        "South Asia": 152,
+        "Africa": 24,
+        "Middle East": 77,
+        "Europe": 109,
+        "Other": 7,
+        "Americas": 13,
+        "Asia-Pacific": 17
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-26",
+      "departures": 215,
+      "arrivals": 199,
+      "total": 414,
+      "regions": {
+        "South Asia": 147,
+        "Middle East": 89,
+        "Europe": 115,
+        "Africa": 22,
+        "Other": 8,
+        "Americas": 14,
+        "Asia-Pacific": 19
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-27",
+      "departures": 220,
+      "arrivals": 203,
+      "total": 423,
+      "regions": {
+        "South Asia": 160,
+        "Middle East": 84,
+        "Africa": 23,
+        "Europe": 115,
+        "Other": 8,
+        "Americas": 14,
+        "Asia-Pacific": 19
+      },
+      "source": "aerodatabox"
+    },
     {
       "date": "2026-02-28",
       "total": 277,
@@ -497,5 +661,5 @@
       "arrivals": 142
     }
   ],
-  "lastUpdated": "2026-04-02T00:41:53.706Z"
+  "lastUpdated": "2026-04-02T02:52:50.934Z"
 }

@@ -2,7 +2,7 @@
   "airport": "OMDW",
   "airportName": "Al Maktoum Intl (DWC)",
   "status": "open",
-  "statusNote": "Operational \u2014 no closure reported",
+  "statusNote": "Operational — no closure reported",
   "lastVerified": "2026-03-15",
   "source": "UAE MoD statements",
   "todayArrivals": 27,
@@ -10,6 +10,168 @@
   "todayTotal": 52,
   "todayFetched": "2026-04-01T08:28:10.576Z",
   "daily": [
+    {
+      "date": "2026-02-18",
+      "departures": 59,
+      "arrivals": 52,
+      "total": 111,
+      "regions": {
+        "Middle East": 6,
+        "Asia-Pacific": 7,
+        "Europe": 49,
+        "Other": 4,
+        "Unknown": 40,
+        "Africa": 1,
+        "South Asia": 4
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-19",
+      "departures": 66,
+      "arrivals": 46,
+      "total": 112,
+      "regions": {
+        "Unknown": 49,
+        "Middle East": 7,
+        "Europe": 44,
+        "South Asia": 4,
+        "Asia-Pacific": 7,
+        "Other": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-20",
+      "departures": 78,
+      "arrivals": 59,
+      "total": 137,
+      "regions": {
+        "Middle East": 8,
+        "Asia-Pacific": 7,
+        "South Asia": 3,
+        "Europe": 65,
+        "Unknown": 49,
+        "Africa": 3,
+        "Other": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-21",
+      "departures": 57,
+      "arrivals": 39,
+      "total": 96,
+      "regions": {
+        "Europe": 54,
+        "Middle East": 8,
+        "Unknown": 22,
+        "Asia-Pacific": 6,
+        "Other": 2,
+        "South Asia": 2,
+        "Africa": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-22",
+      "departures": 64,
+      "arrivals": 38,
+      "total": 102,
+      "regions": {
+        "Asia-Pacific": 6,
+        "Europe": 54,
+        "Middle East": 8,
+        "Unknown": 27,
+        "South Asia": 2,
+        "Africa": 1,
+        "Other": 3,
+        "Americas": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-23",
+      "departures": 60,
+      "arrivals": 40,
+      "total": 100,
+      "regions": {
+        "Middle East": 10,
+        "Asia-Pacific": 3,
+        "Other": 3,
+        "Europe": 43,
+        "Unknown": 39,
+        "South Asia": 1,
+        "Africa": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-24",
+      "departures": 46,
+      "arrivals": 40,
+      "total": 86,
+      "regions": {
+        "Europe": 43,
+        "Asia-Pacific": 6,
+        "Middle East": 5,
+        "Unknown": 22,
+        "Other": 4,
+        "South Asia": 3,
+        "Africa": 2,
+        "Americas": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-25",
+      "departures": 66,
+      "arrivals": 49,
+      "total": 115,
+      "regions": {
+        "Europe": 51,
+        "Middle East": 6,
+        "Other": 4,
+        "Unknown": 49,
+        "Africa": 1,
+        "South Asia": 3,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-26",
+      "departures": 60,
+      "arrivals": 37,
+      "total": 97,
+      "regions": {
+        "Middle East": 8,
+        "Other": 1,
+        "Europe": 41,
+        "Unknown": 40,
+        "Africa": 2,
+        "South Asia": 4,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-27",
+      "departures": 77,
+      "arrivals": 53,
+      "total": 130,
+      "regions": {
+        "Middle East": 6,
+        "Europe": 64,
+        "Unknown": 52,
+        "Asia-Pacific": 3,
+        "Africa": 1,
+        "South Asia": 2,
+        "Other": 1,
+        "Americas": 1
+      },
+      "source": "aerodatabox"
+    },
     {
       "date": "2026-02-28",
       "total": 37,
@@ -407,5 +569,5 @@
       "arrivals": 2
     }
   ],
-  "lastUpdated": "2026-04-02T00:44:22.099Z"
+  "lastUpdated": "2026-04-02T02:53:40.122Z"
 }

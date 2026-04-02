@@ -11,6 +11,587 @@
   "todayFetched": "2026-04-01T08:28:18.056Z",
   "daily": [
     {
+      "date": "2026-02-18",
+      "departures": 180,
+      "arrivals": 165,
+      "total": 345,
+      "regions": {
+        "Europe": 243,
+        "Middle East": 39,
+        "Americas": 25,
+        "South Asia": 6,
+        "Unknown": 23,
+        "Africa": 7,
+        "Asia-Pacific": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-19",
+      "departures": 202,
+      "arrivals": 174,
+      "total": 376,
+      "regions": {
+        "Europe": 284,
+        "Americas": 24,
+        "Middle East": 42,
+        "Africa": 7,
+        "Unknown": 12,
+        "South Asia": 6,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-20",
+      "departures": 135,
+      "arrivals": 135,
+      "total": 270,
+      "regions": {
+        "Americas": 24,
+        "Middle East": 31,
+        "Europe": 196,
+        "Africa": 4,
+        "Unknown": 13,
+        "South Asia": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-21",
+      "departures": 87,
+      "arrivals": 94,
+      "total": 181,
+      "regions": {
+        "Europe": 123,
+        "Middle East": 30,
+        "Americas": 9,
+        "Africa": 6,
+        "Unknown": 8,
+        "South Asia": 4,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-22",
+      "departures": 196,
+      "arrivals": 185,
+      "total": 381,
+      "regions": {
+        "Middle East": 42,
+        "Americas": 21,
+        "Europe": 284,
+        "Africa": 7,
+        "Unknown": 16,
+        "Asia-Pacific": 2,
+        "South Asia": 9
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-23",
+      "departures": 177,
+      "arrivals": 180,
+      "total": 357,
+      "regions": {
+        "Middle East": 40,
+        "Americas": 20,
+        "Africa": 6,
+        "Other": 1,
+        "Europe": 261,
+        "Unknown": 20,
+        "Asia-Pacific": 4,
+        "South Asia": 5
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-24",
+      "departures": 161,
+      "arrivals": 154,
+      "total": 315,
+      "regions": {
+        "Americas": 15,
+        "Middle East": 41,
+        "Europe": 228,
+        "Unknown": 13,
+        "Africa": 8,
+        "Asia-Pacific": 2,
+        "South Asia": 7,
+        "Other": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-25",
+      "departures": 171,
+      "arrivals": 150,
+      "total": 321,
+      "regions": {
+        "Middle East": 37,
+        "South Asia": 6,
+        "Americas": 22,
+        "Europe": 231,
+        "Africa": 7,
+        "Unknown": 15,
+        "Asia-Pacific": 3
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-26",
+      "departures": 196,
+      "arrivals": 180,
+      "total": 376,
+      "regions": {
+        "Americas": 24,
+        "Middle East": 41,
+        "Europe": 285,
+        "Africa": 7,
+        "Unknown": 8,
+        "Asia-Pacific": 3,
+        "South Asia": 8
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-27",
+      "departures": 148,
+      "arrivals": 147,
+      "total": 295,
+      "regions": {
+        "Europe": 224,
+        "Americas": 23,
+        "Africa": 4,
+        "Middle East": 32,
+        "South Asia": 2,
+        "Unknown": 9,
+        "Asia-Pacific": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-02-28",
+      "departures": 42,
+      "arrivals": 55,
+      "total": 97,
+      "regions": {
+        "Europe": 52,
+        "Middle East": 13,
+        "Americas": 7,
+        "Africa": 6,
+        "Unknown": 18,
+        "South Asia": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-01",
+      "departures": 64,
+      "arrivals": 60,
+      "total": 124,
+      "regions": {
+        "Africa": 6,
+        "Unknown": 40,
+        "Europe": 75,
+        "Americas": 3
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-02",
+      "departures": 58,
+      "arrivals": 58,
+      "total": 116,
+      "regions": {
+        "Other": 1,
+        "Americas": 8,
+        "Africa": 4,
+        "Europe": 64,
+        "Unknown": 39
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-03",
+      "departures": 64,
+      "arrivals": 44,
+      "total": 108,
+      "regions": {
+        "Americas": 2,
+        "Africa": 7,
+        "Europe": 54,
+        "Unknown": 44,
+        "Middle East": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-04",
+      "departures": 82,
+      "arrivals": 70,
+      "total": 152,
+      "regions": {
+        "Europe": 73,
+        "Africa": 8,
+        "Unknown": 65,
+        "Americas": 6
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-05",
+      "departures": 111,
+      "arrivals": 106,
+      "total": 217,
+      "regions": {
+        "Americas": 7,
+        "Unknown": 120,
+        "Europe": 83,
+        "Africa": 6,
+        "Other": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-06",
+      "departures": 86,
+      "arrivals": 82,
+      "total": 168,
+      "regions": {
+        "Unknown": 102,
+        "Africa": 4,
+        "Europe": 55,
+        "Americas": 6,
+        "Other": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-07",
+      "departures": 54,
+      "arrivals": 65,
+      "total": 119,
+      "regions": {
+        "Unknown": 81,
+        "Africa": 6,
+        "Europe": 32
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-08",
+      "departures": 125,
+      "arrivals": 119,
+      "total": 244,
+      "regions": {
+        "Americas": 9,
+        "Unknown": 144,
+        "Europe": 85,
+        "Africa": 6
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-09",
+      "departures": 58,
+      "arrivals": 56,
+      "total": 114,
+      "regions": {
+        "Other": 1,
+        "Americas": 4,
+        "Africa": 3,
+        "Europe": 51,
+        "Unknown": 52,
+        "South Asia": 3
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-10",
+      "departures": 61,
+      "arrivals": 66,
+      "total": 127,
+      "regions": {
+        "Africa": 8,
+        "Americas": 9,
+        "Europe": 53,
+        "Unknown": 52,
+        "South Asia": 4,
+        "Other": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-11",
+      "departures": 74,
+      "arrivals": 83,
+      "total": 157,
+      "regions": {
+        "Americas": 8,
+        "Unknown": 91,
+        "Africa": 8,
+        "Europe": 46,
+        "South Asia": 4
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-12",
+      "departures": 103,
+      "arrivals": 117,
+      "total": 220,
+      "regions": {
+        "Africa": 6,
+        "Americas": 8,
+        "Europe": 66,
+        "Unknown": 137,
+        "Other": 1,
+        "South Asia": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-13",
+      "departures": 66,
+      "arrivals": 72,
+      "total": 138,
+      "regions": {
+        "Americas": 9,
+        "Unknown": 90,
+        "Africa": 4,
+        "Europe": 34,
+        "Other": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-14",
+      "departures": 20,
+      "arrivals": 28,
+      "total": 48,
+      "regions": {
+        "Unknown": 38,
+        "Europe": 9,
+        "Africa": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-15",
+      "departures": 66,
+      "arrivals": 48,
+      "total": 114,
+      "regions": {
+        "Europe": 44,
+        "Unknown": 60,
+        "Americas": 9,
+        "South Asia": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-16",
+      "departures": 59,
+      "arrivals": 76,
+      "total": 135,
+      "regions": {
+        "Unknown": 78,
+        "Europe": 44,
+        "Americas": 8,
+        "Middle East": 1,
+        "Asia-Pacific": 1,
+        "South Asia": 3
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-17",
+      "departures": 61,
+      "arrivals": 77,
+      "total": 138,
+      "regions": {
+        "Americas": 9,
+        "Middle East": 4,
+        "Unknown": 75,
+        "Europe": 40,
+        "Africa": 3,
+        "Asia-Pacific": 1,
+        "South Asia": 5,
+        "Other": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-18",
+      "departures": 69,
+      "arrivals": 78,
+      "total": 147,
+      "regions": {
+        "Africa": 6,
+        "Unknown": 96,
+        "Europe": 36,
+        "Americas": 6,
+        "Middle East": 1,
+        "South Asia": 2
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-19",
+      "departures": 96,
+      "arrivals": 96,
+      "total": 192,
+      "regions": {
+        "Africa": 6,
+        "Americas": 5,
+        "Europe": 62,
+        "Unknown": 118,
+        "Other": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-20",
+      "departures": 70,
+      "arrivals": 84,
+      "total": 154,
+      "regions": {
+        "Unknown": 120,
+        "Americas": 7,
+        "Europe": 25,
+        "South Asia": 1,
+        "Africa": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-21",
+      "departures": 6,
+      "arrivals": 15,
+      "total": 21,
+      "regions": {
+        "Unknown": 14,
+        "Europe": 7
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-22",
+      "departures": 55,
+      "arrivals": 46,
+      "total": 101,
+      "regions": {
+        "Americas": 12,
+        "Unknown": 54,
+        "Europe": 30,
+        "South Asia": 5
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-23",
+      "departures": 65,
+      "arrivals": 57,
+      "total": 122,
+      "regions": {
+        "Americas": 10,
+        "Unknown": 88,
+        "Europe": 22,
+        "South Asia": 1,
+        "Africa": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-24",
+      "departures": 73,
+      "arrivals": 80,
+      "total": 153,
+      "regions": {
+        "Africa": 8,
+        "Americas": 7,
+        "Europe": 35,
+        "Unknown": 103
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-25",
+      "departures": 75,
+      "arrivals": 79,
+      "total": 154,
+      "regions": {
+        "Europe": 23,
+        "Africa": 8,
+        "Americas": 6,
+        "Unknown": 117
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-26",
+      "departures": 98,
+      "arrivals": 94,
+      "total": 192,
+      "regions": {
+        "Europe": 41,
+        "Unknown": 146,
+        "Americas": 4,
+        "Africa": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-27",
+      "departures": 20,
+      "arrivals": 10,
+      "total": 30,
+      "regions": {
+        "Americas": 6,
+        "Unknown": 23,
+        "Europe": 1
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-28",
+      "departures": 6,
+      "arrivals": 14,
+      "total": 20,
+      "regions": {
+        "Europe": 7,
+        "Unknown": 13
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-29",
+      "departures": 85,
+      "arrivals": 70,
+      "total": 155,
+      "regions": {
+        "Americas": 7,
+        "Unknown": 118,
+        "Europe": 30
+      },
+      "source": "aerodatabox"
+    },
+    {
+      "date": "2026-03-30",
+      "departures": 87,
+      "arrivals": 86,
+      "total": 173,
+      "regions": {
+        "Unknown": 133,
+        "Other": 1,
+        "Americas": 9,
+        "Europe": 30
+      },
+      "source": "aerodatabox"
+    },
+    {
       "date": "2026-03-31",
       "departures": 85,
       "arrivals": 86,
@@ -25,7 +606,21 @@
       "total": 172,
       "regions": {},
       "flights": []
+    },
+    {
+      "date": "2026-04-02",
+      "departures": 61,
+      "arrivals": 57,
+      "total": 118,
+      "regions": {
+        "Unknown": 54,
+        "Europe": 60,
+        "Asia-Pacific": 1,
+        "Middle East": 2,
+        "South Asia": 1
+      },
+      "source": "aerodatabox"
     }
   ],
-  "lastUpdated": "2026-04-02T00:50:26.104Z"
+  "lastUpdated": "2026-04-02T02:59:01.465Z"
 }
