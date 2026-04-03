@@ -748,7 +748,7 @@
     },
     {
       "date": "2026-04-02",
-      "total": 791,
+      "total": 961,
       "regions": {
         "South Asia": 168,
         "Middle East": 126,
@@ -760,9 +760,11 @@
         "Other": 3
       },
       "source": "aerodatabox",
-      "departures": 392,
-      "arrivals": 399,
-      "cancelled": 10
+      "departures": 480,
+      "arrivals": 481,
+      "cancelled": 10,
+      "corrected": true,
+      "correctedAt": "2026-04-03T08:51:52.612Z"
     }
   ],
   "baselineDailyAvg": {

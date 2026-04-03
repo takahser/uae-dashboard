@@ -2,7 +2,7 @@
   "airport": "LLBG",
   "airportName": "Ben Gurion Intl (TLV)",
   "status": "restricted",
-  "statusNote": "Severely restricted \u2014 most carriers suspended",
+  "statusNote": "Severely restricted — most carriers suspended",
   "lastVerified": "2026-03-15",
   "source": "Multiple verified news sources",
   "todayArrivals": 71,
@@ -652,9 +652,9 @@
     },
     {
       "date": "2026-04-02",
-      "departures": 60,
-      "arrivals": 71,
-      "total": 131,
+      "departures": 9,
+      "arrivals": 4,
+      "total": 13,
       "regions": {
         "Unknown": 54,
         "Europe": 60,
@@ -663,7 +663,9 @@
         "South Asia": 1
       },
       "source": "aerodatabox",
-      "cancelled": 12
+      "cancelled": 12,
+      "corrected": true,
+      "correctedAt": "2026-04-03T08:51:56.157Z"
     }
   ],
   "lastUpdated": "2026-04-02T09:15:46.317Z",

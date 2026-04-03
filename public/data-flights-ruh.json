@@ -714,9 +714,9 @@
     },
     {
       "date": "2026-04-02",
-      "departures": 377,
-      "arrivals": 370,
-      "total": 747,
+      "departures": 226,
+      "arrivals": 230,
+      "total": 456,
       "cancelled": 8,
       "regions": {
         "South Asia": 56,
@@ -727,7 +727,9 @@
         "Americas": 2,
         "Asia-Pacific": 1
       },
-      "source": "aerodatabox"
+      "source": "aerodatabox",
+      "corrected": true,
+      "correctedAt": "2026-04-03T08:51:57.752Z"
     }
   ],
   "lastUpdated": "2026-04-02T07:41:09.205Z",
