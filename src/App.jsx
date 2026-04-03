@@ -963,8 +963,9 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
     { id: "rates",       label: t("tab.rates") },
     { id: "arsenal",     label: t("tab.arsenal") },
     { id: "flights",    label: t("tab.flights"), isLink: true },
+    { id: "alarm",      label: "Alarm Frequency" },
   ];
-  const tabs = isAllGCC ? [{ id: "intel", label: t("tab.intel") }, { id: "comparison", label: t("tab.comparison") }] : allTabs.filter(t => {
+  const tabs = isAllGCC ? [{ id: "intel", label: t("tab.intel") }, { id: "comparison", label: t("tab.comparison") }, { id: "alarm", label: "Alarm Frequency" }] : allTabs.filter(t => {
     if (t.needsUAE && selectedCountry !== "uae") return false;
     if (t.needsDaily && !hasDailyData) return false;
     if (t.id === "intel" && (selectedCountry === "oman" || selectedCountry === "saudi") && !experimental) return false;
@@ -2522,6 +2523,12 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
         </div>
       )}
 
+      {activeTab === "alarm" && (
+        <div style={{ padding: "20px 0" }}>
+          <AttackChart />
+        </div>
+      )}
+
       <div style={{ textAlign: "center", marginTop: 32, fontSize: 11, color: "#E8E8ED55", fontFamily: DM_SANS }}>
         {t("footer.text")}
         <br />
@@ -2557,7 +2564,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
 import Landing from "./Landing";
 import HormuzView from "./views/HormuzView";
 import FlightsView from "./views/FlightsView";
-import AttacksView from "./views/AttacksView";
+import AttackChart from "./components/AttackChart";
 import DesignShowcase from "./designs/DesignShowcase";
 import SourcesView from "./views/SourcesView";
 import AdminView from "./views/AdminView";
@@ -2570,7 +2577,6 @@ function getViewFromHash() {
   if (view === "hormuz") return { view: "hormuz" };
   if (view === "designs") return { view: "designs" };
   if (view === "flights") return { view: "flights" };
-  if (view === "attacks") return { view: "attacks" };
   if (view === "sources") return { view: "sources" };
   if (view === "admin") return { view: "admin" };
   if (view === "threat") return { view: "threat", country: parts[1] || "all", tab: parts[2] || null };
@@ -2581,7 +2587,6 @@ function navigateTo(view, country, tab) {
   if (!view) { window.location.hash = "/"; return; }
   if (view === "hormuz") { window.location.hash = "/hormuz"; return; }
   if (view === "flights") { window.location.hash = "/flights"; return; }
-  if (view === "attacks") { window.location.hash = "/attacks"; return; }
   if (view === "admin") { window.location.hash = "/admin"; return; }
   let hash = "/threat";
   if (country && country !== "uae") hash += "/" + country;
@@ -2606,7 +2611,6 @@ export default function App() {
   if (appState.view === "designs") return <DesignShowcase />;
   if (appState.view === "hormuz") return <HormuzView onBack={handleBack} />;
   if (appState.view === "flights") return <FlightsView onBack={handleBack} />;
-  if (appState.view === "attacks") return <AttacksView onBack={handleBack} />;
   if (appState.view === "sources") return <SourcesView onBack={handleBack} />;
   if (appState.view === "admin") return <AdminView onBack={handleBack} />;
   return <Dashboard onBack={handleBack} initialTab={appState.tab} initialCountry={appState.country} />;

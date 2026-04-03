@@ -85,12 +85,7 @@ const cards = [
     title: 'Threat Tracker',
     desc: 'Missiles, drones, interceptions across UAE/GCC',
   },
-  {
-    id: 'attacks',
-    title: 'Attack Frequency',
-    desc: 'Daily projectile counts — 6 GCC countries over time',
-  },
-  {
+{
     id: 'flights',
     title: 'Flight Monitor',
     desc: 'All GCC airports \u2014 status, capacity, risk',
