@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * Backfill DOH flight data from official Doha Hamad Airport API
- * Goes back ~30 days (as far as the API allows)
+ * IMPORTANT: Filter by Codeshare='Master' or null to get actual operating flights
+ * (The API includes codeshares as separate rows which inflates counts)
  */
 
 import { readFileSync, writeFileSync } from 'fs';
@@ -34,7 +35,15 @@ async function fetchFlights(date, type) {
   }
   
   const data = await res.json();
-  return data.flights || [];
+  const allFlights = data.flights || [];
+  
+  // Filter to only operating flights (Master or null codeshare)
+  // "Shared" entries are codeshares that duplicate the Master flight
+  const operatingFlights = allFlights.filter(f => 
+    f.Codeshare === 'Master' || f.Codeshare === null || f.Codeshare === undefined
+  );
+  
+  return operatingFlights;
 }
 
 async function main() {
@@ -43,6 +52,8 @@ async function main() {
   const dailyMap = new Map(existing.daily.map(d => [d.date, d]));
   
   console.log(`Loaded ${existing.daily.length} existing entries`);
+  console.log('NOTE: Filtering for operating flights only (Codeshare=Master or null)');
+  console.log('');
   
   // Go back 35 days
   const today = new Date();
@@ -56,7 +67,7 @@ async function main() {
     
     // Fetch departures and arrivals
     const deps = await fetchFlights(date, 'departures');
-    await new Promise(r => setTimeout(r, 300)); // Small delay
+    await new Promise(r => setTimeout(r, 300));
     const arrs = await fetchFlights(date, 'arrivals');
     
     if (deps.length === 0 && arrs.length === 0) {
@@ -69,19 +80,19 @@ async function main() {
       continue;
     }
     
-    noData = 0; // Reset counter
+    noData = 0;
     
     const total = deps.length + arrs.length;
     const oldEntry = dailyMap.get(isoDate);
     const oldTotal = oldEntry?.total || 0;
     
-    // Create new entry
     const newEntry = {
       date: isoDate,
       total,
       departures: deps.length,
       arrivals: arrs.length,
       source: 'dohahamadairport.com',
+      note: 'Operating flights only (excludes codeshare duplicates)',
       ...(oldEntry?.regions ? { regions: oldEntry.regions } : {}),
     };
     
@@ -94,10 +105,9 @@ async function main() {
     
     dailyMap.set(isoDate, newEntry);
     
-    await new Promise(r => setTimeout(r, 500)); // Rate limit
+    await new Promise(r => setTimeout(r, 500));
   }
   
-  // Rebuild daily array sorted by date
   existing.daily = Array.from(dailyMap.values()).sort((a, b) => a.date.localeCompare(b.date));
   
   writeFileSync(DATA_FILE, JSON.stringify(existing, null, 2));
