@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { LineChart, Line, BarChart, Bar, XAxis, YAxis, ResponsiveContainer, ReferenceLine } from 'recharts';
+import { LineChart, Line, BarChart, Bar, Cell, XAxis, YAxis, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { Tooltip as RTooltip } from 'recharts';
 
 const AIRPORTS = [
@@ -30,13 +30,29 @@ function formatDate(dateStr) {
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
 
-function CustomTooltip({ active, payload, label }) {
+const TODAY = new Date().toISOString().slice(0, 10);
+
+function renderTodayDot(color) {
+  return (props) => {
+    const { cx, cy, payload } = props;
+    if (!payload?.isToday) return null;
+    return <circle cx={cx} cy={cy} r={4} fill="#6B7280" stroke="#9CA3AF" strokeWidth={1} />;
+  };
+}
+
+function CustomTooltip({ active, payload, label, todayDate }) {
   if (!active || !payload?.length) return null;
+  const isToday = payload[0]?.payload?.date === TODAY;
   return (
-    <div style={{ background: '#050B1A', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 8, padding: '10px 14px' }}>
+    <div style={{ background: '#050B1A', border: `1px solid ${isToday ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.2)'}`, borderRadius: 8, padding: '10px 14px' }}>
       <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: 11, marginBottom: 6 }}>{label}</div>
+      {isToday && (
+        <div style={{ color: '#9CA3AF', fontSize: 11, marginBottom: 6, fontStyle: 'italic' }}>
+          ⚠ Partial estimate — day not yet complete
+        </div>
+      )}
       {payload.map(p => (
-        <div key={p.dataKey} style={{ color: p.color, fontSize: 12, marginBottom: 2 }}>
+        <div key={p.dataKey} style={{ color: isToday ? '#9CA3AF' : p.color, fontSize: 12, marginBottom: 2 }}>
           {p.name}: {p.value != null ? p.value.toLocaleString() : 'N/A'}
         </div>
       ))}
@@ -127,7 +143,7 @@ export default function FlightChart() {
     }
     let rows = Object.values(dateMap)
       .sort((a, b) => a.date.localeCompare(b.date))
-      .map(row => ({ ...row, dateLabel: formatDate(row.date) }));
+      .map(row => ({ ...row, dateLabel: formatDate(row.date), isToday: row.date === TODAY }));
 
     const tf = TIMEFRAMES.find(t => t.key === timeframe);
     if (tf?.days) {
@@ -150,7 +166,7 @@ export default function FlightChart() {
     }
     let rows = Object.values(dateMap)
       .sort((a, b) => a.date.localeCompare(b.date))
-      .map(row => ({ ...row, dateLabel: formatDate(row.date) }));
+      .map(row => ({ ...row, dateLabel: formatDate(row.date), isToday: row.date === TODAY }));
 
     const tf = TIMEFRAMES.find(t => t.key === timeframe);
     if (tf?.days) {
@@ -264,7 +280,7 @@ export default function FlightChart() {
                 name={a.name}
                 stroke={a.color}
                 strokeWidth={2}
-                dot={false}
+                dot={renderTodayDot(a.color)}
                 connectNulls
                 hide={!visible[a.key]}
               />
@@ -276,7 +292,7 @@ export default function FlightChart() {
                 name={`${a.name} Dep`}
                 stroke={a.color}
                 strokeWidth={2}
-                dot={false}
+                dot={renderTodayDot(a.color)}
                 connectNulls
                 hide={!visible[a.key]}
               />,
@@ -288,7 +304,7 @@ export default function FlightChart() {
                 stroke={a.color}
                 strokeWidth={2}
                 strokeDasharray="5 3"
-                dot={false}
+                dot={renderTodayDot(a.color)}
                 connectNulls
                 hide={!visible[a.key]}
               />,
@@ -356,7 +372,11 @@ export default function FlightChart() {
                   name={`${a.name} cancelled`}
                   fill={a.color}
                   hide={!cancelVisible[a.key]}
-                />
+                >
+                  {cancellationData.map((entry, idx) => (
+                    <Cell key={idx} fill={entry.isToday ? '#6B7280' : a.color} />
+                  ))}
+                </Bar>
               ))}
             </BarChart>
           </ResponsiveContainer>
