@@ -8,15 +8,17 @@ const AIRPORTS = [
   { key: 'DWC', name: 'Al Maktoum (DWC)', file: 'data-flights-dwc.json', color: '#10B981' },
   { key: 'MCT', name: 'Muscat (MCT)', file: 'data-flights-mct.json', color: '#F59E0B' },
   { key: 'DOH', name: 'Doha (DOH)', file: 'data-flights-doh.json', color: '#8B5CF6' },
-  { key: 'TLV', name: 'Tel Aviv (TLV)', file: 'data-flights-tlv.json', color: '#EC4899' },
+  { key: 'TLV', name: 'Tel Aviv (TLV)', file: 'data-flights-tlv.json', color: '#EC4899', experimental: true },
   { key: 'JED', name: 'Jeddah (JED)', file: 'data-flights-jed.json', color: '#8B5CF6' },
   { key: 'RUH', name: 'Riyadh (RUH)', file: 'data-flights-ruh.json', color: '#EC4899' },
-  { key: 'IKA', name: 'Tehran (IKA)', file: 'data-flights-ika.json', color: '#06B6D4' },
+  { key: 'IKA', name: 'Tehran (IKA)', file: 'data-flights-ika.json', color: '#06B6D4', experimental: true },
 ];
+
+const CHART_AIRPORTS = AIRPORTS.filter(a => !a.experimental);
 
 const FULL_DATA_AIRPORTS = new Set(['DXB', 'AUH', 'DWC', 'MCT', 'DOH']);
 
-const CANCELLATION_AIRPORTS = AIRPORTS.map(a => ({ key: a.key, color: a.color, name: a.name }));
+const CANCELLATION_AIRPORTS = CHART_AIRPORTS.map(a => ({ key: a.key, color: a.color, name: a.name }));
 
 const TIMEFRAMES = [
   { key: '1W', days: 7 },
@@ -97,12 +99,12 @@ export default function FlightChart() {
   const [visible, setVisible] = useState(() => {
     const fromUrl = parseAirportsParam();
     if (fromUrl) {
-      return Object.fromEntries(AIRPORTS.map(a => [a.key, fromUrl.has(a.key)]));
+      return Object.fromEntries(CHART_AIRPORTS.map(a => [a.key, fromUrl.has(a.key)]));
     }
-    return Object.fromEntries(AIRPORTS.map(a => [a.key, FULL_DATA_AIRPORTS.has(a.key)]));
+    return Object.fromEntries(CHART_AIRPORTS.map(a => [a.key, FULL_DATA_AIRPORTS.has(a.key)]));
   });
   const [cancelVisible, setCancelVisible] = useState(
-    Object.fromEntries(AIRPORTS.map(a => [a.key, true]))
+    Object.fromEntries(CHART_AIRPORTS.map(a => [a.key, true]))
   );
   const toggleCancel = (key) => setCancelVisible(v => ({ ...v, [key]: !v[key] }));
 
@@ -123,7 +125,7 @@ export default function FlightChart() {
   // Airports with only 1 data point can't render a meaningful chart line
   const limitedAirports = useMemo(() => {
     const limited = [];
-    for (const a of AIRPORTS) {
+    for (const a of CHART_AIRPORTS) {
       const daily = airportData[a.key];
       if (daily && daily.length <= 1) limited.push(a.key);
     }
@@ -132,7 +134,7 @@ export default function FlightChart() {
 
   const chartData = useMemo(() => {
     const dateMap = {};
-    for (const a of AIRPORTS) {
+    for (const a of CHART_AIRPORTS) {
       if (limitedAirports.includes(a.key)) continue;
       for (const pt of (airportData[a.key] || [])) {
         if (!dateMap[pt.date]) dateMap[pt.date] = { date: pt.date };
@@ -229,7 +231,7 @@ export default function FlightChart() {
 
       {/* Airport toggles */}
       <div style={{ display: 'flex', gap: 12, marginBottom: 12, flexWrap: 'wrap' }}>
-        {AIRPORTS.map(a => {
+        {CHART_AIRPORTS.map(a => {
           const isLimited = limitedAirports.includes(a.key);
           return (
             <div
@@ -271,7 +273,7 @@ export default function FlightChart() {
             strokeDasharray="4 4"
             label={{ value: 'War start', fill: '#EF4444', fontSize: 10, position: 'top' }}
           />
-          {AIRPORTS.filter(a => !limitedAirports.includes(a.key)).map(a =>
+          {CHART_AIRPORTS.filter(a => !limitedAirports.includes(a.key)).map(a =>
             viewMode === 'combined' ? (
               <Line
                 key={`${a.key}_total`}

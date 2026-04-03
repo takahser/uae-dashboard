@@ -25,9 +25,9 @@ const COUNTRY_CONFIG = [
   { code: "bahrain", name: "Bahrain", flag: "\u{1F1E7}\u{1F1ED}", file: "data-bahrain.json", color: "#CE1126", accent: "#FFFFFF", source: "@BDF_Bahrain" },
   { code: "oman", name: "Oman", flag: "\u{1F1F4}\u{1F1F2}", file: "data-oman.json", color: "#DB161B", accent: "#008000", source: "@MOD_Oman" },
   { code: "saudi", name: "Saudi Arabia", flag: "\u{1F1F8}\u{1F1E6}", file: "data-saudi.json", color: "#006C35", accent: "#FFFFFF", source: "@SPA_English" },
-  { code: "israel", name: "Israel", flag: "\u{1F1EE}\u{1F1F1}", file: "data-israel.json", color: "#003F87", accent: "#FFFFFF", source: "OSINT", airports: ["TLV"] },
+  { code: "israel", name: "Israel", flag: "\u{1F1EE}\u{1F1F1}", file: "data-israel.json", color: "#003F87", accent: "#FFFFFF", source: "OSINT", airports: ["TLV"], experimental: true },
 ];
-const IRAN_CONFIG = { code: "iran", name: "Iran", flag: "\u{1F1EE}\u{1F1F7}", file: "data-iran.json", color: "#EF4444", accent: "#FFFFFF", source: "OSINT" };
+const IRAN_CONFIG = { code: "iran", name: "Iran", flag: "\u{1F1EE}\u{1F1F7}", file: "data-iran.json", color: "#EF4444", accent: "#FFFFFF", source: "OSINT", experimental: true };
 
 const COUNTRY_MAP_DATA = {
   uae: {
@@ -626,6 +626,7 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
     const browserLang = navigator.language || navigator.userLanguage || "en";
     return browserLang.startsWith("ar") ? "ar" : "en";
   });
+  const [showExperimental, setShowExperimental] = useState(false);
   const [mapModalCountry, setMapModalCountry] = useState(null);
   const [flightData, setFlightData] = useState(null);
   const [flightDataDwc, setFlightDataDwc] = useState(null);
@@ -750,24 +751,35 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
         </div>
 
         {/* Country selector */}
-        <div style={{ display: "flex", gap: 6, padding: "16px 28px 0", flexWrap: "wrap", position: "relative", zIndex: 2 }}>
-          {[{ code: "all", name: t("country.allGcc"), flag: "🌐" }, ...COUNTRY_CONFIG.map(c => ({ ...c, name: t(`country.${c.code}`) })), { code: "_sep" }, { ...IRAN_CONFIG, name: t("country.iran") }].map(c => (
+        <div style={{ display: "flex", gap: 6, padding: "16px 28px 0", flexWrap: "wrap", position: "relative", zIndex: 2, alignItems: "center" }}>
+          {[{ code: "all", name: t("country.allGcc"), flag: "🌐" }, ...COUNTRY_CONFIG.filter(c => !c.experimental || showExperimental).map(c => ({ ...c, name: t(`country.${c.code}`) })), ...(showExperimental ? [{ code: "_sep" }, { ...IRAN_CONFIG, name: t("country.iran") }] : [])].map(c => (
             c.code === "_sep" ? <div key="_sep" style={{ width: 1, background: BORDER, margin: "4px 4px" }} /> :
             <span key={c.code} style={{ display: "inline-flex", alignItems: "center", gap: 2 }}>
               <button onClick={() => { setSelectedCountry(c.code); setHoveredImpact(null); setSelectedImpact(null); setSelectedSite(null); window.location.hash = "/threat/" + c.code + (activeTab && activeTab !== "overview" && activeTab !== "intel" ? "/" + activeTab : ""); }}
                 style={{
                   background: selectedCountry === c.code ? "linear-gradient(135deg, #F59E0B, #D97706)" : "#FFFFFF0A",
                   backdropFilter: selectedCountry !== c.code ? "blur(10px)" : "none",
-                  color: selectedCountry === c.code ? "#050B1A" : "#E8E8ED88",
+                  color: selectedCountry === c.code ? "#050B1A" : (c.experimental ? "#E8E8ED55" : "#E8E8ED88"),
                   border: selectedCountry === c.code ? "none" : "1px solid #FFFFFF11",
                   borderRadius: 100, padding: "6px 16px", cursor: "pointer",
                   fontSize: 12, fontWeight: selectedCountry === c.code ? 600 : 400,
-                  fontFamily: DM_SANS, transition: "all 0.15s", display: "flex", alignItems: "center", gap: 6
+                  fontFamily: DM_SANS, transition: "all 0.15s", display: "flex", alignItems: "center", gap: 6,
+                  opacity: c.experimental && selectedCountry !== c.code ? 0.65 : 1,
                 }}>
-                <span>{c.flag}</span> {c.name}
+                <span>{c.flag}</span> {c.name}{c.experimental ? " ⚗️" : ""}
               </button>
             </span>
           ))}
+          <button
+            onClick={() => setShowExperimental(v => !v)}
+            style={{
+              background: "none", border: "none", cursor: "pointer",
+              color: showExperimental ? "#F59E0B" : "#E8E8ED44",
+              fontSize: 11, fontFamily: DM_SANS, padding: "4px 8px",
+            }}
+          >
+            {showExperimental ? "Hide" : "Show"} experimental ⚗️
+          </button>
         </div>
 
         {/* Stat cards */}
@@ -1064,24 +1076,35 @@ function Dashboard({ initialTab, initialCountry, onBack }) {
       </div>
 
       {/* Country selector */}
-      <div style={{ display: "flex", gap: 6, padding: "16px 28px 0", flexWrap: "wrap", position: "relative", zIndex: 2 }}>
-        {[{ code: "all", name: t("country.allGcc"), flag: "🌐" }, ...COUNTRY_CONFIG.map(c => ({ ...c, name: t(`country.${c.code}`) })), { code: "_sep" }, { ...IRAN_CONFIG, name: t("country.iran") }].map(c => (
+      <div style={{ display: "flex", gap: 6, padding: "16px 28px 0", flexWrap: "wrap", position: "relative", zIndex: 2, alignItems: "center" }}>
+        {[{ code: "all", name: t("country.allGcc"), flag: "🌐" }, ...COUNTRY_CONFIG.filter(c => !c.experimental || showExperimental).map(c => ({ ...c, name: t(`country.${c.code}`) })), ...(showExperimental ? [{ code: "_sep" }, { ...IRAN_CONFIG, name: t("country.iran") }] : [])].map(c => (
           c.code === "_sep" ? <div key="_sep" style={{ width: 1, background: BORDER, margin: "4px 4px" }} /> :
           <span key={c.code} style={{ display: "inline-flex", alignItems: "center", gap: 2 }}>
             <button onClick={() => { setSelectedCountry(c.code); setHoveredImpact(null); setSelectedImpact(null); setSelectedSite(null); window.location.hash = "/threat/" + c.code + (activeTab && activeTab !== "overview" && activeTab !== "intel" ? "/" + activeTab : ""); }}
               style={{
                 background: selectedCountry === c.code ? "linear-gradient(135deg, #F59E0B, #D97706)" : "#FFFFFF0A",
                 backdropFilter: selectedCountry !== c.code ? "blur(10px)" : "none",
-                color: selectedCountry === c.code ? "#050B1A" : "#E8E8ED88",
+                color: selectedCountry === c.code ? "#050B1A" : (c.experimental ? "#E8E8ED55" : "#E8E8ED88"),
                 border: selectedCountry === c.code ? "none" : "1px solid #FFFFFF11",
                 borderRadius: 100, padding: "6px 16px", cursor: "pointer",
                 fontSize: 12, fontWeight: selectedCountry === c.code ? 600 : 400,
-                fontFamily: DM_SANS, transition: "all 0.15s", display: "flex", alignItems: "center", gap: 6
+                fontFamily: DM_SANS, transition: "all 0.15s", display: "flex", alignItems: "center", gap: 6,
+                opacity: c.experimental && selectedCountry !== c.code ? 0.65 : 1,
               }}>
-              <span>{c.flag}</span> {c.name}
+              <span>{c.flag}</span> {c.name}{c.experimental ? " ⚗️" : ""}
             </button>
           </span>
         ))}
+        <button
+          onClick={() => setShowExperimental(v => !v)}
+          style={{
+            background: "none", border: "none", cursor: "pointer",
+            color: showExperimental ? "#F59E0B" : "#E8E8ED44",
+            fontSize: 11, fontFamily: DM_SANS, padding: "4px 8px",
+          }}
+        >
+          {showExperimental ? "Hide" : "Show"} experimental ⚗️
+        </button>
       </div>
 
       {/* Stat cards */}
