@@ -66,7 +66,7 @@ async function fetchWindow(icao, date, from, to) {
   const params = new URLSearchParams({
     withLeg: "false",
     withCancelled: "false", // exclude cancelled — gives actual completed count
-    withCodeshared: "true",
+    withCodeshared: "false",
     withCargo: "false",
     withPrivate: "false",
     withLocation: "false",
