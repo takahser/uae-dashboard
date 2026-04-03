@@ -108,7 +108,7 @@ async function fetchWindow(icao, date, from, to) {
 async function fetchYesterdayCounts(icao, date) {
   // AM window: 00:00 → 11:59
   const am = await fetchWindow(icao, date, "00:00", "11:59");
-  await delay(400);
+  await delay(1200);
 
   // PM window: 12:00 → 23:59
   const pm = await fetchWindow(icao, date, "12:00", "23:59");
@@ -325,7 +325,7 @@ async function main() {
       await correctAirport(airport, yesterdayDate);
       // Rate-limit: pause between airports
       const elapsed = Date.now() - before;
-      const wait = Math.max(0, 600 - elapsed);
+      const wait = Math.max(0, 1500 - elapsed);
       if (wait > 0) await delay(wait);
     } catch (e) {
       console.error(`[${airport.iata}] Unexpected error: ${e.message}`);
