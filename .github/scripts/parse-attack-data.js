@@ -18,12 +18,33 @@ const BATCH_SIZE = 20;
 
 const COUNTRIES = ["uae", "bahrain", "qatar", "saudi", "israel", "iran"];
 
-// --- Claude CLI ---
+// --- LLM caller: Claude CLI with Groq fallback ---
 
-function callClaude(prompt) {
+async function callGroq(prompt) {
+  const apiKey = process.env.GROQ_API_KEY;
+  if (!apiKey) throw new Error("GROQ_API_KEY not set");
+  const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+    method: "POST",
+    headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: "llama-3.3-70b-versatile",
+      messages: [
+        { role: "system", content: SYSTEM_PROMPT },
+        { role: "user", content: prompt },
+      ],
+      max_tokens: 4096,
+      temperature: 0,
+    }),
+  });
+  if (!res.ok) throw new Error(`Groq HTTP ${res.status}: ${await res.text()}`);
+  const data = await res.json();
+  return data.choices[0].message.content;
+}
+
+function callClaudeCLI(prompt) {
   const env = { ...process.env };
   delete env.ANTHROPIC_API_KEY; // force Claude Code subscription
-  const result = spawnSync("claude", ["--print", "--output-format", "json"], {
+  const result = spawnSync("claude", ["--print", "--model", "haiku", "--output-format", "json"], {
     input: prompt,
     encoding: "utf8",
     env,
@@ -32,6 +53,17 @@ function callClaude(prompt) {
   if (result.status !== 0) throw new Error(result.stderr || "claude failed");
   const out = JSON.parse(result.stdout);
   return out.result || out.content || "";
+}
+
+async function callClaude(prompt) {
+  // On GH Actions, claude CLI is not available — use Groq
+  if (process.env.CI) return callGroq(prompt);
+  try {
+    return callClaudeCLI(prompt);
+  } catch (e) {
+    console.warn("  Claude CLI failed, falling back to Groq:", e.message);
+    return callGroq(prompt);
+  }
 }
 
 const SYSTEM_PROMPT = `You are a military data extractor. Extract structured attack data from official MoD tweets. Return ONLY valid JSON — no prose. If a tweet has no numeric attack data, skip it.`;
@@ -73,9 +105,9 @@ Tweets:
 ${tweetBlock}`;
 }
 
-function extractBatch(country, tweets) {
+async function extractBatch(country, tweets) {
   const prompt = `${SYSTEM_PROMPT}\n\n${buildUserPrompt(country, tweets)}`;
-  const raw = callClaude(prompt);
+  const raw = await callClaude(prompt);
 
   // Parse JSON from response (handle markdown code fences)
   let jsonStr = raw;
@@ -215,7 +247,7 @@ function recalculateCumulative(data) {
 
 // --- Per-Country Processing ---
 
-function processCountry(country) {
+async function processCountry(country) {
   console.log(`\nProcessing ${country}...`);
 
   // 1. Load tweet cache
@@ -252,7 +284,7 @@ function processCountry(country) {
   for (let i = 0; i < newTweets.length; i += BATCH_SIZE) {
     const batch = newTweets.slice(i, i + BATCH_SIZE);
     console.log(`  Calling Claude for batch ${Math.floor(i / BATCH_SIZE) + 1} (${batch.length} tweets)...`);
-    const result = extractBatch(country, batch);
+    const result = await extractBatch(country, batch);
     if (result.entries) allEntries.push(...result.entries);
     if (result.skipped) allSkipped.push(...result.skipped);
   }
@@ -290,7 +322,7 @@ function processCountry(country) {
 
 // --- Main ---
 
-function main() {
+async function main() {
   console.log("=== parse-attack-data.js (claude) ===");
   console.log(`Date: ${new Date().toISOString()}`);
   console.log(`Dry run: ${DRY_RUN}`);
@@ -298,7 +330,7 @@ function main() {
   const log = [];
 
   for (const country of COUNTRIES) {
-    const result = processCountry(country);
+    const result = await processCountry(country);
     log.push(result);
   }
 
