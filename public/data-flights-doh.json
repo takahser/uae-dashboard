@@ -2,7 +2,7 @@
   "airport": "OTHH",
   "airportName": "Hamad Intl (DOH)",
   "status": "open",
-  "statusNote": "Operational \u2014 no closure reported",
+  "statusNote": "Operational — no closure reported",
   "lastVerified": "2026-03-15",
   "source": "Qatar MoD statements",
   "todayArrivals": 186,
@@ -203,71 +203,97 @@
     },
     {
       "date": "2026-03-02",
-      "total": 2,
+      "total": 1482,
+      "departures": 530,
+      "arrivals": 952,
+      "source": "dohahamadairport.com",
       "regions": {
         "Africa": 2
-      },
-      "source": "aerodatabox",
-      "departures": 0,
-      "arrivals": 2,
-      "cancelled": 651
+      }
+    },
+    {
+      "date": "2026-03-03",
+      "total": 2757,
+      "departures": 1358,
+      "arrivals": 1399,
+      "source": "dohahamadairport.com"
+    },
+    {
+      "date": "2026-03-04",
+      "total": 2766,
+      "departures": 1367,
+      "arrivals": 1399,
+      "source": "dohahamadairport.com"
+    },
+    {
+      "date": "2026-03-05",
+      "total": 2703,
+      "departures": 1339,
+      "arrivals": 1364,
+      "source": "dohahamadairport.com"
+    },
+    {
+      "date": "2026-03-06",
+      "total": 2858,
+      "departures": 1412,
+      "arrivals": 1446,
+      "source": "dohahamadairport.com"
     },
     {
       "date": "2026-03-07",
-      "total": 7,
+      "total": 2791,
+      "departures": 1404,
+      "arrivals": 1387,
+      "source": "dohahamadairport.com",
       "regions": {
         "Europe": 7
-      },
-      "source": "aerodatabox",
-      "departures": 7,
-      "arrivals": 0,
-      "cancelled": 648
+      }
     },
     {
       "date": "2026-03-08",
-      "total": 13,
+      "total": 2864,
+      "departures": 1421,
+      "arrivals": 1443,
+      "source": "dohahamadairport.com",
       "regions": {
         "Europe": 12,
         "South Asia": 1
-      },
-      "source": "aerodatabox",
-      "departures": 6,
-      "arrivals": 7,
-      "cancelled": 659
+      }
     },
     {
       "date": "2026-03-09",
-      "total": 16,
+      "total": 2770,
+      "departures": 1383,
+      "arrivals": 1387,
+      "source": "dohahamadairport.com",
       "regions": {
         "Europe": 9,
         "Asia-Pacific": 3,
         "South Asia": 2,
         "Africa": 1,
         "Middle East": 1
-      },
-      "source": "aerodatabox",
-      "departures": 10,
-      "arrivals": 6,
-      "cancelled": 630
+      }
     },
     {
       "date": "2026-03-10",
-      "total": 28,
+      "total": 2808,
+      "departures": 1378,
+      "arrivals": 1430,
+      "source": "dohahamadairport.com",
       "regions": {
         "Europe": 12,
         "Africa": 3,
         "Asia-Pacific": 4,
         "Middle East": 2,
         "South Asia": 7
-      },
-      "source": "aerodatabox",
-      "departures": 18,
-      "arrivals": 10,
-      "cancelled": 621
+      }
     },
     {
       "date": "2026-03-11",
-      "total": 34,
+      "total": 2768,
+      "departures": 1392,
+      "arrivals": 1376,
+      "source": "dohahamadairport.com",
       "regions": {
         "Europe": 13,
         "South Asia": 7,
@@ -275,15 +301,14 @@
         "Africa": 3,
         "Asia-Pacific": 5,
         "Middle East": 4
-      },
-      "source": "aerodatabox",
-      "departures": 17,
-      "arrivals": 17,
-      "cancelled": 620
+      }
     },
     {
       "date": "2026-03-12",
-      "total": 32,
+      "total": 2791,
+      "departures": 1380,
+      "arrivals": 1411,
+      "source": "dohahamadairport.com",
       "regions": {
         "South Asia": 6,
         "Asia-Pacific": 8,
@@ -291,15 +316,14 @@
         "Americas": 3,
         "Europe": 9,
         "Middle East": 2
-      },
-      "source": "aerodatabox",
-      "departures": 15,
-      "arrivals": 17,
-      "cancelled": 635
+      }
     },
     {
       "date": "2026-03-13",
-      "total": 29,
+      "total": 2914,
+      "departures": 1441,
+      "arrivals": 1473,
+      "source": "dohahamadairport.com",
       "regions": {
         "Asia-Pacific": 6,
         "South Asia": 7,
@@ -307,15 +331,14 @@
         "Africa": 5,
         "Americas": 2,
         "Europe": 8
-      },
-      "source": "aerodatabox",
-      "departures": 15,
-      "arrivals": 14,
-      "cancelled": 664
+      }
     },
     {
       "date": "2026-03-14",
-      "total": 34,
+      "total": 2885,
+      "departures": 1441,
+      "arrivals": 1444,
+      "source": "dohahamadairport.com",
       "regions": {
         "South Asia": 7,
         "Middle East": 3,
@@ -323,15 +346,14 @@
         "Africa": 5,
         "Europe": 12,
         "Americas": 3
-      },
-      "source": "aerodatabox",
-      "departures": 17,
-      "arrivals": 17,
-      "cancelled": 648
+      }
     },
     {
       "date": "2026-03-15",
-      "total": 33,
+      "total": 2922,
+      "departures": 1449,
+      "arrivals": 1473,
+      "source": "dohahamadairport.com",
       "regions": {
         "Europe": 10,
         "South Asia": 9,
@@ -339,45 +361,42 @@
         "Africa": 5,
         "Middle East": 2,
         "Americas": 2
-      },
-      "source": "aerodatabox",
-      "departures": 15,
-      "arrivals": 18,
-      "cancelled": 658
+      }
     },
     {
       "date": "2026-03-16",
-      "total": 39,
+      "total": 2889,
+      "departures": 1431,
+      "arrivals": 1458,
+      "source": "dohahamadairport.com",
       "regions": {
         "South Asia": 12,
         "Asia-Pacific": 6,
         "Europe": 11,
         "Africa": 8,
         "Americas": 2
-      },
-      "source": "aerodatabox",
-      "departures": 18,
-      "arrivals": 21,
-      "cancelled": 638
+      }
     },
     {
       "date": "2026-03-17",
-      "total": 49,
+      "total": 2960,
+      "departures": 1471,
+      "arrivals": 1489,
+      "source": "dohahamadairport.com",
       "regions": {
         "South Asia": 21,
         "Asia-Pacific": 4,
         "Africa": 9,
         "Europe": 10,
         "Americas": 5
-      },
-      "source": "aerodatabox",
-      "departures": 23,
-      "arrivals": 26,
-      "cancelled": 636
+      }
     },
     {
       "date": "2026-03-18",
-      "total": 88,
+      "total": 2915,
+      "departures": 1456,
+      "arrivals": 1459,
+      "source": "dohahamadairport.com",
       "regions": {
         "Middle East": 7,
         "Europe": 24,
@@ -385,15 +404,14 @@
         "South Asia": 36,
         "Asia-Pacific": 8,
         "Americas": 2
-      },
-      "source": "aerodatabox",
-      "departures": 52,
-      "arrivals": 36,
-      "cancelled": 615
+      }
     },
     {
       "date": "2026-03-19",
-      "total": 96,
+      "total": 3025,
+      "departures": 1488,
+      "arrivals": 1537,
+      "source": "dohahamadairport.com",
       "regions": {
         "Middle East": 6,
         "Africa": 9,
@@ -401,15 +419,14 @@
         "South Asia": 42,
         "Americas": 3,
         "Europe": 23
-      },
-      "source": "aerodatabox",
-      "departures": 47,
-      "arrivals": 49,
-      "cancelled": 613
+      }
     },
     {
       "date": "2026-03-20",
-      "total": 88,
+      "total": 3052,
+      "departures": 1529,
+      "arrivals": 1523,
+      "source": "dohahamadairport.com",
       "regions": {
         "Africa": 8,
         "Middle East": 9,
@@ -417,15 +434,14 @@
         "Asia-Pacific": 9,
         "Europe": 17,
         "Americas": 3
-      },
-      "source": "aerodatabox",
-      "departures": 43,
-      "arrivals": 45,
-      "cancelled": 635
+      }
     },
     {
       "date": "2026-03-21",
-      "total": 81,
+      "total": 3057,
+      "departures": 1537,
+      "arrivals": 1520,
+      "source": "dohahamadairport.com",
       "regions": {
         "Middle East": 7,
         "South Asia": 36,
@@ -433,15 +449,14 @@
         "Asia-Pacific": 10,
         "Europe": 15,
         "Americas": 4
-      },
-      "source": "aerodatabox",
-      "departures": 41,
-      "arrivals": 40,
-      "cancelled": 640
+      }
     },
     {
       "date": "2026-03-22",
-      "total": 77,
+      "total": 3128,
+      "departures": 1543,
+      "arrivals": 1585,
+      "source": "dohahamadairport.com",
       "regions": {
         "Middle East": 7,
         "Europe": 14,
@@ -449,15 +464,14 @@
         "South Asia": 36,
         "Asia-Pacific": 8,
         "Americas": 4
-      },
-      "source": "aerodatabox",
-      "departures": 40,
-      "arrivals": 37,
-      "cancelled": 656
+      }
     },
     {
       "date": "2026-03-23",
-      "total": 78,
+      "total": 3048,
+      "departures": 1495,
+      "arrivals": 1553,
+      "source": "dohahamadairport.com",
       "regions": {
         "Middle East": 6,
         "Africa": 9,
@@ -465,15 +479,14 @@
         "Asia-Pacific": 8,
         "Europe": 15,
         "Americas": 4
-      },
-      "source": "aerodatabox",
-      "departures": 39,
-      "arrivals": 39,
-      "cancelled": 632
+      }
     },
     {
       "date": "2026-03-24",
-      "total": 76,
+      "total": 3075,
+      "departures": 1514,
+      "arrivals": 1561,
+      "source": "dohahamadairport.com",
       "regions": {
         "Middle East": 5,
         "Africa": 12,
@@ -481,15 +494,14 @@
         "Asia-Pacific": 8,
         "Europe": 12,
         "Americas": 3
-      },
-      "source": "aerodatabox",
-      "departures": 38,
-      "arrivals": 38,
-      "cancelled": 636
+      }
     },
     {
       "date": "2026-03-25",
-      "total": 79,
+      "total": 3016,
+      "departures": 1509,
+      "arrivals": 1507,
+      "source": "dohahamadairport.com",
       "regions": {
         "Middle East": 5,
         "Africa": 9,
@@ -497,15 +509,14 @@
         "South Asia": 35,
         "Europe": 18,
         "Americas": 2
-      },
-      "source": "aerodatabox",
-      "departures": 39,
-      "arrivals": 40,
-      "cancelled": 639
+      }
     },
     {
       "date": "2026-03-26",
-      "total": 81,
+      "total": 3015,
+      "departures": 1495,
+      "arrivals": 1520,
+      "source": "dohahamadairport.com",
       "regions": {
         "Middle East": 5,
         "South Asia": 38,
@@ -513,15 +524,14 @@
         "Africa": 11,
         "Europe": 16,
         "Americas": 2
-      },
-      "source": "aerodatabox",
-      "departures": 41,
-      "arrivals": 40,
-      "cancelled": 641
+      }
     },
     {
       "date": "2026-03-27",
-      "total": 82,
+      "total": 3099,
+      "departures": 1548,
+      "arrivals": 1551,
+      "source": "dohahamadairport.com",
       "regions": {
         "Middle East": 6,
         "South Asia": 37,
@@ -529,17 +539,14 @@
         "Asia-Pacific": 8,
         "Europe": 20,
         "Americas": 2
-      },
-      "source": "aerodatabox",
-      "departures": 39,
-      "arrivals": 43,
-      "cancelled": 653
+      }
     },
     {
       "date": "2026-03-28",
-      "departures": 41,
-      "arrivals": 40,
-      "total": 81,
+      "total": 2962,
+      "departures": 1497,
+      "arrivals": 1465,
+      "source": "dohahamadairport.com",
       "regions": {
         "Middle East": 8,
         "Africa": 11,
@@ -548,15 +555,14 @@
         "Other": 1,
         "Europe": 15,
         "Americas": 3
-      },
-      "source": "aerodatabox",
-      "cancelled": 632
+      }
     },
     {
       "date": "2026-03-29",
-      "departures": 50,
-      "arrivals": 42,
-      "total": 92,
+      "total": 288,
+      "departures": 140,
+      "arrivals": 148,
+      "source": "dohahamadairport.com",
       "regions": {
         "Americas": 5,
         "Africa": 14,
@@ -565,15 +571,14 @@
         "Asia-Pacific": 9,
         "Europe": 18,
         "Other": 1
-      },
-      "source": "aerodatabox",
-      "cancelled": 137
+      }
     },
     {
       "date": "2026-03-30",
-      "departures": 60,
-      "arrivals": 50,
-      "total": 110,
+      "total": 290,
+      "departures": 142,
+      "arrivals": 148,
+      "source": "dohahamadairport.com",
       "regions": {
         "Americas": 5,
         "Middle East": 8,
@@ -581,33 +586,30 @@
         "South Asia": 39,
         "Asia-Pacific": 15,
         "Europe": 24
-      },
-      "source": "aerodatabox",
-      "cancelled": 171
+      }
     },
     {
       "date": "2026-03-31",
-      "departures": 222,
-      "arrivals": 233,
-      "total": 455,
-      "regions": {},
-      "flights": [],
-      "cancelled": 157
+      "total": 266,
+      "departures": 130,
+      "arrivals": 136,
+      "source": "dohahamadairport.com",
+      "regions": {}
     },
     {
       "date": "2026-04-01",
-      "departures": 184,
-      "arrivals": 238,
-      "total": 422,
-      "regions": {},
-      "flights": [],
-      "cancelled": 197
+      "total": 736,
+      "departures": 381,
+      "arrivals": 355,
+      "source": "dohahamadairport.com",
+      "regions": {}
     },
     {
       "date": "2026-04-02",
-      "departures": 164,
-      "arrivals": 186,
-      "total": 350,
+      "total": 1044,
+      "departures": 511,
+      "arrivals": 533,
+      "source": "dohahamadairport.com",
       "regions": {
         "Europe": 65,
         "Middle East": 23,
@@ -617,9 +619,7 @@
         "Other": 4,
         "Americas": 10,
         "Unknown": 42
-      },
-      "source": "aerodatabox",
-      "cancelled": 191
+      }
     }
   ],
   "baselineDailyAvg": {
