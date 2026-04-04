@@ -1,0 +1,102 @@
+name: Log Flights (Playwright)
+
+on:
+  schedule:
+    - cron: "30 6 * * *" # 06:30 UTC (30 min after Phase 1)
+  workflow_dispatch:
+
+jobs:
+  scrape-flights:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          npx playwright install chromium --with-deps
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # ── Individual scrapers with error isolation ──
+
+      - name: Scrape AUH
+        id: auh
+        continue-on-error: true
+        run: node .github/scripts/scrapers/scrape-auh.mjs
+        env:
+          SCRAPER_TIMEOUT: "60000"
+
+      - name: Scrape DWC
+        id: dwc
+        continue-on-error: true
+        run: node .github/scripts/scrapers/scrape-dwc.mjs
+
+      - name: Scrape MCT
+        id: mct
+        continue-on-error: true
+        run: node .github/scripts/scrapers/scrape-mct.mjs
+        timeout-minutes: 5
+
+      - name: Scrape RUH
+        id: ruh
+        continue-on-error: true
+        run: node .github/scripts/scrapers/scrape-ruh.mjs
+        timeout-minutes: 5
+
+      - name: Scrape TLV
+        id: tlv
+        continue-on-error: true
+        run: node .github/scripts/scrapers/scrape-tlv.mjs
+        timeout-minutes: 5
+        env:
+          TLV_PROXY: ${{ secrets.TLV_PROXY }}
+
+      # ── Aggregate results ──
+
+      - name: Update flight_others health
+        run: |
+          python scripts/write-health.py flight_others \
+            --method="playwright-aggregate" \
+            --new-value="phase2-run"
+
+      - name: Generate scrape summary
+        if: always()
+        run: |
+          echo "## Playwright Scrape Results" >> $GITHUB_STEP_SUMMARY
+          echo "| Airport | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|---------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| AUH | ${{ steps.auh.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| DWC | ${{ steps.dwc.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| MCT | ${{ steps.mct.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| RUH | ${{ steps.ruh.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| TLV | ${{ steps.tlv.outcome }} |" >> $GITHUB_STEP_SUMMARY
+
+      - name: Commit results
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add public/verification/ public/health/
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: log playwright flight data $(date -u +%Y-%m-%d)"
+            git pull --rebase origin main
+            git push
+          fi

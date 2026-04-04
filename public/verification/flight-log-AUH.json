@@ -1,0 +1,14 @@
+{
+  "airport": "AUH",
+  "entries": [
+    {
+      "date": "2026-04-03",
+      "error": "page.goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.zayedinternationalairport.ae/en/flights/departures\", waiting until \"networkidle\"\n",
+      "source": "zayedinternationalairport.ae",
+      "method": "playwright",
+      "fetchedAt": "2026-04-04T19:15:41.154Z",
+      "success": false
+    }
+  ],
+  "lastUpdated": "2026-04-04T19:15:41.154Z"
+}
