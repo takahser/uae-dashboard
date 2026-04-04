@@ -302,6 +302,35 @@
       "arrivals": 0,
       "total": 0,
       "regions": {}
+    },
+    {
+      "date": "2026-04-02",
+      "departures": 45,
+      "arrivals": 13,
+      "total": 58,
+      "regions": {
+        "Asia-Pacific": 5,
+        "South Asia": 7,
+        "Unknown": 19,
+        "Africa": 3,
+        "Middle East": 2,
+        "Europe": 17,
+        "Americas": 5
+      }
+    },
+    {
+      "date": "2026-04-03",
+      "departures": 43,
+      "arrivals": 20,
+      "total": 63,
+      "regions": {
+        "South Asia": 9,
+        "Unknown": 25,
+        "Europe": 22,
+        "Americas": 5,
+        "Africa": 1,
+        "Asia-Pacific": 1
+      }
     }
   ],
   "baselineDailyAvg": {
@@ -310,5 +339,5 @@
     "arrivals": 0,
     "regions": {}
   },
-  "lastUpdated": "2026-04-02T08:22:07.728Z"
+  "lastUpdated": "2026-04-04T08:15:03.569Z"
 }

@@ -2,13 +2,13 @@
   "airport": "OMDW",
   "airportName": "Al Maktoum Intl (DWC)",
   "status": "open",
-  "statusNote": "Operational \u2014 no closure reported",
+  "statusNote": "Operational — no closure reported",
   "lastVerified": "2026-03-15",
   "source": "UAE MoD statements",
-  "todayArrivals": 35,
-  "todayDepartures": 30,
-  "todayTotal": 65,
-  "todayFetched": "2026-04-02T08:22:17.973Z",
+  "todayArrivals": 40,
+  "todayDepartures": 46,
+  "todayTotal": 86,
+  "todayFetched": "2026-04-04T08:15:13.671Z",
   "daily": [
     {
       "date": "2026-02-18",
@@ -610,6 +610,14 @@
       "departures": 30,
       "arrivals": 35,
       "cancelled": 0
+    },
+    {
+      "date": "2026-04-04",
+      "departures": 46,
+      "arrivals": 40,
+      "total": 86,
+      "regions": {},
+      "flights": []
     }
   ],
   "lastUpdated": "2026-04-02T09:06:04.760Z",
