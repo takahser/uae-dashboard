@@ -103,6 +103,7 @@ export default function FlightChart() {
     }
     return Object.fromEntries(CHART_AIRPORTS.map(a => [a.key, FULL_DATA_AIRPORTS.has(a.key)]));
   });
+  const [includeCargo, setIncludeCargo] = useState(false);
   const [cancelVisible, setCancelVisible] = useState(
     Object.fromEntries(CHART_AIRPORTS.map(a => [a.key, true]))
   );
@@ -227,6 +228,15 @@ export default function FlightChart() {
             </button>
           ))}
         </div>
+        <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: 'rgba(255,255,255,0.6)', cursor: 'pointer' }}>
+          <input
+            type="checkbox"
+            checked={includeCargo}
+            onChange={(e) => setIncludeCargo(e.target.checked)}
+            style={{ accentColor: '#3B82F6' }}
+          />
+          Include cargo
+        </label>
       </div>
 
       {/* Airport toggles */}
