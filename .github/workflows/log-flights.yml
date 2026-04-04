@@ -1,0 +1,50 @@
+name: Log Official Flight Data
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # 06:00 UTC (10:00 Dubai)
+  workflow_dispatch:
+
+jobs:
+  log-flights:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Log official flight data
+        id: log
+        run: node .github/scripts/log-official-flights.mjs
+
+      - name: Compare against AeroDataBox
+        id: compare
+        run: node .github/scripts/compare-flight-data.mjs
+
+      - name: Alert on discrepancy
+        if: steps.compare.outputs.alert == 'true'
+        run: |
+          echo "::warning::Flight data discrepancy detected! See discrepancies.json"
+
+      - name: Commit verification logs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/verification/
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "chore: log official flight data $(date -u +%Y-%m-%d)"
+            git pull --rebase origin main
+            git push
+          fi

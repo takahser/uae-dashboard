@@ -1,0 +1,29 @@
+{
+  "entries": [
+    {
+      "date": "2026-04-03",
+      "checkedAt": "2026-04-04T18:45:24.355Z",
+      "alerts": [
+        {
+          "iata": "JED",
+          "date": "2026-04-03",
+          "official": 1223,
+          "aerodatabox": 768,
+          "diff": 455,
+          "pctDiff": 59,
+          "alert": true,
+          "details": {
+            "official": {
+              "dep": 625,
+              "arr": 598
+            },
+            "aerodatabox": {
+              "dep": 390,
+              "arr": 378
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
