@@ -1,5 +1,13 @@
 #!/usr/bin/env node
-import { createStealthBrowser, scrollToLoadAll, interceptJSON, runScraper, getYesterday } from '../lib/browser-utils.mjs';
+/**
+ * AUH (Abu Dhabi / Zayed International Airport) flight scraper
+ *
+ * API discovered via JS bundle analysis of zayedinternationalairport.ae
+ * Endpoint: /api/zayed/flight/{type}?SearchKey=&day={offset}&PageSize=500&Language=en
+ *   type  : departure | arrival | all
+ *   day   : 0 = today, -1 = yesterday, 1 = tomorrow
+ * No authentication required — works as a plain HTTP GET.
+ */
 import { updateHealth } from '../lib/health-writer.mjs';
 import { writeFileSync, readFileSync, mkdirSync } from 'fs';
 import { join, dirname } from 'path';
@@ -10,78 +18,56 @@ const REPO_ROOT = join(__dirname, '../../..');
 const VERIFY_DIR = join(REPO_ROOT, 'public/verification');
 mkdirSync(VERIFY_DIR, { recursive: true });
 
-async function scrapeAUH() {
-  const { browser, context } = await createStealthBrowser();
-  const page = await context.newPage();
-  const apiResponses = await interceptJSON(page, ['api', 'flight', 'fids', 'graphql']);
+const BASE_URL = 'https://www.zayedinternationalairport.ae/api/zayed/flight';
+const HEADERS = {
+  Accept: 'application/json',
+  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+  Referer: 'https://www.zayedinternationalairport.ae/en/flights-and-check-in/flight-status/departures',
+};
 
+/**
+ * Fetch flight count from the AUH API.
+ * @param {'departure'|'arrival'|'all'} type
+ * @param {number} day  0 = today, -1 = yesterday, 1 = tomorrow
+ * @returns {Promise<{total: number, flights: object[]}>}
+ */
+async function fetchFlights(type, day = -1) {
+  const url = `${BASE_URL}/${type}?SearchKey=&day=${day}&PageSize=500&Language=en`;
+  console.log(`[AUH] Fetching ${type} day=${day}: ${url}`);
+  const res = await fetch(url, { headers: HEADERS });
+  if (!res.ok) throw new Error(`AUH API HTTP ${res.status} ${res.statusText} for ${type}`);
+  const json = await res.json();
+  const result = json?.result;
+  if (!result) throw new Error(`AUH API unexpected response shape for ${type}`);
+  const flights = Array.isArray(result.data) ? result.data : [];
+  // Prefer total_count (server-side total) over array length, in case pagination applies
+  const total = typeof result.total_count === 'number' ? result.total_count : flights.length;
+  return { total, flights };
+}
+
+/**
+ * Get yesterday's date string in YYYY-MM-DD (for verification log labelling).
+ */
+function getYesterday() {
+  const d = new Date();
+  d.setDate(d.getDate() - 1);
+  return d.toISOString().slice(0, 10);
+}
+
+async function scrapeAUH() {
   const dateStr = getYesterday();
   let departures = 0;
   let arrivals = 0;
 
   try {
-    // --- Departures ---
-    console.log('[AUH] Loading departures...');
-    await page.goto('https://www.zayedinternationalairport.ae/en/flights/departures', {
-      waitUntil: 'networkidle',
-      timeout: 60000
-    });
-    await page.waitForTimeout(5000); // Allow hydration
+    // Fetch yesterday's departure and arrival counts (day = -1)
+    const [depResult, arrResult] = await Promise.all([
+      fetchFlights('departure', -1),
+      fetchFlights('arrival', -1),
+    ]);
 
-    // Strategy 1: Check for __NEXT_DATA__
-    const nextData = await page.evaluate(() => {
-      const el = document.getElementById('__NEXT_DATA__');
-      return el ? JSON.parse(el.textContent) : null;
-    });
-
-    if (nextData?.props?.pageProps?.flights) {
-      console.log('[AUH] Found __NEXT_DATA__ flights');
-      const flights = nextData.props.pageProps.flights;
-      departures = flights.filter(f => f.type === 'departure' && f.date?.startsWith(dateStr)).length;
-    } else {
-      // Strategy 2: Check intercepted API responses
-      if (apiResponses.length > 0) {
-        console.log(`[AUH] Found ${apiResponses.length} API response(s), inspecting...`);
-        for (const resp of apiResponses) {
-          const flights = resp.body?.flights || resp.body?.data?.flights || resp.body?.Flights;
-          if (Array.isArray(flights)) {
-            departures = flights.filter(f =>
-              (f.type === 'departure' || f.direction === 'D') &&
-              (f.date?.startsWith(dateStr) || f.scheduled?.startsWith(dateStr))
-            ).length;
-            if (departures > 0) break;
-          }
-        }
-      }
-
-      // Strategy 3: DOM scraping fallback
-      if (departures === 0) {
-        console.log('[AUH] Falling back to DOM scraping for departures...');
-        await scrollToLoadAll(page);
-        const depRows = await page.evaluate(() => {
-          return [...document.querySelectorAll('[class*="flight"], tr, [class*="row"]')]
-            .map(el => el.innerText?.trim())
-            .filter(t => t && /\b[A-Z]{2}\d{1,4}\b/.test(t) && t.length < 500);
-        });
-        departures = depRows.length;
-      }
-    }
-
-    // --- Arrivals ---
-    console.log('[AUH] Loading arrivals...');
-    await page.goto('https://www.zayedinternationalairport.ae/en/flights/arrivals', {
-      waitUntil: 'networkidle',
-      timeout: 60000
-    });
-    await page.waitForTimeout(5000);
-    await scrollToLoadAll(page);
-
-    const arrRows = await page.evaluate(() => {
-      return [...document.querySelectorAll('[class*="flight"], tr, [class*="row"]')]
-        .map(el => el.innerText?.trim())
-        .filter(t => t && /\b[A-Z]{2}\d{1,4}\b/.test(t) && t.length < 500);
-    });
-    arrivals = arrRows.length;
+    departures = depResult.total;
+    arrivals = arrResult.total;
 
     const result = {
       date: dateStr,
@@ -89,9 +75,9 @@ async function scrapeAUH() {
       arrivals,
       total: departures + arrivals,
       source: 'zayedinternationalairport.ae',
-      method: 'playwright',
+      method: 'direct-api',
+      apiEndpoint: `${BASE_URL}/{departure|arrival}?day=-1&PageSize=500`,
       fetchedAt: new Date().toISOString(),
-      apiEndpointsFound: apiResponses.length
     };
 
     // Save verification log
@@ -107,22 +93,21 @@ async function scrapeAUH() {
     // Update health
     updateHealth('flight_auh', {
       newValue: String(result.total),
-      method: 'playwright',
-      sourceUrl: 'zayedinternationalairport.ae'
+      method: 'direct-api',
+      sourceUrl: 'zayedinternationalairport.ae/api/zayed/flight',
     });
 
-    console.log(`[AUH] ${result.total} flights (${departures} dep, ${arrivals} arr)`);
+    console.log(`[AUH] ✅ ${result.total} flights (${departures} dep, ${arrivals} arr) for ${dateStr}`);
     return result;
 
   } catch (err) {
-    // Log failure to verification
     const failLog = {
       date: dateStr,
       error: err.message,
       source: 'zayedinternationalairport.ae',
-      method: 'playwright',
+      method: 'direct-api',
       fetchedAt: new Date().toISOString(),
-      success: false
+      success: false,
     };
     const logFile = join(VERIFY_DIR, 'flight-log-AUH.json');
     let log = { airport: 'AUH', entries: [] };
@@ -132,11 +117,21 @@ async function scrapeAUH() {
     log.lastUpdated = new Date().toISOString();
     writeFileSync(logFile, JSON.stringify(log, null, 2) + '\n');
 
-    console.error('[AUH] Scrape failed:', err.message);
+    console.error('[AUH] ❌ Scrape failed:', err.message);
     return null;
-  } finally {
-    await browser.close();
   }
 }
 
-runScraper('AUH', scrapeAUH).catch(console.error);
+// If called with --run-now or directly, execute immediately
+// Otherwise export for use by runner
+const isMain = process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1];
+if (isMain) {
+  scrapeAUH().then(result => {
+    if (!result) process.exit(1);
+  }).catch(err => {
+    console.error('[AUH] Fatal:', err);
+    process.exit(1);
+  });
+}
+
+export { scrapeAUH };
