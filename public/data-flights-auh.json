@@ -2,13 +2,13 @@
   "airport": "OMAA",
   "airportName": "Abu Dhabi Intl (AUH)",
   "status": "open",
-  "statusNote": "Operational \u2014 no closure reported",
+  "statusNote": "Operational — no closure reported",
   "lastVerified": "2026-03-15",
   "source": "UAE MoD statements",
-  "todayArrivals": 223,
-  "todayDepartures": 228,
-  "todayTotal": 451,
-  "todayFetched": "2026-04-04T08:15:12.390Z",
+  "todayArrivals": 216,
+  "todayDepartures": 226,
+  "todayTotal": 442,
+  "todayFetched": "2026-04-05T08:14:39.538Z",
   "daily": [
     {
       "date": "2026-02-18",
@@ -712,9 +712,19 @@
     },
     {
       "date": "2026-04-04",
-      "departures": 228,
-      "arrivals": 223,
-      "total": 451,
+      "departures": 62,
+      "arrivals": 64,
+      "total": 126,
+      "regions": {},
+      "flights": [],
+      "corrected": true,
+      "correctedAt": "2026-04-05T08:14:11.344Z"
+    },
+    {
+      "date": "2026-04-05",
+      "departures": 226,
+      "arrivals": 216,
+      "total": 442,
       "regions": {},
       "flights": []
     }

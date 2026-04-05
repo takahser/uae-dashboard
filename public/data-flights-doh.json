@@ -2,13 +2,13 @@
   "airport": "OTHH",
   "airportName": "Hamad Intl (DOH)",
   "status": "open",
-  "statusNote": "Operational \u2014 no closure reported",
+  "statusNote": "Operational — no closure reported",
   "lastVerified": "2026-03-15",
   "source": "Qatar MoD statements",
-  "todayArrivals": 161,
-  "todayDepartures": 154,
-  "todayTotal": 315,
-  "todayFetched": "2026-04-04T08:15:18.944Z",
+  "todayArrivals": 169,
+  "todayDepartures": 157,
+  "todayTotal": 326,
+  "todayFetched": "2026-04-05T08:14:46.515Z",
   "daily": [
     {
       "date": "2026-02-18",
@@ -662,9 +662,19 @@
     },
     {
       "date": "2026-04-04",
-      "departures": 154,
-      "arrivals": 161,
-      "total": 315,
+      "departures": 21,
+      "arrivals": 39,
+      "total": 60,
+      "regions": {},
+      "flights": [],
+      "corrected": true,
+      "correctedAt": "2026-04-05T08:14:15.916Z"
+    },
+    {
+      "date": "2026-04-05",
+      "departures": 157,
+      "arrivals": 169,
+      "total": 326,
       "regions": {},
       "flights": []
     }
