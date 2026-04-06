@@ -27,11 +27,25 @@ const REPO_ROOT = join(__dirname, '..');
 // ─── Config ──────────────────────────────────────────────────────────────────
 
 const ALLOWED_TZ = ['Asia/Dubai', 'Europe/Zurich', 'Asia/Bangkok'];
-const rawTz = process.env.BRIEFING_TZ || 'Asia/Dubai';
-const TZ = ALLOWED_TZ.includes(rawTz) ? rawTz : (() => {
-  console.error(`[briefing] Unknown BRIEFING_TZ "${rawTz}", falling back to Asia/Dubai`);
+const SETTINGS_FILE = '/Users/chou/repos/airbnb-manager/server/data/settings.json';
+
+function loadTz() {
+  // Priority: env var > settings file > default
+  if (process.env.BRIEFING_TZ) {
+    const tz = process.env.BRIEFING_TZ;
+    if (ALLOWED_TZ.includes(tz)) return tz;
+    console.error(`[briefing] Unknown BRIEFING_TZ env "${tz}", checking settings file`);
+  }
+  try {
+    if (existsSync(SETTINGS_FILE)) {
+      const s = JSON.parse(readFileSync(SETTINGS_FILE, 'utf8'));
+      if (s.briefingTz && ALLOWED_TZ.includes(s.briefingTz)) return s.briefingTz;
+    }
+  } catch {}
   return 'Asia/Dubai';
-})();
+}
+
+const TZ = loadTz();
 
 const KB_DB = process.env.KB_DB || '/Users/chou/repos/xpost-automation/memory/kb.db';
 const CLUSTERS_JSON = '/Users/chou/repos/xpost-automation/memory/talking-point-clusters.json';
