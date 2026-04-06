@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-06T18:53:18Z",
+  "generated_at": "2026-04-06T18:18:55Z",
   "sources": {
     "aramco": {
       "label": "Saudi Aramco",
@@ -8,7 +8,7 @@
       "market_hours_only": true,
       "trading_days": "sun-thu",
       "id": "aramco",
-      "last_updated": "2026-04-06T18:53:18Z",
+      "last_updated": "2026-04-06T05:48:22Z",
       "type": "regular",
       "override": null
     },
@@ -17,7 +17,7 @@
       "category": "attacks",
       "type": "event",
       "id": "bahrain_attacks",
-      "last_updated": "2026-04-06T08:34:53Z",
+      "last_updated": "2026-04-05T08:14:51Z",
       "override": null
     },
     "bonds": {
@@ -27,7 +27,7 @@
       "market_hours_only": true,
       "trading_days": "mon-fri",
       "id": "bonds",
-      "last_updated": "2026-04-06T06:39:53Z",
+      "last_updated": "2026-04-05T06:28:20Z",
       "type": "regular",
       "override": null
     },
@@ -38,7 +38,7 @@
       "market_hours_only": true,
       "trading_days": "mon-fri",
       "id": "brent",
-      "last_updated": "2026-04-06T18:53:18Z",
+      "last_updated": "2026-04-06T05:48:22Z",
       "type": "regular",
       "override": null
     },
@@ -49,7 +49,7 @@
       "market_hours_only": false,
       "trading_days": null,
       "id": "dubai",
-      "last_updated": "2026-04-06T18:53:18Z",
+      "last_updated": "2026-04-06T05:48:22Z",
       "type": "regular",
       "override": null
     },
@@ -60,7 +60,7 @@
       "market_hours_only": false,
       "trading_days": null,
       "id": "flight_auh",
-      "last_updated": "2026-04-06T07:15:05Z",
+      "last_updated": "2026-04-06T18:18:55Z",
       "type": "regular",
       "override": null
     },
@@ -71,7 +71,7 @@
       "market_hours_only": false,
       "trading_days": null,
       "id": "flight_dxb",
-      "last_updated": "2026-04-06T08:34:53Z",
+      "last_updated": "2026-04-05T08:14:51Z",
       "type": "regular",
       "override": null
     },
@@ -79,7 +79,7 @@
       "id": "flight_others",
       "label": "Other Airports",
       "category": "flights",
-      "last_updated": "2026-04-06T08:34:53Z",
+      "last_updated": "2026-04-05T08:14:51Z",
       "stale_after_hours": 36,
       "market_hours_only": false,
       "type": "regular",
@@ -92,7 +92,7 @@
       "market_hours_only": true,
       "trading_days": "mon-fri",
       "id": "frontline",
-      "last_updated": "2026-04-06T18:53:18Z",
+      "last_updated": "2026-04-06T05:48:22Z",
       "type": "regular",
       "override": null
     },
@@ -103,7 +103,7 @@
       "market_hours_only": false,
       "trading_days": null,
       "id": "gulf_ais",
-      "last_updated": "2026-04-06T18:53:18Z",
+      "last_updated": "2026-04-06T05:48:22Z",
       "type": "regular",
       "override": null
     },
@@ -114,7 +114,7 @@
       "market_hours_only": false,
       "trading_days": null,
       "id": "hormuz_chart",
-      "last_updated": "2026-04-06T18:53:18Z",
+      "last_updated": "2026-04-06T05:48:22Z",
       "type": "regular",
       "override": null
     },
@@ -123,7 +123,7 @@
       "category": "attacks",
       "type": "event",
       "id": "iran_data",
-      "last_updated": "2026-04-06T08:34:53Z",
+      "last_updated": "2026-04-05T08:14:51Z",
       "override": null
     },
     "kuwait_attacks": {
@@ -131,7 +131,7 @@
       "category": "attacks",
       "type": "event",
       "id": "kuwait_attacks",
-      "last_updated": "2026-04-06T08:34:53Z",
+      "last_updated": "2026-04-05T08:14:51Z",
       "override": null
     },
     "lmt": {
@@ -141,7 +141,7 @@
       "market_hours_only": true,
       "trading_days": "mon-fri",
       "id": "lmt",
-      "last_updated": "2026-04-06T18:53:18Z",
+      "last_updated": "2026-04-06T05:48:22Z",
       "type": "regular",
       "override": null
     },
@@ -152,7 +152,7 @@
       "market_hours_only": true,
       "trading_days": "mon-fri",
       "id": "natgas",
-      "last_updated": "2026-04-06T18:53:18Z",
+      "last_updated": "2026-04-06T05:48:22Z",
       "type": "regular",
       "override": null
     },
@@ -163,7 +163,7 @@
       "market_hours_only": false,
       "trading_days": null,
       "id": "oman",
-      "last_updated": "2026-04-06T18:53:18Z",
+      "last_updated": "2026-04-06T05:48:22Z",
       "type": "regular",
       "override": null
     },
@@ -174,7 +174,7 @@
       "market_hours_only": true,
       "trading_days": "mon-fri",
       "id": "rtx",
-      "last_updated": "2026-04-06T18:53:18Z",
+      "last_updated": "2026-04-06T05:48:22Z",
       "type": "regular",
       "override": null
     },
@@ -185,7 +185,7 @@
       "market_hours_only": true,
       "trading_days": "mon-fri",
       "id": "stng",
-      "last_updated": "2026-04-06T18:53:18Z",
+      "last_updated": "2026-04-06T05:48:22Z",
       "type": "regular",
       "override": null
     },
@@ -194,7 +194,7 @@
       "category": "attacks",
       "type": "event",
       "id": "uae_attacks",
-      "last_updated": "2026-04-06T08:34:53Z",
+      "last_updated": "2026-04-05T08:14:51Z",
       "override": null
     },
     "wti": {
@@ -204,7 +204,7 @@
       "market_hours_only": true,
       "trading_days": "mon-fri",
       "id": "wti",
-      "last_updated": "2026-04-06T18:53:18Z",
+      "last_updated": "2026-04-06T05:48:22Z",
       "type": "regular",
       "override": null
     }
