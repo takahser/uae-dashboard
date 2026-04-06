@@ -23,10 +23,12 @@ const AUDIT_FILE = join(PUBLIC_DIR, "data-flights-audit.json");
 
 const DRY_RUN = process.argv.includes("--dry-run");
 
-// RapidAPI key for AeroDataBox
-const RAPIDAPI_KEY =
-  process.env.RAPIDAPI_KEY ||
-  "2bdc3b4403msh8432443db39f320p15abd2jsn252b0a720b81";
+// RapidAPI key for AeroDataBox — required, no fallback (set as repo secret)
+const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY;
+if (!RAPIDAPI_KEY) {
+  console.error("RAPIDAPI_KEY not set — aborting");
+  process.exit(1);
+}
 
 const RAPIDAPI_HOST = "aerodatabox.p.rapidapi.com";
 
