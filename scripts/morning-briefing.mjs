@@ -440,11 +440,13 @@ async function main() {
     renderFooter(TZ, now),
   ];
 
-  const body = sections.filter(s => s?.trim()).join('\n\n');
+  const filled = sections.filter(s => s?.trim());
+  const body = filled.join('\n\n');
 
-  // Suppress if nothing interesting (just header + footer)
-  const headerFooter = `${renderHeader(TZ, now)}\n\n${renderFooter(TZ, now)}`;
-  if (!body.trim() || body.trim() === headerFooter.trim()) process.exit(0);
+  // Header (index 0) and footer (last) are always present.
+  // Suppress the briefing if those are the ONLY two sections — nothing interesting happened.
+  // Using a counter avoids re-calling renderers (which could produce different timestamps).
+  if (filled.length <= 2) process.exit(0);
 
   process.stdout.write(truncate(body) + '\n');
 }
