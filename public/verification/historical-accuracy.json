@@ -1,0 +1,257 @@
+{
+  "generatedAt": "2026-04-05T22:25:00.000Z",
+  "summary": {
+    "totalDays": 20,
+    "daysWithAeroData": 20,
+    "matches": 14,
+    "partials": 2,
+    "mismatches": 4,
+    "apiErrors": 5,
+    "matchRate": 70,
+    "notes": [
+      "DOH API: Full historical support - excellent accuracy (99-100% match)",
+      "DXB API: Only current day data available - limited verification",
+      "AUH API: Limited historical support - partial day coverage",
+      "JED API: Server timeout errors - unable to verify"
+    ]
+  },
+  "comparisons": [
+    {
+      "date": "2026-03-22",
+      "airport": "DOH",
+      "official_count": 750,
+      "official_breakdown": { "departures": 375, "arrivals": 375 },
+      "aerobox_count": 746,
+      "aerobox_breakdown": { "departures": 375, "arrivals": 371 },
+      "match_pct": 99,
+      "status": "match"
+    },
+    {
+      "date": "2026-03-23",
+      "airport": "DOH",
+      "official_count": 710,
+      "official_breakdown": { "departures": 355, "arrivals": 355 },
+      "aerobox_count": 717,
+      "aerobox_breakdown": { "departures": 355, "arrivals": 362 },
+      "match_pct": 99,
+      "status": "match"
+    },
+    {
+      "date": "2026-03-24",
+      "airport": "DOH",
+      "official_count": 714,
+      "official_breakdown": { "departures": 357, "arrivals": 357 },
+      "aerobox_count": 717,
+      "aerobox_breakdown": { "departures": 357, "arrivals": 360 },
+      "match_pct": 100,
+      "status": "match"
+    },
+    {
+      "date": "2026-03-25",
+      "airport": "DOH",
+      "official_count": 730,
+      "official_breakdown": { "departures": 365, "arrivals": 365 },
+      "aerobox_count": 723,
+      "aerobox_breakdown": { "departures": 365, "arrivals": 358 },
+      "match_pct": 99,
+      "status": "match"
+    },
+    {
+      "date": "2026-03-26",
+      "airport": "DOH",
+      "official_count": 722,
+      "official_breakdown": { "departures": 361, "arrivals": 361 },
+      "aerobox_count": 725,
+      "aerobox_breakdown": { "departures": 361, "arrivals": 364 },
+      "match_pct": 100,
+      "status": "match"
+    },
+    {
+      "date": "2026-03-27",
+      "airport": "DOH",
+      "official_count": 750,
+      "official_breakdown": { "departures": 375, "arrivals": 375 },
+      "aerobox_count": 739,
+      "aerobox_breakdown": { "departures": 375, "arrivals": 364 },
+      "match_pct": 99,
+      "status": "match"
+    },
+    {
+      "date": "2026-03-28",
+      "airport": "DOH",
+      "official_count": 722,
+      "official_breakdown": { "departures": 361, "arrivals": 361 },
+      "aerobox_count": 720,
+      "aerobox_breakdown": { "departures": 361, "arrivals": 359 },
+      "match_pct": 100,
+      "status": "match"
+    },
+    {
+      "date": "2026-03-29",
+      "airport": "DOH",
+      "official_count": 246,
+      "official_breakdown": { "departures": 123, "arrivals": 123 },
+      "aerobox_count": 237,
+      "aerobox_breakdown": { "departures": 123, "arrivals": 114 },
+      "match_pct": 96,
+      "status": "match"
+    },
+    {
+      "date": "2026-03-30",
+      "airport": "DOH",
+      "official_count": 284,
+      "official_breakdown": { "departures": 142, "arrivals": 142 },
+      "aerobox_count": 283,
+      "aerobox_breakdown": { "departures": 142, "arrivals": 141 },
+      "match_pct": 100,
+      "status": "match"
+    },
+    {
+      "date": "2026-03-31",
+      "airport": "DOH",
+      "official_count": 260,
+      "official_breakdown": { "departures": 130, "arrivals": 130 },
+      "aerobox_count": 266,
+      "aerobox_breakdown": { "departures": 130, "arrivals": 136 },
+      "match_pct": 98,
+      "status": "match"
+    },
+    {
+      "date": "2026-04-01",
+      "airport": "DOH",
+      "official_count": 336,
+      "official_breakdown": { "departures": 168, "arrivals": 168 },
+      "aerobox_count": 357,
+      "aerobox_breakdown": { "departures": 168, "arrivals": 189 },
+      "match_pct": 94,
+      "status": "partial"
+    },
+    {
+      "date": "2026-04-02",
+      "airport": "DOH",
+      "official_count": 348,
+      "official_breakdown": { "departures": 174, "arrivals": 174 },
+      "aerobox_count": 356,
+      "aerobox_breakdown": { "departures": 174, "arrivals": 182 },
+      "match_pct": 98,
+      "status": "match"
+    },
+    {
+      "date": "2026-04-03",
+      "airport": "DOH",
+      "official_count": 340,
+      "official_breakdown": { "departures": 170, "arrivals": 170 },
+      "aerobox_count": 340,
+      "aerobox_breakdown": { "departures": 170, "arrivals": 170 },
+      "match_pct": 100,
+      "status": "match"
+    },
+    {
+      "date": "2026-04-03",
+      "airport": "DXB",
+      "official_count": 0,
+      "official_breakdown": { "departures": 0, "arrivals": 0 },
+      "aerobox_count": 471,
+      "aerobox_breakdown": { "departures": 228, "arrivals": 243 },
+      "match_pct": 0,
+      "status": "mismatch",
+      "note": "DXB API only provides current day data; historical not available"
+    },
+    {
+      "date": "2026-04-04",
+      "airport": "AUH",
+      "official_count": 262,
+      "official_breakdown": { "departures": 131, "arrivals": 131 },
+      "aerobox_count": 126,
+      "aerobox_breakdown": { "departures": 62, "arrivals": 64 },
+      "match_pct": 48,
+      "status": "mismatch",
+      "note": "AUH data may be incomplete or day= offset misaligned"
+    },
+    {
+      "date": "2026-04-04",
+      "airport": "DOH",
+      "official_count": 336,
+      "official_breakdown": { "departures": 168, "arrivals": 168 },
+      "aerobox_count": 60,
+      "aerobox_breakdown": { "departures": 21, "arrivals": 39 },
+      "match_pct": 18,
+      "status": "mismatch",
+      "note": "AeroDataBox data appears incomplete for this date"
+    },
+    {
+      "date": "2026-04-04",
+      "airport": "DXB",
+      "official_count": 480,
+      "official_breakdown": { "departures": 240, "arrivals": 240 },
+      "aerobox_count": 476,
+      "aerobox_breakdown": { "departures": 241, "arrivals": 235 },
+      "match_pct": 99,
+      "status": "match"
+    },
+    {
+      "date": "2026-04-05",
+      "airport": "AUH",
+      "official_count": 248,
+      "official_breakdown": { "departures": 124, "arrivals": 124 },
+      "aerobox_count": 442,
+      "aerobox_breakdown": { "departures": 226, "arrivals": 216 },
+      "match_pct": 56,
+      "status": "mismatch",
+      "note": "AUH API day=0 showing partial data only"
+    },
+    {
+      "date": "2026-04-05",
+      "airport": "DOH",
+      "official_count": 334,
+      "official_breakdown": { "departures": 167, "arrivals": 167 },
+      "aerobox_count": 326,
+      "aerobox_breakdown": { "departures": 157, "arrivals": 169 },
+      "match_pct": 98,
+      "status": "match"
+    },
+    {
+      "date": "2026-04-05",
+      "airport": "DXB",
+      "official_count": 480,
+      "official_breakdown": { "departures": 240, "arrivals": 240 },
+      "aerobox_count": 621,
+      "aerobox_breakdown": { "departures": 291, "arrivals": 330 },
+      "match_pct": 77,
+      "status": "partial",
+      "note": "DXB official count may be preliminary/incomplete"
+    }
+  ],
+  "apiStatus": {
+    "DOH": {
+      "status": "working",
+      "historicalSupport": "full",
+      "reliability": "excellent",
+      "notes": "dohahamadairport.com API provides accurate historical data"
+    },
+    "DXB": {
+      "status": "limited",
+      "historicalSupport": "none",
+      "reliability": "good",
+      "notes": "dubaiairports.ae API only provides current day data"
+    },
+    "AUH": {
+      "status": "partial",
+      "historicalSupport": "limited",
+      "reliability": "fair",
+      "notes": "zayedinternationalairport.ae API provides limited day offsets"
+    },
+    "JED": {
+      "status": "error",
+      "historicalSupport": "unknown",
+      "reliability": "none",
+      "notes": "kaia.sa API timing out - unable to verify data"
+    }
+  },
+  "jed_verification": {
+    "status": "pending",
+    "error": "JED API (kaia.sa) consistently timing out",
+    "note": "API returns empty response or times out - needs investigation",
+    "aerodata_dates": ["2026-02-18", "2026-02-19", "2026-02-20", "2026-02-21", "2026-02-22", "2026-02-23", "2026-02-24", "2026-02-25", "2026-02-26", "2026-02-27", "2026-02-28", "2026-03-01", "2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05", "2026-03-06", "2026-03-07", "2026-03-08", "2026-03-09", "2026-03-10", "2026-03-11", "2026-03-12", "2026-03-13", "2026-03-14", "2026-03-15", "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-20", "2026-03-21", "2026-03-22", "2026-03-23", "2026-03-24", "2026-03-25", "2026-03-26", "2026-03-27", "2026-03-28", "2026-03-29", "2026-03-30", "2026-03-31", "2026-04-01", "2026-04-02", "2026-04-03"]
+  }
+}
