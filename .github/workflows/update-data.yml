@@ -30,12 +30,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Playwright
-        run: npx playwright install chromium --with-deps
-
-      - name: Fetch tweets via Playwright
-        run: node .github/scripts/fetch-tweets-playwright.js
-        continue-on-error: true
+      # Tweet cache is pre-populated locally via sync-kb-to-tweet-cache.mjs
+      # (runs on Mac Mini via cron, committed to repo).
+      # Playwright scrape removed — X.com blocks headless browsers on GH Actions.
 
       - name: Parse attack data from tweets
         env:
