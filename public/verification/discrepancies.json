@@ -49,6 +49,31 @@
           }
         }
       ]
+    },
+    {
+      "date": "2026-04-05",
+      "checkedAt": "2026-04-06T06:36:59.511Z",
+      "alerts": [
+        {
+          "iata": "DXB",
+          "date": "2026-04-05",
+          "official": 473,
+          "aerodatabox": 621,
+          "diff": 148,
+          "pctDiff": 24,
+          "alert": true,
+          "details": {
+            "official": {
+              "dep": 240,
+              "arr": 233
+            },
+            "aerodatabox": {
+              "dep": 291,
+              "arr": 330
+            }
+          }
+        }
+      ]
     }
   ]
 }
