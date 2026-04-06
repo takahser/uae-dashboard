@@ -5,10 +5,10 @@
   "statusNote": "Severely restricted — most carriers suspended",
   "lastVerified": "2026-03-15",
   "source": "Multiple verified news sources",
-  "todayArrivals": 74,
-  "todayDepartures": 75,
-  "todayTotal": 149,
-  "todayFetched": "2026-04-05T08:14:47.992Z",
+  "todayArrivals": 63,
+  "todayDepartures": 56,
+  "todayTotal": 119,
+  "todayFetched": "2026-04-06T08:34:48.867Z",
   "daily": [
     {
       "date": "2026-02-18",
@@ -687,9 +687,19 @@
     },
     {
       "date": "2026-04-05",
-      "departures": 75,
-      "arrivals": 74,
-      "total": 149,
+      "departures": 47,
+      "arrivals": 48,
+      "total": 95,
+      "regions": {},
+      "flights": [],
+      "corrected": true,
+      "correctedAt": "2026-04-06T08:34:20.265Z"
+    },
+    {
+      "date": "2026-04-06",
+      "departures": 56,
+      "arrivals": 63,
+      "total": 119,
       "regions": {},
       "flights": []
     }
