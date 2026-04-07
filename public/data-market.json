@@ -1,28 +1,28 @@
 {
-  "updated": "2026-04-07T12:30:44Z",
+  "updated": "2026-04-07T12:58:42Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 110.64,
-      "change": 0.87,
-      "changePercent": 0.79,
+      "price": 110.97,
+      "change": 1.2,
+      "changePercent": 1.09,
       "previousClose": 109.77
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 115.08,
-      "change": 2.67,
-      "changePercent": 2.38,
+      "price": 115.71,
+      "change": 3.3,
+      "changePercent": 2.94,
       "previousClose": 112.41
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.82,
-      "change": 0.0,
-      "changePercent": 0.0,
+      "price": 2.84,
+      "change": 0.03,
+      "changePercent": 1.07,
       "previousClose": 2.81
     },
     "2222.SR": {
@@ -40,14 +40,6 @@
       "change": -0.12,
       "changePercent": -0.33,
       "previousClose": 36.6
-    },
-    "STNG": {
-      "symbol": "STNG",
-      "name": "Scorpio Tankers",
-      "price": 76.54,
-      "change": 0.11,
-      "changePercent": 0.14,
-      "previousClose": 76.43
     },
     "RTX": {
       "symbol": "RTX",
@@ -186,7 +178,7 @@
       },
       {
         "date": "2026-04-07",
-        "close": 110.64
+        "close": 110.97
       }
     ],
     "CL=F": [
@@ -288,7 +280,7 @@
       },
       {
         "date": "2026-04-07",
-        "close": 115.08
+        "close": 115.71
       }
     ],
     "NG=F": [
@@ -390,7 +382,7 @@
       },
       {
         "date": "2026-04-07",
-        "close": 2.82
+        "close": 2.84
       }
     ],
     "2222.SR": [
@@ -635,128 +627,6 @@
       {
         "date": "2026-04-06",
         "close": 36.48
-      }
-    ],
-    "STNG": [
-      {
-        "date": "2026-02-23",
-        "close": 71.8
-      },
-      {
-        "date": "2026-02-24",
-        "close": 73.37
-      },
-      {
-        "date": "2026-02-25",
-        "close": 73.8
-      },
-      {
-        "date": "2026-02-26",
-        "close": 77.01
-      },
-      {
-        "date": "2026-02-27",
-        "close": 79.08
-      },
-      {
-        "date": "2026-03-02",
-        "close": 78.28
-      },
-      {
-        "date": "2026-03-03",
-        "close": 79.41
-      },
-      {
-        "date": "2026-03-04",
-        "close": 80.19
-      },
-      {
-        "date": "2026-03-05",
-        "close": 78.72
-      },
-      {
-        "date": "2026-03-06",
-        "close": 76.85
-      },
-      {
-        "date": "2026-03-09",
-        "close": 76.28
-      },
-      {
-        "date": "2026-03-10",
-        "close": 75.29
-      },
-      {
-        "date": "2026-03-11",
-        "close": 73.26
-      },
-      {
-        "date": "2026-03-12",
-        "close": 67.42
-      },
-      {
-        "date": "2026-03-13",
-        "close": 66.39
-      },
-      {
-        "date": "2026-03-16",
-        "close": 68.42
-      },
-      {
-        "date": "2026-03-17",
-        "close": 66.3
-      },
-      {
-        "date": "2026-03-18",
-        "close": 68.56
-      },
-      {
-        "date": "2026-03-19",
-        "close": 69.16
-      },
-      {
-        "date": "2026-03-20",
-        "close": 67.98
-      },
-      {
-        "date": "2026-03-23",
-        "close": 70.68
-      },
-      {
-        "date": "2026-03-24",
-        "close": 75.12
-      },
-      {
-        "date": "2026-03-25",
-        "close": 72.39
-      },
-      {
-        "date": "2026-03-26",
-        "close": 73.91
-      },
-      {
-        "date": "2026-03-27",
-        "close": 75.71
-      },
-      {
-        "date": "2026-03-30",
-        "close": 73.66
-      },
-      {
-        "date": "2026-03-31",
-        "close": 74.66
-      },
-      {
-        "date": "2026-04-01",
-        "close": 74.1
-      },
-      {
-        "date": "2026-04-02",
-        "close": 76.43
-      },
-      {
-        "date": "2026-04-06",
-        "close": 76.54
       }
     ],
     "RTX": [
@@ -1241,8 +1111,8 @@
     ]
   },
   "gulf": {
-    "ships": 0,
+    "ships": 5,
     "tankers": 0,
-    "sampled_at": "2026-04-07T12:30:37Z"
+    "sampled_at": "2026-04-07T12:58:34Z"
   }
 }
