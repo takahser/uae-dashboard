@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-03T08:48:45.443Z",
+  "lastUpdated": "2026-04-07T08:25:31.197Z",
   "sources": {
     "modgovae": {
       "lastTweetId": "2036027164290605338"
@@ -9,19 +9,20 @@
   "cumulative": {
     "ballisticDetected": 455,
     "ballisticIntercepted": 403,
-    "ballisticEngaged": 105,
+    "ballisticEngaged": 135,
     "ballisticImpacted": 3,
     "cruiseDetected": 19,
     "cruiseIntercepted": 19,
+    "cruiseEngaged": 6,
     "cruiseImpacted": 0,
     "dronesDetected": 1983,
     "dronesIntercepted": 1833,
-    "dronesEngaged": 249,
+    "dronesEngaged": 315,
     "dronesImpacted": 63,
     "killed": 1,
     "injured": 13,
-    "ballistic": 560,
-    "drones": 2232,
+    "ballistic": 590,
+    "drones": 2298,
     "killedMilitary": 2,
     "killedCivilian": 6,
     "ballisticSea": 20,
@@ -547,6 +548,26 @@
       "dronesIntercepted": 26,
       "dronesEngaged": 26,
       "total": 45
+    },
+    {
+      "date": "2026-04-03",
+      "label": "3 Apr",
+      "source": "https://x.com/modgovae/status/2040027344208068616",
+      "reportingType": "engaged",
+      "ballisticEngaged": 18,
+      "cruiseEngaged": 4,
+      "dronesEngaged": 47,
+      "total": 69
+    },
+    {
+      "date": "2026-04-06",
+      "label": "6 Apr",
+      "source": "https://x.com/modgovae/status/2041109819403510170",
+      "reportingType": "engaged",
+      "ballisticEngaged": 12,
+      "cruiseEngaged": 2,
+      "dronesEngaged": 19,
+      "total": 33
     }
   ]
 }
