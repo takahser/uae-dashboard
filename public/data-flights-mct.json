@@ -5,10 +5,10 @@
   "statusNote": "Operational with reduced traffic",
   "lastVerified": "2026-03-15",
   "source": "Oman MoD statements",
-  "todayArrivals": 132,
-  "todayDepartures": 137,
-  "todayTotal": 269,
-  "todayFetched": "2026-04-07T08:26:18.146Z",
+  "todayArrivals": 145,
+  "todayDepartures": 153,
+  "todayTotal": 298,
+  "todayFetched": "2026-04-08T08:24:44.594Z",
   "daily": [
     {
       "date": "2026-02-18",
@@ -748,9 +748,19 @@
     },
     {
       "date": "2026-04-07",
-      "departures": 137,
-      "arrivals": 132,
-      "total": 269,
+      "departures": 48,
+      "arrivals": 50,
+      "total": 98,
+      "regions": {},
+      "flights": [],
+      "corrected": true,
+      "correctedAt": "2026-04-08T08:24:03.162Z"
+    },
+    {
+      "date": "2026-04-08",
+      "departures": 153,
+      "arrivals": 145,
+      "total": 298,
       "regions": {},
       "flights": []
     }
