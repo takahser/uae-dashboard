@@ -1,28 +1,28 @@
 {
-  "updated": "2026-04-08T12:57:55Z",
+  "updated": "2026-04-08T13:41:23Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 91.37,
-      "change": -17.9,
-      "changePercent": -16.38,
+      "price": 91.73,
+      "change": -17.54,
+      "changePercent": -16.05,
       "previousClose": 109.27
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 92.65,
-      "change": -20.3,
-      "changePercent": -17.97,
+      "price": 93.45,
+      "change": -19.5,
+      "changePercent": -17.26,
       "previousClose": 112.95
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.76,
-      "change": -0.11,
-      "changePercent": -3.83,
+      "price": 2.74,
+      "change": -0.13,
+      "changePercent": -4.53,
       "previousClose": 2.87
     },
     "2222.SR": {
@@ -36,34 +36,34 @@
     "FRO": {
       "symbol": "FRO",
       "name": "Frontline",
-      "price": 34.98,
-      "change": -1.5,
-      "changePercent": -4.11,
-      "previousClose": 36.48
+      "price": 35.49,
+      "change": 0.5,
+      "changePercent": 1.43,
+      "previousClose": 34.99
     },
     "STNG": {
       "symbol": "STNG",
       "name": "Scorpio Tankers",
-      "price": 74.36,
-      "change": -2.18,
-      "changePercent": -2.85,
-      "previousClose": 76.54
+      "price": 74.28,
+      "change": -0.09,
+      "changePercent": -0.12,
+      "previousClose": 74.37
     },
     "RTX": {
       "symbol": "RTX",
       "name": "RTX Corp",
-      "price": 197.92,
-      "change": -0.49,
-      "changePercent": -0.25,
-      "previousClose": 198.41
+      "price": 199.64,
+      "change": 1.74,
+      "changePercent": 0.88,
+      "previousClose": 197.9
     },
     "LMT": {
       "symbol": "LMT",
       "name": "Lockheed Martin",
-      "price": 627.7,
-      "change": -10.2,
-      "changePercent": -1.6,
-      "previousClose": 637.9
+      "price": 612.73,
+      "change": -14.94,
+      "changePercent": -2.38,
+      "previousClose": 627.67
     },
     "DUBAI": {
       "symbol": "DUBAI",
@@ -186,7 +186,7 @@
       },
       {
         "date": "2026-04-08",
-        "close": 91.37
+        "close": 91.73
       }
     ],
     "CL=F": [
@@ -288,7 +288,7 @@
       },
       {
         "date": "2026-04-08",
-        "close": 92.63
+        "close": 93.45
       }
     ],
     "NG=F": [
@@ -390,7 +390,7 @@
       },
       {
         "date": "2026-04-08",
-        "close": 2.76
+        "close": 2.74
       }
     ],
     "2222.SR": [
@@ -517,10 +517,6 @@
     ],
     "FRO": [
       {
-        "date": "2026-02-24",
-        "close": 36.52
-      },
-      {
         "date": "2026-02-25",
         "close": 36.46
       },
@@ -635,13 +631,13 @@
       {
         "date": "2026-04-07",
         "close": 34.98
+      },
+      {
+        "date": "2026-04-08",
+        "close": 35.49
       }
     ],
     "STNG": [
-      {
-        "date": "2026-02-24",
-        "close": 73.37
-      },
       {
         "date": "2026-02-25",
         "close": 73.8
@@ -757,13 +753,13 @@
       {
         "date": "2026-04-07",
         "close": 74.36
+      },
+      {
+        "date": "2026-04-08",
+        "close": 74.28
       }
     ],
     "RTX": [
-      {
-        "date": "2026-02-24",
-        "close": 198.46
-      },
       {
         "date": "2026-02-25",
         "close": 195.98
@@ -879,13 +875,13 @@
       {
         "date": "2026-04-07",
         "close": 197.92
+      },
+      {
+        "date": "2026-04-08",
+        "close": 199.57
       }
     ],
     "LMT": [
-      {
-        "date": "2026-02-24",
-        "close": 664.43
-      },
       {
         "date": "2026-02-25",
         "close": 647.5
@@ -1001,6 +997,10 @@
       {
         "date": "2026-04-07",
         "close": 627.7
+      },
+      {
+        "date": "2026-04-08",
+        "close": 612.72
       }
     ],
     "DUBAI": [
@@ -1251,6 +1251,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-04-08T12:57:46Z"
+    "sampled_at": "2026-04-08T13:41:14Z"
   }
 }
