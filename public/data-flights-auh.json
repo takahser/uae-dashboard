@@ -5,10 +5,10 @@
   "statusNote": "Operational — no closure reported",
   "lastVerified": "2026-03-15",
   "source": "UAE MoD statements",
-  "todayArrivals": 219,
+  "todayArrivals": 227,
   "todayDepartures": 235,
-  "todayTotal": 454,
-  "todayFetched": "2026-04-08T08:24:40.648Z",
+  "todayTotal": 462,
+  "todayFetched": "2026-04-09T08:31:12.030Z",
   "daily": [
     {
       "date": "2026-02-18",
@@ -752,9 +752,19 @@
     },
     {
       "date": "2026-04-08",
+      "departures": 59,
+      "arrivals": 54,
+      "total": 113,
+      "regions": {},
+      "flights": [],
+      "corrected": true,
+      "correctedAt": "2026-04-09T08:30:30.900Z"
+    },
+    {
+      "date": "2026-04-09",
       "departures": 235,
-      "arrivals": 219,
-      "total": 454,
+      "arrivals": 227,
+      "total": 462,
       "regions": {},
       "flights": []
     }
