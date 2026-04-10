@@ -734,7 +734,133 @@
       },
       "correctedAt": "2026-04-09T08:30:36.912Z",
       "reason": "day-before-correction"
+    },
+    {
+      "iata": "DXB",
+      "date": "2026-04-09",
+      "old": {
+        "departures": 394,
+        "arrivals": 399,
+        "total": 793
+      },
+      "new": {
+        "departures": 250,
+        "arrivals": 238,
+        "total": 488
+      },
+      "delta": {
+        "departures": -144,
+        "arrivals": -161,
+        "total": -305
+      },
+      "correctedAt": "2026-04-10T08:30:17.736Z",
+      "reason": "day-before-correction"
+    },
+    {
+      "iata": "AUH",
+      "date": "2026-04-09",
+      "old": {
+        "departures": 235,
+        "arrivals": 227,
+        "total": 462
+      },
+      "new": {
+        "departures": 73,
+        "arrivals": 71,
+        "total": 144
+      },
+      "delta": {
+        "departures": -162,
+        "arrivals": -156,
+        "total": -318
+      },
+      "correctedAt": "2026-04-10T08:30:19.168Z",
+      "reason": "day-before-correction"
+    },
+    {
+      "iata": "DWC",
+      "date": "2026-04-09",
+      "old": {
+        "departures": 45,
+        "arrivals": 47,
+        "total": 92
+      },
+      "new": {
+        "departures": 7,
+        "arrivals": 5,
+        "total": 12
+      },
+      "delta": {
+        "departures": -38,
+        "arrivals": -42,
+        "total": -80
+      },
+      "correctedAt": "2026-04-10T08:30:20.680Z",
+      "reason": "day-before-correction"
+    },
+    {
+      "iata": "MCT",
+      "date": "2026-04-09",
+      "old": {
+        "departures": 155,
+        "arrivals": 152,
+        "total": 307
+      },
+      "new": {
+        "departures": 57,
+        "arrivals": 54,
+        "total": 111
+      },
+      "delta": {
+        "departures": -98,
+        "arrivals": -98,
+        "total": -196
+      },
+      "correctedAt": "2026-04-10T08:30:22.187Z",
+      "reason": "day-before-correction"
+    },
+    {
+      "iata": "DOH",
+      "date": "2026-04-09",
+      "old": {
+        "departures": 229,
+        "arrivals": 250,
+        "total": 479
+      },
+      "new": {
+        "departures": 33,
+        "arrivals": 50,
+        "total": 83
+      },
+      "delta": {
+        "departures": -196,
+        "arrivals": -200,
+        "total": -396
+      },
+      "correctedAt": "2026-04-10T08:30:23.680Z",
+      "reason": "day-before-correction"
+    },
+    {
+      "iata": "TLV",
+      "date": "2026-04-09",
+      "old": {
+        "departures": 82,
+        "arrivals": 99,
+        "total": 181
+      },
+      "new": {
+        "departures": 21,
+        "arrivals": 31,
+        "total": 52
+      },
+      "delta": {
+        "departures": -61,
+        "arrivals": -68,
+        "total": -129
+      },
+      "correctedAt": "2026-04-10T08:30:25.173Z",
+      "reason": "day-before-correction"
     }
   ],
-  "lastPruned": "2026-04-09T08:30:36.913Z"
+  "lastPruned": "2026-04-10T08:30:25.174Z"
 }
