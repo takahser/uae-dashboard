@@ -1,28 +1,28 @@
 {
-  "updated": "2026-04-10T10:29:38Z",
+  "updated": "2026-04-10T10:55:03Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 96.9,
-      "change": 0.98,
-      "changePercent": 1.02,
+      "price": 95.93,
+      "change": 0.01,
+      "changePercent": 0.01,
       "previousClose": 95.92
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 98.79,
-      "change": 0.92,
-      "changePercent": 0.94,
+      "price": 98.01,
+      "change": 0.14,
+      "changePercent": 0.14,
       "previousClose": 97.87
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.68,
-      "change": 0.01,
-      "changePercent": 0.37,
+      "price": 2.67,
+      "change": -0.0,
+      "changePercent": -0.0,
       "previousClose": 2.67
     },
     "2222.SR": {
@@ -69,9 +69,9 @@
       "symbol": "DUBAI",
       "name": "Dubai Crude",
       "price": 102.7,
-      "change": -1.45,
-      "changePercent": -1.39,
-      "previousClose": 104.15,
+      "change": 0.0,
+      "changePercent": 0.0,
+      "previousClose": 102.7,
       "note": "Dubai crude \u2014 oilprice.com (1-day delay)",
       "source": "oilprice.com"
     },
@@ -186,7 +186,7 @@
       },
       {
         "date": "2026-04-10",
-        "close": 96.9
+        "close": 95.93
       }
     ],
     "CL=F": [
@@ -288,7 +288,7 @@
       },
       {
         "date": "2026-04-10",
-        "close": 98.79
+        "close": 98.01
       }
     ],
     "NG=F": [
@@ -390,7 +390,7 @@
       },
       {
         "date": "2026-04-10",
-        "close": 2.68
+        "close": 2.67
       }
     ],
     "2222.SR": [
@@ -1267,6 +1267,6 @@
   "gulf": {
     "ships": 1,
     "tankers": 0,
-    "sampled_at": "2026-04-10T10:29:30Z"
+    "sampled_at": "2026-04-10T10:54:53Z"
   }
 }
