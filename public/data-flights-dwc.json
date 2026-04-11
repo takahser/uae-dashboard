@@ -8,7 +8,7 @@
   "todayArrivals": 46,
   "todayDepartures": 51,
   "todayTotal": 97,
-  "todayFetched": "2026-04-10T08:31:08.276Z",
+  "todayFetched": "2026-04-11T08:12:06.840Z",
   "daily": [
     {
       "date": "2026-02-18",
@@ -673,6 +673,16 @@
     },
     {
       "date": "2026-04-10",
+      "departures": 1,
+      "arrivals": 2,
+      "total": 3,
+      "regions": {},
+      "flights": [],
+      "corrected": true,
+      "correctedAt": "2026-04-11T08:11:42.366Z"
+    },
+    {
+      "date": "2026-04-11",
       "departures": 51,
       "arrivals": 46,
       "total": 97,
