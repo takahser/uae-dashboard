@@ -661,6 +661,21 @@
       "source": "dohahamadairport.com"
     },
     {
+      "date": "2026-04-03",
+      "total": 161,
+      "departures": 80,
+      "arrivals": 81,
+      "regions": {
+        "Middle East": 11,
+        "Europe": 39,
+        "Africa": 24,
+        "South Asia": 49,
+        "Asia-Pacific": 28,
+        "Americas": 10
+      },
+      "source": "aerodatabox"
+    },
+    {
       "date": "2026-04-04",
       "departures": 21,
       "arrivals": 39,
@@ -742,11 +757,11 @@
     },
     {
       "date": "2026-04-12",
-      "departures": 212,
-      "arrivals": 238,
-      "total": 450,
-      "regions": {},
-      "flights": []
+      "departures": 185,
+      "arrivals": 174,
+      "total": 359,
+      "source": "dohahamadairport.com",
+      "regions": {}
     }
   ],
   "baselineDailyAvg": {
