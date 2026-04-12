@@ -29,6 +29,13 @@ const EVENT_SHORT_LABELS = {
   toll: 'Toll',
 };
 
+const MILESTONES = [
+  { date: '2026-02-28', label: 'War start', shortLabel: 'War', colour: '#EF4444' },
+  { date: '2026-03-01', label: 'Hormuz disruption', shortLabel: 'Hormuz', colour: '#F59E0B' },
+  { date: '2026-03-20', label: 'Vetted transits begin', shortLabel: 'Vetted', colour: '#8B5CF6' },
+  { date: '2026-03-22', label: 'Iran IMO policy', shortLabel: 'IMO', colour: '#3B82F6' },
+];
+
 function getStatusEvents(data) {
   const events = [];
   for (let i = 1; i < data.length; i++) {
@@ -57,6 +64,25 @@ function EventLabel({ viewBox, events }) {
     <g>
       <rect x={x} y={y - 10} width={textLen} height={16} rx={4} fill={`${colour}33`} />
       <text x={x + textLen / 2} y={y} textAnchor="middle" fill={colour} fontSize={10} fontWeight={600}>{text}</text>
+    </g>
+  );
+}
+
+function MilestoneLabel({ viewBox, label, shortLabel, colour }) {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+  const text = isMobile ? shortLabel : label;
+  return (
+    <g>
+      <text
+        x={viewBox.x}
+        y={8}
+        fill={colour}
+        fontSize={10}
+        fontWeight={600}
+        textAnchor="middle"
+      >
+        {text}
+      </text>
     </g>
   );
 }
@@ -486,6 +512,16 @@ export default function HormuzView({ onBack }) {
                   />
                 );
               })}
+              {MILESTONES.map(m => (
+                <ReferenceLine
+                  key={`milestone-${m.date}`}
+                  x={m.date.slice(5)}
+                  stroke={m.colour}
+                  strokeDasharray="2 6"
+                  strokeOpacity={0.5}
+                  label={<MilestoneLabel label={m.label} shortLabel={m.shortLabel} colour={m.colour} />}
+                />
+              ))}
               <Line type="monotone" dataKey="ships" stroke={ACCENT} strokeWidth={2} dot={false} />
               <Line type="monotone" dataKey="tankers" stroke="#4a9eff" strokeWidth={2} dot={false} />
             </LineChart>

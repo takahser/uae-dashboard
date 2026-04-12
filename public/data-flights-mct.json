@@ -4,11 +4,11 @@
   "status": "open",
   "statusNote": "Operational with reduced traffic",
   "lastVerified": "2026-03-15",
-  "source": "Oman MoD statements",
-  "todayArrivals": 145,
-  "todayDepartures": 153,
-  "todayTotal": 298,
-  "todayFetched": "2026-04-08T08:24:44.594Z",
+  "source": "muscatairport.co.om",
+  "todayArrivals": 138,
+  "todayDepartures": 138,
+  "todayTotal": 276,
+  "todayFetched": "2026-04-12T08:17:09.666Z",
   "daily": [
     {
       "date": "2026-02-18",
@@ -758,19 +758,73 @@
     },
     {
       "date": "2026-04-08",
-      "departures": 153,
-      "arrivals": 145,
-      "total": 298,
+      "departures": 54,
+      "arrivals": 52,
+      "total": 106,
       "regions": {},
-      "flights": []
+      "flights": [],
+      "corrected": true,
+      "correctedAt": "2026-04-09T08:30:33.895Z"
+    },
+    {
+      "date": "2026-04-09",
+      "departures": 57,
+      "arrivals": 54,
+      "total": 111,
+      "regions": {},
+      "flights": [],
+      "corrected": true,
+      "correctedAt": "2026-04-10T08:30:22.187Z"
+    },
+    {
+      "date": "2026-04-10",
+      "departures": 51,
+      "arrivals": 49,
+      "total": 100,
+      "regions": {},
+      "flights": [],
+      "corrected": true,
+      "correctedAt": "2026-04-11T08:11:43.892Z"
+    },
+    {
+      "date": "2026-04-11",
+      "departures": 55,
+      "arrivals": 51,
+      "total": 106,
+      "regions": {},
+      "flights": [],
+      "corrected": true,
+      "correctedAt": "2026-04-12T08:16:41.956Z"
+    },
+    {
+      "date": "2026-04-12",
+      "departures": 138,
+      "arrivals": 138,
+      "total": 276,
+      "regions": {
+        "Africa": 8,
+        "South Asia": 60,
+        "Asia-Pacific": 6,
+        "Middle East": 68,
+        "Unknown": 23,
+        "Europe": 16
+      },
+      "source": "muscatairport.co.om"
     }
   ],
   "baselineDailyAvg": {
-    "total": 0,
-    "departures": 0,
-    "arrivals": 0,
-    "regions": {}
+    "total": 211,
+    "departures": 107,
+    "arrivals": 104,
+    "regions": {
+      "South Asia": 71,
+      "Middle East": 104,
+      "Europe": 17,
+      "Unknown": 6,
+      "Asia-Pacific": 4,
+      "Africa": 9
+    }
   },
-  "lastUpdated": "2026-04-02T09:09:22.590Z",
+  "lastUpdated": "2026-04-12T08:16:56.190Z",
   "preConflictAvg": 211
 }

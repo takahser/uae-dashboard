@@ -13,6 +13,7 @@
 import { readFileSync, writeFileSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
+import { classifyRegion } from "./lib/regions.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -44,19 +45,6 @@ async function getToken() {
   if (!res.ok) throw new Error(`Token request failed: ${res.status}`);
   const data = await res.json();
   return data.access_token;
-}
-
-function classifyRegion(icao) {
-  if (!icao) return "Unknown";
-  const p = icao.slice(0, 2);
-  const c = icao[0];
-  if (["VA","VE","VI","VO","VT","VG","VC","VN","VQ","OP"].includes(p)) return "South Asia";
-  if (c === "O") return "Middle East";
-  if ("ELUB".includes(c)) return "Europe";
-  if ("ZRWY".includes(c) || c === "V") return "Asia-Pacific";
-  if ("DFGH".includes(c)) return "Africa";
-  if ("KCMSTP".includes(c)) return "Americas";
-  return "Other";
 }
 
 async function fetchFlights(token, airport, direction, dateStr) {

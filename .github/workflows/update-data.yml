@@ -60,6 +60,10 @@ jobs:
         run: node scripts/fetch-flights-mct-doh.js
         continue-on-error: true
 
+      - name: Fetch MCT official flight data
+        run: node scripts/fetch-flights-mct-official.js
+        continue-on-error: true
+
       - name: Fetch flight data via FR24 (DXB, DWC, AUH, MCT, DOH)
         run: node scripts/fetch-flights-fr24.js
         continue-on-error: true
