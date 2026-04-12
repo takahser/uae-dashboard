@@ -28,6 +28,19 @@ pre-April 2026 historical data.
 | 1 | AeroDataBox (Production) | 43.1% | DXB, AUH, DOH, JED | 25 |
 | 2 | OpenSky | 82.1% | DXB, DOH | 19 |
 
+### Max Discrepancy Analysis (Over vs Undercounting)
+
+| Airport | API | Max Overcount | Date | Max Undercount | Date |
+|---------|-----|---------------|------|----------------|------|
+| DXB | AeroDataBox | +55.8% | 2026-04-12 | -1.4% | 2026-04-07 |
+| DXB | OpenSky | N/A (no over) | - | -92.6% | 2026-04-11 |
+| AUH | AeroDataBox | +100.0% | 2026-04-12 | -53.8% | 2026-04-04 |
+| DOH | AeroDataBox | +25.3% | 2026-04-12 | -84.8% | 2026-04-07 |
+| DOH | OpenSky | N/A (no over) | - | -96.1% | 2026-04-05 |
+| JED | AeroDataBox | N/A (no over) | - | -37.2% | 2026-04-03 |
+
+**Note:** Positive % = overcount (API > Ground Truth), Negative % = undercount (API < Ground Truth)
+
 ---
 
 ## Per-Airport Analysis
@@ -84,6 +97,17 @@ pre-April 2026 historical data.
 | 2026-04-11 | 489 | dubaiairports.ae... | 36 | 92.6% | undercount | 484 | 1.0% | undercount |
 | 2026-04-12 | 491 | dubaiairports.ae... | - | - | - | 765 | 55.8% | overcount |
 
+#### Visual Analysis
+
+**Daily Flight Counts Comparison:**
+![DXB Bar Chart](diagrams/DXB-bar-chart.svg)
+
+**Discrepancy Percentages:**
+![DXB Discrepancy Chart](diagrams/DXB-discrepancy-chart.svg)
+
+**Flight Count Trends:**
+![DXB Trend Chart](diagrams/DXB-trend-chart.svg)
+
 ---
 
 ### AUH (Abu Dhabi Intl (AUH))
@@ -123,6 +147,17 @@ pre-April 2026 historical data.
 | 2026-04-07 | 247 | zayedinternationalai... | - | - | - | 119 | 51.8% | undercount |
 | 2026-04-08 | 231 | zayedinternationalai... | - | - | - | 113 | 51.1% | undercount |
 | 2026-04-12 | 0 | zayedinternationalai... | - | - | - | 433 | 100.0% | overcount |
+
+#### Visual Analysis
+
+**Daily Flight Counts Comparison:**
+![AUH Bar Chart](diagrams/AUH-bar-chart.svg)
+
+**Discrepancy Percentages:**
+![AUH Discrepancy Chart](diagrams/AUH-discrepancy-chart.svg)
+
+**Flight Count Trends:**
+![AUH Trend Chart](diagrams/AUH-trend-chart.svg)
 
 ---
 
@@ -201,6 +236,17 @@ This could mean:
 | 2026-04-11 | 358 | dohahamadairport.com... | 44 | 87.7% | undercount | 92 | 74.3% | undercount |
 | 2026-04-12 | 359 | dohahamadairport.com... | - | - | - | 450 | 25.3% | overcount |
 
+#### Visual Analysis
+
+**Daily Flight Counts Comparison:**
+![DOH Bar Chart](diagrams/DOH-bar-chart.svg)
+
+**Discrepancy Percentages:**
+![DOH Discrepancy Chart](diagrams/DOH-discrepancy-chart.svg)
+
+**Flight Count Trends:**
+![DOH Trend Chart](diagrams/DOH-trend-chart.svg)
+
 ---
 
 ### TLV (Ben Gurion Intl (TLV))
@@ -247,6 +293,17 @@ This could mean:
 | Date | Ground Truth | Source | OpenSky | Δ% | Direction | Prod/Aero | Δ% | Direction |
 |------|--------------|--------|---------|-----|-----------|-----------|-----|-----------|
 | 2026-04-03 | 1223 | kaia.sa... | - | - | - | 768 | 37.2% | undercount |
+
+#### Visual Analysis
+
+**Daily Flight Counts Comparison:**
+![JED Bar Chart](diagrams/JED-bar-chart.svg)
+
+**Discrepancy Percentages:**
+![JED Discrepancy Chart](diagrams/JED-discrepancy-chart.svg)
+
+**Flight Count Trends:**
+![JED Trend Chart](diagrams/JED-trend-chart.svg)
 
 ---
 
