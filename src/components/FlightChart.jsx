@@ -103,6 +103,10 @@ export default function FlightChart() {
     }
     return Object.fromEntries(CHART_AIRPORTS.map(a => [a.key, FULL_DATA_AIRPORTS.has(a.key)]));
   });
+  // DWC (Al Maktoum) is Dubai's primary cargo hub. None of our data sources
+  // (AeroDataBox, OpenSky, FR24) provide cargo vs passenger breakdown per flight.
+  // So we treat "cargo" as toggling DWC airport entirely, which is the best
+  // approximation given available data.
   const [includeCargo, setIncludeCargo] = useState(false);
   const [cancelVisible, setCancelVisible] = useState(
     Object.fromEntries(CHART_AIRPORTS.map(a => [a.key, true]))
@@ -236,7 +240,7 @@ export default function FlightChart() {
             onChange={(e) => setIncludeCargo(e.target.checked)}
             style={{ accentColor: '#3B82F6' }}
           />
-          Include cargo
+          Include DWC (cargo hub)
         </label>
       </div>
 
