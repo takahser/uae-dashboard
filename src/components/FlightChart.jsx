@@ -137,6 +137,7 @@ export default function FlightChart() {
     const dateMap = {};
     for (const a of CHART_AIRPORTS) {
       if (limitedAirports.includes(a.key)) continue;
+      if (a.key === 'DWC' && !includeCargo) continue;
       for (const pt of (airportData[a.key] || [])) {
         if (!dateMap[pt.date]) dateMap[pt.date] = { date: pt.date };
         dateMap[pt.date][`${a.key}_dep`] = pt.departures;
@@ -156,7 +157,7 @@ export default function FlightChart() {
       rows = rows.filter(row => row.date >= cutoffStr);
     }
     return rows;
-  }, [airportData, timeframe, limitedAirports]);
+  }, [airportData, timeframe, limitedAirports, includeCargo]);
 
   const cancellationData = useMemo(() => {
     const dateMap = {};
@@ -294,7 +295,7 @@ export default function FlightChart() {
                 strokeWidth={2}
                 dot={renderTodayDot(a.color)}
                 connectNulls
-                hide={!visible[a.key]}
+                hide={!visible[a.key] || (a.key === 'DWC' && !includeCargo)}
               />
             ) : [
               <Line
@@ -306,7 +307,7 @@ export default function FlightChart() {
                 strokeWidth={2}
                 dot={renderTodayDot(a.color)}
                 connectNulls
-                hide={!visible[a.key]}
+                hide={!visible[a.key] || (a.key === 'DWC' && !includeCargo)}
               />,
               <Line
                 key={`${a.key}_arr`}
@@ -318,7 +319,7 @@ export default function FlightChart() {
                 strokeDasharray="5 3"
                 dot={renderTodayDot(a.color)}
                 connectNulls
-                hide={!visible[a.key]}
+                hide={!visible[a.key] || (a.key === 'DWC' && !includeCargo)}
               />,
             ]
           )}
