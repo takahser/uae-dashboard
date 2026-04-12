@@ -4,7 +4,7 @@
   "status": "open",
   "statusNote": "Operational with reduced traffic",
   "lastVerified": "2026-03-15",
-  "source": "Oman MoD statements",
+  "source": "muscatairport.co.om",
   "todayArrivals": 141,
   "todayDepartures": 148,
   "todayTotal": 289,
@@ -793,14 +793,36 @@
       "total": 289,
       "regions": {},
       "flights": []
+    },
+    {
+      "date": "2026-04-12",
+      "departures": 90,
+      "arrivals": 91,
+      "total": 181,
+      "regions": {
+        "Africa": 8,
+        "South Asia": 60,
+        "Asia-Pacific": 6,
+        "Middle East": 68,
+        "Unknown": 23,
+        "Europe": 16
+      },
+      "source": "muscatairport.co.om"
     }
   ],
   "baselineDailyAvg": {
-    "total": 0,
-    "departures": 0,
-    "arrivals": 0,
-    "regions": {}
+    "total": 211,
+    "departures": 107,
+    "arrivals": 104,
+    "regions": {
+      "South Asia": 71,
+      "Middle East": 104,
+      "Europe": 17,
+      "Unknown": 6,
+      "Asia-Pacific": 4,
+      "Africa": 9
+    }
   },
-  "lastUpdated": "2026-04-02T09:09:22.590Z",
+  "lastUpdated": "2026-04-11T21:37:18.020Z",
   "preConflictAvg": 211
 }
