@@ -18,28 +18,15 @@ pre-April 2026 historical data.
 |---------|----------|-----------------|------|-------------|----------------|
 | DXB (Dubai International (DXB)) | AeroDataBox/Prod | 6.6% | chronically overcounts | 10 | Use with ÷1.06 correction |
 | AUH (Abu Dhabi Intl (AUH)) | AeroDataBox/Prod | 61.6% | chronically undercounts | 5 | Use with ×1.52 correction |
-| DOH (Hamad Intl (DOH)) | AeroDataBox/Prod | 74.0% | chronically undercounts | 9 | Use with ×1.68 correction |
-| JED (Jeddah (JED)) | AeroDataBox/Prod | 37.2% | chronically undercounts | 1 | Use with ×1.37 correction |
+| DOH (Hamad Intl (DOH)) | AeroDataBox/Prod | 77.0% | chronically undercounts | 9 | Use with ×1.77 correction |
+| JED (Jeddah (JED)) | AeroDataBox/Prod | 39.1% | chronically undercounts | 10 | Use with ×1.39 correction |
 
 ### Overall API Accuracy Ranking
 
 | Rank | API Source | Avg Discrepancy | Airports Covered | Data Points |
 |------|------------|-----------------|------------------|-------------|
-| 1 | AeroDataBox (Production) | 43.1% | DXB, AUH, DOH, JED | 25 |
+| 1 | AeroDataBox (Production) | 42.9% | DXB, AUH, DOH, JED | 34 |
 | 2 | OpenSky | 82.1% | DXB, DOH | 19 |
-
-### Max Discrepancy Analysis (Over vs Undercounting)
-
-| Airport | API | Max Overcount | Date | Max Undercount | Date |
-|---------|-----|---------------|------|----------------|------|
-| DXB | AeroDataBox | +55.8% | 2026-04-12 | -1.4% | 2026-04-07 |
-| DXB | OpenSky | N/A (no over) | - | -92.6% | 2026-04-11 |
-| AUH | AeroDataBox | +100.0% | 2026-04-12 | -53.8% | 2026-04-04 |
-| DOH | AeroDataBox | +25.3% | 2026-04-12 | -84.8% | 2026-04-07 |
-| DOH | OpenSky | N/A (no over) | - | -96.1% | 2026-04-05 |
-| JED | AeroDataBox | N/A (no over) | - | -37.2% | 2026-04-03 |
-
-**Note:** Positive % = overcount (API > Ground Truth), Negative % = undercount (API < Ground Truth)
 
 ---
 
@@ -97,17 +84,6 @@ pre-April 2026 historical data.
 | 2026-04-11 | 489 | dubaiairports.ae... | 36 | 92.6% | undercount | 484 | 1.0% | undercount |
 | 2026-04-12 | 491 | dubaiairports.ae... | - | - | - | 765 | 55.8% | overcount |
 
-#### Visual Analysis
-
-**Daily Flight Counts Comparison:**
-![DXB Bar Chart](diagrams/DXB-bar-chart.svg)
-
-**Discrepancy Percentages:**
-![DXB Discrepancy Chart](diagrams/DXB-discrepancy-chart.svg)
-
-**Flight Count Trends:**
-![DXB Trend Chart](diagrams/DXB-trend-chart.svg)
-
 ---
 
 ### AUH (Abu Dhabi Intl (AUH))
@@ -148,17 +124,6 @@ pre-April 2026 historical data.
 | 2026-04-08 | 231 | zayedinternationalai... | - | - | - | 113 | 51.1% | undercount |
 | 2026-04-12 | 0 | zayedinternationalai... | - | - | - | 433 | 100.0% | overcount |
 
-#### Visual Analysis
-
-**Daily Flight Counts Comparison:**
-![AUH Bar Chart](diagrams/AUH-bar-chart.svg)
-
-**Discrepancy Percentages:**
-![AUH Discrepancy Chart](diagrams/AUH-discrepancy-chart.svg)
-
-**Flight Count Trends:**
-![AUH Trend Chart](diagrams/AUH-trend-chart.svg)
-
 ---
 
 ### DWC (Al Maktoum Intl (DWC))
@@ -185,22 +150,22 @@ This could mean:
 
 ### DOH (Hamad Intl (DOH))
 
-- **Date range compared:** 2026-04-02 to 2026-04-12
-- **Total days compared:** 11
+- **Date range compared:** 2026-04-02 to 2026-04-11
+- **Total days compared:** 10
 - **Third-party APIs available:** OpenSky
 - **Ground truth source:** Official airport website scraper
 
 #### Best Third-Party API: AeroDataBox (Production)
 
-- Average discrepancy: 74.0%
-- Standard deviation: 17.5%
-- Min discrepancy: 25.3%
+- Average discrepancy: 77.0%
+- Standard deviation: 9.2%
+- Min discrepancy: 52.6%
 - Max discrepancy: 84.8%
-- Average signed error: -68.4%
-- Direction: 8 undercount days, 1 overcount days, 0 exact
+- Average signed error: -77.0%
+- Direction: 9 undercount days, 0 overcount days, 0 exact
 - Pattern: chronically undercounts
 
-**Correction Factor:** Multiply AeroDataBox totals by **1.68**
+**Correction Factor:** Multiply AeroDataBox totals by **1.77**
 
 #### OpenSky Detailed Analysis
 
@@ -214,18 +179,18 @@ This could mean:
 #### Production/AeroDataBox Detailed Analysis
 
 - Days compared: 9
-- Average discrepancy: 74.0%
-- Standard deviation: 17.5%
-- Average signed error: -68.4%
-- Pattern: chronically undercounts (8 under, 1 over)
-- **Correction factor for backfill:** Multiply AeroDataBox by 1.68
+- Average discrepancy: 77.0%
+- Standard deviation: 9.2%
+- Average signed error: -77.0%
+- Pattern: chronically undercounts (9 under, 0 over)
+- **Correction factor for backfill:** Multiply AeroDataBox by 1.77
 
 #### Daily Comparison Table
 
 | Date | Ground Truth | Source | OpenSky | Δ% | Direction | Prod/Aero | Δ% | Direction |
 |------|--------------|--------|---------|-----|-----------|-----------|-----|-----------|
 | 2026-04-02 | 356 | dohahamadairport.com... | 58 | 83.7% | undercount | - | - | - |
-| 2026-04-03 | 340 | dohahamadairport.com... | 63 | 81.5% | undercount | - | - | - |
+| 2026-04-03 | 340 | dohahamadairport.com... | 63 | 81.5% | undercount | 161 | 52.6% | undercount |
 | 2026-04-04 | 337 | dohahamadairport.com... | 37 | 89.0% | undercount | 60 | 82.2% | undercount |
 | 2026-04-05 | 334 | dohahamadairport.com... | 13 | 96.1% | undercount | 58 | 82.6% | undercount |
 | 2026-04-06 | 337 | dohahamadairport.com... | 52 | 84.6% | undercount | 57 | 83.1% | undercount |
@@ -234,18 +199,6 @@ This could mean:
 | 2026-04-09 | 377 | dohahamadairport.com... | 56 | 85.1% | undercount | 83 | 78.0% | undercount |
 | 2026-04-10 | 372 | dohahamadairport.com... | 29 | 92.2% | undercount | 88 | 76.3% | undercount |
 | 2026-04-11 | 358 | dohahamadairport.com... | 44 | 87.7% | undercount | 92 | 74.3% | undercount |
-| 2026-04-12 | 359 | dohahamadairport.com... | - | - | - | 450 | 25.3% | overcount |
-
-#### Visual Analysis
-
-**Daily Flight Counts Comparison:**
-![DOH Bar Chart](diagrams/DOH-bar-chart.svg)
-
-**Discrepancy Percentages:**
-![DOH Discrepancy Chart](diagrams/DOH-discrepancy-chart.svg)
-
-**Flight Count Trends:**
-![DOH Trend Chart](diagrams/DOH-trend-chart.svg)
 
 ---
 
@@ -262,48 +215,46 @@ This could mean:
 
 ### JED (Jeddah (JED))
 
-- **Date range compared:** 2026-04-03 to 2026-04-03
-- **Total days compared:** 1
+- **Date range compared:** 2026-04-03 to 2026-04-12
+- **Total days compared:** 10
 - **Third-party APIs available:** None
 - **Ground truth source:** Official airport website scraper
 
 #### Best Third-Party API: AeroDataBox (Production)
 
-- Average discrepancy: 37.2%
-- Standard deviation: 0.0%
-- Min discrepancy: 37.2%
-- Max discrepancy: 37.2%
-- Average signed error: -37.2%
-- Direction: 1 undercount days, 0 overcount days, 0 exact
+- Average discrepancy: 39.1%
+- Standard deviation: 1.9%
+- Min discrepancy: 35.9%
+- Max discrepancy: 42.7%
+- Average signed error: -39.1%
+- Direction: 10 undercount days, 0 overcount days, 0 exact
 - Pattern: chronically undercounts
 
-**Correction Factor:** Multiply AeroDataBox totals by **1.37**
+**Correction Factor:** Multiply AeroDataBox totals by **1.39**
 
 #### Production/AeroDataBox Detailed Analysis
 
-- Days compared: 1
-- Average discrepancy: 37.2%
-- Standard deviation: 0.0%
-- Average signed error: -37.2%
-- Pattern: chronically undercounts (1 under, 0 over)
-- **Correction factor for backfill:** Multiply AeroDataBox by 1.37
+- Days compared: 10
+- Average discrepancy: 39.1%
+- Standard deviation: 1.9%
+- Average signed error: -39.1%
+- Pattern: chronically undercounts (10 under, 0 over)
+- **Correction factor for backfill:** Multiply AeroDataBox by 1.39
 
 #### Daily Comparison Table
 
 | Date | Ground Truth | Source | OpenSky | Δ% | Direction | Prod/Aero | Δ% | Direction |
 |------|--------------|--------|---------|-----|-----------|-----------|-----|-----------|
 | 2026-04-03 | 1223 | kaia.sa... | - | - | - | 768 | 37.2% | undercount |
-
-#### Visual Analysis
-
-**Daily Flight Counts Comparison:**
-![JED Bar Chart](diagrams/JED-bar-chart.svg)
-
-**Discrepancy Percentages:**
-![JED Discrepancy Chart](diagrams/JED-discrepancy-chart.svg)
-
-**Flight Count Trends:**
-![JED Trend Chart](diagrams/JED-trend-chart.svg)
+| 2026-04-04 | 1257 | kaia.sa... | - | - | - | 777 | 38.2% | undercount |
+| 2026-04-05 | 1230 | kaia.sa... | - | - | - | 765 | 37.8% | undercount |
+| 2026-04-06 | 1213 | kaia.sa... | - | - | - | 748 | 38.3% | undercount |
+| 2026-04-07 | 1236 | kaia.sa... | - | - | - | 739 | 40.2% | undercount |
+| 2026-04-08 | 1200 | kaia.sa... | - | - | - | 728 | 39.3% | undercount |
+| 2026-04-09 | 1242 | kaia.sa... | - | - | - | 712 | 42.7% | undercount |
+| 2026-04-10 | 1159 | kaia.sa... | - | - | - | 679 | 41.4% | undercount |
+| 2026-04-11 | 1272 | kaia.sa... | - | - | - | 762 | 40.1% | undercount |
+| 2026-04-12 | 1236 | kaia.sa... | - | - | - | 792 | 35.9% | undercount |
 
 ---
 
@@ -328,9 +279,9 @@ Before April 2026, only 3rd party API data was available (no official airport sc
 | AUH | AeroDataBox | × 1.52 | Medium | Limited | 2026-04-04 to 2026-04-12 |
 | DWC | N/A | N/A | No data | - | - |
 | MCT | N/A | N/A | No data | - | - |
-| DOH | AeroDataBox | × 1.68 | Medium | Limited | 2026-04-04 to 2026-04-12 |
+| DOH | AeroDataBox | × 1.77 | Medium | Limited | 2026-04-03 to 2026-04-11 |
 | TLV | N/A | N/A | No data | - | - |
-| JED | AeroDataBox | × 1.37 | Low | Minimal | 2026-04-03 to 2026-04-03 |
+| JED | AeroDataBox | × 1.39 | High | Good | 2026-04-03 to 2026-04-12 |
 | RUH | N/A | N/A | No data | - | - |
 
 ### Backfill Strategy
@@ -359,4 +310,4 @@ When applying correction factors for pre-April backfill:
 
 ---
 
-*Generated: 2026-04-12T09:32:41.174Z*
+*Generated: 2026-04-12T10:24:30.884Z*
