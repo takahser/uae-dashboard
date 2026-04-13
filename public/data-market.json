@@ -1,28 +1,28 @@
 {
-  "updated": "2026-04-12T23:47:55Z",
+  "updated": "2026-04-13T00:51:56Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 103.53,
-      "change": 8.33,
-      "changePercent": 8.75,
+      "price": 102.77,
+      "change": 7.57,
+      "changePercent": 7.95,
       "previousClose": 95.2
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 105.37,
-      "change": 8.8,
-      "changePercent": 9.11,
+      "price": 104.62,
+      "change": 8.05,
+      "changePercent": 8.34,
       "previousClose": 96.57
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.7,
-      "change": 0.05,
-      "changePercent": 1.89,
+      "price": 2.69,
+      "change": 0.04,
+      "changePercent": 1.51,
       "previousClose": 2.65
     },
     "2222.SR": {
@@ -185,8 +185,8 @@
         "close": 95.2
       },
       {
-        "date": "2026-04-12",
-        "close": 103.53
+        "date": "2026-04-13",
+        "close": 102.77
       }
     ],
     "CL=F": [
@@ -287,8 +287,8 @@
         "close": 96.57
       },
       {
-        "date": "2026-04-12",
-        "close": 105.37
+        "date": "2026-04-13",
+        "close": 104.62
       }
     ],
     "NG=F": [
@@ -389,8 +389,8 @@
         "close": 2.65
       },
       {
-        "date": "2026-04-12",
-        "close": 2.7
+        "date": "2026-04-13",
+        "close": 2.69
       }
     ],
     "2222.SR": [
@@ -509,6 +509,10 @@
       {
         "date": "2026-04-09",
         "close": 27.2
+      },
+      {
+        "date": "2026-04-12",
+        "close": 27.16
       }
     ],
     "FRO": [
@@ -1215,6 +1219,10 @@
       {
         "date": "2026-04-11",
         "close": 102.7
+      },
+      {
+        "date": "2026-04-12",
+        "close": 102.7
       }
     ],
     "OMAN": [
@@ -1269,8 +1277,8 @@
     ]
   },
   "gulf": {
-    "ships": 9,
+    "ships": 6,
     "tankers": 0,
-    "sampled_at": "2026-04-12T23:47:45Z"
+    "sampled_at": "2026-04-13T00:51:48Z"
   }
 }
