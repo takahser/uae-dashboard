@@ -294,6 +294,50 @@
           }
         }
       ]
+    },
+    {
+      "date": "2026-04-12",
+      "checkedAt": "2026-04-13T06:43:32.935Z",
+      "alerts": [
+        {
+          "iata": "DXB",
+          "date": "2026-04-12",
+          "official": 491,
+          "aerodatabox": 765,
+          "diff": 274,
+          "pctDiff": 36,
+          "alert": true,
+          "details": {
+            "official": {
+              "dep": 245,
+              "arr": 246
+            },
+            "aerodatabox": {
+              "dep": 373,
+              "arr": 392
+            }
+          }
+        },
+        {
+          "iata": "JED",
+          "date": "2026-04-12",
+          "official": 1236,
+          "aerodatabox": 792,
+          "diff": 444,
+          "pctDiff": 56,
+          "alert": true,
+          "details": {
+            "official": {
+              "dep": 654,
+              "arr": 582
+            },
+            "aerodatabox": {
+              "dep": 420,
+              "arr": 372
+            }
+          }
+        }
+      ]
     }
   ]
 }
