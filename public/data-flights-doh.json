@@ -5,10 +5,10 @@
   "statusNote": "Operational — no closure reported",
   "lastVerified": "2026-03-15",
   "source": "Qatar MoD statements",
-  "todayArrivals": 238,
-  "todayDepartures": 212,
-  "todayTotal": 450,
-  "todayFetched": "2026-04-12T08:17:13.844Z",
+  "todayArrivals": 240,
+  "todayDepartures": 207,
+  "todayTotal": 447,
+  "todayFetched": "2026-04-13T08:41:54.918Z",
   "daily": [
     {
       "date": "2026-02-18",
@@ -757,11 +757,21 @@
     },
     {
       "date": "2026-04-12",
-      "departures": 185,
-      "arrivals": 174,
-      "total": 359,
+      "departures": 32,
+      "arrivals": 54,
+      "total": 86,
       "source": "dohahamadairport.com",
-      "regions": {}
+      "regions": {},
+      "corrected": true,
+      "correctedAt": "2026-04-13T08:41:23.155Z"
+    },
+    {
+      "date": "2026-04-13",
+      "departures": 207,
+      "arrivals": 240,
+      "total": 447,
+      "regions": {},
+      "flights": []
     }
   ],
   "baselineDailyAvg": {
