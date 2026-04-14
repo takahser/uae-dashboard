@@ -48,7 +48,7 @@ function InfoTip({ text }) {
 const OIL_INFOS = {
   'BZ=F':  'Brent Crude is the global benchmark for oil prices, set in the North Sea. Used to price ~70% of world oil. Reflects European and African supply/demand.',
   'CL=F':  'WTI (West Texas Intermediate) is the US benchmark crude. Traded on NYMEX. Typically priced below Brent due to landlocked delivery point.',
-  'DUBAI': 'Dubai Crude CME futures (DBLc1) — financial contracts for Gulf oil. 1-2 day delayed data via investing.com. Note: physical spot price trades higher due to Hormuz war premium.',
+  'DUBAI': 'Dubai Crude CME futures (DCB=F) — financial contracts for Gulf oil via Yahoo Finance. Note: physical spot price trades higher due to Hormuz war premium.',
   'OMAN':  'Oman crude trades on the Dubai Mercantile Exchange (DME). Key pricing reference for Middle East oil exports to Asia. Currently reflects extreme Hormuz closure premium.',
   'NG=F':  'US natural gas futures (Henry Hub). Indirectly affected by LNG disruptions — Qatar force majeure is redirecting global LNG demand toward US exporters.',
 };
