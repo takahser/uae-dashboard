@@ -1,5 +1,12 @@
 [
   {
+    "timestamp": "2026-04-15T14:41:39Z",
+    "old_value": "100.75",
+    "new_value": "100.75",
+    "method": "oilprice-scrape",
+    "source_url": "https://oilprice.com/"
+  },
+  {
     "timestamp": "2026-04-15T13:41:40Z",
     "old_value": "100.75",
     "new_value": "100.75",
@@ -617,13 +624,6 @@
   },
   {
     "timestamp": "2026-04-12T15:19:08Z",
-    "old_value": "102.7",
-    "new_value": "102.7",
-    "method": "oilprice-scrape",
-    "source_url": "https://oilprice.com/"
-  },
-  {
-    "timestamp": "2026-04-12T14:48:40Z",
     "old_value": "102.7",
     "new_value": "102.7",
     "method": "oilprice-scrape",
