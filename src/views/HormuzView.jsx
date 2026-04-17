@@ -571,15 +571,25 @@ export default function HormuzView({ onBack }) {
             }
           }
           const allPriceData = Object.values(dateMap).sort((a, b) => a.date.localeCompare(b.date));
-          // Filter by selected time range
+          // Filter by selected time range (calendar days, not point count)
           const rangeDays = { '1W': 7, '2W': 14, '3W': 21, 'ALL': 999 };
           const cutoff = rangeDays[priceRange] || 999;
-          const priceData = cutoff < 999
-            ? allPriceData.slice(-cutoff)
-            : allPriceData.filter(d => d.date >= '2026-02-01');
-          // Show ~6 tick labels
+          const priceData = (() => {
+            if (cutoff >= 999) return allPriceData.filter(d => d.date.slice(0, 10) >= '2026-02-01');
+            const cutoffDate = new Date();
+            cutoffDate.setDate(cutoffDate.getDate() - cutoff);
+            const cutoffStr = cutoffDate.toISOString().slice(0, 10);
+            return allPriceData.filter(d => d.date.slice(0, 10) >= cutoffStr);
+          })();
+          // Show ~6 tick labels; show date+hour for "zoomed" hourly views
           const tickInterval = Math.max(1, Math.floor(priceData.length / 6));
-          const tickFormatter = (val, idx) => idx % tickInterval === 0 ? val.slice(5) : '';
+          const tickFormatter = (val, idx) => {
+            if (idx % tickInterval !== 0) return '';
+            if (val.includes('T') && priceData.length <= 60) {
+              return val.slice(5).replace('T', ' ');
+            }
+            return val.slice(5, 10);
+          };
 
           const gasActive = activeLines['NG=F'];
           const crudeActive = activeLines['BZ=F'] || activeLines['CL=F'] || activeLines['DUBAI'] || activeLines['OMAN'];
