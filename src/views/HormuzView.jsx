@@ -562,16 +562,24 @@ export default function HormuzView({ onBack }) {
             { key: 'OMAN', name: 'Oman', color: '#E74C3C', axis: 'crude' },
             { key: 'NG=F', name: 'Nat Gas', color: '#10B981', axis: 'gas' },
           ];
-          // Merge all dates into a unified dataset
+          // Merge all dates into a unified dataset — normalize to daily so
+          // hourly Brent/WTI and daily Dubai/Oman/NatGas share the same axis.
           const dateMap = {};
           for (const s of PRICE_SYMBOLS) {
-            for (const pt of (marketHistory[s.key] || [])) {
-              if (!dateMap[pt.date]) dateMap[pt.date] = { date: pt.date };
-              dateMap[pt.date][s.key] = pt.close;
+            const pts = marketHistory[s.key] || [];
+            // Group by day; for hourly data keep the last close of the day.
+            const dayMap = {};
+            for (const pt of pts) {
+              const day = pt.date.includes('T') ? pt.date.slice(0, 10) : pt.date;
+              dayMap[day] = pt.close;
+            }
+            for (const [day, close] of Object.entries(dayMap)) {
+              if (!dateMap[day]) dateMap[day] = { date: day };
+              dateMap[day][s.key] = close;
             }
           }
           const allPriceData = Object.values(dateMap).sort((a, b) => a.date.localeCompare(b.date));
-          // Filter by selected time range (date-based to support hourly data)
+          // Filter by selected time range
           const rangeDays = { '1W': 7, '2W': 14, '3W': 21, 'ALL': 999 };
           const cutoffDays = rangeDays[priceRange] || 999;
           const cutoffDate = new Date();
@@ -582,15 +590,7 @@ export default function HormuzView({ onBack }) {
             : allPriceData.filter(d => d.date >= '2026-02-01');
           // Show ~6 tick labels
           const tickInterval = Math.max(1, Math.floor(priceData.length / 6));
-          const hasHourly = priceData.some(d => d.date.includes('T'));
-          const tickFormatter = (val, idx) => {
-            if (idx % tickInterval !== 0) return '';
-            if (hasHourly && val.includes('T')) {
-              const [date, time] = val.split('T');
-              return `${date.slice(5)} ${time}`;
-            }
-            return val.slice(5);
-          };
+          const tickFormatter = (val, idx) => idx % tickInterval === 0 ? val.slice(5) : '';
 
           const gasActive = activeLines['NG=F'];
           const crudeActive = activeLines['BZ=F'] || activeLines['CL=F'] || activeLines['DUBAI'] || activeLines['OMAN'];
