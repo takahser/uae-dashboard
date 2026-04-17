@@ -255,4 +255,4 @@ for sym, health_id in HEALTH_MAP.items():
     if sym in quotes:
         _sp.run(["python3", "scripts/write-health.py", health_id], check=False)
 if gulf_ships.get("ships") is not None:
-    _sp.run(["python", "scripts/write-health.py", "gulf_ais"], check=False)
+    _sp.run(["python3", "scripts/write-health.py", "gulf_ais"], check=False)
