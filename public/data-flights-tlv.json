@@ -11,6 +11,39 @@
   "todayFetched": "2026-04-16T08:33:47.824Z",
   "daily": [
     {
+      "date": "2026-02-15",
+      "departures": 223,
+      "arrivals": 200,
+      "total": 423,
+      "regions": {
+        "Unknown": 423
+      },
+      "source": "aeroDataBox-raw",
+      "uncorrected": true
+    },
+    {
+      "date": "2026-02-16",
+      "departures": 173,
+      "arrivals": 176,
+      "total": 349,
+      "regions": {
+        "Unknown": 349
+      },
+      "source": "aeroDataBox-raw",
+      "uncorrected": true
+    },
+    {
+      "date": "2026-02-17",
+      "departures": 154,
+      "arrivals": 155,
+      "total": 309,
+      "regions": {
+        "Unknown": 309
+      },
+      "source": "aeroDataBox-raw",
+      "uncorrected": true
+    },
+    {
       "date": "2026-02-18",
       "departures": 180,
       "arrivals": 165,
@@ -804,6 +837,21 @@
       "flights": []
     }
   ],
-  "lastUpdated": "2026-04-02T09:15:46.317Z",
-  "preConflictAvg": 322
+  "lastUpdated": "2026-04-17T12:44:01.839Z",
+  "preConflictAvg": 322,
+  "baselineDailyAvg": {
+    "total": 322,
+    "departures": 165,
+    "arrivals": 156,
+    "regions": {
+      "Europe": 236,
+      "Middle East": 38,
+      "Americas": 21,
+      "South Asia": 6,
+      "Unknown": 14,
+      "Africa": 6,
+      "Asia-Pacific": 2,
+      "Other": 0
+    }
+  }
 }

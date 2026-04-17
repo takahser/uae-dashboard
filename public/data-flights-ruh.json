@@ -2,6 +2,39 @@
   "airport": "RUH",
   "daily": [
     {
+      "date": "2026-02-15",
+      "departures": 379,
+      "arrivals": 394,
+      "total": 773,
+      "regions": {
+        "Unknown": 773
+      },
+      "source": "aeroDataBox-raw",
+      "uncorrected": true
+    },
+    {
+      "date": "2026-02-16",
+      "departures": 367,
+      "arrivals": 373,
+      "total": 740,
+      "regions": {
+        "Unknown": 740
+      },
+      "source": "aeroDataBox-raw",
+      "uncorrected": true
+    },
+    {
+      "date": "2026-02-17",
+      "departures": 363,
+      "arrivals": 369,
+      "total": 732,
+      "regions": {
+        "Unknown": 732
+      },
+      "source": "aeroDataBox-raw",
+      "uncorrected": true
+    },
+    {
       "date": "2026-02-18",
       "departures": 316,
       "arrivals": 331,
@@ -740,6 +773,20 @@
       "source": "aerodatabox"
     }
   ],
-  "lastUpdated": "2026-04-02T07:41:09.205Z",
-  "preConflictAvg": 634
+  "lastUpdated": "2026-04-17T12:44:15.973Z",
+  "preConflictAvg": 634,
+  "baselineDailyAvg": {
+    "total": 634,
+    "departures": 318,
+    "arrivals": 316,
+    "regions": {
+      "Middle East": 474,
+      "South Asia": 58,
+      "Africa": 53,
+      "Other": 19,
+      "Europe": 26,
+      "Asia-Pacific": 3,
+      "Americas": 1
+    }
+  }
 }

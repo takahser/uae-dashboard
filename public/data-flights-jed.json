@@ -2,6 +2,36 @@
   "airport": "JED",
   "daily": [
     {
+      "date": "2026-02-15",
+      "departures": 684,
+      "arrivals": 688,
+      "total": 1372,
+      "regions": {
+        "Unknown": 1372
+      },
+      "source": "aeroDataBox-corrected"
+    },
+    {
+      "date": "2026-02-16",
+      "departures": 709,
+      "arrivals": 713,
+      "total": 1422,
+      "regions": {
+        "Unknown": 1422
+      },
+      "source": "aeroDataBox-corrected"
+    },
+    {
+      "date": "2026-02-17",
+      "departures": 719,
+      "arrivals": 727,
+      "total": 1446,
+      "regions": {
+        "Unknown": 1446
+      },
+      "source": "aeroDataBox-corrected"
+    },
+    {
       "date": "2026-02-18",
       "departures": 533,
       "arrivals": 548,
@@ -899,6 +929,20 @@
       "correctedAt": "2026-04-13T08:41:26.258Z"
     }
   ],
-  "lastUpdated": "2026-04-12T14:20:00.000Z",
-  "preConflictAvg": 1027
+  "lastUpdated": "2026-04-17T12:44:12.407Z",
+  "preConflictAvg": 1027,
+  "baselineDailyAvg": {
+    "total": 1027,
+    "departures": 511,
+    "arrivals": 516,
+    "regions": {
+      "Africa": 227,
+      "Middle East": 547,
+      "South Asia": 103,
+      "Other": 51,
+      "Europe": 76,
+      "Asia-Pacific": 20,
+      "Americas": 3
+    }
+  }
 }
