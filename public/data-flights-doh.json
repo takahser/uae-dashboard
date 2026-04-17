@@ -680,21 +680,6 @@
       "source": "dohahamadairport.com"
     },
     {
-      "date": "2026-04-03",
-      "total": 161,
-      "departures": 80,
-      "arrivals": 81,
-      "regions": {
-        "Middle East": 11,
-        "Europe": 39,
-        "Africa": 24,
-        "South Asia": 49,
-        "Asia-Pacific": 28,
-        "Americas": 10
-      },
-      "source": "aerodatabox"
-    },
-    {
       "date": "2026-04-04",
       "departures": 21,
       "arrivals": 39,
@@ -824,20 +809,20 @@
     }
   ],
   "baselineDailyAvg": {
-    "total": 1091,
-    "departures": 546,
-    "arrivals": 545,
+    "total": 1044,
+    "departures": 525,
+    "arrivals": 520,
     "regions": {
-      "Middle East": 282,
-      "Asia-Pacific": 132,
-      "Other": 25,
-      "Africa": 101,
-      "Americas": 66,
-      "Europe": 275,
-      "South Asia": 209,
+      "Middle East": 270,
+      "Asia-Pacific": 129,
+      "Other": 23,
+      "Africa": 97,
+      "Americas": 64,
+      "Europe": 262,
+      "South Asia": 199,
       "Unknown": 1
     }
   },
-  "lastUpdated": "2026-04-17T14:40:56.807Z",
+  "lastUpdated": "2026-04-17T16:14:13.195Z",
   "preConflictAvg": 649
 }

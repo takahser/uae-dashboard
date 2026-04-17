@@ -23,7 +23,7 @@ if (!RAPIDAPI_KEY) {
 const RAPIDAPI_HOST = "aerodatabox.p.rapidapi.com";
 
 const BASELINE_START = "2026-02-18";
-const CONFLICT_START = "2026-02-28";
+const BASELINE_END = "2026-02-28";
 const BACKFILL_START = "2026-02-15";
 const BACKFILL_END = "2026-04-02";
 
@@ -162,7 +162,7 @@ function correctEntry(entry, airportIata) {
 
 function computeBaseline(daily) {
   const baselineDays = daily.filter(
-    (d) => d.date >= BASELINE_START && d.date < CONFLICT_START
+    (d) => d.date >= BASELINE_START && d.date <= BASELINE_END
   );
   if (baselineDays.length === 0) return undefined;
 
@@ -198,6 +198,17 @@ async function backfillAirport(airport) {
     existing = JSON.parse(readFileSync(filePath, "utf8"));
   } catch {}
   if (!existing.daily) existing.daily = [];
+
+  // Deduplicate by date — keep first occurrence (prod data is typically earlier)
+  const seenDates = new Set();
+  existing.daily = existing.daily.filter((d) => {
+    if (seenDates.has(d.date)) {
+      console.log(`  [WARN] duplicate entry for ${d.date} removed`);
+      return false;
+    }
+    seenDates.add(d.date);
+    return true;
+  });
 
   // Index existing dates
   const existingByDate = new Map(existing.daily.map((d) => [d.date, d]));
