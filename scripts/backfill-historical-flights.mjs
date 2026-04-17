@@ -206,14 +206,33 @@ async function backfillAirport(airport) {
   console.log(`\n📍 ${airport.name} — ${dates.length} days to check`);
 
   let added = 0;
+  let corrected = 0;
   let skipped = 0;
 
   for (const date of dates) {
     const currentEntry = existingByDate.get(date);
+    const source = currentEntry?.source;
 
-    // Skip if already exists and source is not "aeroDataBox-corrected"
-    if (currentEntry && currentEntry.source !== "aeroDataBox-corrected") {
-      console.log(`  [${date}] already present (source=${currentEntry.source || "missing"}), skipping`);
+    // Skip official scraper / prod data (anything not from our AeroDataBox pipeline)
+    if (currentEntry && source !== "aerodatabox" && source !== "aeroDataBox-corrected" && source !== "aeroDataBox-raw") {
+      console.log(`  [${date}] already present (source=${source || "missing"}), skipping`);
+      skipped++;
+      continue;
+    }
+
+    // Fast-path: apply correction in-place to existing uncorrected AeroDataBox entries
+    if (currentEntry && source === "aerodatabox") {
+      const updated = correctEntry(currentEntry, airport.iata);
+      const idx = existing.daily.findIndex((d) => d.date === date);
+      existing.daily[idx] = updated;
+      existingByDate.set(date, updated);
+      corrected++;
+      console.log(`  [${date}] corrected in-place: dep=${updated.departures} arr=${updated.arrivals} total=${updated.total} source=${updated.source}`);
+      continue;
+    }
+
+    // Skip already-corrected / already-raw entries (rerunnable idempotency)
+    if (currentEntry && (source === "aeroDataBox-corrected" || source === "aeroDataBox-raw")) {
       skipped++;
       continue;
     }
@@ -301,7 +320,7 @@ async function backfillAirport(airport) {
   renameSync(tmpFile, filePath);
 
   console.log(
-    `  ✅ Saved ${existing.daily.length} entries (added ${added}, skipped ${skipped})`
+    `  ✅ Saved ${existing.daily.length} entries (added ${added}, corrected ${corrected}, skipped ${skipped})`
   );
 }
 
