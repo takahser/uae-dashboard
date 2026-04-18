@@ -267,8 +267,7 @@ async function backfillAirport(airport) {
       const total = allDep.length + allArr.length;
 
       if (total === 0) {
-        console.log(`  [${date}] no data returned — skipping`);
-        continue;
+        console.log(`  [${date}] zero flights recorded`);
       }
 
       // Build regional breakdown
