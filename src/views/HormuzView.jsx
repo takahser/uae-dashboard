@@ -576,16 +576,16 @@ export default function HormuzView({ onBack }) {
           const cutoff = rangeDays[priceRange] || 999;
           const priceData = (() => {
             if (cutoff >= 999) return allPriceData.filter(d => d.date.slice(0, 10) >= '2026-02-01');
-            const cutoffDate = new Date();
-            cutoffDate.setDate(cutoffDate.getDate() - cutoff);
-            const cutoffStr = cutoffDate.toISOString().slice(0, 10);
+            const cutoffStr = new Date(Date.now() - cutoff * 86400000).toISOString().slice(0, 10);
             return allPriceData.filter(d => d.date.slice(0, 10) >= cutoffStr);
           })();
-          // Show ~6 tick labels; show date+hour for "zoomed" hourly views
-          const tickInterval = Math.max(1, Math.floor(priceData.length / 6));
+          // Adaptive tick labels: date+hour for zoomed hourly views, date only otherwise
+          const targetTicks = { '1W': 10, '2W': 8, '3W': 6, 'ALL': 6 };
+          const tickInterval = Math.max(1, Math.floor(priceData.length / (targetTicks[priceRange] || 6)));
           const tickFormatter = (val, idx) => {
             if (idx % tickInterval !== 0) return '';
-            if (val.includes('T') && priceData.length <= 60) {
+            const isZoomed = priceRange === '1W' || priceRange === '2W';
+            if (val.includes('T') && isZoomed) {
               return val.slice(5).replace('T', ' ');
             }
             return val.slice(5, 10);
