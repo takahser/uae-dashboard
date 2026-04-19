@@ -571,15 +571,25 @@ export default function HormuzView({ onBack }) {
             }
           }
           const allPriceData = Object.values(dateMap).sort((a, b) => a.date.localeCompare(b.date));
-          // Filter by selected time range
+          // Filter by selected time range (calendar days, not point count)
           const rangeDays = { '1W': 7, '2W': 14, '3W': 21, 'ALL': 999 };
           const cutoff = rangeDays[priceRange] || 999;
-          const priceData = cutoff < 999
-            ? allPriceData.slice(-cutoff)
-            : allPriceData.filter(d => d.date >= '2026-02-01');
-          // Show ~6 tick labels
-          const tickInterval = Math.max(1, Math.floor(priceData.length / 6));
-          const tickFormatter = (val, idx) => idx % tickInterval === 0 ? val.slice(5) : '';
+          const priceData = (() => {
+            if (cutoff >= 999) return allPriceData.filter(d => d.date.slice(0, 10) >= '2026-02-01');
+            const cutoffStr = new Date(Date.now() - cutoff * 86400000).toISOString().slice(0, 10);
+            return allPriceData.filter(d => d.date.slice(0, 10) >= cutoffStr);
+          })();
+          // Adaptive tick labels: date+hour for zoomed hourly views, date only otherwise
+          const targetTicks = { '1W': 10, '2W': 8, '3W': 6, 'ALL': 6 };
+          const tickInterval = Math.max(1, Math.floor(priceData.length / (targetTicks[priceRange] || 6)));
+          const tickFormatter = (val, idx) => {
+            if (idx % tickInterval !== 0) return '';
+            const isZoomed = priceRange === '1W' || priceRange === '2W';
+            if (val.includes('T') && isZoomed) {
+              return val.slice(5).replace('T', ' ');
+            }
+            return val.slice(5, 10);
+          };
 
           const gasActive = activeLines['NG=F'];
           const crudeActive = activeLines['BZ=F'] || activeLines['CL=F'] || activeLines['DUBAI'] || activeLines['OMAN'];
