@@ -1,5 +1,12 @@
 [
   {
+    "timestamp": "2026-04-19T19:22:16Z",
+    "old_value": "104.93",
+    "new_value": "100.45",
+    "method": "yahoo-finance",
+    "source_url": "https://finance.yahoo.com/quote/DCB=F"
+  },
+  {
     "timestamp": "2026-04-19T18:50:12Z",
     "old_value": "104.93",
     "new_value": "100.45",
@@ -617,13 +624,6 @@
   },
   {
     "timestamp": "2026-04-17T12:59:06Z",
-    "old_value": "104.93",
-    "new_value": "104.93",
-    "method": "oilprice-scrape",
-    "source_url": "https://oilprice.com/"
-  },
-  {
-    "timestamp": "2026-04-17T12:31:18Z",
     "old_value": "104.93",
     "new_value": "104.93",
     "method": "oilprice-scrape",
