@@ -11,6 +11,39 @@
   "todayFetched": "2026-04-20T08:45:15.838Z",
   "daily": [
     {
+      "date": "2026-02-15",
+      "departures": 123,
+      "arrivals": 125,
+      "total": 248,
+      "regions": {
+        "Unknown": 248
+      },
+      "source": "aeroDataBox-raw",
+      "uncorrected": true
+    },
+    {
+      "date": "2026-02-16",
+      "departures": 118,
+      "arrivals": 122,
+      "total": 240,
+      "regions": {
+        "Unknown": 240
+      },
+      "source": "aeroDataBox-raw",
+      "uncorrected": true
+    },
+    {
+      "date": "2026-02-17",
+      "departures": 105,
+      "arrivals": 107,
+      "total": 212,
+      "regions": {
+        "Unknown": 212
+      },
+      "source": "aeroDataBox-raw",
+      "uncorrected": true
+    },
+    {
       "date": "2026-02-18",
       "departures": 106,
       "arrivals": 104,
@@ -23,8 +56,9 @@
         "Asia-Pacific": 3,
         "Africa": 7
       },
-      "source": "aerodatabox",
-      "cancelled": 0
+      "source": "aeroDataBox-raw",
+      "cancelled": 0,
+      "uncorrected": true
     },
     {
       "date": "2026-02-19",
@@ -39,8 +73,9 @@
         "Africa": 14,
         "Asia-Pacific": 4
       },
-      "source": "aerodatabox",
-      "cancelled": 0
+      "source": "aeroDataBox-raw",
+      "cancelled": 0,
+      "uncorrected": true
     },
     {
       "date": "2026-02-20",
@@ -55,8 +90,9 @@
         "Africa": 8,
         "Asia-Pacific": 4
       },
-      "source": "aerodatabox",
-      "cancelled": 0
+      "source": "aeroDataBox-raw",
+      "cancelled": 0,
+      "uncorrected": true
     },
     {
       "date": "2026-02-21",
@@ -70,8 +106,9 @@
         "Asia-Pacific": 5,
         "Africa": 8
       },
-      "source": "aerodatabox",
-      "cancelled": 2
+      "source": "aeroDataBox-raw",
+      "cancelled": 2,
+      "uncorrected": true
     },
     {
       "date": "2026-02-22",
@@ -86,8 +123,9 @@
         "Africa": 9,
         "Asia-Pacific": 7
       },
-      "source": "aerodatabox",
-      "cancelled": 0
+      "source": "aeroDataBox-raw",
+      "cancelled": 0,
+      "uncorrected": true
     },
     {
       "date": "2026-02-23",
@@ -102,8 +140,9 @@
         "Africa": 6,
         "Asia-Pacific": 5
       },
-      "source": "aerodatabox",
-      "cancelled": 0
+      "source": "aeroDataBox-raw",
+      "cancelled": 0,
+      "uncorrected": true
     },
     {
       "date": "2026-02-24",
@@ -118,8 +157,9 @@
         "Africa": 12,
         "Asia-Pacific": 4
       },
-      "source": "aerodatabox",
-      "cancelled": 0
+      "source": "aeroDataBox-raw",
+      "cancelled": 0,
+      "uncorrected": true
     },
     {
       "date": "2026-02-25",
@@ -134,8 +174,9 @@
         "Asia-Pacific": 4,
         "Africa": 7
       },
-      "source": "aerodatabox",
-      "cancelled": 1
+      "source": "aeroDataBox-raw",
+      "cancelled": 1,
+      "uncorrected": true
     },
     {
       "date": "2026-02-26",
@@ -150,8 +191,9 @@
         "Africa": 13,
         "Asia-Pacific": 4
       },
-      "source": "aerodatabox",
-      "cancelled": 0
+      "source": "aeroDataBox-raw",
+      "cancelled": 0,
+      "uncorrected": true
     },
     {
       "date": "2026-02-27",
@@ -166,8 +208,9 @@
         "Africa": 10,
         "Asia-Pacific": 4
       },
-      "source": "aerodatabox",
-      "cancelled": 0
+      "source": "aeroDataBox-raw",
+      "cancelled": 0,
+      "uncorrected": true
     },
     {
       "date": "2026-02-28",
@@ -180,10 +223,11 @@
         "Asia-Pacific": 3,
         "Africa": 8
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 99,
       "arrivals": 95,
-      "cancelled": 18
+      "cancelled": 18,
+      "uncorrected": true
     },
     {
       "date": "2026-03-01",
@@ -196,10 +240,11 @@
         "Africa": 7,
         "Asia-Pacific": 6
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 88,
       "arrivals": 90,
-      "cancelled": 38
+      "cancelled": 38,
+      "uncorrected": true
     },
     {
       "date": "2026-03-02",
@@ -212,10 +257,11 @@
         "Africa": 6,
         "Asia-Pacific": 4
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 80,
       "arrivals": 82,
-      "cancelled": 33
+      "cancelled": 33,
+      "uncorrected": true
     },
     {
       "date": "2026-03-03",
@@ -228,10 +274,11 @@
         "Middle East": 62,
         "Asia-Pacific": 3
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 81,
       "arrivals": 81,
-      "cancelled": 31
+      "cancelled": 31,
+      "uncorrected": true
     },
     {
       "date": "2026-03-04",
@@ -244,10 +291,11 @@
         "Asia-Pacific": 4,
         "Africa": 6
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 87,
       "arrivals": 72,
-      "cancelled": 28
+      "cancelled": 28,
+      "uncorrected": true
     },
     {
       "date": "2026-03-05",
@@ -260,10 +308,11 @@
         "Africa": 12,
         "Asia-Pacific": 4
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 108,
       "arrivals": 103,
-      "cancelled": 20
+      "cancelled": 20,
+      "uncorrected": true
     },
     {
       "date": "2026-03-06",
@@ -276,10 +325,11 @@
         "Africa": 9,
         "Asia-Pacific": 5
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 97,
       "arrivals": 102,
-      "cancelled": 14
+      "cancelled": 14,
+      "uncorrected": true
     },
     {
       "date": "2026-03-07",
@@ -292,10 +342,11 @@
         "Asia-Pacific": 5,
         "Africa": 6
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 103,
       "arrivals": 97,
-      "cancelled": 15
+      "cancelled": 15,
+      "uncorrected": true
     },
     {
       "date": "2026-03-08",
@@ -308,10 +359,11 @@
         "Africa": 9,
         "Asia-Pacific": 6
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 95,
       "arrivals": 97,
-      "cancelled": 14
+      "cancelled": 14,
+      "uncorrected": true
     },
     {
       "date": "2026-03-09",
@@ -324,10 +376,11 @@
         "Africa": 6,
         "Asia-Pacific": 5
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 94,
       "arrivals": 98,
-      "cancelled": 16
+      "cancelled": 16,
+      "uncorrected": true
     },
     {
       "date": "2026-03-10",
@@ -340,10 +393,11 @@
         "Africa": 12,
         "Asia-Pacific": 3
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 88,
       "arrivals": 70,
-      "cancelled": 14
+      "cancelled": 14,
+      "uncorrected": true
     },
     {
       "date": "2026-03-11",
@@ -356,10 +410,11 @@
         "Asia-Pacific": 6,
         "Africa": 8
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 91,
       "arrivals": 90,
-      "cancelled": 8
+      "cancelled": 8,
+      "uncorrected": true
     },
     {
       "date": "2026-03-12",
@@ -372,10 +427,11 @@
         "Africa": 12,
         "Asia-Pacific": 4
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 108,
       "arrivals": 97,
-      "cancelled": 10
+      "cancelled": 10,
+      "uncorrected": true
     },
     {
       "date": "2026-03-13",
@@ -388,10 +444,11 @@
         "Africa": 10,
         "Asia-Pacific": 4
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 90,
       "arrivals": 95,
-      "cancelled": 12
+      "cancelled": 12,
+      "uncorrected": true
     },
     {
       "date": "2026-03-14",
@@ -404,10 +461,11 @@
         "Asia-Pacific": 7,
         "Africa": 9
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 106,
       "arrivals": 96,
-      "cancelled": 10
+      "cancelled": 10,
+      "uncorrected": true
     },
     {
       "date": "2026-03-15",
@@ -420,10 +478,11 @@
         "Africa": 11,
         "Asia-Pacific": 7
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 100,
       "arrivals": 103,
-      "cancelled": 12
+      "cancelled": 12,
+      "uncorrected": true
     },
     {
       "date": "2026-03-16",
@@ -436,10 +495,11 @@
         "Africa": 8,
         "Unknown": 4
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 97,
       "arrivals": 80,
-      "cancelled": 4
+      "cancelled": 4,
+      "uncorrected": true
     },
     {
       "date": "2026-03-17",
@@ -452,10 +512,11 @@
         "Asia-Pacific": 6,
         "Africa": 11
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 94,
       "arrivals": 96,
-      "cancelled": 11
+      "cancelled": 11,
+      "uncorrected": true
     },
     {
       "date": "2026-03-18",
@@ -468,10 +529,11 @@
         "Asia-Pacific": 7,
         "Africa": 7
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 97,
       "arrivals": 97,
-      "cancelled": 10
+      "cancelled": 10,
+      "uncorrected": true
     },
     {
       "date": "2026-03-19",
@@ -484,10 +546,11 @@
         "Asia-Pacific": 6,
         "Africa": 9
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 104,
       "arrivals": 101,
-      "cancelled": 14
+      "cancelled": 14,
+      "uncorrected": true
     },
     {
       "date": "2026-03-20",
@@ -500,10 +563,11 @@
         "Africa": 14,
         "Asia-Pacific": 4
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 101,
       "arrivals": 101,
-      "cancelled": 10
+      "cancelled": 10,
+      "uncorrected": true
     },
     {
       "date": "2026-03-21",
@@ -516,10 +580,11 @@
         "Asia-Pacific": 7,
         "Africa": 10
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 111,
       "arrivals": 110,
-      "cancelled": 19
+      "cancelled": 19,
+      "uncorrected": true
     },
     {
       "date": "2026-03-22",
@@ -532,10 +597,11 @@
         "Africa": 9,
         "Unknown": 7
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 89,
       "arrivals": 75,
-      "cancelled": 2
+      "cancelled": 2,
+      "uncorrected": true
     },
     {
       "date": "2026-03-23",
@@ -548,10 +614,11 @@
         "Africa": 9,
         "Unknown": 4
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 90,
       "arrivals": 95,
-      "cancelled": 4
+      "cancelled": 4,
+      "uncorrected": true
     },
     {
       "date": "2026-03-24",
@@ -564,10 +631,11 @@
         "Europe": 21,
         "Africa": 14
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 90,
       "arrivals": 94,
-      "cancelled": 2
+      "cancelled": 2,
+      "uncorrected": true
     },
     {
       "date": "2026-03-25",
@@ -580,10 +648,11 @@
         "Africa": 9,
         "Unknown": 20
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 91,
       "arrivals": 93,
-      "cancelled": 5
+      "cancelled": 5,
+      "uncorrected": true
     },
     {
       "date": "2026-03-26",
@@ -596,10 +665,11 @@
         "Asia-Pacific": 7,
         "Africa": 12
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 97,
       "arrivals": 97,
-      "cancelled": 1
+      "cancelled": 1,
+      "uncorrected": true
     },
     {
       "date": "2026-03-27",
@@ -612,10 +682,11 @@
         "Africa": 14,
         "Unknown": 15
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 91,
       "arrivals": 88,
-      "cancelled": 3
+      "cancelled": 3,
+      "uncorrected": true
     },
     {
       "date": "2026-03-28",
@@ -628,10 +699,11 @@
         "Asia-Pacific": 6,
         "Africa": 10
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 97,
       "arrivals": 75,
-      "cancelled": 3
+      "cancelled": 3,
+      "uncorrected": true
     },
     {
       "date": "2026-03-29",
@@ -644,10 +716,11 @@
         "Africa": 9,
         "Unknown": 13
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 91,
       "arrivals": 98,
-      "cancelled": 2
+      "cancelled": 2,
+      "uncorrected": true
     },
     {
       "date": "2026-03-30",
@@ -660,10 +733,11 @@
         "Africa": 8,
         "Unknown": 16
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 88,
       "arrivals": 87,
-      "cancelled": 2
+      "cancelled": 2,
+      "uncorrected": true
     },
     {
       "date": "2026-03-31",
@@ -685,10 +759,11 @@
         "Africa": 13,
         "Unknown": 38
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 106,
       "arrivals": 106,
-      "cancelled": 7
+      "cancelled": 7,
+      "uncorrected": true
     },
     {
       "date": "2026-04-02",
@@ -701,13 +776,14 @@
         "Unknown": 19,
         "Africa": 11
       },
-      "source": "aerodatabox",
+      "source": "aeroDataBox-raw",
       "departures": 108,
       "arrivals": 105,
       "cancelled": 10,
       "corrected": true,
       "correctedAt": "2026-04-03T11:10:00.000Z",
-      "note": "Fixed: withCodeshared=false (operating flights only)"
+      "note": "Fixed: withCodeshared=false (operating flights only)",
+      "uncorrected": true
     },
     {
       "date": "2026-04-03",
@@ -949,12 +1025,12 @@
     }
   ],
   "baselineDailyAvg": {
-    "total": 211,
+    "total": 209,
     "departures": 107,
-    "arrivals": 104,
+    "arrivals": 103,
     "regions": {
       "South Asia": 71,
-      "Middle East": 104,
+      "Middle East": 102,
       "Europe": 17,
       "Unknown": 6,
       "Asia-Pacific": 4,
