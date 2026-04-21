@@ -42,7 +42,7 @@ const AIRPORTS = [
 const CORRECTION_FACTORS = {
   dxb: { factor: 1 / 1.06, operation: "divide" },
   auh: { factor: 1.52, operation: "multiply" },
-  doh: { factor: 1.68, operation: "multiply" },
+  doh: { factor: 1.77, operation: "multiply" },
   jed: { factor: 1.39, operation: "multiply" },
 };
 
