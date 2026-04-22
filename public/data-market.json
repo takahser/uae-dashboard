@@ -1,20 +1,20 @@
 {
-  "updated": "2026-04-22T20:26:38Z",
+  "updated": "2026-04-22T20:51:15Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 101.43,
-      "change": 2.95,
-      "changePercent": 3.0,
+      "price": 101.81,
+      "change": 3.33,
+      "changePercent": 3.38,
       "previousClose": 98.48
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 92.51,
-      "change": 2.84,
-      "changePercent": 3.17,
+      "price": 92.81,
+      "change": 3.14,
+      "changePercent": 3.5,
       "previousClose": 89.67
     },
     "NG=F": {
@@ -5570,11 +5570,15 @@
       },
       {
         "date": "2026-04-22T20:00",
-        "close": 101.43
+        "close": 101.81
       },
       {
         "date": "2026-04-22T20:13",
         "close": 101.43
+      },
+      {
+        "date": "2026-04-22T20:38",
+        "close": 101.81
       }
     ],
     "CL=F": [
@@ -11060,11 +11064,15 @@
       },
       {
         "date": "2026-04-22T20:00",
-        "close": 92.52
+        "close": 92.81
       },
       {
         "date": "2026-04-22T20:16",
         "close": 92.51
+      },
+      {
+        "date": "2026-04-22T20:40",
+        "close": 92.81
       }
     ],
     "NG=F": [
@@ -12247,6 +12255,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-04-22T20:26:23Z"
+    "sampled_at": "2026-04-22T20:51:00Z"
   }
 }
