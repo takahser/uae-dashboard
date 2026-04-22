@@ -1,20 +1,20 @@
 {
-  "updated": "2026-04-22T10:37:25Z",
+  "updated": "2026-04-22T11:31:07Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 93.86,
-      "change": 0.62,
-      "changePercent": 0.66,
+      "price": 94.12,
+      "change": 0.88,
+      "changePercent": 0.94,
       "previousClose": 93.24
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 90.18,
-      "change": 0.51,
-      "changePercent": 0.57,
+      "price": 90.35,
+      "change": 0.68,
+      "changePercent": 0.76,
       "previousClose": 89.67
     },
     "NG=F": {
@@ -28,9 +28,9 @@
     "2222.SR": {
       "symbol": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 27.18,
-      "change": 0.02,
-      "changePercent": 0.07,
+      "price": 27.2,
+      "change": 0.04,
+      "changePercent": 0.15,
       "previousClose": 27.16
     },
     "FRO": {
@@ -5482,11 +5482,19 @@
       },
       {
         "date": "2026-04-22T10:00",
-        "close": 93.86
+        "close": 93.88
       },
       {
         "date": "2026-04-22T10:26",
         "close": 93.86
+      },
+      {
+        "date": "2026-04-22T11:00",
+        "close": 94.12
+      },
+      {
+        "date": "2026-04-22T11:20",
+        "close": 94.12
       }
     ],
     "CL=F": [
@@ -10884,11 +10892,19 @@
       },
       {
         "date": "2026-04-22T10:00",
-        "close": 90.16
+        "close": 90.12
       },
       {
         "date": "2026-04-22T10:27",
         "close": 90.18
+      },
+      {
+        "date": "2026-04-22T11:00",
+        "close": 90.35
+      },
+      {
+        "date": "2026-04-22T11:20",
+        "close": 90.35
       }
     ],
     "NG=F": [
@@ -11140,7 +11156,7 @@
       },
       {
         "date": "2026-04-22",
-        "close": 27.18
+        "close": 27.2
       }
     ],
     "FRO": [
@@ -12055,6 +12071,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-04-22T10:37:10Z"
+    "sampled_at": "2026-04-22T11:30:53Z"
   }
 }
