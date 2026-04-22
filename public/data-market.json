@@ -1,26 +1,26 @@
 {
-  "updated": "2026-04-22T05:48:28Z",
+  "updated": "2026-04-22T06:49:06Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 91.97,
-      "change": -1.27,
-      "changePercent": -1.36,
+      "price": 92.46,
+      "change": -0.78,
+      "changePercent": -0.84,
       "previousClose": 93.24
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 88.19,
-      "change": -1.48,
-      "changePercent": -1.65,
+      "price": 88.75,
+      "change": -0.92,
+      "changePercent": -1.03,
       "previousClose": 89.67
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.72,
+      "price": 2.71,
       "change": 0.02,
       "changePercent": 0.74,
       "previousClose": 2.7
@@ -3714,7 +3714,7 @@
       },
       {
         "date": "2026-03-27T20:00",
-        "close": 106.84
+        "close": 106.87
       },
       {
         "date": "2026-03-29T22:00",
@@ -4266,7 +4266,7 @@
       },
       {
         "date": "2026-04-07T14:00",
-        "close": 110.93
+        "close": 110.92
       },
       {
         "date": "2026-04-07T15:00",
@@ -4578,7 +4578,7 @@
       },
       {
         "date": "2026-04-10T20:00",
-        "close": 94.45
+        "close": 95.2
       },
       {
         "date": "2026-04-12T22:00",
@@ -5062,7 +5062,7 @@
       },
       {
         "date": "2026-04-17T20:00",
-        "close": 90.38
+        "close": 91.87
       },
       {
         "date": "2026-04-17T20:59",
@@ -5442,11 +5442,19 @@
       },
       {
         "date": "2026-04-22T05:00",
-        "close": 91.97
+        "close": 92.48
       },
       {
         "date": "2026-04-22T05:37",
         "close": 91.97
+      },
+      {
+        "date": "2026-04-22T06:00",
+        "close": 92.46
+      },
+      {
+        "date": "2026-04-22T06:38",
+        "close": 92.46
       }
     ],
     "CL=F": [
@@ -10804,11 +10812,19 @@
       },
       {
         "date": "2026-04-22T05:00",
-        "close": 88.22
+        "close": 88.76
       },
       {
         "date": "2026-04-22T05:38",
         "close": 88.19
+      },
+      {
+        "date": "2026-04-22T06:00",
+        "close": 88.74
+      },
+      {
+        "date": "2026-04-22T06:38",
+        "close": 88.75
       }
     ],
     "NG=F": [
@@ -10922,7 +10938,7 @@
       },
       {
         "date": "2026-04-22",
-        "close": 2.72
+        "close": 2.71
       }
     ],
     "2222.SR": [
@@ -11967,6 +11983,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-04-22T05:48:14Z"
+    "sampled_at": "2026-04-22T06:48:52Z"
   }
 }
