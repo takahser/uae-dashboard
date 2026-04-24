@@ -182,7 +182,17 @@
       "fetchedAt": "2026-04-23T06:38:13.229Z",
       "method": "direct-api",
       "apiEndpoint": "https://www.zayedinternationalairport.ae/api/zayed/flight/{departure|arrival}?day=0&PageSize=500"
+    },
+    {
+      "date": "2026-04-24",
+      "departures": 133,
+      "arrivals": 143,
+      "total": 276,
+      "source": "zayedinternationalairport.ae",
+      "fetchedAt": "2026-04-24T06:38:43.274Z",
+      "method": "direct-api",
+      "apiEndpoint": "https://www.zayedinternationalairport.ae/api/zayed/flight/{departure|arrival}?day=0&PageSize=500"
     }
   ],
-  "lastUpdated": "2026-04-23T06:38:13.229Z"
+  "lastUpdated": "2026-04-24T06:38:43.274Z"
 }
