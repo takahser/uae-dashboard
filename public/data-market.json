@@ -1,28 +1,28 @@
 {
-  "updated": "2026-04-28T09:20:36Z",
+  "updated": "2026-04-28T10:19:40Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 104.22,
-      "change": 2.53,
-      "changePercent": 2.49,
+      "price": 104.43,
+      "change": 2.74,
+      "changePercent": 2.69,
       "previousClose": 101.69
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 99.19,
-      "change": 2.82,
-      "changePercent": 2.93,
+      "price": 99.65,
+      "change": 3.28,
+      "changePercent": 3.4,
       "previousClose": 96.37
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.71,
-      "change": -0.02,
-      "changePercent": -0.73,
+      "price": 2.69,
+      "change": -0.03,
+      "changePercent": -1.1,
       "previousClose": 2.73
     },
     "2222.SR": {
@@ -6270,11 +6270,19 @@
       },
       {
         "date": "2026-04-28T09:00",
-        "close": 104.22
+        "close": 104.57
       },
       {
         "date": "2026-04-28T09:10",
         "close": 104.22
+      },
+      {
+        "date": "2026-04-28T10:00",
+        "close": 104.43
+      },
+      {
+        "date": "2026-04-28T10:09",
+        "close": 104.43
       }
     ],
     "CL=F": [
@@ -12460,11 +12468,19 @@
       },
       {
         "date": "2026-04-28T09:00",
-        "close": 99.24
+        "close": 99.81
       },
       {
         "date": "2026-04-28T09:10",
         "close": 99.19
+      },
+      {
+        "date": "2026-04-28T10:00",
+        "close": 99.69
+      },
+      {
+        "date": "2026-04-28T10:09",
+        "close": 99.65
       }
     ],
     "NG=F": [
@@ -12598,7 +12614,7 @@
       },
       {
         "date": "2026-04-28",
-        "close": 2.71
+        "close": 2.69
       }
     ],
     "2222.SR": [
@@ -13761,8 +13777,8 @@
     ]
   },
   "gulf": {
-    "ships": 16,
+    "ships": 31,
     "tankers": 0,
-    "sampled_at": "2026-04-28T09:20:21Z"
+    "sampled_at": "2026-04-28T10:19:25Z"
   }
 }
