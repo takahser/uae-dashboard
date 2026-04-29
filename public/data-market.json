@@ -1,36 +1,36 @@
 {
-  "updated": "2026-04-29T11:10:18Z",
+  "updated": "2026-04-29T12:04:53Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 107.18,
-      "change": 2.78,
-      "changePercent": 2.66,
+      "price": 107.6,
+      "change": 3.2,
+      "changePercent": 3.07,
       "previousClose": 104.4
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 103.13,
-      "change": 3.2,
-      "changePercent": 3.2,
+      "price": 103.31,
+      "change": 3.38,
+      "changePercent": 3.38,
       "previousClose": 99.93
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.66,
-      "change": -0.03,
-      "changePercent": -1.11,
+      "price": 2.65,
+      "change": -0.04,
+      "changePercent": -1.49,
       "previousClose": 2.69
     },
     "2222.SR": {
       "symbol": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 27.54,
-      "change": 0.08,
-      "changePercent": 0.29,
+      "price": 27.52,
+      "change": 0.06,
+      "changePercent": 0.22,
       "previousClose": 27.46
     },
     "FRO": {
@@ -6475,6 +6475,14 @@
       {
         "date": "2026-04-29T10:59",
         "close": 107.18
+      },
+      {
+        "date": "2026-04-29T11:00",
+        "close": 107.5
+      },
+      {
+        "date": "2026-04-29T11:54",
+        "close": 107.6
       }
     ],
     "CL=F": [
@@ -12864,7 +12872,11 @@
       },
       {
         "date": "2026-04-29T11:00",
-        "close": 103.13
+        "close": 103.29
+      },
+      {
+        "date": "2026-04-29T11:54",
+        "close": 103.31
       }
     ],
     "NG=F": [
@@ -13002,7 +13014,7 @@
       },
       {
         "date": "2026-04-29",
-        "close": 2.66
+        "close": 2.65
       }
     ],
     "2222.SR": [
@@ -13160,7 +13172,7 @@
       },
       {
         "date": "2026-04-29",
-        "close": 27.54
+        "close": 27.52
       }
     ],
     "FRO": [
@@ -14193,8 +14205,8 @@
     ]
   },
   "gulf": {
-    "ships": 26,
+    "ships": 25,
     "tankers": 0,
-    "sampled_at": "2026-04-29T11:09:58Z"
+    "sampled_at": "2026-04-29T12:04:34Z"
   }
 }
