@@ -1,5 +1,12 @@
 [
   {
+    "timestamp": "2026-05-01T15:53:14Z",
+    "old_value": "105.07",
+    "new_value": "101.6",
+    "method": "yahoo-finance",
+    "source_url": "https://finance.yahoo.com/quote/CL=F"
+  },
+  {
     "timestamp": "2026-05-01T15:28:04Z",
     "old_value": "105.07",
     "new_value": "101.67",
@@ -619,13 +626,6 @@
     "timestamp": "2026-04-28T06:06:46Z",
     "old_value": "96.37",
     "new_value": "98.29",
-    "method": "yahoo-finance",
-    "source_url": "https://finance.yahoo.com/quote/CL=F"
-  },
-  {
-    "timestamp": "2026-04-28T04:44:49Z",
-    "old_value": "96.37",
-    "new_value": "97.37",
     "method": "yahoo-finance",
     "source_url": "https://finance.yahoo.com/quote/CL=F"
   }
