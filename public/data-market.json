@@ -1,28 +1,28 @@
 {
-  "updated": "2026-05-04T00:58:31Z",
+  "updated": "2026-05-04T01:44:47Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 107.98,
-      "change": -0.19,
-      "changePercent": -0.18,
+      "price": 108.1,
+      "change": -0.07,
+      "changePercent": -0.06,
       "previousClose": 108.17
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 101.57,
-      "change": -0.37,
-      "changePercent": -0.36,
+      "price": 101.75,
+      "change": -0.19,
+      "changePercent": -0.19,
       "previousClose": 101.94
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.82,
-      "change": 0.04,
-      "changePercent": 1.44,
+      "price": 2.83,
+      "change": 0.05,
+      "changePercent": 1.8,
       "previousClose": 2.78
     },
     "2222.SR": {
@@ -6986,11 +6986,19 @@
       },
       {
         "date": "2026-05-04T00:00",
-        "close": 107.76
+        "close": 107.54
       },
       {
         "date": "2026-05-04T00:48",
         "close": 107.98
+      },
+      {
+        "date": "2026-05-04T01:00",
+        "close": 108.1
+      },
+      {
+        "date": "2026-05-04T01:32",
+        "close": 108.1
       }
     ],
     "CL=F": [
@@ -13888,11 +13896,19 @@
       },
       {
         "date": "2026-05-04T00:00",
-        "close": 101.36
+        "close": 101.16
       },
       {
         "date": "2026-05-04T00:48",
         "close": 101.57
+      },
+      {
+        "date": "2026-05-04T01:00",
+        "close": 101.75
+      },
+      {
+        "date": "2026-05-04T01:33",
+        "close": 101.75
       }
     ],
     "NG=F": [
@@ -14046,7 +14062,7 @@
       },
       {
         "date": "2026-05-04",
-        "close": 2.82
+        "close": 2.83
       }
     ],
     "2222.SR": [
@@ -15313,8 +15329,8 @@
     ]
   },
   "gulf": {
-    "ships": 46,
+    "ships": 36,
     "tankers": 0,
-    "sampled_at": "2026-05-04T00:58:18Z"
+    "sampled_at": "2026-05-04T01:44:28Z"
   }
 }
