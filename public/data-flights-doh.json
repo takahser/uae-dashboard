@@ -6,9 +6,9 @@
   "lastVerified": "2026-03-15",
   "source": "Qatar MoD statements",
   "todayArrivals": 362,
-  "todayDepartures": 332,
-  "todayTotal": 694,
-  "todayFetched": "2026-05-06T08:49:53.442Z",
+  "todayDepartures": 335,
+  "todayTotal": 697,
+  "todayFetched": "2026-05-07T08:54:27.960Z",
   "daily": [
     {
       "date": "2026-02-15",
@@ -1009,9 +1009,19 @@
     },
     {
       "date": "2026-05-06",
-      "departures": 332,
+      "departures": 64,
+      "arrivals": 85,
+      "total": 149,
+      "regions": {},
+      "flights": [],
+      "corrected": true,
+      "correctedAt": "2026-05-07T08:53:40.100Z"
+    },
+    {
+      "date": "2026-05-07",
+      "departures": 335,
       "arrivals": 362,
-      "total": 694,
+      "total": 697,
       "regions": {},
       "flights": []
     }
