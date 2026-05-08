@@ -1,20 +1,20 @@
 {
-  "updated": "2026-05-08T19:37:14Z",
+  "updated": "2026-05-08T20:29:49Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 101.05,
-      "change": 0.99,
-      "changePercent": 0.99,
+      "price": 100.73,
+      "change": 0.67,
+      "changePercent": 0.67,
       "previousClose": 100.06
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 95.38,
-      "change": 0.57,
-      "changePercent": 0.6,
+      "price": 94.91,
+      "change": 0.1,
+      "changePercent": 0.11,
       "previousClose": 94.81
     },
     "NG=F": {
@@ -36,33 +36,33 @@
     "FRO": {
       "symbol": "FRO",
       "name": "Frontline",
-      "price": 39.33,
-      "change": 1.21,
-      "changePercent": 3.17,
+      "price": 39.51,
+      "change": 1.39,
+      "changePercent": 3.65,
       "previousClose": 38.12
     },
     "STNG": {
       "symbol": "STNG",
       "name": "Scorpio Tankers",
-      "price": 83.82,
-      "change": -0.87,
-      "changePercent": -1.03,
+      "price": 84.41,
+      "change": -0.28,
+      "changePercent": -0.33,
       "previousClose": 84.69
     },
     "RTX": {
       "symbol": "RTX",
       "name": "RTX Corp",
-      "price": 176.87,
-      "change": 0.09,
-      "changePercent": 0.05,
+      "price": 176.09,
+      "change": -0.69,
+      "changePercent": -0.39,
       "previousClose": 176.78
     },
     "LMT": {
       "symbol": "LMT",
       "name": "Lockheed Martin",
-      "price": 508.19,
-      "change": -4.21,
-      "changePercent": -0.82,
+      "price": 506.51,
+      "change": -5.9,
+      "changePercent": -1.15,
       "previousClose": 512.41
     },
     "DUBAI": {
@@ -4578,7 +4578,7 @@
       },
       {
         "date": "2026-04-10T20:00",
-        "close": 95.2
+        "close": 94.45
       },
       {
         "date": "2026-04-12T22:00",
@@ -5062,7 +5062,7 @@
       },
       {
         "date": "2026-04-17T20:00",
-        "close": 91.87
+        "close": 90.38
       },
       {
         "date": "2026-04-17T20:59",
@@ -7878,11 +7878,19 @@
       },
       {
         "date": "2026-05-08T19:00",
-        "close": 101.05
+        "close": 100.5
       },
       {
         "date": "2026-05-08T19:25",
         "close": 101.05
+      },
+      {
+        "date": "2026-05-08T20:00",
+        "close": 100.73
+      },
+      {
+        "date": "2026-05-08T20:18",
+        "close": 100.73
       }
     ],
     "CL=F": [
@@ -12376,7 +12384,7 @@
       },
       {
         "date": "2026-04-10T20:00",
-        "close": 95.55
+        "close": 96.57
       },
       {
         "date": "2026-04-12T22:00",
@@ -13772,7 +13780,7 @@
       },
       {
         "date": "2026-04-24T20:00",
-        "close": 94.4
+        "close": 94.88
       },
       {
         "date": "2026-04-24T20:12",
@@ -14740,7 +14748,7 @@
       },
       {
         "date": "2026-05-01T20:00",
-        "close": 102.5
+        "close": 101.94
       },
       {
         "date": "2026-05-01T20:14",
@@ -15676,11 +15684,19 @@
       },
       {
         "date": "2026-05-08T19:00",
-        "close": 95.38
+        "close": 94.91
       },
       {
         "date": "2026-05-08T19:26",
         "close": 95.38
+      },
+      {
+        "date": "2026-05-08T20:00",
+        "close": 94.88
+      },
+      {
+        "date": "2026-05-08T20:19",
+        "close": 94.91
       }
     ],
     "NG=F": [
@@ -16218,7 +16234,7 @@
       },
       {
         "date": "2026-05-08",
-        "close": 39.33
+        "close": 39.51
       }
     ],
     "STNG": [
@@ -16404,7 +16420,7 @@
       },
       {
         "date": "2026-05-08",
-        "close": 83.82
+        "close": 84.41
       }
     ],
     "RTX": [
@@ -16590,7 +16606,7 @@
       },
       {
         "date": "2026-05-08",
-        "close": 176.87
+        "close": 176.09
       }
     ],
     "LMT": [
@@ -16776,7 +16792,7 @@
       },
       {
         "date": "2026-05-08",
-        "close": 508.2
+        "close": 506.51
       }
     ],
     "DUBAI": [
@@ -17251,6 +17267,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-05-08T19:36:59Z"
+    "sampled_at": "2026-05-08T20:29:35Z"
   }
 }
