@@ -6,9 +6,9 @@
   "lastVerified": "2026-03-15",
   "source": "UAE MoD statements",
   "todayArrivals": 46,
-  "todayDepartures": 49,
-  "todayTotal": 95,
-  "todayFetched": "2026-05-07T08:54:20.344Z",
+  "todayDepartures": 57,
+  "todayTotal": 103,
+  "todayFetched": "2026-05-08T08:34:25.105Z",
   "daily": [
     {
       "date": "2026-02-15",
@@ -1023,9 +1023,19 @@
     },
     {
       "date": "2026-05-07",
-      "departures": 49,
+      "departures": 1,
+      "arrivals": 1,
+      "total": 2,
+      "regions": {},
+      "flights": [],
+      "corrected": true,
+      "correctedAt": "2026-05-08T08:33:54.954Z"
+    },
+    {
+      "date": "2026-05-08",
+      "departures": 57,
       "arrivals": 46,
-      "total": 95,
+      "total": 103,
       "regions": {},
       "flights": []
     }
