@@ -1350,6 +1350,50 @@
           }
         }
       ]
+    },
+    {
+      "date": "2026-05-10",
+      "checkedAt": "2026-05-11T07:10:22.190Z",
+      "alerts": [
+        {
+          "iata": "DXB",
+          "date": "2026-05-10",
+          "official": 701,
+          "aerodatabox": 1009,
+          "diff": 308,
+          "pctDiff": 31,
+          "alert": true,
+          "details": {
+            "official": {
+              "dep": 351,
+              "arr": 350
+            },
+            "aerodatabox": {
+              "dep": 488,
+              "arr": 521
+            }
+          }
+        },
+        {
+          "iata": "DOH",
+          "date": "2026-05-10",
+          "official": 360,
+          "aerodatabox": 668,
+          "diff": 308,
+          "pctDiff": 46,
+          "alert": true,
+          "details": {
+            "official": {
+              "dep": 183,
+              "arr": 177
+            },
+            "aerodatabox": {
+              "dep": 314,
+              "arr": 354
+            }
+          }
+        }
+      ]
     }
   ]
 }
