@@ -1,28 +1,28 @@
 {
-  "updated": "2026-05-11T01:02:37Z",
+  "updated": "2026-05-11T02:24:34Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 105.26,
-      "change": 3.97,
-      "changePercent": 3.92,
+      "price": 104.51,
+      "change": 3.22,
+      "changePercent": 3.18,
       "previousClose": 101.29
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 99.6,
-      "change": 4.18,
-      "changePercent": 4.38,
+      "price": 99.04,
+      "change": 3.62,
+      "changePercent": 3.79,
       "previousClose": 95.42
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.82,
-      "change": 0.06,
-      "changePercent": 2.18,
+      "price": 2.83,
+      "change": 0.07,
+      "changePercent": 2.54,
       "previousClose": 2.76
     },
     "2222.SR": {
@@ -7926,11 +7926,23 @@
       },
       {
         "date": "2026-05-11T00:00",
-        "close": 105.51
+        "close": 105.04
       },
       {
         "date": "2026-05-11T00:52",
         "close": 105.26
+      },
+      {
+        "date": "2026-05-11T01:00",
+        "close": 104.59
+      },
+      {
+        "date": "2026-05-11T02:00",
+        "close": 104.51
+      },
+      {
+        "date": "2026-05-11T02:13",
+        "close": 104.51
       }
     ],
     "CL=F": [
@@ -15772,11 +15784,23 @@
       },
       {
         "date": "2026-05-11T00:00",
-        "close": 99.75
+        "close": 99.25
       },
       {
         "date": "2026-05-11T00:52",
         "close": 99.6
+      },
+      {
+        "date": "2026-05-11T01:00",
+        "close": 98.98
+      },
+      {
+        "date": "2026-05-11T02:00",
+        "close": 98.99
+      },
+      {
+        "date": "2026-05-11T02:14",
+        "close": 99.04
       }
     ],
     "NG=F": [
@@ -15954,7 +15978,7 @@
       },
       {
         "date": "2026-05-11",
-        "close": 2.82
+        "close": 2.83
       }
     ],
     "2222.SR": [
@@ -17363,6 +17387,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-05-11T01:02:22Z"
+    "sampled_at": "2026-05-11T02:24:20Z"
   }
 }
