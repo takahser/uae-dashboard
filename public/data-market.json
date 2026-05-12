@@ -1,20 +1,20 @@
 {
-  "updated": "2026-05-12T09:27:19Z",
+  "updated": "2026-05-12T10:23:18Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 107.21,
-      "change": 3.0,
-      "changePercent": 2.88,
+      "price": 106.99,
+      "change": 2.78,
+      "changePercent": 2.67,
       "previousClose": 104.21
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 101.39,
-      "change": 3.32,
-      "changePercent": 3.39,
+      "price": 100.93,
+      "change": 2.86,
+      "changePercent": 2.92,
       "previousClose": 98.07
     },
     "NG=F": {
@@ -28,9 +28,9 @@
     "2222.SR": {
       "symbol": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 27.78,
-      "change": 0.14,
-      "changePercent": 0.51,
+      "price": 27.8,
+      "change": 0.16,
+      "changePercent": 0.58,
       "previousClose": 27.64
     },
     "FRO": {
@@ -8166,11 +8166,19 @@
       },
       {
         "date": "2026-05-12T09:00",
-        "close": 107.23
+        "close": 107.16
       },
       {
         "date": "2026-05-12T09:17",
         "close": 107.21
+      },
+      {
+        "date": "2026-05-12T10:00",
+        "close": 106.99
+      },
+      {
+        "date": "2026-05-12T10:12",
+        "close": 106.99
       }
     ],
     "CL=F": [
@@ -16252,11 +16260,19 @@
       },
       {
         "date": "2026-05-12T09:00",
-        "close": 101.35
+        "close": 101.09
       },
       {
         "date": "2026-05-12T09:17",
         "close": 101.39
+      },
+      {
+        "date": "2026-05-12T10:00",
+        "close": 100.97
+      },
+      {
+        "date": "2026-05-12T10:13",
+        "close": 100.93
       }
     ],
     "NG=F": [
@@ -16632,7 +16648,7 @@
       },
       {
         "date": "2026-05-12",
-        "close": 27.78
+        "close": 27.8
       }
     ],
     "FRO": [
@@ -17883,6 +17899,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-05-12T09:27:06Z"
+    "sampled_at": "2026-05-12T10:23:02Z"
   }
 }
