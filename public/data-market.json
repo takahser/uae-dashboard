@@ -1,29 +1,29 @@
 {
-  "updated": "2026-05-13T21:37:32Z",
+  "updated": "2026-05-13T22:33:20Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 105.55,
-      "change": -2.22,
-      "changePercent": -2.06,
-      "previousClose": 107.77
+      "price": 105.51,
+      "change": -0.12,
+      "changePercent": -0.11,
+      "previousClose": 105.63
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 101.0,
-      "change": -1.18,
-      "changePercent": -1.15,
-      "previousClose": 102.18
+      "price": 100.82,
+      "change": -0.2,
+      "changePercent": -0.2,
+      "previousClose": 101.02
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
       "price": 2.87,
-      "change": 0.02,
-      "changePercent": 0.7,
-      "previousClose": 2.84
+      "change": 0.0,
+      "changePercent": 0.0,
+      "previousClose": 2.86
     },
     "2222.SR": {
       "symbol": "2222.SR",
@@ -79,9 +79,9 @@
       "symbol": "OMAN",
       "name": "Oman Crude",
       "price": 105.21,
-      "change": 3.89,
-      "changePercent": 3.84,
-      "previousClose": 101.32,
+      "change": 0.0,
+      "changePercent": 0.0,
+      "previousClose": 105.21,
       "note": "DME Oman \u2014 cbonds.com (2026-05-13)",
       "source": "cbonds.com/indexes/189217"
     }
@@ -8447,6 +8447,14 @@
       {
         "date": "2026-05-13T20:59",
         "close": 105.55
+      },
+      {
+        "date": "2026-05-13T22:00",
+        "close": 105.51
+      },
+      {
+        "date": "2026-05-13T22:14",
+        "close": 105.51
       }
     ],
     "CL=F": [
@@ -16809,6 +16817,14 @@
       {
         "date": "2026-05-13T20:59",
         "close": 101.0
+      },
+      {
+        "date": "2026-05-13T22:00",
+        "close": 100.87
+      },
+      {
+        "date": "2026-05-13T22:23",
+        "close": 100.82
       }
     ],
     "NG=F": [
@@ -18483,6 +18499,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-05-13T21:37:17Z"
+    "sampled_at": "2026-05-13T22:33:05Z"
   }
 }
