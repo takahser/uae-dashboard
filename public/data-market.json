@@ -1,28 +1,28 @@
 {
-  "updated": "2026-05-13T12:17:44Z",
+  "updated": "2026-05-13T13:19:44Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 107.43,
-      "change": -0.34,
-      "changePercent": -0.32,
+      "price": 107.33,
+      "change": -0.44,
+      "changePercent": -0.41,
       "previousClose": 107.77
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 101.85,
-      "change": -0.33,
-      "changePercent": -0.32,
+      "price": 102.14,
+      "change": -0.04,
+      "changePercent": -0.04,
       "previousClose": 102.18
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.82,
-      "change": -0.02,
-      "changePercent": -0.7,
+      "price": 2.91,
+      "change": 0.07,
+      "changePercent": 2.46,
       "previousClose": 2.84
     },
     "2222.SR": {
@@ -8374,11 +8374,19 @@
       },
       {
         "date": "2026-05-13T12:00",
-        "close": 107.42
+        "close": 107.63
       },
       {
         "date": "2026-05-13T12:07",
         "close": 107.43
+      },
+      {
+        "date": "2026-05-13T13:00",
+        "close": 107.41
+      },
+      {
+        "date": "2026-05-13T13:09",
+        "close": 107.33
       }
     ],
     "CL=F": [
@@ -16668,11 +16676,19 @@
       },
       {
         "date": "2026-05-13T12:00",
-        "close": 101.85
+        "close": 102.33
       },
       {
         "date": "2026-05-13T12:07",
         "close": 101.85
+      },
+      {
+        "date": "2026-05-13T13:00",
+        "close": 102.21
+      },
+      {
+        "date": "2026-05-13T13:09",
+        "close": 102.14
       }
     ],
     "NG=F": [
@@ -16858,7 +16874,7 @@
       },
       {
         "date": "2026-05-13",
-        "close": 2.82
+        "close": 2.91
       }
     ],
     "2222.SR": [
@@ -18331,6 +18347,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-05-13T12:17:29Z"
+    "sampled_at": "2026-05-13T13:19:29Z"
   }
 }
