@@ -1,36 +1,36 @@
 {
-  "updated": "2026-05-14T12:09:59Z",
+  "updated": "2026-05-14T13:10:43Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 104.79,
-      "change": -0.84,
-      "changePercent": -0.8,
+      "price": 105.01,
+      "change": -0.62,
+      "changePercent": -0.59,
       "previousClose": 105.63
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 100.18,
-      "change": -0.84,
-      "changePercent": -0.83,
+      "price": 100.63,
+      "change": -0.39,
+      "changePercent": -0.39,
       "previousClose": 101.02
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
       "price": 2.83,
-      "change": -0.03,
-      "changePercent": -1.05,
+      "change": -0.04,
+      "changePercent": -1.4,
       "previousClose": 2.86
     },
     "2222.SR": {
       "symbol": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 27.74,
-      "change": -0.18,
-      "changePercent": -0.64,
+      "price": 27.7,
+      "change": -0.22,
+      "changePercent": -0.79,
       "previousClose": 27.92
     },
     "FRO": {
@@ -8555,6 +8555,14 @@
       {
         "date": "2026-05-14T11:59",
         "close": 104.79
+      },
+      {
+        "date": "2026-05-14T12:00",
+        "close": 104.78
+      },
+      {
+        "date": "2026-05-14T13:00",
+        "close": 105.01
       }
     ],
     "CL=F": [
@@ -17025,6 +17033,14 @@
       {
         "date": "2026-05-14T11:59",
         "close": 100.18
+      },
+      {
+        "date": "2026-05-14T12:00",
+        "close": 100.36
+      },
+      {
+        "date": "2026-05-14T13:00",
+        "close": 100.64
       }
     ],
     "NG=F": [
@@ -17416,7 +17432,7 @@
       },
       {
         "date": "2026-05-14",
-        "close": 27.74
+        "close": 27.7
       }
     ],
     "FRO": [
@@ -18715,6 +18731,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-05-14T12:09:42Z"
+    "sampled_at": "2026-05-14T13:10:25Z"
   }
 }
