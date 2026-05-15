@@ -1,28 +1,28 @@
 {
-  "updated": "2026-05-15T01:00:15Z",
+  "updated": "2026-05-15T01:46:56Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 106.56,
-      "change": 0.84,
-      "changePercent": 0.79,
+      "price": 107.11,
+      "change": 1.39,
+      "changePercent": 1.31,
       "previousClose": 105.72
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 101.95,
-      "change": 0.78,
-      "changePercent": 0.77,
+      "price": 102.53,
+      "change": 1.36,
+      "changePercent": 1.34,
       "previousClose": 101.17
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.92,
-      "change": 0.03,
-      "changePercent": 1.04,
+      "price": 2.93,
+      "change": 0.04,
+      "changePercent": 1.38,
       "previousClose": 2.89
     },
     "2222.SR": {
@@ -8650,11 +8650,19 @@
       },
       {
         "date": "2026-05-15T00:00",
-        "close": 106.56
+        "close": 106.42
       },
       {
         "date": "2026-05-15T00:47",
         "close": 106.56
+      },
+      {
+        "date": "2026-05-15T01:00",
+        "close": 107.11
+      },
+      {
+        "date": "2026-05-15T01:36",
+        "close": 107.11
       }
     ],
     "CL=F": [
@@ -17220,11 +17228,19 @@
       },
       {
         "date": "2026-05-15T00:00",
-        "close": 101.95
+        "close": 101.84
       },
       {
         "date": "2026-05-15T00:49",
         "close": 101.95
+      },
+      {
+        "date": "2026-05-15T01:00",
+        "close": 102.54
+      },
+      {
+        "date": "2026-05-15T01:36",
+        "close": 102.53
       }
     ],
     "NG=F": [
@@ -17418,7 +17434,7 @@
       },
       {
         "date": "2026-05-15",
-        "close": 2.92
+        "close": 2.93
       }
     ],
     "2222.SR": [
@@ -18935,6 +18951,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-05-15T01:00:00Z"
+    "sampled_at": "2026-05-15T01:46:40Z"
   }
 }
