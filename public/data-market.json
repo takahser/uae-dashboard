@@ -1,5 +1,5 @@
 {
-  "updated": "2026-05-16T01:44:23Z",
+  "updated": "2026-05-16T03:16:06Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
@@ -68,10 +68,10 @@
     "DUBAI": {
       "symbol": "DUBAI",
       "name": "Dubai Crude",
-      "price": 102.61,
-      "change": 0.26,
-      "changePercent": 0.25,
-      "previousClose": 102.35,
+      "price": 104.4,
+      "change": 1.79,
+      "changePercent": 1.74,
+      "previousClose": 102.61,
       "note": "Dubai crude \u2014 Yahoo Finance (DCB=F)",
       "source": "Yahoo Finance (DCB=F)"
     },
@@ -19115,6 +19115,10 @@
       {
         "date": "2026-05-14",
         "close": 102.61
+      },
+      {
+        "date": "2026-05-15",
+        "close": 104.4
       }
     ],
     "OMAN": [
@@ -19271,6 +19275,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-05-16T01:44:06Z"
+    "sampled_at": "2026-05-16T03:15:51Z"
   }
 }
