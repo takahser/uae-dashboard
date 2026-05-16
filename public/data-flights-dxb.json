@@ -6,9 +6,9 @@
   "lastVerified": "2026-03-14",
   "source": "@Sajwani / UAE official statements",
   "todayArrivals": 553,
-  "todayDepartures": 509,
-  "todayTotal": 1062,
-  "todayFetched": "2026-05-15T09:02:10.279Z",
+  "todayDepartures": 516,
+  "todayTotal": 1069,
+  "todayFetched": "2026-05-16T08:34:34.213Z",
   "daily": [
     {
       "date": "2026-02-15",
@@ -1169,9 +1169,19 @@
     },
     {
       "date": "2026-05-15",
-      "departures": 509,
+      "departures": 335,
+      "arrivals": 339,
+      "total": 674,
+      "regions": {},
+      "flights": [],
+      "corrected": true,
+      "correctedAt": "2026-05-16T08:34:08.100Z"
+    },
+    {
+      "date": "2026-05-16",
+      "departures": 516,
       "arrivals": 553,
-      "total": 1062,
+      "total": 1069,
       "regions": {},
       "flights": []
     }
