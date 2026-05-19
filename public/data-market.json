@@ -1,28 +1,28 @@
 {
-  "updated": "2026-05-19T08:16:15Z",
+  "updated": "2026-05-19T09:49:50Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 110.29,
-      "change": -1.81,
-      "changePercent": -1.61,
+      "price": 110.35,
+      "change": -1.75,
+      "changePercent": -1.56,
       "previousClose": 112.1
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 103.41,
-      "change": -0.97,
-      "changePercent": -0.93,
+      "price": 103.28,
+      "change": -1.1,
+      "changePercent": -1.05,
       "previousClose": 104.38
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 3.02,
-      "change": -0.01,
-      "changePercent": -0.33,
+      "price": 3.06,
+      "change": 0.04,
+      "changePercent": 1.32,
       "previousClose": 3.02
     },
     "2222.SR": {
@@ -9058,11 +9058,19 @@
       },
       {
         "date": "2026-05-19T08:00",
-        "close": 110.28
+        "close": 110.27
       },
       {
         "date": "2026-05-19T08:05",
         "close": 110.29
+      },
+      {
+        "date": "2026-05-19T09:00",
+        "close": 110.35
+      },
+      {
+        "date": "2026-05-19T09:38",
+        "close": 110.35
       }
     ],
     "CL=F": [
@@ -18040,11 +18048,19 @@
       },
       {
         "date": "2026-05-19T08:00",
-        "close": 103.41
+        "close": 103.24
       },
       {
         "date": "2026-05-19T08:05",
         "close": 103.41
+      },
+      {
+        "date": "2026-05-19T09:00",
+        "close": 103.3
+      },
+      {
+        "date": "2026-05-19T09:39",
+        "close": 103.28
       }
     ],
     "NG=F": [
@@ -18250,7 +18266,7 @@
       },
       {
         "date": "2026-05-19",
-        "close": 3.02
+        "close": 3.06
       }
     ],
     "2222.SR": [
@@ -19835,6 +19851,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-05-19T08:15:57Z"
+    "sampled_at": "2026-05-19T09:49:33Z"
   }
 }
