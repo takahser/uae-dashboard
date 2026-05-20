@@ -1,28 +1,28 @@
 {
-  "updated": "2026-05-19T23:31:58Z",
+  "updated": "2026-05-20T01:06:48Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 111.1,
-      "change": -0.18,
-      "changePercent": -0.16,
+      "price": 110.85,
+      "change": -0.43,
+      "changePercent": -0.39,
       "previousClose": 111.28
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 104.13,
-      "change": -0.02,
-      "changePercent": -0.02,
+      "price": 103.84,
+      "change": -0.31,
+      "changePercent": -0.3,
       "previousClose": 104.15
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 3.11,
-      "change": -0.0,
-      "changePercent": -0.0,
+      "price": 3.1,
+      "change": -0.01,
+      "changePercent": -0.32,
       "previousClose": 3.11
     },
     "2222.SR": {
@@ -9167,6 +9167,18 @@
       {
         "date": "2026-05-19T22:54",
         "close": 111.1
+      },
+      {
+        "date": "2026-05-19T23:00",
+        "close": 110.92
+      },
+      {
+        "date": "2026-05-20T00:00",
+        "close": 110.85
+      },
+      {
+        "date": "2026-05-20T00:56",
+        "close": 110.85
       }
     ],
     "CL=F": [
@@ -18252,11 +18264,19 @@
       },
       {
         "date": "2026-05-19T23:00",
-        "close": 104.13
+        "close": 103.92
       },
       {
         "date": "2026-05-19T23:21",
         "close": 104.13
+      },
+      {
+        "date": "2026-05-20T00:00",
+        "close": 103.85
+      },
+      {
+        "date": "2026-05-20T00:56",
+        "close": 103.84
       }
     ],
     "NG=F": [
@@ -18463,6 +18483,10 @@
       {
         "date": "2026-05-19",
         "close": 3.11
+      },
+      {
+        "date": "2026-05-20",
+        "close": 3.1
       }
     ],
     "2222.SR": [
@@ -20063,6 +20087,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-05-19T23:31:44Z"
+    "sampled_at": "2026-05-20T01:06:30Z"
   }
 }
