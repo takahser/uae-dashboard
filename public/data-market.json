@@ -1,29 +1,29 @@
 {
-  "updated": "2026-05-21T21:06:36Z",
+  "updated": "2026-05-21T22:02:50Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 104.9,
-      "change": -0.12,
-      "changePercent": -0.11,
-      "previousClose": 105.02
+      "price": 104.88,
+      "change": 2.3,
+      "changePercent": 2.24,
+      "previousClose": 102.58
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 98.05,
-      "change": -0.21,
-      "changePercent": -0.21,
-      "previousClose": 98.26
+      "price": 98.0,
+      "change": 1.65,
+      "changePercent": 1.71,
+      "previousClose": 96.35
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 3.13,
+      "price": 3.14,
       "change": -0.02,
       "changePercent": -0.63,
-      "previousClose": 3.15
+      "previousClose": 3.16
     },
     "2222.SR": {
       "symbol": "2222.SR",
@@ -78,9 +78,9 @@
     "OMAN": {
       "symbol": "OMAN",
       "name": "Oman Crude",
-      "price": 106.36,
-      "change": 0.0,
-      "changePercent": 0.0,
+      "price": 105.92,
+      "change": -0.44,
+      "changePercent": -0.41,
       "previousClose": 106.36,
       "note": "DME Oman \u2014 cbonds.com (2026-05-21)",
       "source": "cbonds.com/indexes/189217"
@@ -9478,11 +9478,15 @@
       },
       {
         "date": "2026-05-21T20:00",
-        "close": 104.9
+        "close": 104.88
       },
       {
         "date": "2026-05-21T20:55",
         "close": 104.9
+      },
+      {
+        "date": "2026-05-21T20:59",
+        "close": 104.88
       }
     ],
     "CL=F": [
@@ -18880,11 +18884,15 @@
       },
       {
         "date": "2026-05-21T20:00",
-        "close": 98.04
+        "close": 98.0
       },
       {
         "date": "2026-05-21T20:56",
         "close": 98.05
+      },
+      {
+        "date": "2026-05-21T20:59",
+        "close": 98.0
       }
     ],
     "NG=F": [
@@ -19098,7 +19106,7 @@
       },
       {
         "date": "2026-05-21",
-        "close": 3.13
+        "close": 3.14
       }
     ],
     "2222.SR": [
