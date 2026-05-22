@@ -1,28 +1,28 @@
 {
-  "updated": "2026-05-21T23:54:58Z",
+  "updated": "2026-05-22T01:04:15Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 104.49,
-      "change": 1.91,
-      "changePercent": 1.86,
+      "price": 104.8,
+      "change": 2.22,
+      "changePercent": 2.16,
       "previousClose": 102.58
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 97.66,
-      "change": 1.31,
-      "changePercent": 1.36,
+      "price": 97.93,
+      "change": 1.58,
+      "changePercent": 1.64,
       "previousClose": 96.35
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 3.14,
-      "change": -0.02,
-      "changePercent": -0.63,
+      "price": 3.13,
+      "change": -0.03,
+      "changePercent": -0.95,
       "previousClose": 3.16
     },
     "2222.SR": {
@@ -9498,7 +9498,7 @@
       },
       {
         "date": "2026-05-21T23:00",
-        "close": 104.49
+        "close": 104.69
       },
       {
         "date": "2026-05-21T23:15",
@@ -9507,6 +9507,14 @@
       {
         "date": "2026-05-21T23:37",
         "close": 104.49
+      },
+      {
+        "date": "2026-05-22T00:00",
+        "close": 104.8
+      },
+      {
+        "date": "2026-05-22T00:53",
+        "close": 104.8
       }
     ],
     "CL=F": [
@@ -18924,7 +18932,7 @@
       },
       {
         "date": "2026-05-21T23:00",
-        "close": 97.66
+        "close": 97.74
       },
       {
         "date": "2026-05-21T23:18",
@@ -18933,6 +18941,14 @@
       {
         "date": "2026-05-21T23:44",
         "close": 97.66
+      },
+      {
+        "date": "2026-05-22T00:00",
+        "close": 97.89
+      },
+      {
+        "date": "2026-05-22T00:54",
+        "close": 97.93
       }
     ],
     "NG=F": [
@@ -19147,6 +19163,10 @@
       {
         "date": "2026-05-21",
         "close": 3.14
+      },
+      {
+        "date": "2026-05-22",
+        "close": 3.13
       }
     ],
     "2222.SR": [
