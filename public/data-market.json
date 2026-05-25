@@ -1,28 +1,28 @@
 {
-  "updated": "2026-05-25T22:29:14Z",
+  "updated": "2026-05-25T22:55:06Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 94.06,
-      "change": -6.15,
-      "changePercent": -6.14,
+      "price": 93.92,
+      "change": -6.29,
+      "changePercent": -6.28,
       "previousClose": 100.21
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 90.63,
-      "change": -5.97,
-      "changePercent": -6.18,
+      "price": 90.4,
+      "change": -6.2,
+      "changePercent": -6.42,
       "previousClose": 96.6
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 3.03,
-      "change": 0.01,
-      "changePercent": 0.33,
+      "price": 3.04,
+      "change": 0.02,
+      "changePercent": 0.66,
       "previousClose": 3.02
     },
     "2222.SR": {
@@ -79,9 +79,9 @@
       "symbol": "OMAN",
       "name": "Oman Crude",
       "price": 101.65,
-      "change": 1.12,
-      "changePercent": 1.11,
-      "previousClose": 100.53,
+      "change": 0.0,
+      "changePercent": 0.0,
+      "previousClose": 101.65,
       "note": "DME Oman \u2014 cbonds.com (2026-05-25)",
       "source": "cbonds.com/indexes/189217"
     }
@@ -16548,7 +16548,7 @@
       },
       {
         "date": "2026-05-01T20:00",
-        "close": 101.94
+        "close": 102.5
       },
       {
         "date": "2026-05-01T20:14",
@@ -19526,7 +19526,7 @@
       },
       {
         "date": "2026-05-25",
-        "close": 3.03
+        "close": 3.04
       }
     ],
     "2222.SR": [
@@ -21215,6 +21215,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-05-25T22:28:58Z"
+    "sampled_at": "2026-05-25T22:54:53Z"
   }
 }
