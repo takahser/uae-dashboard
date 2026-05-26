@@ -2010,6 +2010,50 @@
           }
         }
       ]
+    },
+    {
+      "date": "2026-05-25",
+      "checkedAt": "2026-05-26T07:11:22.221Z",
+      "alerts": [
+        {
+          "iata": "DXB",
+          "date": "2026-05-25",
+          "official": 764,
+          "aerodatabox": 1106,
+          "diff": 342,
+          "pctDiff": 31,
+          "alert": true,
+          "details": {
+            "official": {
+              "dep": 372,
+              "arr": 392
+            },
+            "aerodatabox": {
+              "dep": 535,
+              "arr": 571
+            }
+          }
+        },
+        {
+          "iata": "DOH",
+          "date": "2026-05-25",
+          "official": 427,
+          "aerodatabox": 775,
+          "diff": 348,
+          "pctDiff": 45,
+          "alert": true,
+          "details": {
+            "official": {
+              "dep": 209,
+              "arr": 218
+            },
+            "aerodatabox": {
+              "dep": 372,
+              "arr": 403
+            }
+          }
+        }
+      ]
     }
   ]
 }
