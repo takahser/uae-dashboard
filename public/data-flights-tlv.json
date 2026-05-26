@@ -6,9 +6,9 @@
   "lastVerified": "2026-03-15",
   "source": "Multiple verified news sources",
   "todayArrivals": 311,
-  "todayDepartures": 296,
-  "todayTotal": 607,
-  "todayFetched": "2026-05-25T09:20:16.807Z",
+  "todayDepartures": 289,
+  "todayTotal": 600,
+  "todayFetched": "2026-05-26T09:08:29.811Z",
   "daily": [
     {
       "date": "2026-02-15",
@@ -1262,9 +1262,19 @@
     },
     {
       "date": "2026-05-25",
-      "departures": 296,
+      "departures": 87,
+      "arrivals": 112,
+      "total": 199,
+      "regions": {},
+      "flights": [],
+      "corrected": true,
+      "correctedAt": "2026-05-26T09:07:39.084Z"
+    },
+    {
+      "date": "2026-05-26",
+      "departures": 289,
       "arrivals": 311,
-      "total": 607,
+      "total": 600,
       "regions": {},
       "flights": []
     }
