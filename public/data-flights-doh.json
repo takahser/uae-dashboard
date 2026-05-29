@@ -5,10 +5,10 @@
   "statusNote": "Operational — no closure reported",
   "lastVerified": "2026-03-15",
   "source": "Qatar MoD statements",
-  "todayArrivals": 434,
-  "todayDepartures": 387,
-  "todayTotal": 821,
-  "todayFetched": "2026-05-28T09:13:14.982Z",
+  "todayArrivals": 415,
+  "todayDepartures": 369,
+  "todayTotal": 784,
+  "todayFetched": "2026-05-29T09:08:48.830Z",
   "daily": [
     {
       "date": "2026-02-15",
@@ -1229,9 +1229,19 @@
     },
     {
       "date": "2026-05-28",
-      "departures": 387,
-      "arrivals": 434,
-      "total": 821,
+      "departures": 88,
+      "arrivals": 130,
+      "total": 218,
+      "regions": {},
+      "flights": [],
+      "corrected": true,
+      "correctedAt": "2026-05-29T09:07:58.801Z"
+    },
+    {
+      "date": "2026-05-29",
+      "departures": 369,
+      "arrivals": 415,
+      "total": 784,
       "regions": {},
       "flights": []
     }
