@@ -1,26 +1,26 @@
 {
-  "updated": "2026-05-29T03:49:35Z",
+  "updated": "2026-05-29T05:36:22Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 91.83,
-      "change": -0.87,
-      "changePercent": -0.94,
+      "price": 91.8,
+      "change": -0.9,
+      "changePercent": -0.97,
       "previousClose": 92.7
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 87.73,
-      "change": -1.17,
-      "changePercent": -1.32,
+      "price": 87.82,
+      "change": -1.08,
+      "changePercent": -1.21,
       "previousClose": 88.9
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 3.3,
+      "price": 3.29,
       "change": 0.01,
       "changePercent": 0.3,
       "previousClose": 3.29
@@ -10158,7 +10158,7 @@
       },
       {
         "date": "2026-05-29T01:00",
-        "close": 91.88
+        "close": 92.31
       },
       {
         "date": "2026-05-29T02:00",
@@ -10175,6 +10175,18 @@
       {
         "date": "2026-05-29T03:36",
         "close": 91.83
+      },
+      {
+        "date": "2026-05-29T04:00",
+        "close": 91.73
+      },
+      {
+        "date": "2026-05-29T05:00",
+        "close": 91.8
+      },
+      {
+        "date": "2026-05-29T05:25",
+        "close": 91.8
       }
     ],
     "CL=F": [
@@ -20256,7 +20268,7 @@
       },
       {
         "date": "2026-05-29T01:00",
-        "close": 87.89
+        "close": 88.16
       },
       {
         "date": "2026-05-29T02:00",
@@ -20273,6 +20285,18 @@
       {
         "date": "2026-05-29T03:39",
         "close": 87.73
+      },
+      {
+        "date": "2026-05-29T04:00",
+        "close": 87.71
+      },
+      {
+        "date": "2026-05-29T05:00",
+        "close": 87.8
+      },
+      {
+        "date": "2026-05-29T05:26",
+        "close": 87.82
       }
     ],
     "NG=F": [
@@ -22295,6 +22319,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-05-29T03:49:20Z"
+    "sampled_at": "2026-05-29T05:36:08Z"
   }
 }
