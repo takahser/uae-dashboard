@@ -1,28 +1,28 @@
 {
-  "updated": "2026-05-28T23:38:44Z",
+  "updated": "2026-05-29T01:09:11Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 92.45,
-      "change": -0.25,
-      "changePercent": -0.27,
+      "price": 92.34,
+      "change": -0.36,
+      "changePercent": -0.39,
       "previousClose": 92.7
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 88.57,
-      "change": -0.33,
-      "changePercent": -0.37,
+      "price": 88.37,
+      "change": -0.53,
+      "changePercent": -0.6,
       "previousClose": 88.9
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 3.3,
-      "change": 0.01,
-      "changePercent": 0.3,
+      "price": 3.29,
+      "change": 0.0,
+      "changePercent": 0.0,
       "previousClose": 3.29
     },
     "2222.SR": {
@@ -10147,6 +10147,14 @@
       {
         "date": "2026-05-28T23:28",
         "close": 92.45
+      },
+      {
+        "date": "2026-05-29T00:00",
+        "close": 92.34
+      },
+      {
+        "date": "2026-05-29T00:58",
+        "close": 92.34
       }
     ],
     "CL=F": [
@@ -20212,11 +20220,19 @@
       },
       {
         "date": "2026-05-28T23:00",
-        "close": 88.57
+        "close": 88.53
       },
       {
         "date": "2026-05-28T23:28",
         "close": 88.57
+      },
+      {
+        "date": "2026-05-29T00:00",
+        "close": 88.37
+      },
+      {
+        "date": "2026-05-29T00:58",
+        "close": 88.37
       }
     ],
     "NG=F": [
@@ -20455,6 +20471,10 @@
       {
         "date": "2026-05-28",
         "close": 3.3
+      },
+      {
+        "date": "2026-05-29",
+        "close": 3.29
       }
     ],
     "2222.SR": [
@@ -20692,6 +20712,10 @@
       },
       {
         "date": "2026-05-27",
+        "close": 27.9
+      },
+      {
+        "date": "2026-05-28",
         "close": 27.9
       }
     ],
@@ -22227,6 +22251,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-05-28T23:38:30Z"
+    "sampled_at": "2026-05-29T01:08:57Z"
   }
 }
