@@ -1,28 +1,28 @@
 {
-  "updated": "2026-05-29T12:07:29Z",
+  "updated": "2026-05-29T13:40:08Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 91.25,
-      "change": -1.45,
-      "changePercent": -1.56,
+      "price": 91.05,
+      "change": -1.65,
+      "changePercent": -1.78,
       "previousClose": 92.7
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 87.7,
-      "change": -1.2,
-      "changePercent": -1.35,
+      "price": 87.56,
+      "change": -1.34,
+      "changePercent": -1.51,
       "previousClose": 88.9
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 3.34,
-      "change": 0.05,
-      "changePercent": 1.52,
+      "price": 3.36,
+      "change": 0.07,
+      "changePercent": 2.13,
       "previousClose": 3.29
     },
     "2222.SR": {
@@ -36,34 +36,34 @@
     "FRO": {
       "symbol": "FRO",
       "name": "Frontline",
-      "price": 34.54,
-      "change": -0.92,
-      "changePercent": -2.59,
-      "previousClose": 35.46
+      "price": 34.15,
+      "change": -0.38,
+      "changePercent": -1.1,
+      "previousClose": 34.53
     },
     "STNG": {
       "symbol": "STNG",
       "name": "Scorpio Tankers",
-      "price": 74.6,
-      "change": -3.1,
-      "changePercent": -3.99,
-      "previousClose": 77.7
+      "price": 73.5,
+      "change": -1.05,
+      "changePercent": -1.41,
+      "previousClose": 74.55
     },
     "RTX": {
       "symbol": "RTX",
       "name": "RTX Corp",
-      "price": 178.96,
-      "change": 2.37,
-      "changePercent": 1.34,
-      "previousClose": 176.59
+      "price": 176.79,
+      "change": -2.17,
+      "changePercent": -1.21,
+      "previousClose": 178.96
     },
     "LMT": {
       "symbol": "LMT",
       "name": "Lockheed Martin",
-      "price": 537.21,
-      "change": 6.07,
-      "changePercent": 1.14,
-      "previousClose": 531.14
+      "price": 530.28,
+      "change": -6.85,
+      "changePercent": -1.28,
+      "previousClose": 537.12
     },
     "DUBAI": {
       "symbol": "DUBAI",
@@ -10222,11 +10222,23 @@
       },
       {
         "date": "2026-05-29T11:00",
-        "close": 91.14
+        "close": 91.17
       },
       {
         "date": "2026-05-29T11:57",
         "close": 91.25
+      },
+      {
+        "date": "2026-05-29T12:00",
+        "close": 91.0
+      },
+      {
+        "date": "2026-05-29T13:00",
+        "close": 91.04
+      },
+      {
+        "date": "2026-05-29T13:29",
+        "close": 91.05
       }
     ],
     "CL=F": [
@@ -20377,6 +20389,18 @@
       {
         "date": "2026-05-29T11:57",
         "close": 87.7
+      },
+      {
+        "date": "2026-05-29T12:00",
+        "close": 87.33
+      },
+      {
+        "date": "2026-05-29T13:00",
+        "close": 87.53
+      },
+      {
+        "date": "2026-05-29T13:29",
+        "close": 87.56
       }
     ],
     "NG=F": [
@@ -20618,7 +20642,7 @@
       },
       {
         "date": "2026-05-29",
-        "close": 3.34
+        "close": 3.36
       }
     ],
     "2222.SR": [
@@ -21099,6 +21123,10 @@
       {
         "date": "2026-05-28",
         "close": 34.54
+      },
+      {
+        "date": "2026-05-29",
+        "close": 34.15
       }
     ],
     "STNG": [
@@ -21337,6 +21365,10 @@
       {
         "date": "2026-05-28",
         "close": 74.6
+      },
+      {
+        "date": "2026-05-29",
+        "close": 73.5
       }
     ],
     "RTX": [
@@ -21575,6 +21607,10 @@
       {
         "date": "2026-05-28",
         "close": 178.96
+      },
+      {
+        "date": "2026-05-29",
+        "close": 176.79
       }
     ],
     "LMT": [
@@ -21813,6 +21849,10 @@
       {
         "date": "2026-05-28",
         "close": 537.21
+      },
+      {
+        "date": "2026-05-29",
+        "close": 530.28
       }
     ],
     "DUBAI": [
@@ -22403,6 +22443,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-05-29T12:07:12Z"
+    "sampled_at": "2026-05-29T13:39:52Z"
   }
 }
