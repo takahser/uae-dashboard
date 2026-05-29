@@ -1,28 +1,28 @@
 {
-  "updated": "2026-05-29T07:33:20Z",
+  "updated": "2026-05-29T09:22:10Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 91.95,
-      "change": -0.75,
-      "changePercent": -0.81,
+      "price": 91.58,
+      "change": -1.12,
+      "changePercent": -1.21,
       "previousClose": 92.7
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 88.03,
-      "change": -0.87,
-      "changePercent": -0.98,
+      "price": 87.84,
+      "change": -1.06,
+      "changePercent": -1.19,
       "previousClose": 88.9
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 3.31,
-      "change": 0.02,
-      "changePercent": 0.61,
+      "price": 3.34,
+      "change": 0.05,
+      "changePercent": 1.52,
       "previousClose": 3.29
     },
     "2222.SR": {
@@ -82,7 +82,7 @@
       "change": 0.0,
       "changePercent": 0.0,
       "previousClose": 88.79,
-      "note": "DME Oman \u2014 cbonds.com (2026-05-28)",
+      "note": "DME Oman \u2014 cbonds.com (2026-05-29)",
       "source": "cbonds.com/indexes/189217"
     }
   },
@@ -10194,11 +10194,23 @@
       },
       {
         "date": "2026-05-29T07:00",
-        "close": 91.95
+        "close": 92.64
       },
       {
         "date": "2026-05-29T07:22",
         "close": 91.95
+      },
+      {
+        "date": "2026-05-29T08:00",
+        "close": 92.44
+      },
+      {
+        "date": "2026-05-29T09:00",
+        "close": 91.61
+      },
+      {
+        "date": "2026-05-29T09:11",
+        "close": 91.58
       }
     ],
     "CL=F": [
@@ -20316,11 +20328,23 @@
       },
       {
         "date": "2026-05-29T07:00",
-        "close": 88.03
+        "close": 88.72
       },
       {
         "date": "2026-05-29T07:23",
         "close": 88.03
+      },
+      {
+        "date": "2026-05-29T08:00",
+        "close": 88.68
+      },
+      {
+        "date": "2026-05-29T09:00",
+        "close": 87.84
+      },
+      {
+        "date": "2026-05-29T09:11",
+        "close": 87.84
       }
     ],
     "NG=F": [
@@ -20562,7 +20586,7 @@
       },
       {
         "date": "2026-05-29",
-        "close": 3.31
+        "close": 3.34
       }
     ],
     "2222.SR": [
@@ -22337,12 +22361,16 @@
       {
         "date": "2026-05-28",
         "close": 95.56
+      },
+      {
+        "date": "2026-05-29",
+        "close": 88.79
       }
     ]
   },
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-05-29T07:33:04Z"
+    "sampled_at": "2026-05-29T09:21:57Z"
   }
 }
