@@ -1,5 +1,5 @@
 {
-  "updated": "2026-05-31T05:39:20Z",
+  "updated": "2026-05-31T07:29:34Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
@@ -28,10 +28,10 @@
     "2222.SR": {
       "symbol": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 27.9,
-      "change": 0.04,
-      "changePercent": 0.14,
-      "previousClose": 27.86
+      "price": 27.58,
+      "change": -0.32,
+      "changePercent": -1.15,
+      "previousClose": 27.9
     },
     "FRO": {
       "symbol": "FRO",
@@ -20989,6 +20989,10 @@
       {
         "date": "2026-05-28",
         "close": 27.9
+      },
+      {
+        "date": "2026-05-31",
+        "close": 27.58
       }
     ],
     "FRO": [
@@ -22551,6 +22555,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-05-31T05:39:06Z"
+    "sampled_at": "2026-05-31T07:29:18Z"
   }
 }
