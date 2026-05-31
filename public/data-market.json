@@ -1,28 +1,28 @@
 {
-  "updated": "2026-05-31T22:28:10Z",
+  "updated": "2026-05-31T22:53:47Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 93.23,
-      "change": 2.11,
-      "changePercent": 2.32,
+      "price": 92.98,
+      "change": 1.86,
+      "changePercent": 2.04,
       "previousClose": 91.12
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 89.72,
-      "change": 2.36,
-      "changePercent": 2.7,
+      "price": 89.45,
+      "change": 2.09,
+      "changePercent": 2.39,
       "previousClose": 87.36
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 3.35,
-      "change": 0.06,
-      "changePercent": 1.82,
+      "price": 3.33,
+      "change": 0.04,
+      "changePercent": 1.22,
       "previousClose": 3.29
     },
     "2222.SR": {
@@ -10294,11 +10294,15 @@
       },
       {
         "date": "2026-05-31T22:00",
-        "close": 93.23
+        "close": 92.92
       },
       {
         "date": "2026-05-31T22:17",
         "close": 93.23
+      },
+      {
+        "date": "2026-05-31T22:43",
+        "close": 92.98
       }
     ],
     "CL=F": [
@@ -17156,7 +17160,7 @@
       },
       {
         "date": "2026-05-01T20:00",
-        "close": 101.94
+        "close": 102.5
       },
       {
         "date": "2026-05-01T20:14",
@@ -20516,11 +20520,15 @@
       },
       {
         "date": "2026-05-31T22:00",
-        "close": 89.72
+        "close": 89.43
       },
       {
         "date": "2026-05-31T22:17",
         "close": 89.72
+      },
+      {
+        "date": "2026-05-31T22:43",
+        "close": 89.45
       }
     ],
     "NG=F": [
@@ -20766,7 +20774,7 @@
       },
       {
         "date": "2026-05-31",
-        "close": 3.35
+        "close": 3.33
       }
     ],
     "2222.SR": [
@@ -22575,6 +22583,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-05-31T22:27:57Z"
+    "sampled_at": "2026-05-31T22:53:33Z"
   }
 }
