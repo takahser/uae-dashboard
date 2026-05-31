@@ -1010,6 +1010,89 @@
         "Europe": 1,
         "Unknown": 3
       }
+    },
+    {
+      "date": "2026-05-24",
+      "departures": 2,
+      "arrivals": 1,
+      "total": 3,
+      "regions": {
+        "Africa": 1,
+        "Unknown": 1,
+        "Asia-Pacific": 1
+      }
+    },
+    {
+      "date": "2026-05-25",
+      "departures": 1,
+      "arrivals": 1,
+      "total": 2,
+      "regions": {
+        "Unknown": 2
+      }
+    },
+    {
+      "date": "2026-05-26",
+      "departures": 2,
+      "arrivals": 1,
+      "total": 3,
+      "regions": {
+        "Europe": 3
+      }
+    },
+    {
+      "date": "2026-05-27",
+      "departures": 37,
+      "arrivals": 31,
+      "total": 68,
+      "regions": {
+        "Unknown": 23,
+        "Europe": 16,
+        "Middle East": 4,
+        "South Asia": 11,
+        "Asia-Pacific": 6,
+        "Africa": 3,
+        "Americas": 5
+      }
+    },
+    {
+      "date": "2026-05-28",
+      "departures": 13,
+      "arrivals": 11,
+      "total": 24,
+      "regions": {
+        "South Asia": 3,
+        "Middle East": 2,
+        "Unknown": 6,
+        "Africa": 3,
+        "Europe": 6,
+        "Americas": 2,
+        "Asia-Pacific": 2
+      }
+    },
+    {
+      "date": "2026-05-29",
+      "departures": 26,
+      "arrivals": 7,
+      "total": 33,
+      "regions": {
+        "Unknown": 15,
+        "Middle East": 15,
+        "South Asia": 2,
+        "Asia-Pacific": 1
+      }
+    },
+    {
+      "date": "2026-05-30",
+      "departures": 9,
+      "arrivals": 0,
+      "total": 9,
+      "regions": {
+        "Unknown": 6,
+        "Middle East": 1,
+        "Africa": 1,
+        "Asia-Pacific": 1
+      }
     }
   ],
   "baselineDailyAvg": {
@@ -1018,5 +1101,5 @@
     "arrivals": 0,
     "regions": {}
   },
-  "lastUpdated": "2026-05-24T08:51:02.159Z"
+  "lastUpdated": "2026-05-31T09:03:02.934Z"
 }
