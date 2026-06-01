@@ -1,29 +1,29 @@
 {
-  "updated": "2026-06-01T20:35:08Z",
+  "updated": "2026-06-01T22:08:54Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 95.19,
-      "change": 4.07,
-      "changePercent": 4.47,
-      "previousClose": 91.12
+      "price": 95.3,
+      "change": 0.32,
+      "changePercent": 0.34,
+      "previousClose": 94.98
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 92.27,
-      "change": 4.91,
-      "changePercent": 5.62,
-      "previousClose": 87.36
+      "price": 92.47,
+      "change": 0.31,
+      "changePercent": 0.34,
+      "previousClose": 92.16
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
       "price": 3.19,
-      "change": -0.1,
-      "changePercent": -3.04,
-      "previousClose": 3.29
+      "change": 0.01,
+      "changePercent": 0.31,
+      "previousClose": 3.18
     },
     "2222.SR": {
       "symbol": "2222.SR",
@@ -78,9 +78,9 @@
     "OMAN": {
       "symbol": "OMAN",
       "name": "Oman Crude",
-      "price": 103.5,
-      "change": 0.0,
-      "changePercent": 0.0,
+      "price": 88.18,
+      "change": -15.32,
+      "changePercent": -14.8,
       "previousClose": 103.5,
       "note": "DME Oman \u2014 cbonds.com (2026-06-01)",
       "source": "cbonds.com/indexes/189217"
@@ -10438,11 +10438,15 @@
       },
       {
         "date": "2026-06-01T20:00",
-        "close": 95.19
+        "close": 95.3
       },
       {
         "date": "2026-06-01T20:24",
         "close": 95.19
+      },
+      {
+        "date": "2026-06-01T20:59",
+        "close": 95.3
       }
     ],
     "CL=F": [
@@ -20804,11 +20808,15 @@
       },
       {
         "date": "2026-06-01T20:00",
-        "close": 92.3
+        "close": 92.47
       },
       {
         "date": "2026-06-01T20:24",
         "close": 92.27
+      },
+      {
+        "date": "2026-06-01T20:59",
+        "close": 92.47
       }
     ],
     "NG=F": [
@@ -22891,6 +22899,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-06-01T20:34:52Z"
+    "sampled_at": "2026-06-01T22:08:41Z"
   }
 }
