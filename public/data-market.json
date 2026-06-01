@@ -1,37 +1,37 @@
 {
-  "updated": "2026-06-01T05:47:24Z",
+  "updated": "2026-06-01T08:02:32Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 93.31,
-      "change": 2.19,
-      "changePercent": 2.4,
+      "price": 94.16,
+      "change": 3.04,
+      "changePercent": 3.34,
       "previousClose": 91.12
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 89.9,
-      "change": 2.54,
-      "changePercent": 2.91,
+      "price": 90.67,
+      "change": 3.31,
+      "changePercent": 3.79,
       "previousClose": 87.36
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 3.37,
-      "change": 0.08,
-      "changePercent": 2.43,
+      "price": 3.39,
+      "change": 0.1,
+      "changePercent": 3.04,
       "previousClose": 3.29
     },
     "2222.SR": {
       "symbol": "2222.SR",
       "name": "Saudi Aramco",
       "price": 27.54,
-      "change": -0.36,
-      "changePercent": -1.29,
-      "previousClose": 27.9
+      "change": 0.0,
+      "changePercent": 0.0,
+      "previousClose": 27.54
     },
     "FRO": {
       "symbol": "FRO",
@@ -10318,7 +10318,7 @@
       },
       {
         "date": "2026-06-01T00:00",
-        "close": 93.11
+        "close": 92.92
       },
       {
         "date": "2026-06-01T01:00",
@@ -10338,7 +10338,7 @@
       },
       {
         "date": "2026-06-01T03:00",
-        "close": 93.03
+        "close": 93.28
       },
       {
         "date": "2026-06-01T03:39",
@@ -10350,11 +10350,23 @@
       },
       {
         "date": "2026-06-01T05:00",
-        "close": 93.31
+        "close": 93.26
       },
       {
         "date": "2026-06-01T05:36",
         "close": 93.31
+      },
+      {
+        "date": "2026-06-01T06:00",
+        "close": 93.76
+      },
+      {
+        "date": "2026-06-01T07:00",
+        "close": 94.17
+      },
+      {
+        "date": "2026-06-01T07:52",
+        "close": 94.16
       }
     ],
     "CL=F": [
@@ -20596,7 +20608,7 @@
       },
       {
         "date": "2026-06-01T00:00",
-        "close": 89.54
+        "close": 89.33
       },
       {
         "date": "2026-06-01T01:00",
@@ -20616,7 +20628,7 @@
       },
       {
         "date": "2026-06-01T03:00",
-        "close": 89.45
+        "close": 89.74
       },
       {
         "date": "2026-06-01T03:39",
@@ -20628,11 +20640,23 @@
       },
       {
         "date": "2026-06-01T05:00",
-        "close": 89.91
+        "close": 89.75
       },
       {
         "date": "2026-06-01T05:37",
         "close": 89.9
+      },
+      {
+        "date": "2026-06-01T06:00",
+        "close": 90.16
+      },
+      {
+        "date": "2026-06-01T07:00",
+        "close": 90.63
+      },
+      {
+        "date": "2026-06-01T07:52",
+        "close": 90.67
       }
     ],
     "NG=F": [
@@ -20882,7 +20906,7 @@
       },
       {
         "date": "2026-06-01",
-        "close": 3.37
+        "close": 3.39
       }
     ],
     "2222.SR": [
@@ -21128,6 +21152,10 @@
       },
       {
         "date": "2026-05-31",
+        "close": 27.54
+      },
+      {
+        "date": "2026-06-01",
         "close": 27.54
       }
     ],
@@ -22691,6 +22719,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-06-01T05:47:11Z"
+    "sampled_at": "2026-06-01T08:02:17Z"
   }
 }
