@@ -1,26 +1,26 @@
 {
-  "updated": "2026-06-05T12:05:45Z",
+  "updated": "2026-06-05T13:35:31Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 94.7,
-      "change": -0.33,
-      "changePercent": -0.35,
+      "price": 94.55,
+      "change": -0.48,
+      "changePercent": -0.51,
       "previousClose": 95.03
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 92.83,
-      "change": -0.21,
-      "changePercent": -0.23,
+      "price": 92.07,
+      "change": -0.97,
+      "changePercent": -1.04,
       "previousClose": 93.04
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 3.29,
+      "price": 3.28,
       "change": -0.05,
       "changePercent": -1.5,
       "previousClose": 3.34
@@ -36,34 +36,34 @@
     "FRO": {
       "symbol": "FRO",
       "name": "Frontline",
-      "price": 34.16,
-      "change": -0.3,
-      "changePercent": -0.87,
-      "previousClose": 34.46
+      "price": 34.57,
+      "change": 0.41,
+      "changePercent": 1.2,
+      "previousClose": 34.16
     },
     "STNG": {
       "symbol": "STNG",
       "name": "Scorpio Tankers",
-      "price": 75.08,
-      "change": -0.47,
-      "changePercent": -0.62,
-      "previousClose": 75.55
+      "price": 75.86,
+      "change": 0.81,
+      "changePercent": 1.08,
+      "previousClose": 75.05
     },
     "RTX": {
       "symbol": "RTX",
       "name": "RTX Corp",
       "price": 179.41,
-      "change": 6.86,
-      "changePercent": 3.98,
-      "previousClose": 172.55
+      "change": -0.03,
+      "changePercent": -0.02,
+      "previousClose": 179.43
     },
     "LMT": {
       "symbol": "LMT",
       "name": "Lockheed Martin",
-      "price": 519.05,
-      "change": 7.02,
-      "changePercent": 1.37,
-      "previousClose": 512.03
+      "price": 522.61,
+      "change": 3.68,
+      "changePercent": 0.71,
+      "previousClose": 518.93
     },
     "DUBAI": {
       "symbol": "DUBAI",
@@ -11002,11 +11002,23 @@
       },
       {
         "date": "2026-06-05T11:00",
-        "close": 94.77
+        "close": 94.78
       },
       {
         "date": "2026-06-05T11:55",
         "close": 94.7
+      },
+      {
+        "date": "2026-06-05T12:00",
+        "close": 94.57
+      },
+      {
+        "date": "2026-06-05T13:00",
+        "close": 94.49
+      },
+      {
+        "date": "2026-06-05T13:25",
+        "close": 94.55
       }
     ],
     "CL=F": [
@@ -21928,11 +21940,23 @@
       },
       {
         "date": "2026-06-05T11:00",
-        "close": 92.85
+        "close": 92.89
       },
       {
         "date": "2026-06-05T11:55",
         "close": 92.83
+      },
+      {
+        "date": "2026-06-05T12:00",
+        "close": 92.39
+      },
+      {
+        "date": "2026-06-05T13:00",
+        "close": 92.02
+      },
+      {
+        "date": "2026-06-05T13:25",
+        "close": 92.07
       }
     ],
     "NG=F": [
@@ -22198,7 +22222,7 @@
       },
       {
         "date": "2026-06-05",
-        "close": 3.29
+        "close": 3.28
       }
     ],
     "2222.SR": [
@@ -22719,6 +22743,10 @@
       {
         "date": "2026-06-04",
         "close": 34.16
+      },
+      {
+        "date": "2026-06-05",
+        "close": 34.57
       }
     ],
     "STNG": [
@@ -22977,6 +23005,10 @@
       {
         "date": "2026-06-04",
         "close": 75.08
+      },
+      {
+        "date": "2026-06-05",
+        "close": 75.86
       }
     ],
     "RTX": [
@@ -23235,6 +23267,10 @@
       {
         "date": "2026-06-04",
         "close": 179.41
+      },
+      {
+        "date": "2026-06-05",
+        "close": 179.37
       }
     ],
     "LMT": [
@@ -23493,6 +23529,10 @@
       {
         "date": "2026-06-04",
         "close": 519.05
+      },
+      {
+        "date": "2026-06-05",
+        "close": 522.61
       }
     ],
     "DUBAI": [
@@ -24123,6 +24163,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-06-05T12:05:31Z"
+    "sampled_at": "2026-06-05T13:35:16Z"
   }
 }
