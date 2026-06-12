@@ -1,28 +1,28 @@
 {
-  "updated": "2026-06-12T19:18:05Z",
+  "updated": "2026-06-12T20:18:51Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 87.01,
-      "change": -3.37,
-      "changePercent": -3.73,
+      "price": 86.93,
+      "change": -3.45,
+      "changePercent": -3.82,
       "previousClose": 90.38
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 84.53,
-      "change": -3.18,
-      "changePercent": -3.63,
+      "price": 84.41,
+      "change": -3.3,
+      "changePercent": -3.76,
       "previousClose": 87.71
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 3.12,
-      "change": 0.04,
-      "changePercent": 1.3,
+      "price": 3.13,
+      "change": 0.05,
+      "changePercent": 1.62,
       "previousClose": 3.09
     },
     "2222.SR": {
@@ -36,33 +36,33 @@
     "FRO": {
       "symbol": "FRO",
       "name": "Frontline",
-      "price": 38.77,
-      "change": 3.19,
-      "changePercent": 8.97,
+      "price": 39.07,
+      "change": 3.49,
+      "changePercent": 9.81,
       "previousClose": 35.58
     },
     "STNG": {
       "symbol": "STNG",
       "name": "Scorpio Tankers",
-      "price": 78.99,
-      "change": 2.82,
-      "changePercent": 3.7,
+      "price": 79.05,
+      "change": 2.88,
+      "changePercent": 3.78,
       "previousClose": 76.17
     },
     "RTX": {
       "symbol": "RTX",
       "name": "RTX Corp",
-      "price": 184.07,
-      "change": -0.14,
-      "changePercent": -0.08,
+      "price": 183.53,
+      "change": -0.68,
+      "changePercent": -0.37,
       "previousClose": 184.21
     },
     "LMT": {
       "symbol": "LMT",
       "name": "Lockheed Martin",
-      "price": 540.17,
-      "change": -8.51,
-      "changePercent": -1.55,
+      "price": 540.33,
+      "change": -8.35,
+      "changePercent": -1.52,
       "previousClose": 548.68
     },
     "DUBAI": {
@@ -79,9 +79,9 @@
       "symbol": "OMAN",
       "name": "Oman Crude",
       "price": 85.5,
-      "change": -3.16,
-      "changePercent": -3.56,
-      "previousClose": 88.66,
+      "change": 0.0,
+      "changePercent": 0.0,
+      "previousClose": 85.5,
       "note": "DME Oman \u2014 cbonds.com (2026-06-12)",
       "source": "cbonds.com/indexes/189217"
     }
@@ -11866,11 +11866,19 @@
       },
       {
         "date": "2026-06-12T19:00",
-        "close": 87.01
+        "close": 86.81
       },
       {
         "date": "2026-06-12T19:07",
         "close": 87.01
+      },
+      {
+        "date": "2026-06-12T20:00",
+        "close": 86.93
+      },
+      {
+        "date": "2026-06-12T20:06",
+        "close": 86.93
       }
     ],
     "CL=F": [
@@ -23656,11 +23664,19 @@
       },
       {
         "date": "2026-06-12T19:00",
-        "close": 84.53
+        "close": 84.3
       },
       {
         "date": "2026-06-12T19:07",
         "close": 84.53
+      },
+      {
+        "date": "2026-06-12T20:00",
+        "close": 84.4
+      },
+      {
+        "date": "2026-06-12T20:08",
+        "close": 84.41
       }
     ],
     "NG=F": [
@@ -23950,7 +23966,7 @@
       },
       {
         "date": "2026-06-12",
-        "close": 3.12
+        "close": 3.13
       }
     ],
     "2222.SR": [
@@ -24514,7 +24530,7 @@
       },
       {
         "date": "2026-06-12",
-        "close": 38.77
+        "close": 39.07
       }
     ],
     "STNG": [
@@ -24796,7 +24812,7 @@
       },
       {
         "date": "2026-06-12",
-        "close": 78.99
+        "close": 79.05
       }
     ],
     "RTX": [
@@ -25078,7 +25094,7 @@
       },
       {
         "date": "2026-06-12",
-        "close": 184.07
+        "close": 183.53
       }
     ],
     "LMT": [
@@ -25360,7 +25376,7 @@
       },
       {
         "date": "2026-06-12",
-        "close": 539.82
+        "close": 540.33
       }
     ],
     "DUBAI": [
@@ -26031,6 +26047,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-06-12T19:17:49Z"
+    "sampled_at": "2026-06-12T20:18:37Z"
   }
 }
