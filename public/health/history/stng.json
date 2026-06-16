@@ -1,5 +1,12 @@
 [
   {
+    "timestamp": "2026-06-16T18:12:01Z",
+    "old_value": "78.75",
+    "new_value": "78.6",
+    "method": "yahoo-finance",
+    "source_url": "https://finance.yahoo.com/quote/STNG"
+  },
+  {
     "timestamp": "2026-06-16T16:08:08Z",
     "old_value": "78.75",
     "new_value": "78.21",
@@ -619,13 +626,6 @@
     "timestamp": "2026-06-11T17:24:02Z",
     "old_value": "76.46",
     "new_value": "77.17",
-    "method": "yahoo-finance",
-    "source_url": "https://finance.yahoo.com/quote/STNG"
-  },
-  {
-    "timestamp": "2026-06-11T15:50:56Z",
-    "old_value": "76.46",
-    "new_value": "77.94",
     "method": "yahoo-finance",
     "source_url": "https://finance.yahoo.com/quote/STNG"
   }
