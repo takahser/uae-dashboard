@@ -1,26 +1,26 @@
 {
-  "updated": "2026-06-18T00:01:38Z",
+  "updated": "2026-06-18T01:34:25Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 78.97,
-      "change": -0.58,
-      "changePercent": -0.73,
+      "price": 78.47,
+      "change": -1.08,
+      "changePercent": -1.36,
       "previousClose": 79.55
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 75.31,
-      "change": -0.7,
-      "changePercent": -0.92,
+      "price": 74.84,
+      "change": -1.17,
+      "changePercent": -1.54,
       "previousClose": 76.01
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 3.16,
+      "price": 3.17,
       "change": 0.02,
       "changePercent": 0.64,
       "previousClose": 3.15
@@ -12358,11 +12358,23 @@
       },
       {
         "date": "2026-06-17T23:00",
-        "close": 78.97
+        "close": 78.98
       },
       {
         "date": "2026-06-17T23:51",
         "close": 78.97
+      },
+      {
+        "date": "2026-06-18T00:00",
+        "close": 78.88
+      },
+      {
+        "date": "2026-06-18T01:00",
+        "close": 78.47
+      },
+      {
+        "date": "2026-06-18T01:23",
+        "close": 78.47
       }
     ],
     "CL=F": [
@@ -24640,11 +24652,23 @@
       },
       {
         "date": "2026-06-17T23:00",
-        "close": 75.33
+        "close": 75.32
       },
       {
         "date": "2026-06-17T23:51",
         "close": 75.31
+      },
+      {
+        "date": "2026-06-18T00:00",
+        "close": 75.3
+      },
+      {
+        "date": "2026-06-18T01:00",
+        "close": 74.84
+      },
+      {
+        "date": "2026-06-18T01:23",
+        "close": 74.84
       }
     ],
     "NG=F": [
@@ -24951,6 +24975,10 @@
       {
         "date": "2026-06-17",
         "close": 3.16
+      },
+      {
+        "date": "2026-06-18",
+        "close": 3.17
       }
     ],
     "2222.SR": [
@@ -27119,6 +27147,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-06-18T00:01:23Z"
+    "sampled_at": "2026-06-18T01:34:11Z"
   }
 }
