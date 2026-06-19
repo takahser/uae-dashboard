@@ -1,28 +1,28 @@
 {
-  "updated": "2026-06-19T03:20:48Z",
+  "updated": "2026-06-19T05:17:42Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 79.56,
-      "change": -0.29,
-      "changePercent": -0.36,
+      "price": 79.82,
+      "change": -0.03,
+      "changePercent": -0.04,
       "previousClose": 79.85
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 75.7,
-      "change": -0.15,
-      "changePercent": -0.2,
+      "price": 75.97,
+      "change": 0.12,
+      "changePercent": 0.16,
       "previousClose": 75.85
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 3.21,
-      "change": -0.02,
-      "changePercent": -0.62,
+      "price": 3.2,
+      "change": -0.03,
+      "changePercent": -0.93,
       "previousClose": 3.23
     },
     "2222.SR": {
@@ -69,9 +69,9 @@
       "symbol": "DUBAI",
       "name": "Dubai Crude",
       "price": 81.29,
-      "change": 0.63,
-      "changePercent": 0.78,
-      "previousClose": 80.66,
+      "change": 0.0,
+      "changePercent": 0.0,
+      "previousClose": 81.29,
       "note": "Dubai crude \u2014 Yahoo Finance (DCB=F)",
       "source": "Yahoo Finance (DCB=F)"
     },
@@ -12542,7 +12542,7 @@
       },
       {
         "date": "2026-06-19T03:00",
-        "close": 79.56
+        "close": 79.17
       },
       {
         "date": "2026-06-19T03:09",
@@ -25004,7 +25004,7 @@
       },
       {
         "date": "2026-06-19T03:00",
-        "close": 75.71
+        "close": 75.26
       },
       {
         "date": "2026-06-19T03:10",
@@ -25322,7 +25322,7 @@
       },
       {
         "date": "2026-06-19",
-        "close": 3.21
+        "close": 3.2
       }
     ],
     "2222.SR": [
@@ -27523,6 +27523,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-06-19T03:20:33Z"
+    "sampled_at": "2026-06-19T05:17:28Z"
   }
 }
