@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-21T05:46:06Z",
+  "updated": "2026-06-21T07:50:23Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
@@ -28,10 +28,10 @@
     "2222.SR": {
       "symbol": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 26.52,
-      "change": -0.08,
-      "changePercent": -0.3,
-      "previousClose": 26.6
+      "price": 26.48,
+      "change": -0.04,
+      "changePercent": -0.15,
+      "previousClose": 26.52
     },
     "FRO": {
       "symbol": "FRO",
@@ -69,9 +69,9 @@
       "symbol": "DUBAI",
       "name": "Dubai Crude",
       "price": 81.29,
-      "change": 0.63,
-      "changePercent": 0.78,
-      "previousClose": 80.66,
+      "change": 0.0,
+      "changePercent": 0.0,
+      "previousClose": 81.29,
       "note": "Dubai crude \u2014 Yahoo Finance (DCB=F)",
       "source": "Yahoo Finance (DCB=F)"
     },
@@ -25633,6 +25633,10 @@
       {
         "date": "2026-06-18",
         "close": 26.52
+      },
+      {
+        "date": "2026-06-21",
+        "close": 26.48
       }
     ],
     "FRO": [
@@ -27535,6 +27539,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-06-21T05:45:54Z"
+    "sampled_at": "2026-06-21T07:50:10Z"
   }
 }
