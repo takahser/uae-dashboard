@@ -1,29 +1,29 @@
 {
-  "updated": "2026-06-24T21:07:04Z",
+  "updated": "2026-06-24T21:59:46Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 73.13,
-      "change": -3.95,
-      "changePercent": -5.12,
-      "previousClose": 77.08
+      "price": 73.18,
+      "change": -0.56,
+      "changePercent": -0.76,
+      "previousClose": 73.74
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 69.83,
-      "change": -3.38,
-      "changePercent": -4.62,
-      "previousClose": 73.21
+      "price": 69.87,
+      "change": -0.47,
+      "changePercent": -0.67,
+      "previousClose": 70.34
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
       "price": 3.26,
-      "change": 0.08,
-      "changePercent": 2.51,
-      "previousClose": 3.18
+      "change": 0.0,
+      "changePercent": 0.0,
+      "previousClose": 3.26
     },
     "2222.SR": {
       "symbol": "2222.SR",
@@ -79,9 +79,9 @@
       "symbol": "OMAN",
       "name": "Oman Crude",
       "price": 69.67,
-      "change": -1.27,
-      "changePercent": -1.79,
-      "previousClose": 70.94,
+      "change": 0.0,
+      "changePercent": 0.0,
+      "previousClose": 69.67,
       "note": "DME Oman \u2014 cbonds.com (2026-06-24)",
       "source": "cbonds.com/indexes/189217"
     }
@@ -13042,11 +13042,15 @@
       },
       {
         "date": "2026-06-24T20:00",
-        "close": 73.13
+        "close": 73.18
       },
       {
         "date": "2026-06-24T20:56",
         "close": 73.13
+      },
+      {
+        "date": "2026-06-24T20:59",
+        "close": 73.18
       }
     ],
     "CL=F": [
@@ -26004,7 +26008,7 @@
       },
       {
         "date": "2026-06-24T20:00",
-        "close": 69.83
+        "close": 69.87
       },
       {
         "date": "2026-06-24T20:01",
@@ -26013,6 +26017,10 @@
       {
         "date": "2026-06-24T20:56",
         "close": 69.83
+      },
+      {
+        "date": "2026-06-24T20:59",
+        "close": 69.87
       }
     ],
     "NG=F": [
@@ -28631,6 +28639,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-06-24T21:06:48Z"
+    "sampled_at": "2026-06-24T21:59:30Z"
   }
 }
