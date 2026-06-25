@@ -1,28 +1,28 @@
 {
-  "updated": "2026-06-24T23:32:19Z",
+  "updated": "2026-06-25T01:05:48Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 73.12,
-      "change": -0.62,
-      "changePercent": -0.84,
+      "price": 73.3,
+      "change": -0.44,
+      "changePercent": -0.6,
       "previousClose": 73.74
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 69.86,
-      "change": -0.48,
-      "changePercent": -0.68,
+      "price": 70.0,
+      "change": -0.34,
+      "changePercent": -0.48,
       "previousClose": 70.34
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 3.27,
-      "change": 0.01,
-      "changePercent": 0.31,
+      "price": 3.29,
+      "change": 0.02,
+      "changePercent": 0.61,
       "previousClose": 3.26
     },
     "2222.SR": {
@@ -13062,11 +13062,19 @@
       },
       {
         "date": "2026-06-24T23:00",
-        "close": 73.12
+        "close": 73.22
       },
       {
         "date": "2026-06-24T23:21",
         "close": 73.12
+      },
+      {
+        "date": "2026-06-25T00:00",
+        "close": 73.3
+      },
+      {
+        "date": "2026-06-25T00:51",
+        "close": 73.3
       }
     ],
     "CL=F": [
@@ -26048,11 +26056,19 @@
       },
       {
         "date": "2026-06-24T23:00",
-        "close": 69.87
+        "close": 70.0
       },
       {
         "date": "2026-06-24T23:22",
         "close": 69.86
+      },
+      {
+        "date": "2026-06-25T00:00",
+        "close": 70.04
+      },
+      {
+        "date": "2026-06-25T00:55",
+        "close": 69.99
       }
     ],
     "NG=F": [
@@ -26383,6 +26399,10 @@
       {
         "date": "2026-06-24",
         "close": 3.27
+      },
+      {
+        "date": "2026-06-25",
+        "close": 3.29
       }
     ],
     "2222.SR": [
@@ -28671,6 +28691,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-06-24T23:32:05Z"
+    "sampled_at": "2026-06-25T01:05:35Z"
   }
 }
