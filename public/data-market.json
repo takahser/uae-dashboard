@@ -1,29 +1,29 @@
 {
-  "updated": "2026-07-06T20:57:25Z",
+  "updated": "2026-07-06T22:20:55Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 72.06,
-      "change": 0.26,
-      "changePercent": 0.36,
-      "previousClose": 71.8
+      "price": 72.13,
+      "change": 0.14,
+      "changePercent": 0.19,
+      "previousClose": 71.99
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 68.78,
-      "change": 0.09,
-      "changePercent": 0.13,
-      "previousClose": 68.69
+      "price": 68.66,
+      "change": 0.11,
+      "changePercent": 0.16,
+      "previousClose": 68.55
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
       "price": 3.25,
-      "change": 0.05,
-      "changePercent": 1.56,
-      "previousClose": 3.2
+      "change": 0.01,
+      "changePercent": 0.31,
+      "previousClose": 3.25
     },
     "2222.SR": {
       "symbol": "2222.SR",
@@ -78,9 +78,9 @@
     "OMAN": {
       "symbol": "OMAN",
       "name": "Oman Crude",
-      "price": 65.73,
-      "change": 0.0,
-      "changePercent": 0.0,
+      "price": 64.15,
+      "change": -1.58,
+      "changePercent": -2.4,
       "previousClose": 65.73,
       "note": "DME Oman \u2014 cbonds.com (2026-07-06)",
       "source": "cbonds.com/indexes/189217"
@@ -14202,11 +14202,19 @@
       },
       {
         "date": "2026-07-06T20:00",
-        "close": 72.06
+        "close": 72.13
       },
       {
         "date": "2026-07-06T20:45",
         "close": 72.06
+      },
+      {
+        "date": "2026-07-06T22:00",
+        "close": 72.11
+      },
+      {
+        "date": "2026-07-06T22:03",
+        "close": 72.13
       }
     ],
     "CL=F": [
@@ -28333,6 +28341,14 @@
       {
         "date": "2026-07-06T20:46",
         "close": 68.78
+      },
+      {
+        "date": "2026-07-06T22:00",
+        "close": 68.66
+      },
+      {
+        "date": "2026-07-06T22:09",
+        "close": 68.66
       }
     ],
     "NG=F": [
@@ -31195,6 +31211,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-07-06T20:57:12Z"
+    "sampled_at": "2026-07-06T22:20:42Z"
   }
 }
