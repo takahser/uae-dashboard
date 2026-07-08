@@ -1,28 +1,28 @@
 {
-  "updated": "2026-07-08T03:56:12Z",
+  "updated": "2026-07-08T06:33:18Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 76.11,
-      "change": 1.95,
-      "changePercent": 2.63,
+      "price": 76.58,
+      "change": 2.42,
+      "changePercent": 3.26,
       "previousClose": 74.16
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 72.29,
-      "change": 1.85,
-      "changePercent": 2.63,
+      "price": 72.73,
+      "change": 2.29,
+      "changePercent": 3.25,
       "previousClose": 70.44
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
       "price": 3.28,
-      "change": 0.01,
-      "changePercent": 0.31,
+      "change": 0.02,
+      "changePercent": 0.61,
       "previousClose": 3.27
     },
     "2222.SR": {
@@ -14366,11 +14366,27 @@
       },
       {
         "date": "2026-07-08T03:00",
-        "close": 76.09
+        "close": 76.06
       },
       {
         "date": "2026-07-08T03:45",
         "close": 76.11
+      },
+      {
+        "date": "2026-07-08T04:00",
+        "close": 76.17
+      },
+      {
+        "date": "2026-07-08T05:00",
+        "close": 76.62
+      },
+      {
+        "date": "2026-07-08T06:00",
+        "close": 76.56
+      },
+      {
+        "date": "2026-07-08T06:22",
+        "close": 76.58
       }
     ],
     "CL=F": [
@@ -28661,6 +28677,22 @@
       {
         "date": "2026-07-08T03:45",
         "close": 72.29
+      },
+      {
+        "date": "2026-07-08T04:00",
+        "close": 72.36
+      },
+      {
+        "date": "2026-07-08T05:00",
+        "close": 72.77
+      },
+      {
+        "date": "2026-07-08T06:00",
+        "close": 72.71
+      },
+      {
+        "date": "2026-07-08T06:22",
+        "close": 72.73
       }
     ],
     "NG=F": [
@@ -31563,6 +31595,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-07-08T03:55:57Z"
+    "sampled_at": "2026-07-08T06:33:01Z"
   }
 }
