@@ -3770,6 +3770,50 @@
           }
         }
       ]
+    },
+    {
+      "date": "2026-07-12",
+      "checkedAt": "2026-07-13T08:55:48.534Z",
+      "alerts": [
+        {
+          "iata": "DXB",
+          "date": "2026-07-12",
+          "official": 990,
+          "aerodatabox": 1451,
+          "diff": 461,
+          "pctDiff": 32,
+          "alert": true,
+          "details": {
+            "official": {
+              "dep": 493,
+              "arr": 497
+            },
+            "aerodatabox": {
+              "dep": 696,
+              "arr": 755
+            }
+          }
+        },
+        {
+          "iata": "DOH",
+          "date": "2026-07-12",
+          "official": 610,
+          "aerodatabox": 1082,
+          "diff": 472,
+          "pctDiff": 44,
+          "alert": true,
+          "details": {
+            "official": {
+              "dep": 306,
+              "arr": 304
+            },
+            "aerodatabox": {
+              "dep": 506,
+              "arr": 576
+            }
+          }
+        }
+      ]
     }
   ]
 }
