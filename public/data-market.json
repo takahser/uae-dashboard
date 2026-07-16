@@ -1,20 +1,20 @@
 {
-  "updated": "2026-07-16T08:21:44Z",
+  "updated": "2026-07-16T10:29:14Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 84.53,
-      "change": -0.42,
-      "changePercent": -0.49,
+      "price": 84.62,
+      "change": -0.33,
+      "changePercent": -0.39,
       "previousClose": 84.95
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 79.57,
-      "change": -0.03,
-      "changePercent": -0.04,
+      "price": 79.45,
+      "change": -0.15,
+      "changePercent": -0.19,
       "previousClose": 79.6
     },
     "NG=F": {
@@ -28,9 +28,9 @@
     "2222.SR": {
       "symbol": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 26.7,
-      "change": 0.06,
-      "changePercent": 0.23,
+      "price": 26.62,
+      "change": -0.02,
+      "changePercent": -0.08,
       "previousClose": 26.64
     },
     "FRO": {
@@ -15202,11 +15202,23 @@
       },
       {
         "date": "2026-07-16T08:00",
-        "close": 84.56
+        "close": 84.34
       },
       {
         "date": "2026-07-16T08:11",
         "close": 84.53
+      },
+      {
+        "date": "2026-07-16T09:00",
+        "close": 84.63
+      },
+      {
+        "date": "2026-07-16T10:00",
+        "close": 84.62
+      },
+      {
+        "date": "2026-07-16T10:18",
+        "close": 84.62
       }
     ],
     "CL=F": [
@@ -30324,11 +30336,23 @@
       },
       {
         "date": "2026-07-16T08:00",
-        "close": 79.6
+        "close": 79.31
       },
       {
         "date": "2026-07-16T08:11",
         "close": 79.57
+      },
+      {
+        "date": "2026-07-16T09:00",
+        "close": 79.55
+      },
+      {
+        "date": "2026-07-16T10:00",
+        "close": 79.45
+      },
+      {
+        "date": "2026-07-16T10:18",
+        "close": 79.45
       }
     ],
     "NG=F": [
@@ -31116,7 +31140,7 @@
       },
       {
         "date": "2026-07-16",
-        "close": 26.7
+        "close": 26.62
       }
     ],
     "FRO": [
@@ -33435,6 +33459,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-07-16T08:21:26Z"
+    "sampled_at": "2026-07-16T10:28:59Z"
   }
 }
