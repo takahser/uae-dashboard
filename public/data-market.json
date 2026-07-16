@@ -1,20 +1,20 @@
 {
-  "updated": "2026-07-16T10:29:14Z",
+  "updated": "2026-07-16T12:05:21Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 84.62,
-      "change": -0.33,
-      "changePercent": -0.39,
+      "price": 84.92,
+      "change": -0.03,
+      "changePercent": -0.04,
       "previousClose": 84.95
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 79.45,
-      "change": -0.15,
-      "changePercent": -0.19,
+      "price": 79.81,
+      "change": 0.21,
+      "changePercent": 0.26,
       "previousClose": 79.6
     },
     "NG=F": {
@@ -28,9 +28,9 @@
     "2222.SR": {
       "symbol": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 26.62,
-      "change": -0.02,
-      "changePercent": -0.08,
+      "price": 26.66,
+      "change": 0.02,
+      "changePercent": 0.08,
       "previousClose": 26.64
     },
     "FRO": {
@@ -15214,11 +15214,19 @@
       },
       {
         "date": "2026-07-16T10:00",
-        "close": 84.62
+        "close": 84.76
       },
       {
         "date": "2026-07-16T10:18",
         "close": 84.62
+      },
+      {
+        "date": "2026-07-16T11:00",
+        "close": 84.91
+      },
+      {
+        "date": "2026-07-16T11:55",
+        "close": 84.92
       }
     ],
     "CL=F": [
@@ -30348,11 +30356,19 @@
       },
       {
         "date": "2026-07-16T10:00",
-        "close": 79.45
+        "close": 79.62
       },
       {
         "date": "2026-07-16T10:18",
         "close": 79.45
+      },
+      {
+        "date": "2026-07-16T11:00",
+        "close": 79.8
+      },
+      {
+        "date": "2026-07-16T11:55",
+        "close": 79.81
       }
     ],
     "NG=F": [
@@ -31140,7 +31156,7 @@
       },
       {
         "date": "2026-07-16",
-        "close": 26.62
+        "close": 26.66
       }
     ],
     "FRO": [
@@ -33459,6 +33475,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-07-16T10:28:59Z"
+    "sampled_at": "2026-07-16T12:05:08Z"
   }
 }
