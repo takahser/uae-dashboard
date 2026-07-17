@@ -1,28 +1,28 @@
 {
-  "updated": "2026-07-17T20:29:00Z",
+  "updated": "2026-07-17T21:25:22Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 87.87,
-      "change": 3.64,
-      "changePercent": 4.32,
+      "price": 88.09,
+      "change": 3.86,
+      "changePercent": 4.58,
       "previousClose": 84.23
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 81.57,
-      "change": 3.29,
-      "changePercent": 4.2,
+      "price": 81.77,
+      "change": 3.49,
+      "changePercent": 4.46,
       "previousClose": 78.28
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
       "price": 2.92,
-      "change": 0.07,
-      "changePercent": 2.45,
+      "change": 0.06,
+      "changePercent": 2.1,
       "previousClose": 2.86
     },
     "2222.SR": {
@@ -78,9 +78,9 @@
     "OMAN": {
       "symbol": "OMAN",
       "name": "Oman Crude",
-      "price": 79.24,
-      "change": 0.0,
-      "changePercent": 0.0,
+      "price": 76.14,
+      "change": -3.1,
+      "changePercent": -3.91,
       "previousClose": 79.24,
       "note": "DME Oman \u2014 cbonds.com (2026-07-17)",
       "source": "cbonds.com/indexes/189217"
@@ -15422,11 +15422,15 @@
       },
       {
         "date": "2026-07-17T20:00",
-        "close": 87.87
+        "close": 88.09
       },
       {
         "date": "2026-07-17T20:17",
         "close": 87.87
+      },
+      {
+        "date": "2026-07-17T20:59",
+        "close": 88.09
       }
     ],
     "CL=F": [
@@ -30764,11 +30768,15 @@
       },
       {
         "date": "2026-07-17T20:00",
-        "close": 81.55
+        "close": 81.77
       },
       {
         "date": "2026-07-17T20:18",
         "close": 81.57
+      },
+      {
+        "date": "2026-07-17T20:59",
+        "close": 81.77
       }
     ],
     "NG=F": [
@@ -33919,6 +33927,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-07-17T20:28:46Z"
+    "sampled_at": "2026-07-17T21:25:07Z"
   }
 }
