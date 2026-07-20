@@ -1,28 +1,28 @@
 {
-  "updated": "2026-07-19T23:01:56Z",
+  "updated": "2026-07-20T01:05:51Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 91.05,
-      "change": 2.95,
-      "changePercent": 3.35,
+      "price": 90.41,
+      "change": 2.31,
+      "changePercent": 2.62,
       "previousClose": 88.1
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 84.15,
-      "change": 2.37,
-      "changePercent": 2.9,
+      "price": 83.62,
+      "change": 1.84,
+      "changePercent": 2.25,
       "previousClose": 81.78
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.88,
-      "change": -0.03,
-      "changePercent": -1.03,
+      "price": 2.89,
+      "change": -0.02,
+      "changePercent": -0.69,
       "previousClose": 2.91
     },
     "2222.SR": {
@@ -15434,11 +15434,23 @@
       },
       {
         "date": "2026-07-19T22:00",
-        "close": 91.04
+        "close": 90.96
       },
       {
         "date": "2026-07-19T22:51",
         "close": 91.05
+      },
+      {
+        "date": "2026-07-19T23:00",
+        "close": 90.76
+      },
+      {
+        "date": "2026-07-20T00:00",
+        "close": 90.41
+      },
+      {
+        "date": "2026-07-20T00:55",
+        "close": 90.41
       }
     ],
     "CL=F": [
@@ -30788,11 +30800,23 @@
       },
       {
         "date": "2026-07-19T22:00",
-        "close": 84.1
+        "close": 84.03
       },
       {
         "date": "2026-07-19T22:51",
         "close": 84.15
+      },
+      {
+        "date": "2026-07-19T23:00",
+        "close": 83.84
+      },
+      {
+        "date": "2026-07-20T00:00",
+        "close": 83.62
+      },
+      {
+        "date": "2026-07-20T00:55",
+        "close": 83.62
       }
     ],
     "NG=F": [
@@ -31207,6 +31231,10 @@
       {
         "date": "2026-07-19",
         "close": 2.88
+      },
+      {
+        "date": "2026-07-20",
+        "close": 2.89
       }
     ],
     "2222.SR": [
