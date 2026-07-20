@@ -1,31 +1,6 @@
 {
   "entries": [
     {
-      "date": "2026-04-05",
-      "checkedAt": "2026-04-06T06:36:59.511Z",
-      "alerts": [
-        {
-          "iata": "DXB",
-          "date": "2026-04-05",
-          "official": 473,
-          "aerodatabox": 621,
-          "diff": 148,
-          "pctDiff": 24,
-          "alert": true,
-          "details": {
-            "official": {
-              "dep": 240,
-              "arr": 233
-            },
-            "aerodatabox": {
-              "dep": 291,
-              "arr": 330
-            }
-          }
-        }
-      ]
-    },
-    {
       "date": "2026-04-07",
       "checkedAt": "2026-04-08T06:31:55.588Z",
       "alerts": [
@@ -3936,6 +3911,50 @@
             "aerodatabox": {
               "dep": 510,
               "arr": 578
+            }
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-07-19",
+      "checkedAt": "2026-07-20T08:46:34.566Z",
+      "alerts": [
+        {
+          "iata": "DXB",
+          "date": "2026-07-19",
+          "official": 1009,
+          "aerodatabox": 1447,
+          "diff": 438,
+          "pctDiff": 30,
+          "alert": true,
+          "details": {
+            "official": {
+              "dep": 501,
+              "arr": 508
+            },
+            "aerodatabox": {
+              "dep": 690,
+              "arr": 757
+            }
+          }
+        },
+        {
+          "iata": "DOH",
+          "date": "2026-07-19",
+          "official": 623,
+          "aerodatabox": 1071,
+          "diff": 448,
+          "pctDiff": 42,
+          "alert": true,
+          "details": {
+            "official": {
+              "dep": 308,
+              "arr": 315
+            },
+            "aerodatabox": {
+              "dep": 499,
+              "arr": 572
             }
           }
         }
