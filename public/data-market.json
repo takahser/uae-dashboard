@@ -1,20 +1,20 @@
 {
-  "updated": "2026-07-21T06:12:14Z",
+  "updated": "2026-07-21T09:10:56Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 88.41,
-      "change": -0.81,
-      "changePercent": -0.91,
+      "price": 88.83,
+      "change": -0.39,
+      "changePercent": -0.44,
       "previousClose": 89.22
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 82.08,
-      "change": -0.4,
-      "changePercent": -0.48,
+      "price": 82.28,
+      "change": -0.2,
+      "changePercent": -0.24,
       "previousClose": 82.48
     },
     "NG=F": {
@@ -28,10 +28,10 @@
     "2222.SR": {
       "symbol": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 26.8,
-      "change": -0.04,
-      "changePercent": -0.15,
-      "previousClose": 26.84
+      "price": 26.68,
+      "change": -0.12,
+      "changePercent": -0.45,
+      "previousClose": 26.8
     },
     "FRO": {
       "symbol": "FRO",
@@ -82,7 +82,7 @@
       "change": 0.0,
       "changePercent": 0.0,
       "previousClose": 80.97,
-      "note": "DME Oman \u2014 cbonds.com (2026-07-20)",
+      "note": "DME Oman \u2014 cbonds.com (2026-07-21)",
       "source": "cbonds.com/indexes/189217"
     }
   },
@@ -15594,7 +15594,7 @@
       },
       {
         "date": "2026-07-21T03:00",
-        "close": 88.5
+        "close": 88.55
       },
       {
         "date": "2026-07-21T03:01",
@@ -15610,7 +15610,19 @@
       },
       {
         "date": "2026-07-21T06:00",
-        "close": 88.41
+        "close": 88.69
+      },
+      {
+        "date": "2026-07-21T07:00",
+        "close": 88.33
+      },
+      {
+        "date": "2026-07-21T08:00",
+        "close": 88.69
+      },
+      {
+        "date": "2026-07-21T09:00",
+        "close": 88.83
       }
     ],
     "CL=F": [
@@ -31120,7 +31132,7 @@
       },
       {
         "date": "2026-07-21T03:00",
-        "close": 82.37
+        "close": 82.19
       },
       {
         "date": "2026-07-21T03:05",
@@ -31136,11 +31148,23 @@
       },
       {
         "date": "2026-07-21T06:00",
-        "close": 82.08
+        "close": 82.32
       },
       {
         "date": "2026-07-21T06:01",
         "close": 82.08
+      },
+      {
+        "date": "2026-07-21T07:00",
+        "close": 81.92
+      },
+      {
+        "date": "2026-07-21T08:00",
+        "close": 82.24
+      },
+      {
+        "date": "2026-07-21T09:00",
+        "close": 82.29
       }
     ],
     "NG=F": [
@@ -31953,6 +31977,10 @@
       {
         "date": "2026-07-20",
         "close": 26.8
+      },
+      {
+        "date": "2026-07-21",
+        "close": 26.68
       }
     ],
     "FRO": [
@@ -34333,6 +34361,10 @@
       {
         "date": "2026-07-20",
         "close": 76.14
+      },
+      {
+        "date": "2026-07-21",
+        "close": 80.97
       }
     ]
   },
