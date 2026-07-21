@@ -1,36 +1,36 @@
 {
-  "updated": "2026-07-21T11:24:00Z",
+  "updated": "2026-07-21T12:55:47Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 90.27,
-      "change": 1.05,
-      "changePercent": 1.18,
+      "price": 90.81,
+      "change": 1.59,
+      "changePercent": 1.78,
       "previousClose": 89.22
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 83.43,
-      "change": 0.95,
-      "changePercent": 1.15,
+      "price": 84.03,
+      "change": 1.55,
+      "changePercent": 1.88,
       "previousClose": 82.48
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.88,
-      "change": 0.02,
-      "changePercent": 0.7,
+      "price": 2.86,
+      "change": 0.0,
+      "changePercent": 0.0,
       "previousClose": 2.86
     },
     "2222.SR": {
       "symbol": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 26.68,
-      "change": -0.12,
-      "changePercent": -0.45,
+      "price": 26.7,
+      "change": -0.1,
+      "changePercent": -0.37,
       "previousClose": 26.8
     },
     "FRO": {
@@ -15630,11 +15630,19 @@
       },
       {
         "date": "2026-07-21T11:00",
-        "close": 90.27
+        "close": 90.71
       },
       {
         "date": "2026-07-21T11:13",
         "close": 90.27
+      },
+      {
+        "date": "2026-07-21T12:00",
+        "close": 90.84
+      },
+      {
+        "date": "2026-07-21T12:45",
+        "close": 90.81
       }
     ],
     "CL=F": [
@@ -31184,11 +31192,19 @@
       },
       {
         "date": "2026-07-21T11:00",
-        "close": 83.46
+        "close": 83.84
       },
       {
         "date": "2026-07-21T11:13",
         "close": 83.43
+      },
+      {
+        "date": "2026-07-21T12:00",
+        "close": 84.07
+      },
+      {
+        "date": "2026-07-21T12:45",
+        "close": 84.03
       }
     ],
     "NG=F": [
@@ -31610,7 +31626,7 @@
       },
       {
         "date": "2026-07-21",
-        "close": 2.88
+        "close": 2.86
       }
     ],
     "2222.SR": [
@@ -32004,7 +32020,7 @@
       },
       {
         "date": "2026-07-21",
-        "close": 26.68
+        "close": 26.7
       }
     ],
     "FRO": [
