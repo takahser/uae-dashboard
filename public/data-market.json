@@ -1,20 +1,20 @@
 {
-  "updated": "2026-07-21T20:01:32Z",
+  "updated": "2026-07-21T21:40:29Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 91.48,
-      "change": 2.26,
-      "changePercent": 2.53,
+      "price": 91.44,
+      "change": 2.22,
+      "changePercent": 2.49,
       "previousClose": 89.22
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 84.68,
-      "change": 2.2,
-      "changePercent": 2.67,
+      "price": 84.54,
+      "change": 2.06,
+      "changePercent": 2.5,
       "previousClose": 82.48
     },
     "NG=F": {
@@ -44,24 +44,24 @@
     "STNG": {
       "symbol": "STNG",
       "name": "Scorpio Tankers",
-      "price": 79.67,
-      "change": 1.69,
-      "changePercent": 2.17,
+      "price": 79.66,
+      "change": 1.68,
+      "changePercent": 2.15,
       "previousClose": 77.98
     },
     "RTX": {
       "symbol": "RTX",
       "name": "RTX Corp",
-      "price": 193.69,
-      "change": -0.75,
-      "changePercent": -0.39,
+      "price": 193.67,
+      "change": -0.77,
+      "changePercent": -0.4,
       "previousClose": 194.44
     },
     "LMT": {
       "symbol": "LMT",
       "name": "Lockheed Martin",
-      "price": 507.08,
-      "change": -2.46,
+      "price": 507.09,
+      "change": -2.45,
       "changePercent": -0.48,
       "previousClose": 509.54
     },
@@ -15682,11 +15682,19 @@
       },
       {
         "date": "2026-07-21T19:00",
-        "close": 91.48
+        "close": 91.47
       },
       {
         "date": "2026-07-21T19:50",
         "close": 91.48
+      },
+      {
+        "date": "2026-07-21T20:00",
+        "close": 91.44
+      },
+      {
+        "date": "2026-07-21T20:59",
+        "close": 91.44
       }
     ],
     "CL=F": [
@@ -31288,11 +31296,19 @@
       },
       {
         "date": "2026-07-21T19:00",
-        "close": 84.65
+        "close": 84.67
       },
       {
         "date": "2026-07-21T19:51",
         "close": 84.68
+      },
+      {
+        "date": "2026-07-21T20:00",
+        "close": 84.54
+      },
+      {
+        "date": "2026-07-21T20:59",
+        "close": 84.54
       }
     ],
     "NG=F": [
@@ -32872,7 +32888,7 @@
       },
       {
         "date": "2026-07-21",
-        "close": 79.67
+        "close": 79.66
       }
     ],
     "RTX": [
@@ -33254,7 +33270,7 @@
       },
       {
         "date": "2026-07-21",
-        "close": 193.69
+        "close": 193.67
       }
     ],
     "LMT": [
@@ -33636,7 +33652,7 @@
       },
       {
         "date": "2026-07-21",
-        "close": 507.08
+        "close": 507.09
       }
     ],
     "DUBAI": [
