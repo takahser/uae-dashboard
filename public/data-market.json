@@ -1,28 +1,28 @@
 {
-  "updated": "2026-07-22T00:56:29Z",
+  "updated": "2026-07-22T04:22:31Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 91.52,
-      "change": 0.51,
-      "changePercent": 0.56,
+      "price": 92.09,
+      "change": 1.08,
+      "changePercent": 1.19,
       "previousClose": 91.01
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 84.66,
-      "change": 0.32,
-      "changePercent": 0.38,
+      "price": 85.29,
+      "change": 0.95,
+      "changePercent": 1.13,
       "previousClose": 84.34
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.89,
-      "change": 0.02,
-      "changePercent": 0.7,
+      "price": 2.88,
+      "change": 0.01,
+      "changePercent": 0.35,
       "previousClose": 2.87
     },
     "2222.SR": {
@@ -68,10 +68,10 @@
     "DUBAI": {
       "symbol": "DUBAI",
       "name": "Dubai Crude",
-      "price": 75.27,
-      "change": 0.08,
-      "changePercent": 0.11,
-      "previousClose": 75.19,
+      "price": 76.53,
+      "change": 1.26,
+      "changePercent": 1.67,
+      "previousClose": 75.27,
       "note": "Dubai crude \u2014 Yahoo Finance (DCB=F)",
       "source": "Yahoo Finance (DCB=F)"
     },
@@ -15715,6 +15715,14 @@
       {
         "date": "2026-07-22T00:46",
         "close": 91.52
+      },
+      {
+        "date": "2026-07-22T04:00",
+        "close": 92.09
+      },
+      {
+        "date": "2026-07-22T04:08",
+        "close": 92.09
       }
     ],
     "CL=F": [
@@ -31349,6 +31357,14 @@
       {
         "date": "2026-07-22T00:46",
         "close": 84.66
+      },
+      {
+        "date": "2026-07-22T04:00",
+        "close": 85.29
+      },
+      {
+        "date": "2026-07-22T04:10",
+        "close": 85.29
       }
     ],
     "NG=F": [
@@ -31770,11 +31786,11 @@
       },
       {
         "date": "2026-07-21",
-        "close": 2.88
+        "close": 2.87
       },
       {
         "date": "2026-07-22",
-        "close": 2.89
+        "close": 2.88
       }
     ],
     "2222.SR": [
@@ -34231,6 +34247,10 @@
       {
         "date": "2026-07-20",
         "close": 75.27
+      },
+      {
+        "date": "2026-07-21",
+        "close": 76.53
       }
     ],
     "OMAN": [
