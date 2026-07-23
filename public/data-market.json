@@ -1,29 +1,29 @@
 {
-  "updated": "2026-07-23T21:37:24Z",
+  "updated": "2026-07-23T23:01:36Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 100.55,
-      "change": 6.48,
-      "changePercent": 6.89,
-      "previousClose": 94.07
+      "price": 100.38,
+      "change": -0.31,
+      "changePercent": -0.31,
+      "previousClose": 100.69
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 92.36,
-      "change": 5.53,
-      "changePercent": 6.37,
-      "previousClose": 86.83
+      "price": 92.12,
+      "change": -0.07,
+      "changePercent": -0.08,
+      "previousClose": 92.19
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
       "price": 2.91,
-      "change": 0.01,
-      "changePercent": 0.35,
-      "previousClose": 2.9
+      "change": -0.01,
+      "changePercent": -0.34,
+      "previousClose": 2.92
     },
     "2222.SR": {
       "symbol": "2222.SR",
@@ -79,9 +79,9 @@
       "symbol": "OMAN",
       "name": "Oman Crude",
       "price": 89.23,
-      "change": 4.82,
-      "changePercent": 5.71,
-      "previousClose": 84.41,
+      "change": 0.0,
+      "changePercent": 0.0,
+      "previousClose": 89.23,
       "note": "DME Oman \u2014 cbonds.com (2026-07-23)",
       "source": "cbonds.com/indexes/189217"
     }
@@ -15971,6 +15971,14 @@
       {
         "date": "2026-07-23T20:59",
         "close": 100.55
+      },
+      {
+        "date": "2026-07-23T22:00",
+        "close": 100.38
+      },
+      {
+        "date": "2026-07-23T22:46",
+        "close": 100.38
       }
     ],
     "CL=F": [
@@ -31861,6 +31869,14 @@
       {
         "date": "2026-07-23T20:59",
         "close": 92.36
+      },
+      {
+        "date": "2026-07-23T22:00",
+        "close": 92.12
+      },
+      {
+        "date": "2026-07-23T22:50",
+        "close": 92.12
       }
     ],
     "NG=F": [
@@ -35147,6 +35163,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-07-23T21:37:07Z"
+    "sampled_at": "2026-07-23T23:01:18Z"
   }
 }
