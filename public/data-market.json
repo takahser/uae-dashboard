@@ -1,26 +1,26 @@
 {
-  "updated": "2026-07-27T23:08:21Z",
+  "updated": "2026-07-28T00:57:39Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 87.76,
-      "change": -0.6,
-      "changePercent": -0.68,
+      "price": 87.84,
+      "change": -0.52,
+      "changePercent": -0.59,
       "previousClose": 88.36
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 82.16,
-      "change": -0.45,
-      "changePercent": -0.54,
+      "price": 82.01,
+      "change": -0.6,
+      "changePercent": -0.73,
       "previousClose": 82.61
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.77,
+      "price": 2.76,
       "change": -0.02,
       "changePercent": -0.72,
       "previousClose": 2.79
@@ -16251,6 +16251,18 @@
       {
         "date": "2026-07-27T22:40",
         "close": 87.76
+      },
+      {
+        "date": "2026-07-27T23:00",
+        "close": 88.0
+      },
+      {
+        "date": "2026-07-28T00:00",
+        "close": 87.84
+      },
+      {
+        "date": "2026-07-28T00:46",
+        "close": 87.84
       }
     ],
     "CL=F": [
@@ -32416,11 +32428,23 @@
       },
       {
         "date": "2026-07-27T22:00",
-        "close": 82.16
+        "close": 82.11
       },
       {
         "date": "2026-07-27T22:57",
         "close": 82.16
+      },
+      {
+        "date": "2026-07-27T23:00",
+        "close": 82.05
+      },
+      {
+        "date": "2026-07-28T00:00",
+        "close": 82.0
+      },
+      {
+        "date": "2026-07-28T00:47",
+        "close": 82.01
       }
     ],
     "NG=F": [
@@ -32863,6 +32887,10 @@
       {
         "date": "2026-07-27",
         "close": 2.77
+      },
+      {
+        "date": "2026-07-28",
+        "close": 2.76
       }
     ],
     "2222.SR": [
@@ -35775,6 +35803,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-07-27T23:08:08Z"
+    "sampled_at": "2026-07-28T00:57:25Z"
   }
 }
