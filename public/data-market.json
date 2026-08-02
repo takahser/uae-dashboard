@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-02T22:30:29Z",
+  "updated": "2026-08-02T23:33:30Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
@@ -12,17 +12,17 @@
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 80.55,
-      "change": -4.12,
-      "changePercent": -4.87,
+      "price": 80.89,
+      "change": -3.78,
+      "changePercent": -4.46,
       "previousClose": 84.67
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.73,
-      "change": -0.02,
-      "changePercent": -0.73,
+      "price": 2.75,
+      "change": 0.0,
+      "changePercent": 0.0,
       "previousClose": 2.75
     },
     "2222.SR": {
@@ -33460,11 +33460,19 @@
       },
       {
         "date": "2026-08-02T22:00",
-        "close": 80.5
+        "close": 81.24
       },
       {
         "date": "2026-08-02T22:20",
         "close": 80.55
+      },
+      {
+        "date": "2026-08-02T23:00",
+        "close": 80.93
+      },
+      {
+        "date": "2026-08-02T23:23",
+        "close": 80.89
       }
     ],
     "NG=F": [
@@ -33926,7 +33934,7 @@
       },
       {
         "date": "2026-08-02",
-        "close": 2.73
+        "close": 2.75
       }
     ],
     "2222.SR": [
@@ -36955,6 +36963,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-08-02T22:30:17Z"
+    "sampled_at": "2026-08-02T23:33:17Z"
   }
 }
