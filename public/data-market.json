@@ -1,20 +1,20 @@
 {
-  "updated": "2026-08-05T06:33:03Z",
+  "updated": "2026-08-05T09:39:44Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 78.95,
-      "change": -0.41,
-      "changePercent": -0.52,
+      "price": 80.3,
+      "change": 0.94,
+      "changePercent": 1.18,
       "previousClose": 79.36
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 75.13,
-      "change": -0.64,
-      "changePercent": -0.84,
+      "price": 76.28,
+      "change": 0.51,
+      "changePercent": 0.67,
       "previousClose": 75.77
     },
     "NG=F": {
@@ -28,10 +28,10 @@
     "2222.SR": {
       "symbol": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 26.9,
-      "change": -0.22,
-      "changePercent": -0.81,
-      "previousClose": 27.12
+      "price": 26.64,
+      "change": -0.26,
+      "changePercent": -0.97,
+      "previousClose": 26.9
     },
     "FRO": {
       "symbol": "FRO",
@@ -82,7 +82,7 @@
       "change": 0.0,
       "changePercent": 0.0,
       "previousClose": 78.56,
-      "note": "DME Oman \u2014 cbonds.com (2026-08-04)",
+      "note": "DME Oman \u2014 cbonds.com (2026-08-05)",
       "source": "cbonds.com/indexes/189217"
     }
   },
@@ -17018,11 +17018,27 @@
       },
       {
         "date": "2026-08-05T06:00",
-        "close": 78.95
+        "close": 78.97
       },
       {
         "date": "2026-08-05T06:22",
         "close": 78.95
+      },
+      {
+        "date": "2026-08-05T07:00",
+        "close": 80.07
+      },
+      {
+        "date": "2026-08-05T08:00",
+        "close": 80.37
+      },
+      {
+        "date": "2026-08-05T09:00",
+        "close": 80.32
+      },
+      {
+        "date": "2026-08-05T09:29",
+        "close": 80.3
       }
     ],
     "CL=F": [
@@ -34032,11 +34048,27 @@
       },
       {
         "date": "2026-08-05T06:00",
-        "close": 75.15
+        "close": 75.02
       },
       {
         "date": "2026-08-05T06:22",
         "close": 75.13
+      },
+      {
+        "date": "2026-08-05T07:00",
+        "close": 76.01
+      },
+      {
+        "date": "2026-08-05T08:00",
+        "close": 76.24
+      },
+      {
+        "date": "2026-08-05T09:00",
+        "close": 76.28
+      },
+      {
+        "date": "2026-08-05T09:29",
+        "close": 76.28
       }
     ],
     "NG=F": [
@@ -34945,6 +34977,10 @@
       {
         "date": "2026-08-04",
         "close": 26.9
+      },
+      {
+        "date": "2026-08-05",
+        "close": 26.64
       }
     ],
     "FRO": [
@@ -37589,12 +37625,16 @@
       {
         "date": "2026-08-04",
         "close": 79.93
+      },
+      {
+        "date": "2026-08-05",
+        "close": 78.56
       }
     ]
   },
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-08-05T06:32:48Z"
+    "sampled_at": "2026-08-05T09:39:29Z"
   }
 }
