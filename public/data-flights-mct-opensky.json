@@ -1228,6 +1228,17 @@
       "arrivals": 0,
       "total": 0,
       "regions": {}
+    },
+    {
+      "date": "2026-08-05",
+      "departures": 0,
+      "arrivals": 10,
+      "total": 10,
+      "regions": {
+        "Europe": 1,
+        "Middle East": 2,
+        "Unknown": 7
+      }
     }
   ],
   "baselineDailyAvg": {
@@ -1236,5 +1247,5 @@
     "arrivals": 0,
     "regions": {}
   },
-  "lastUpdated": "2026-08-05T10:28:32.391Z"
+  "lastUpdated": "2026-08-06T10:31:50.498Z"
 }
