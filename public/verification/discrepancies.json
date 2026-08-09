@@ -1,50 +1,6 @@
 {
   "entries": [
     {
-      "date": "2026-04-26",
-      "checkedAt": "2026-04-27T06:52:38.373Z",
-      "alerts": [
-        {
-          "iata": "DXB",
-          "date": "2026-04-26",
-          "official": 604,
-          "aerodatabox": 891,
-          "diff": 287,
-          "pctDiff": 32,
-          "alert": true,
-          "details": {
-            "official": {
-              "dep": 299,
-              "arr": 305
-            },
-            "aerodatabox": {
-              "dep": 431,
-              "arr": 460
-            }
-          }
-        },
-        {
-          "iata": "DOH",
-          "date": "2026-04-26",
-          "official": 439,
-          "aerodatabox": 558,
-          "diff": 119,
-          "pctDiff": 21,
-          "alert": true,
-          "details": {
-            "official": {
-              "dep": 225,
-              "arr": 214
-            },
-            "aerodatabox": {
-              "dep": 264,
-              "arr": 294
-            }
-          }
-        }
-      ]
-    },
-    {
       "date": "2026-04-29",
       "checkedAt": "2026-04-30T06:51:49.804Z",
       "alerts": [
@@ -3955,6 +3911,50 @@
             "aerodatabox": {
               "dep": 504,
               "arr": 565
+            }
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-08-08",
+      "checkedAt": "2026-08-09T06:42:54.184Z",
+      "alerts": [
+        {
+          "iata": "DXB",
+          "date": "2026-08-08",
+          "official": 1043,
+          "aerodatabox": 1562,
+          "diff": 519,
+          "pctDiff": 33,
+          "alert": true,
+          "details": {
+            "official": {
+              "dep": 521,
+              "arr": 522
+            },
+            "aerodatabox": {
+              "dep": 769,
+              "arr": 793
+            }
+          }
+        },
+        {
+          "iata": "DOH",
+          "date": "2026-08-08",
+          "official": 640,
+          "aerodatabox": 1036,
+          "diff": 396,
+          "pctDiff": 38,
+          "alert": true,
+          "details": {
+            "official": {
+              "dep": 312,
+              "arr": 328
+            },
+            "aerodatabox": {
+              "dep": 491,
+              "arr": 545
             }
           }
         }
