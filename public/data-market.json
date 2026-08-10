@@ -1,20 +1,20 @@
 {
-  "updated": "2026-08-10T09:27:52Z",
+  "updated": "2026-08-10T10:45:43Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 84.56,
-      "change": 1.01,
-      "changePercent": 1.21,
+      "price": 84.39,
+      "change": 0.84,
+      "changePercent": 1.01,
       "previousClose": 83.55
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 79.08,
-      "change": 0.9,
-      "changePercent": 1.15,
+      "price": 79.0,
+      "change": 0.82,
+      "changePercent": 1.05,
       "previousClose": 78.18
     },
     "NG=F": {
@@ -28,9 +28,9 @@
     "2222.SR": {
       "symbol": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 26.7,
-      "change": 0.1,
-      "changePercent": 0.38,
+      "price": 26.68,
+      "change": 0.08,
+      "changePercent": 0.3,
       "previousClose": 26.6
     },
     "FRO": {
@@ -17426,11 +17426,19 @@
       },
       {
         "date": "2026-08-10T09:00",
-        "close": 84.56
+        "close": 84.54
       },
       {
         "date": "2026-08-10T09:17",
         "close": 84.56
+      },
+      {
+        "date": "2026-08-10T10:00",
+        "close": 84.39
+      },
+      {
+        "date": "2026-08-10T10:35",
+        "close": 84.39
       }
     ],
     "CL=F": [
@@ -34872,11 +34880,19 @@
       },
       {
         "date": "2026-08-10T09:00",
-        "close": 79.06
+        "close": 79.02
       },
       {
         "date": "2026-08-10T09:17",
         "close": 79.08
+      },
+      {
+        "date": "2026-08-10T10:00",
+        "close": 79.03
+      },
+      {
+        "date": "2026-08-10T10:35",
+        "close": 79.0
       }
     ],
     "NG=F": [
@@ -35816,7 +35832,7 @@
       },
       {
         "date": "2026-08-10",
-        "close": 26.7
+        "close": 26.68
       }
     ],
     "FRO": [
@@ -38543,6 +38559,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-08-10T09:27:37Z"
+    "sampled_at": "2026-08-10T10:45:29Z"
   }
 }
