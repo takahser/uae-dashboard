@@ -1,28 +1,28 @@
 {
-  "updated": "2026-08-14T05:58:19Z",
+  "updated": "2026-08-14T07:44:15Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 87.36,
-      "change": 0.29,
-      "changePercent": 0.33,
+      "price": 88.48,
+      "change": 1.41,
+      "changePercent": 1.62,
       "previousClose": 87.07
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 81.61,
-      "change": 0.36,
-      "changePercent": 0.44,
+      "price": 82.79,
+      "change": 1.54,
+      "changePercent": 1.9,
       "previousClose": 81.25
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.75,
-      "change": 0.03,
-      "changePercent": 1.1,
+      "price": 2.74,
+      "change": 0.02,
+      "changePercent": 0.73,
       "previousClose": 2.73
     },
     "2222.SR": {
@@ -68,10 +68,10 @@
     "DUBAI": {
       "symbol": "DUBAI",
       "name": "Dubai Crude",
-      "price": 85.09,
-      "change": 0.53,
-      "changePercent": 0.63,
-      "previousClose": 84.56,
+      "price": 84.44,
+      "change": -0.65,
+      "changePercent": -0.76,
+      "previousClose": 85.09,
       "note": "Dubai crude \u2014 Yahoo Finance (DCB=F)",
       "source": "Yahoo Finance (DCB=F)"
     },
@@ -15330,7 +15330,7 @@
       },
       {
         "date": "2026-07-17T05:00",
-        "close": 85.02
+        "close": 84.28
       },
       {
         "date": "2026-07-17T06:00",
@@ -15394,7 +15394,7 @@
       },
       {
         "date": "2026-07-17T16:00",
-        "close": 87.65
+        "close": 87.66
       },
       {
         "date": "2026-07-17T16:09",
@@ -15422,7 +15422,7 @@
       },
       {
         "date": "2026-07-17T20:00",
-        "close": 88.09
+        "close": 88.1
       },
       {
         "date": "2026-07-17T20:17",
@@ -15542,7 +15542,7 @@
       },
       {
         "date": "2026-07-20T17:00",
-        "close": 89.01
+        "close": 89.02
       },
       {
         "date": "2026-07-20T18:00",
@@ -16162,7 +16162,7 @@
       },
       {
         "date": "2026-07-27T07:00",
-        "close": 91.2
+        "close": 91.22
       },
       {
         "date": "2026-07-27T07:53",
@@ -17590,7 +17590,7 @@
       },
       {
         "date": "2026-08-11T06:00",
-        "close": 89.08
+        "close": 89.07
       },
       {
         "date": "2026-08-11T07:00",
@@ -18050,7 +18050,7 @@
       },
       {
         "date": "2026-08-14T03:00",
-        "close": 87.18
+        "close": 87.12
       },
       {
         "date": "2026-08-14T04:00",
@@ -18062,11 +18062,23 @@
       },
       {
         "date": "2026-08-14T05:00",
-        "close": 87.36
+        "close": 87.76
       },
       {
         "date": "2026-08-14T05:48",
         "close": 87.36
+      },
+      {
+        "date": "2026-08-14T06:00",
+        "close": 87.95
+      },
+      {
+        "date": "2026-08-14T07:00",
+        "close": 88.48
+      },
+      {
+        "date": "2026-08-14T07:33",
+        "close": 88.48
       }
     ],
     "CL=F": [
@@ -36100,15 +36112,19 @@
       },
       {
         "date": "2026-08-14T01:00",
-        "close": 80.86
+        "close": 80.93
       },
       {
         "date": "2026-08-14T02:00",
-        "close": 80.9
+        "close": 81.39
       },
       {
         "date": "2026-08-14T02:09",
         "close": 80.9
+      },
+      {
+        "date": "2026-08-14T03:00",
+        "close": 81.35
       },
       {
         "date": "2026-08-14T04:00",
@@ -36120,11 +36136,23 @@
       },
       {
         "date": "2026-08-14T05:00",
-        "close": 81.65
+        "close": 81.98
       },
       {
         "date": "2026-08-14T05:48",
         "close": 81.61
+      },
+      {
+        "date": "2026-08-14T06:00",
+        "close": 82.18
+      },
+      {
+        "date": "2026-08-14T07:00",
+        "close": 82.78
+      },
+      {
+        "date": "2026-08-14T07:34",
+        "close": 82.8
       }
     ],
     "NG=F": [
@@ -36630,7 +36658,7 @@
       },
       {
         "date": "2026-08-14",
-        "close": 2.75
+        "close": 2.74
       }
     ],
     "2222.SR": [
@@ -39915,6 +39943,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-08-14T05:58:06Z"
+    "sampled_at": "2026-08-14T07:44:01Z"
   }
 }
