@@ -1,20 +1,20 @@
 {
-  "updated": "2026-08-14T02:19:54Z",
+  "updated": "2026-08-14T04:24:21Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 86.75,
-      "change": -0.32,
-      "changePercent": -0.37,
+      "price": 87.14,
+      "change": 0.07,
+      "changePercent": 0.08,
       "previousClose": 87.07
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 80.9,
-      "change": -0.35,
-      "changePercent": -0.43,
+      "price": 81.34,
+      "change": 0.09,
+      "changePercent": 0.11,
       "previousClose": 81.25
     },
     "NG=F": {
@@ -68,10 +68,10 @@
     "DUBAI": {
       "symbol": "DUBAI",
       "name": "Dubai Crude",
-      "price": 85.09,
-      "change": 0.53,
-      "changePercent": 0.63,
-      "previousClose": 84.56,
+      "price": 84.44,
+      "change": -0.65,
+      "changePercent": -0.76,
+      "previousClose": 85.09,
       "note": "Dubai crude \u2014 Yahoo Finance (DCB=F)",
       "source": "Yahoo Finance (DCB=F)"
     },
@@ -79,9 +79,9 @@
       "symbol": "OMAN",
       "name": "Oman Crude",
       "price": 87.32,
-      "change": -1.28,
-      "changePercent": -1.44,
-      "previousClose": 88.6,
+      "change": 0.0,
+      "changePercent": 0.0,
+      "previousClose": 87.32,
       "note": "DME Oman \u2014 cbonds.com (2026-08-14)",
       "source": "cbonds.com/indexes/189217"
     }
@@ -18038,7 +18038,7 @@
       },
       {
         "date": "2026-08-14T01:00",
-        "close": 86.74
+        "close": 87.23
       },
       {
         "date": "2026-08-14T02:00",
@@ -18047,6 +18047,14 @@
       {
         "date": "2026-08-14T02:09",
         "close": 86.75
+      },
+      {
+        "date": "2026-08-14T04:00",
+        "close": 87.14
+      },
+      {
+        "date": "2026-08-14T04:11",
+        "close": 87.14
       }
     ],
     "CL=F": [
@@ -36080,7 +36088,7 @@
       },
       {
         "date": "2026-08-14T01:00",
-        "close": 80.93
+        "close": 81.25
       },
       {
         "date": "2026-08-14T02:00",
@@ -36089,6 +36097,14 @@
       {
         "date": "2026-08-14T02:09",
         "close": 80.9
+      },
+      {
+        "date": "2026-08-14T04:00",
+        "close": 81.34
+      },
+      {
+        "date": "2026-08-14T04:13",
+        "close": 81.34
       }
     ],
     "NG=F": [
@@ -39459,6 +39475,10 @@
       {
         "date": "2026-08-12",
         "close": 85.09
+      },
+      {
+        "date": "2026-08-13",
+        "close": 84.44
       }
     ],
     "OMAN": [
@@ -39875,6 +39895,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-08-14T02:19:39Z"
+    "sampled_at": "2026-08-14T04:24:05Z"
   }
 }
