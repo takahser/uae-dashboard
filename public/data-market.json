@@ -1,28 +1,28 @@
 {
-  "updated": "2026-08-17T03:04:45Z",
+  "updated": "2026-08-17T04:13:17Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 88.91,
-      "change": 0.39,
-      "changePercent": 0.44,
+      "price": 88.45,
+      "change": -0.07,
+      "changePercent": -0.08,
       "previousClose": 88.52
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 82.56,
-      "change": 0.16,
-      "changePercent": 0.19,
+      "price": 81.98,
+      "change": -0.42,
+      "changePercent": -0.51,
       "previousClose": 82.4
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.66,
-      "change": -0.07,
-      "changePercent": -2.56,
+      "price": 2.67,
+      "change": -0.06,
+      "changePercent": -2.2,
       "previousClose": 2.73
     },
     "2222.SR": {
@@ -18206,7 +18206,7 @@
       },
       {
         "date": "2026-08-17T00:00",
-        "close": 88.22
+        "close": 88.54
       },
       {
         "date": "2026-08-17T01:00",
@@ -18223,6 +18223,14 @@
       {
         "date": "2026-08-17T02:53",
         "close": 88.91
+      },
+      {
+        "date": "2026-08-17T04:00",
+        "close": 88.45
+      },
+      {
+        "date": "2026-08-17T04:02",
+        "close": 88.45
       }
     ],
     "CL=F": [
@@ -36424,7 +36432,7 @@
       },
       {
         "date": "2026-08-17T00:00",
-        "close": 81.89
+        "close": 82.12
       },
       {
         "date": "2026-08-17T01:00",
@@ -36441,6 +36449,14 @@
       {
         "date": "2026-08-17T02:54",
         "close": 82.56
+      },
+      {
+        "date": "2026-08-17T04:00",
+        "close": 81.98
+      },
+      {
+        "date": "2026-08-17T04:03",
+        "close": 81.98
       }
     ],
     "NG=F": [
@@ -36954,7 +36970,7 @@
       },
       {
         "date": "2026-08-17",
-        "close": 2.66
+        "close": 2.67
       }
     ],
     "2222.SR": [
@@ -40263,6 +40279,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-08-17T03:04:31Z"
+    "sampled_at": "2026-08-17T04:13:03Z"
   }
 }
