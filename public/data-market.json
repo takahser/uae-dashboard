@@ -1,12 +1,12 @@
 {
-  "updated": "2026-08-18T20:54:22Z",
+  "updated": "2026-08-18T21:29:19Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 91.26,
-      "change": 0.39,
-      "changePercent": 0.43,
+      "price": 91.27,
+      "change": 0.4,
+      "changePercent": 0.44,
       "previousClose": 90.87
     },
     "CL=F": {
@@ -78,9 +78,9 @@
     "OMAN": {
       "symbol": "OMAN",
       "name": "Oman Crude",
-      "price": 87.32,
-      "change": 0.0,
-      "changePercent": 0.0,
+      "price": 89.86,
+      "change": 2.54,
+      "changePercent": 2.91,
       "previousClose": 87.32,
       "note": "DME Oman \u2014 cbonds.com (2026-08-18)",
       "source": "cbonds.com/indexes/189217"
@@ -15542,7 +15542,7 @@
       },
       {
         "date": "2026-07-20T17:00",
-        "close": 89.02
+        "close": 89.01
       },
       {
         "date": "2026-07-20T18:00",
@@ -16162,7 +16162,7 @@
       },
       {
         "date": "2026-07-27T07:00",
-        "close": 91.22
+        "close": 91.2
       },
       {
         "date": "2026-07-27T07:53",
@@ -17590,7 +17590,7 @@
       },
       {
         "date": "2026-08-11T06:00",
-        "close": 89.07
+        "close": 89.08
       },
       {
         "date": "2026-08-11T07:00",
@@ -18566,7 +18566,7 @@
       },
       {
         "date": "2026-08-18T20:00",
-        "close": 91.26
+        "close": 91.27
       },
       {
         "date": "2026-08-18T20:18",
@@ -18575,6 +18575,10 @@
       {
         "date": "2026-08-18T20:44",
         "close": 91.26
+      },
+      {
+        "date": "2026-08-18T20:59",
+        "close": 91.27
       }
     ],
     "CL=F": [
@@ -37132,7 +37136,7 @@
       },
       {
         "date": "2026-08-18T20:00",
-        "close": 84.43
+        "close": 84.42
       },
       {
         "date": "2026-08-18T20:19",
@@ -37140,6 +37144,10 @@
       },
       {
         "date": "2026-08-18T20:44",
+        "close": 84.42
+      },
+      {
+        "date": "2026-08-18T20:59",
         "close": 84.42
       }
     ],
@@ -41019,6 +41027,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-08-18T20:54:07Z"
+    "sampled_at": "2026-08-18T21:29:04Z"
   }
 }
