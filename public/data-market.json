@@ -1,26 +1,26 @@
 {
-  "updated": "2026-08-20T07:45:34Z",
+  "updated": "2026-08-20T08:43:49Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 92.99,
-      "change": 1.37,
-      "changePercent": 1.5,
+      "price": 93.64,
+      "change": 2.02,
+      "changePercent": 2.2,
       "previousClose": 91.62
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 85.61,
-      "change": 1.22,
-      "changePercent": 1.45,
+      "price": 86.29,
+      "change": 1.9,
+      "changePercent": 2.25,
       "previousClose": 84.39
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.76,
+      "price": 2.75,
       "change": -0.06,
       "changePercent": -2.13,
       "previousClose": 2.81
@@ -82,7 +82,7 @@
       "change": 0.0,
       "changePercent": 0.0,
       "previousClose": 90.75,
-      "note": "DME Oman \u2014 cbonds.com (2026-08-19)",
+      "note": "DME Oman \u2014 cbonds.com (2026-08-20)",
       "source": "cbonds.com/indexes/189217"
     }
   },
@@ -15542,7 +15542,7 @@
       },
       {
         "date": "2026-07-20T17:00",
-        "close": 89.02
+        "close": 89.01
       },
       {
         "date": "2026-07-20T18:00",
@@ -16162,7 +16162,7 @@
       },
       {
         "date": "2026-07-27T07:00",
-        "close": 91.22
+        "close": 91.2
       },
       {
         "date": "2026-07-27T07:53",
@@ -17590,7 +17590,7 @@
       },
       {
         "date": "2026-08-11T06:00",
-        "close": 89.07
+        "close": 89.08
       },
       {
         "date": "2026-08-11T07:00",
@@ -18786,7 +18786,7 @@
       },
       {
         "date": "2026-08-19T22:00",
-        "close": 91.6
+        "close": 91.63
       },
       {
         "date": "2026-08-19T22:14",
@@ -18862,11 +18862,19 @@
       },
       {
         "date": "2026-08-20T07:00",
-        "close": 92.99
+        "close": 92.92
       },
       {
         "date": "2026-08-20T07:34",
         "close": 92.99
+      },
+      {
+        "date": "2026-08-20T08:00",
+        "close": 93.67
+      },
+      {
+        "date": "2026-08-20T08:33",
+        "close": 93.64
       }
     ],
     "CL=F": [
@@ -37720,11 +37728,19 @@
       },
       {
         "date": "2026-08-20T07:00",
-        "close": 85.54
+        "close": 85.63
       },
       {
         "date": "2026-08-20T07:35",
         "close": 85.61
+      },
+      {
+        "date": "2026-08-20T08:00",
+        "close": 86.32
+      },
+      {
+        "date": "2026-08-20T08:33",
+        "close": 86.29
       }
     ],
     "NG=F": [
@@ -38250,7 +38266,7 @@
       },
       {
         "date": "2026-08-20",
-        "close": 2.76
+        "close": 2.75
       }
     ],
     "2222.SR": [
@@ -41641,6 +41657,10 @@
       {
         "date": "2026-08-19",
         "close": 89.86
+      },
+      {
+        "date": "2026-08-20",
+        "close": 90.75
       }
     ]
   },
