@@ -1,26 +1,26 @@
 {
-  "updated": "2026-08-20T20:33:32Z",
+  "updated": "2026-08-20T21:32:42Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 93.45,
-      "change": 1.83,
-      "changePercent": 2.0,
+      "price": 93.15,
+      "change": 1.53,
+      "changePercent": 1.67,
       "previousClose": 91.62
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 86.55,
-      "change": 2.16,
-      "changePercent": 2.56,
+      "price": 86.21,
+      "change": 1.82,
+      "changePercent": 2.16,
       "previousClose": 84.39
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.76,
+      "price": 2.77,
       "change": -0.05,
       "changePercent": -1.78,
       "previousClose": 2.81
@@ -78,9 +78,9 @@
     "OMAN": {
       "symbol": "OMAN",
       "name": "Oman Crude",
-      "price": 90.75,
-      "change": 0.0,
-      "changePercent": 0.0,
+      "price": 93.07,
+      "change": 2.32,
+      "changePercent": 2.56,
       "previousClose": 90.75,
       "note": "DME Oman \u2014 cbonds.com (2026-08-20)",
       "source": "cbonds.com/indexes/189217"
@@ -18966,11 +18966,15 @@
       },
       {
         "date": "2026-08-20T20:00",
-        "close": 93.51
+        "close": 93.15
       },
       {
         "date": "2026-08-20T20:23",
         "close": 93.45
+      },
+      {
+        "date": "2026-08-20T20:59",
+        "close": 93.15
       }
     ],
     "CL=F": [
@@ -37928,11 +37932,15 @@
       },
       {
         "date": "2026-08-20T20:00",
-        "close": 86.6
+        "close": 86.21
       },
       {
         "date": "2026-08-20T20:23",
         "close": 86.55
+      },
+      {
+        "date": "2026-08-20T20:59",
+        "close": 86.21
       }
     ],
     "NG=F": [
@@ -38458,7 +38466,7 @@
       },
       {
         "date": "2026-08-20",
-        "close": 2.76
+        "close": 2.77
       }
     ],
     "2222.SR": [
@@ -41873,8 +41881,8 @@
     ]
   },
   "gulf": {
-    "ships": null,
-    "tankers": null,
-    "sampled_at": null
+    "ships": 0,
+    "tankers": 0,
+    "sampled_at": "2026-08-20T21:32:25Z"
   }
 }
