@@ -433,33 +433,46 @@ export async function main(argv = process.argv.slice(2), env = process.env, deps
     }
 
     if (fetched) {
-      const regionsDiffer =
-        JSON.stringify(oldEntry.regions) !== JSON.stringify(fetched.regions);
-      const needsPatch = !countsEqual(oldEntry, fetched) || regionsDiffer;
-      if (needsPatch) {
-        const correctedAt = new Date().toISOString();
-        data.daily[repairIdx] = buildPatchedEntry(oldEntry, fetched, correctedAt);
-        const alreadyPatched = patchedDates.find((p) => p.date === REGION_REPAIR_DATE);
-        if (!alreadyPatched) {
-          patchedDates.push({
-            date: REGION_REPAIR_DATE,
-            oldEntry,
-            newEntry: data.daily[repairIdx],
-            correctedAt,
-          });
-        }
+      if (fetched.total === 0 && oldEntry.total > 0) {
         console.log(
-          `${REGION_REPAIR_DATE.padEnd(12)} ${formatCounts(oldEntry).padStart(18)} ${formatCounts(fetched).padStart(18)} ${"region repair".padStart(12)}`
+          `${REGION_REPAIR_DATE.padEnd(12)} ${formatCounts(oldEntry).padStart(18)} ${formatCounts(fetched).padStart(18)} ${"zero guard".padStart(12)}`
         );
+        failedDates.push({
+          date: REGION_REPAIR_DATE,
+          reason: "API returned 0 flights for a non-zero stored day",
+        });
       } else {
-        console.log(
-          `${REGION_REPAIR_DATE.padEnd(12)} ${formatCounts(oldEntry).padStart(18)} ${formatCounts(fetched).padStart(18)} ${"unchanged".padStart(12)}`
-        );
+        const regionsDiffer =
+          JSON.stringify(oldEntry.regions) !== JSON.stringify(fetched.regions);
+        const needsPatch = !countsEqual(oldEntry, fetched) || regionsDiffer;
+        if (needsPatch) {
+          const correctedAt = new Date().toISOString();
+          data.daily[repairIdx] = buildPatchedEntry(oldEntry, fetched, correctedAt);
+          const alreadyPatched = patchedDates.find((p) => p.date === REGION_REPAIR_DATE);
+          if (!alreadyPatched) {
+            patchedDates.push({
+              date: REGION_REPAIR_DATE,
+              oldEntry,
+              newEntry: data.daily[repairIdx],
+              correctedAt,
+            });
+          }
+          console.log(
+            `${REGION_REPAIR_DATE.padEnd(12)} ${formatCounts(oldEntry).padStart(18)} ${formatCounts(fetched).padStart(18)} ${"region repair".padStart(12)}`
+          );
+        } else {
+          console.log(
+            `${REGION_REPAIR_DATE.padEnd(12)} ${formatCounts(oldEntry).padStart(18)} ${formatCounts(fetched).padStart(18)} ${"unchanged".padStart(12)}`
+          );
+        }
       }
     }
   }
 
   // Recompute aggregates from the pre-conflict window
+  const previousPreConflictAvg = data.preConflictAvg;
+  const previousBaselineDailyAvg = data.baselineDailyAvg;
+
   const { preConflictAvg, baselineDailyAvg } = recomputeAggregates(
     data.daily,
     PRE_CONFLICT_FROM,
@@ -468,7 +481,14 @@ export async function main(argv = process.argv.slice(2), env = process.env, deps
 
   data.preConflictAvg = preConflictAvg;
   data.baselineDailyAvg = baselineDailyAvg;
-  data.lastUpdated = new Date().toISOString();
+
+  const aggregatesChanged =
+    previousPreConflictAvg !== preConflictAvg ||
+    JSON.stringify(previousBaselineDailyAvg) !== JSON.stringify(baselineDailyAvg);
+
+  if (patchedDates.length > 0 || aggregatesChanged) {
+    data.lastUpdated = new Date().toISOString();
+  }
 
   // Write audit entries for patched dates
   for (const patch of patchedDates) {

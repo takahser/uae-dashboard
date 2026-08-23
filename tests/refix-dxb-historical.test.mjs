@@ -27,9 +27,9 @@ import {
   main,
 } from "../scripts/refix-dxb-historical.mjs";
 
-// Load the real DXB data file to validate aggregate derivation against it
-const DXB_DATA = JSON.parse(
-  readFileSync(join(__dirname, "..", "public", "data-flights-dxb.json"), "utf8")
+// Committed fixture for aggregate derivation — not mutated by the script
+const FIXTURE_DATA = JSON.parse(
+  readFileSync(join(__dirname, "fixtures", "dxb-preconflict.json"), "utf8")
 );
 
 function makeFlight(icao) {
@@ -155,20 +155,23 @@ describe("processDate", () => {
 });
 
 describe("recomputeAggregates", () => {
-  it("recomputes preConflictAvg from the current DXB February data", () => {
+  it("recomputes preConflictAvg and baselineDailyAvg from a committed fixture", () => {
     const { preConflictAvg, baselineDailyAvg } = recomputeAggregates(
-      DXB_DATA.daily,
+      FIXTURE_DATA.daily,
       "2026-02-18",
       "2026-02-27"
     );
-    // The stored file still carries the stale value 1289, but the current
-    // daily series for 2026-02-18 → 2026-02-27 averages to 1216. The script
-    // recomputes from the daily data, so we assert the computed value.
-    assert.strictEqual(preConflictAvg, 1216);
-    assert.strictEqual(baselineDailyAvg.total, 1216);
-    assert.ok(Number.isInteger(baselineDailyAvg.departures));
-    assert.ok(Number.isInteger(baselineDailyAvg.arrivals));
-    assert.ok(baselineDailyAvg.regions["South Asia"] >= 0);
+    assert.strictEqual(preConflictAvg, 1210);
+    assert.strictEqual(baselineDailyAvg.total, 1210);
+    assert.strictEqual(baselineDailyAvg.departures, 600);
+    assert.strictEqual(baselineDailyAvg.arrivals, 610);
+    assert.strictEqual(baselineDailyAvg.regions.Europe, 300);
+    assert.strictEqual(baselineDailyAvg.regions["South Asia"], 250);
+    assert.strictEqual(baselineDailyAvg.regions["Middle East"], 200);
+    assert.strictEqual(baselineDailyAvg.regions.Americas, 150);
+    assert.strictEqual(baselineDailyAvg.regions["East Asia"], 150);
+    assert.strictEqual(baselineDailyAvg.regions.Africa, 100);
+    assert.strictEqual(baselineDailyAvg.regions["Southeast Asia"], 59);
   });
 
   it("rounds means to integers", () => {
@@ -513,5 +516,105 @@ describe("main orchestration", () => {
     assert.strictEqual(apr2.total, 452);
     assert.strictEqual(apr2.regions.Europe, 452);
     assert.strictEqual(apr2.regions.Unknown, undefined);
+  });
+
+  it("applies zero-return guard during 2026-04-02 region repair", async () => {
+    writeData([
+      { date: "2026-04-01", departures: 225, arrivals: 220, total: 445, regions: { Europe: 445 }, source: "aerodatabox" },
+      {
+        date: "2026-04-02",
+        departures: 228,
+        arrivals: 224,
+        total: 452,
+        regions: { Europe: 300, Unknown: 152 },
+        source: "aerodatabox",
+      },
+    ]);
+
+    const fetched = {
+      "2026-04-01": { departures: 225, arrivals: 220, total: 445, regions: { Europe: 445 } },
+      "2026-04-02": { departures: 0, arrivals: 0, total: 0, regions: {} },
+    };
+
+    const deps = {
+      fetchDayCounts: (_icao, date) => Promise.resolve(fetched[date]),
+      readDataFile: () => ({
+        dataFile,
+        data: JSON.parse(readFileSync(dataFile, "utf8")),
+      }),
+      writeDataFile: (path, data, dry) => {
+        if (!dry) writeFileSync(path, JSON.stringify(data, null, 2) + "\n");
+      },
+      writeAuditEntryNoPrune: (entry, file, dry) => {
+        if (!dry) writeAuditEntryNoPrune(entry, file);
+      },
+      auditFile,
+      onDateDelay: () => Promise.resolve(),
+    };
+
+    const result = await main(
+      ["--from", "2026-04-01", "--to", "2026-04-01"],
+      { RAPIDAPI_KEY: "test-key" },
+      deps
+    );
+
+    assert.strictEqual(result.exitCode, 1);
+    assert.strictEqual(result.patchedDates.length, 0);
+    assert.strictEqual(result.failedDates.length, 1);
+    assert.strictEqual(result.failedDates[0].date, "2026-04-02");
+    assert.ok(result.failedDates[0].reason.includes("0 flights"));
+
+    const written = JSON.parse(readFileSync(dataFile, "utf8"));
+    const apr2 = written.daily.find((d) => d.date === "2026-04-02");
+    assert.strictEqual(apr2.total, 452);
+    assert.strictEqual(apr2.regions.Unknown, 152);
+  });
+
+  it("produces byte-identical output on a second unchanged run", async () => {
+    writeData([
+      { date: "2026-02-18", departures: 10, arrivals: 12, total: 22, regions: { Europe: 22 }, source: "aerodatabox" },
+      { date: "2026-02-19", departures: 11, arrivals: 13, total: 24, regions: { Europe: 24 }, source: "aerodatabox" },
+      {
+        date: "2026-04-02",
+        departures: 228,
+        arrivals: 224,
+        total: 452,
+        regions: { Europe: 452 },
+        source: "aerodatabox",
+      },
+    ]);
+
+    const fetched = {
+      "2026-02-18": { departures: 10, arrivals: 12, total: 22, regions: { Europe: 22 } },
+      "2026-02-19": { departures: 11, arrivals: 13, total: 24, regions: { Europe: 24 } },
+      "2026-04-02": { departures: 228, arrivals: 224, total: 452, regions: { Europe: 452 } },
+    };
+
+    const deps = {
+      fetchDayCounts: (_icao, date) => Promise.resolve(fetched[date]),
+      readDataFile: () => ({
+        dataFile,
+        data: JSON.parse(readFileSync(dataFile, "utf8")),
+      }),
+      writeDataFile: (path, data, dry) => {
+        if (!dry) writeFileSync(path, JSON.stringify(data, null, 2) + "\n");
+      },
+      writeAuditEntryNoPrune: (entry, file, dry) => {
+        if (!dry) writeAuditEntryNoPrune(entry, file);
+      },
+      auditFile,
+      onDateDelay: () => Promise.resolve(),
+    };
+
+    await main(["--from", "2026-02-18", "--to", "2026-02-19"], { RAPIDAPI_KEY: "test-key" }, deps);
+    const afterFirst = readFileSync(dataFile, "utf8");
+
+    await main(["--from", "2026-02-18", "--to", "2026-02-19"], { RAPIDAPI_KEY: "test-key" }, deps);
+    const afterSecond = readFileSync(dataFile, "utf8");
+
+    assert.strictEqual(afterSecond, afterFirst);
+
+    const audit = readAudit(auditFile);
+    assert.strictEqual(audit.corrections.length, 0);
   });
 });
