@@ -1,28 +1,28 @@
 {
-  "updated": "2026-08-23T22:51:47Z",
+  "updated": "2026-08-23T23:26:02Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 93.64,
-      "change": -0.75,
-      "changePercent": -0.79,
+      "price": 93.44,
+      "change": -0.95,
+      "changePercent": -1.01,
       "previousClose": 94.39
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 86.32,
-      "change": -0.74,
-      "changePercent": -0.85,
+      "price": 86.15,
+      "change": -0.91,
+      "changePercent": -1.05,
       "previousClose": 87.06
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.78,
-      "change": -0.03,
-      "changePercent": -1.07,
+      "price": 2.77,
+      "change": -0.04,
+      "changePercent": -1.42,
       "previousClose": 2.81
     },
     "2222.SR": {
@@ -19174,7 +19174,7 @@
       },
       {
         "date": "2026-08-23T22:00",
-        "close": 93.64
+        "close": 93.6
       },
       {
         "date": "2026-08-23T22:13",
@@ -19183,6 +19183,14 @@
       {
         "date": "2026-08-23T22:41",
         "close": 93.64
+      },
+      {
+        "date": "2026-08-23T23:00",
+        "close": 93.44
+      },
+      {
+        "date": "2026-08-23T23:15",
+        "close": 93.44
       }
     ],
     "CL=F": [
@@ -38348,7 +38356,7 @@
       },
       {
         "date": "2026-08-23T22:00",
-        "close": 86.35
+        "close": 86.26
       },
       {
         "date": "2026-08-23T22:16",
@@ -38357,6 +38365,14 @@
       {
         "date": "2026-08-23T22:41",
         "close": 86.32
+      },
+      {
+        "date": "2026-08-23T23:00",
+        "close": 86.15
+      },
+      {
+        "date": "2026-08-23T23:15",
+        "close": 86.15
       }
     ],
     "NG=F": [
@@ -38890,7 +38906,7 @@
       },
       {
         "date": "2026-08-23",
-        "close": 2.78
+        "close": 2.77
       }
     ],
     "2222.SR": [
@@ -42339,6 +42355,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-08-23T22:51:33Z"
+    "sampled_at": "2026-08-23T23:25:47Z"
   }
 }
