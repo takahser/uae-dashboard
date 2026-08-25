@@ -1,20 +1,20 @@
 {
-  "updated": "2026-08-25T11:01:17Z",
+  "updated": "2026-08-25T11:37:48Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 88.22,
-      "change": -2.32,
-      "changePercent": -2.56,
+      "price": 88.2,
+      "change": -2.34,
+      "changePercent": -2.58,
       "previousClose": 90.54
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 82.58,
-      "change": -2.43,
-      "changePercent": -2.86,
+      "price": 82.52,
+      "change": -2.49,
+      "changePercent": -2.93,
       "previousClose": 85.01
     },
     "NG=F": {
@@ -28,9 +28,9 @@
     "2222.SR": {
       "symbol": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 26.34,
-      "change": -0.24,
-      "changePercent": -0.9,
+      "price": 26.36,
+      "change": -0.22,
+      "changePercent": -0.83,
       "previousClose": 26.58
     },
     "FRO": {
@@ -19450,11 +19450,19 @@
       },
       {
         "date": "2026-08-25T10:00",
-        "close": 88.22
+        "close": 88.07
       },
       {
         "date": "2026-08-25T10:50",
         "close": 88.22
+      },
+      {
+        "date": "2026-08-25T11:00",
+        "close": 88.21
+      },
+      {
+        "date": "2026-08-25T11:27",
+        "close": 88.2
       }
     ],
     "CL=F": [
@@ -38904,11 +38912,19 @@
       },
       {
         "date": "2026-08-25T10:00",
-        "close": 82.54
+        "close": 82.45
       },
       {
         "date": "2026-08-25T10:51",
         "close": 82.58
+      },
+      {
+        "date": "2026-08-25T11:00",
+        "close": 82.53
+      },
+      {
+        "date": "2026-08-25T11:27",
+        "close": 82.52
       }
     ],
     "NG=F": [
@@ -39944,7 +39960,7 @@
       },
       {
         "date": "2026-08-25",
-        "close": 26.34
+        "close": 26.36
       }
     ],
     "FRO": [
@@ -42935,6 +42951,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-08-25T11:01:03Z"
+    "sampled_at": "2026-08-25T11:37:34Z"
   }
 }
