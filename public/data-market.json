@@ -1,29 +1,29 @@
 {
-  "updated": "2026-08-25T21:33:28Z",
+  "updated": "2026-08-25T22:32:30Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 85.86,
-      "change": -4.68,
-      "changePercent": -5.17,
-      "previousClose": 90.54
+      "price": 86.15,
+      "change": -1.12,
+      "changePercent": -1.28,
+      "previousClose": 87.27
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 81.11,
-      "change": -3.9,
-      "changePercent": -4.59,
-      "previousClose": 85.01
+      "price": 81.07,
+      "change": -1.29,
+      "changePercent": -1.57,
+      "previousClose": 82.36
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.85,
-      "change": 0.01,
-      "changePercent": 0.35,
-      "previousClose": 2.83
+      "price": 2.84,
+      "change": 0.02,
+      "changePercent": 0.71,
+      "previousClose": 2.82
     },
     "2222.SR": {
       "symbol": "2222.SR",
@@ -79,9 +79,9 @@
       "symbol": "OMAN",
       "name": "Oman Crude",
       "price": 95.59,
-      "change": -3.8,
-      "changePercent": -3.82,
-      "previousClose": 99.39,
+      "change": 0.0,
+      "changePercent": 0.0,
+      "previousClose": 95.59,
       "note": "DME Oman \u2014 cbonds.com (2026-08-25)",
       "source": "cbonds.com/indexes/189217"
     }
@@ -19539,6 +19539,14 @@
       {
         "date": "2026-08-25T20:59",
         "close": 85.86
+      },
+      {
+        "date": "2026-08-25T22:00",
+        "close": 86.01
+      },
+      {
+        "date": "2026-08-25T22:07",
+        "close": 86.15
       }
     ],
     "CL=F": [
@@ -39077,6 +39085,14 @@
       {
         "date": "2026-08-25T20:59",
         "close": 81.11
+      },
+      {
+        "date": "2026-08-25T22:00",
+        "close": 81.05
+      },
+      {
+        "date": "2026-08-25T22:22",
+        "close": 81.07
       }
     ],
     "NG=F": [
@@ -39618,7 +39634,7 @@
       },
       {
         "date": "2026-08-25",
-        "close": 2.85
+        "close": 2.84
       }
     ],
     "2222.SR": [
@@ -43119,6 +43135,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-08-25T21:33:15Z"
+    "sampled_at": "2026-08-25T22:32:18Z"
   }
 }
