@@ -1202,16 +1202,6 @@
       "apiEndpoint": "https://www.zayedinternationalairport.ae/api/zayed/flight/{departure|arrival}?day=0&PageSize=500"
     },
     {
-      "date": "2026-08-26",
-      "departures": 0,
-      "arrivals": 0,
-      "total": 0,
-      "source": "zayedinternationalairport.ae",
-      "fetchedAt": "2026-08-26T06:36:08.395Z",
-      "method": "direct-api",
-      "apiEndpoint": "https://www.zayedinternationalairport.ae/api/zayed/flight/{departure|arrival}?day=0&PageSize=500"
-    },
-    {
       "date": "2026-08-27",
       "departures": 0,
       "arrivals": 0,
@@ -1220,7 +1210,15 @@
       "fetchedAt": "2026-08-27T17:12:06.311Z",
       "method": "direct-api",
       "apiEndpoint": "https://www.zayedinternationalairport.ae/api/zayed/flight/{departure|arrival}?day=0&PageSize=500"
+    },
+    {
+      "date": "2026-08-26",
+      "error": "AUH API HTTP 403 Forbidden for arrival",
+      "source": "zayedinternationalairport.ae",
+      "method": "direct-api",
+      "fetchedAt": "2026-08-27T17:51:30.925Z",
+      "success": false
     }
   ],
-  "lastUpdated": "2026-08-27T17:12:06.312Z"
+  "lastUpdated": "2026-08-27T17:51:30.926Z"
 }
