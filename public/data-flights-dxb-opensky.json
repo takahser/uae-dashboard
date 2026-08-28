@@ -2784,6 +2784,22 @@
       "arrivals": 0,
       "total": 0,
       "regions": {}
+    },
+    {
+      "date": "2026-08-27",
+      "departures": 407,
+      "arrivals": 479,
+      "total": 886,
+      "regions": {
+        "Middle East": 103,
+        "South Asia": 115,
+        "Unknown": 338,
+        "Africa": 49,
+        "Europe": 210,
+        "Asia-Pacific": 48,
+        "Americas": 22,
+        "Other": 1
+      }
     }
   ],
   "baselineDailyAvg": {
@@ -2801,5 +2817,5 @@
       "Other": 2
     }
   },
-  "lastUpdated": "2026-08-27T18:41:20.501Z"
+  "lastUpdated": "2026-08-28T19:48:54.271Z"
 }
