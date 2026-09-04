@@ -1,20 +1,20 @@
 {
-  "updated": "2026-09-04T19:26:49Z",
+  "updated": "2026-09-04T21:43:22Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 96.2,
-      "change": 0.68,
-      "changePercent": 0.71,
+      "price": 95.83,
+      "change": 0.31,
+      "changePercent": 0.32,
       "previousClose": 95.52
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 91.44,
-      "change": 0.14,
-      "changePercent": 0.15,
+      "price": 91.22,
+      "change": -0.08,
+      "changePercent": -0.09,
       "previousClose": 91.3
     },
     "NG=F": {
@@ -36,33 +36,33 @@
     "FRO": {
       "symbol": "FRO",
       "name": "Frontline",
-      "price": 45.98,
-      "change": 0.56,
-      "changePercent": 1.23,
+      "price": 46.12,
+      "change": 0.7,
+      "changePercent": 1.54,
       "previousClose": 45.42
     },
     "STNG": {
       "symbol": "STNG",
       "name": "Scorpio Tankers",
-      "price": 82.14,
-      "change": 2.03,
-      "changePercent": 2.53,
+      "price": 82.35,
+      "change": 2.24,
+      "changePercent": 2.8,
       "previousClose": 80.11
     },
     "RTX": {
       "symbol": "RTX",
       "name": "RTX Corp",
-      "price": 200.77,
-      "change": -1.36,
-      "changePercent": -0.67,
+      "price": 200.79,
+      "change": -1.34,
+      "changePercent": -0.66,
       "previousClose": 202.13
     },
     "LMT": {
       "symbol": "LMT",
       "name": "Lockheed Martin",
-      "price": 524.92,
-      "change": -8.03,
-      "changePercent": -1.51,
+      "price": 525.28,
+      "change": -7.67,
+      "changePercent": -1.44,
       "previousClose": 532.95
     },
     "DUBAI": {
@@ -78,9 +78,9 @@
     "OMAN": {
       "symbol": "OMAN",
       "name": "Oman Crude",
-      "price": 100.8,
-      "change": 0.0,
-      "changePercent": 0.0,
+      "price": 101.2,
+      "change": 0.4,
+      "changePercent": 0.4,
       "previousClose": 100.8,
       "note": "DME Oman \u2014 cbonds.com (2026-09-04)",
       "source": "cbonds.com/indexes/189217"
@@ -20478,11 +20478,19 @@
       },
       {
         "date": "2026-09-04T19:00",
-        "close": 96.2
+        "close": 96.09
       },
       {
         "date": "2026-09-04T19:16",
         "close": 96.2
+      },
+      {
+        "date": "2026-09-04T20:00",
+        "close": 95.83
+      },
+      {
+        "date": "2026-09-04T20:59",
+        "close": 95.83
       }
     ],
     "CL=F": [
@@ -40964,11 +40972,19 @@
       },
       {
         "date": "2026-09-04T19:00",
-        "close": 91.46
+        "close": 91.36
       },
       {
         "date": "2026-09-04T19:16",
         "close": 91.44
+      },
+      {
+        "date": "2026-09-04T20:00",
+        "close": 91.22
+      },
+      {
+        "date": "2026-09-04T20:59",
+        "close": 91.22
       }
     ],
     "NG=F": [
@@ -42582,7 +42598,7 @@
       },
       {
         "date": "2026-09-04",
-        "close": 45.98
+        "close": 46.12
       }
     ],
     "STNG": [
@@ -43096,7 +43112,7 @@
       },
       {
         "date": "2026-09-04",
-        "close": 82.14
+        "close": 82.35
       }
     ],
     "RTX": [
@@ -43610,7 +43626,7 @@
       },
       {
         "date": "2026-09-04",
-        "close": 200.77
+        "close": 200.79
       }
     ],
     "LMT": [
@@ -44124,7 +44140,7 @@
       },
       {
         "date": "2026-09-04",
-        "close": 524.92
+        "close": 525.28
       }
     ],
     "DUBAI": [
@@ -45267,6 +45283,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-09-04T19:26:34Z"
+    "sampled_at": "2026-09-04T21:43:09Z"
   }
 }
