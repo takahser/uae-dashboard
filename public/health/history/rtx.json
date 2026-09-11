@@ -1,5 +1,12 @@
 [
   {
+    "timestamp": "2026-09-11T17:07:17Z",
+    "old_value": "198.12",
+    "new_value": "198.0",
+    "method": "yahoo-finance",
+    "source_url": "https://finance.yahoo.com/quote/RTX"
+  },
+  {
     "timestamp": "2026-09-11T13:25:32Z",
     "old_value": "197.55",
     "new_value": "198.12",
@@ -619,13 +626,6 @@
     "timestamp": "2026-08-27T21:07:01Z",
     "old_value": "211.99",
     "new_value": "212.08",
-    "method": "yahoo-finance",
-    "source_url": "https://finance.yahoo.com/quote/RTX"
-  },
-  {
-    "timestamp": "2026-08-27T11:03:31Z",
-    "old_value": "210.28",
-    "new_value": "211.99",
     "method": "yahoo-finance",
     "source_url": "https://finance.yahoo.com/quote/RTX"
   }
