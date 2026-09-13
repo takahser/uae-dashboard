@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-12T23:12:53Z",
+  "updated": "2026-09-13T01:21:09Z",
   "hormuz": {
     "pre_war_mbpd": 21.0,
     "current_mbpd": 0.0,
@@ -12,7 +12,7 @@
       "pipeline": "East-West Pipeline (746mi)",
       "pre_war_mbpd": 1.47,
       "live_vessel_count": 0,
-      "sampled_at": "2026-09-12T23:12:53Z",
+      "sampled_at": "2026-09-13T01:21:09Z",
       "history": [
         {
           "date": "2026-01-15",
@@ -1084,6 +1084,12 @@
         },
         {
           "date": "2026-09-12",
+          "mbpd": null,
+          "vessel_count": 0,
+          "source": "aisstream.io"
+        },
+        {
+          "date": "2026-09-13",
           "mbpd": null,
           "vessel_count": 0,
           "source": "aisstream.io"
