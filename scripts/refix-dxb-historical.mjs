@@ -11,6 +11,11 @@
  *   RAPIDAPI_KEY=... node scripts/refix-dxb-historical.mjs
  *   RAPIDAPI_KEY=... node scripts/refix-dxb-historical.mjs --dry-run
  *   RAPIDAPI_KEY=... node scripts/refix-dxb-historical.mjs --from 2026-02-18 --to 2026-04-01 --airport DXB
+ *
+ * Note: the stored preConflictAvg (1289) predates the corrected daily series
+ * and is stale — the 2026-02-18 → 2026-02-27 window currently averages ~1216.
+ * The first live run recomputes it from the daily series even if no day needs
+ * patching, so expect the traffic-light denominator to move 1289 → ~1216.
  */
 
 import { readFileSync, writeFileSync, existsSync } from "fs";
