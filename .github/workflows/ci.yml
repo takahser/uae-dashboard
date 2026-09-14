@@ -32,6 +32,9 @@ jobs:
       - name: Test — timezone helpers
         run: node tests/timezone.test.mjs
 
+      - name: Test — DXB historical codeshare refix
+        run: node --test tests/refix-dxb-historical.test.mjs
+
   python-lint:
     runs-on: ubuntu-latest
     steps:
