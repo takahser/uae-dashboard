@@ -1,28 +1,28 @@
 {
-  "updated": "2026-10-02T00:04:28Z",
+  "updated": "2026-10-02T06:03:15Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 102.41,
-      "change": 0.1,
-      "changePercent": 0.1,
+      "price": 102.2,
+      "change": -0.11,
+      "changePercent": -0.11,
       "previousClose": 102.31
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 92.94,
-      "change": 0.07,
-      "changePercent": 0.08,
+      "price": 92.59,
+      "change": -0.28,
+      "changePercent": -0.3,
       "previousClose": 92.87
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 2.95,
-      "change": -0.02,
-      "changePercent": -0.67,
+      "price": 2.92,
+      "change": -0.05,
+      "changePercent": -1.69,
       "previousClose": 2.97
     },
     "2222.SR": {
@@ -68,10 +68,10 @@
     "DUBAI": {
       "symbol": "DUBAI",
       "name": "Dubai Crude",
-      "price": 113.71,
-      "change": 0.1,
-      "changePercent": 0.09,
-      "previousClose": 113.61,
+      "price": 106.36,
+      "change": -7.35,
+      "changePercent": -6.46,
+      "previousClose": 113.71,
       "note": "Dubai crude \u2014 Yahoo Finance (DCB=F)",
       "source": "Yahoo Finance (DCB=F)"
     },
@@ -22526,11 +22526,31 @@
       },
       {
         "date": "2026-10-01T23:00",
-        "close": 102.41
+        "close": 102.44
       },
       {
         "date": "2026-10-01T23:51",
         "close": 102.41
+      },
+      {
+        "date": "2026-10-02T00:00",
+        "close": 102.73
+      },
+      {
+        "date": "2026-10-02T01:00",
+        "close": 102.57
+      },
+      {
+        "date": "2026-10-02T04:00",
+        "close": 102.21
+      },
+      {
+        "date": "2026-10-02T05:00",
+        "close": 102.2
+      },
+      {
+        "date": "2026-10-02T05:52",
+        "close": 102.2
       }
     ],
     "CL=F": [
@@ -45052,11 +45072,31 @@
       },
       {
         "date": "2026-10-01T23:00",
-        "close": 92.94
+        "close": 92.98
       },
       {
         "date": "2026-10-01T23:53",
         "close": 92.94
+      },
+      {
+        "date": "2026-10-02T00:00",
+        "close": 93.17
+      },
+      {
+        "date": "2026-10-02T01:00",
+        "close": 92.9
+      },
+      {
+        "date": "2026-10-02T04:00",
+        "close": 92.55
+      },
+      {
+        "date": "2026-10-02T05:00",
+        "close": 92.59
+      },
+      {
+        "date": "2026-10-02T05:52",
+        "close": 92.59
       }
     ],
     "NG=F": [
@@ -45726,7 +45766,11 @@
       },
       {
         "date": "2026-10-01",
-        "close": 2.95
+        "close": 2.97
+      },
+      {
+        "date": "2026-10-02",
+        "close": 2.92
       }
     ],
     "2222.SR": [
@@ -46910,7 +46954,7 @@
       },
       {
         "date": "2026-10-01",
-        "close": 51.55
+        "close": 51.54
       }
     ],
     "STNG": [
@@ -47496,7 +47540,7 @@
       },
       {
         "date": "2026-10-01",
-        "close": 85.74
+        "close": 85.79
       }
     ],
     "RTX": [
@@ -48082,7 +48126,7 @@
       },
       {
         "date": "2026-10-01",
-        "close": 185.03
+        "close": 185.01
       }
     ],
     "LMT": [
@@ -48668,7 +48712,7 @@
       },
       {
         "date": "2026-10-01",
-        "close": 505.49
+        "close": 505.5
       }
     ],
     "DUBAI": [
@@ -49407,6 +49451,10 @@
       {
         "date": "2026-09-30",
         "close": 113.71
+      },
+      {
+        "date": "2026-10-01",
+        "close": 106.36
       }
     ],
     "OMAN": [
@@ -49959,6 +50007,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-10-02T00:04:13Z"
+    "sampled_at": "2026-10-02T06:02:59Z"
   }
 }
