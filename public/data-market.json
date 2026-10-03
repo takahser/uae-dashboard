@@ -1,20 +1,20 @@
 {
-  "updated": "2026-10-03T01:49:24Z",
+  "updated": "2026-10-03T07:50:35Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 102.7,
-      "change": 0.39,
-      "changePercent": 0.38,
+      "price": 102.25,
+      "change": -0.06,
+      "changePercent": -0.06,
       "previousClose": 102.31
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 91.26,
-      "change": -1.61,
-      "changePercent": -1.73,
+      "price": 91.11,
+      "change": -1.76,
+      "changePercent": -1.9,
       "previousClose": 92.87
     },
     "NG=F": {
@@ -68,10 +68,10 @@
     "DUBAI": {
       "symbol": "DUBAI",
       "name": "Dubai Crude",
-      "price": 106.36,
-      "change": -7.35,
-      "changePercent": -6.46,
-      "previousClose": 113.71,
+      "price": 108.5,
+      "change": 2.14,
+      "changePercent": 2.01,
+      "previousClose": 106.36,
       "note": "Dubai crude \u2014 Yahoo Finance (DCB=F)",
       "source": "Yahoo Finance (DCB=F)"
     },
@@ -49631,6 +49631,10 @@
       {
         "date": "2026-10-01",
         "close": 106.36
+      },
+      {
+        "date": "2026-10-02",
+        "close": 108.5
       }
     ],
     "OMAN": [
@@ -50187,6 +50191,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-10-03T01:49:11Z"
+    "sampled_at": "2026-10-03T07:50:21Z"
   }
 }
