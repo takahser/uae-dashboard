@@ -1,37 +1,37 @@
 {
-  "updated": "2026-10-14T05:57:38Z",
+  "updated": "2026-10-14T11:39:53Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 106.15,
-      "change": 0.46,
-      "changePercent": 0.44,
+      "price": 106.36,
+      "change": 0.67,
+      "changePercent": 0.63,
       "previousClose": 105.69
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 94.55,
-      "change": 0.41,
-      "changePercent": 0.44,
+      "price": 95.92,
+      "change": 1.78,
+      "changePercent": 1.89,
       "previousClose": 94.14
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 3.32,
-      "change": 0.03,
-      "changePercent": 0.91,
+      "price": 3.26,
+      "change": -0.02,
+      "changePercent": -0.61,
       "previousClose": 3.28
     },
     "2222.SR": {
       "symbol": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 25.78,
-      "change": 0.02,
-      "changePercent": 0.08,
-      "previousClose": 25.76
+      "price": 25.5,
+      "change": -0.28,
+      "changePercent": -1.09,
+      "previousClose": 25.78
     },
     "FRO": {
       "symbol": "FRO",
@@ -82,7 +82,7 @@
       "change": 0.0,
       "changePercent": 0.0,
       "previousClose": 111.18,
-      "note": "DME Oman \u2014 cbonds.com (2026-10-13)",
+      "note": "DME Oman \u2014 cbonds.com (2026-10-14)",
       "source": "cbonds.com/indexes/189217"
     }
   },
@@ -23410,7 +23410,7 @@
       },
       {
         "date": "2026-10-14T03:00",
-        "close": 106.47
+        "close": 106.38
       },
       {
         "date": "2026-10-14T04:00",
@@ -23418,11 +23418,39 @@
       },
       {
         "date": "2026-10-14T05:00",
-        "close": 106.14
+        "close": 106.13
       },
       {
         "date": "2026-10-14T05:47",
         "close": 106.15
+      },
+      {
+        "date": "2026-10-14T06:00",
+        "close": 105.94
+      },
+      {
+        "date": "2026-10-14T07:00",
+        "close": 105.74
+      },
+      {
+        "date": "2026-10-14T08:00",
+        "close": 105.6
+      },
+      {
+        "date": "2026-10-14T09:00",
+        "close": 106.03
+      },
+      {
+        "date": "2026-10-14T10:00",
+        "close": 106.44
+      },
+      {
+        "date": "2026-10-14T11:00",
+        "close": 106.34
+      },
+      {
+        "date": "2026-10-14T11:29",
+        "close": 106.36
       }
     ],
     "CL=F": [
@@ -46840,7 +46868,7 @@
       },
       {
         "date": "2026-10-14T03:00",
-        "close": 94.88
+        "close": 94.79
       },
       {
         "date": "2026-10-14T04:00",
@@ -46848,11 +46876,39 @@
       },
       {
         "date": "2026-10-14T05:00",
-        "close": 94.57
+        "close": 94.54
       },
       {
         "date": "2026-10-14T05:47",
         "close": 94.55
+      },
+      {
+        "date": "2026-10-14T06:00",
+        "close": 94.38
+      },
+      {
+        "date": "2026-10-14T07:00",
+        "close": 94.25
+      },
+      {
+        "date": "2026-10-14T08:00",
+        "close": 94.38
+      },
+      {
+        "date": "2026-10-14T09:00",
+        "close": 94.96
+      },
+      {
+        "date": "2026-10-14T10:00",
+        "close": 95.42
+      },
+      {
+        "date": "2026-10-14T11:00",
+        "close": 95.92
+      },
+      {
+        "date": "2026-10-14T11:29",
+        "close": 95.92
       }
     ],
     "NG=F": [
@@ -47566,7 +47622,7 @@
       },
       {
         "date": "2026-10-14",
-        "close": 3.32
+        "close": 3.26
       }
     ],
     "2222.SR": [
@@ -48197,6 +48253,10 @@
       {
         "date": "2026-10-13",
         "close": 25.78
+      },
+      {
+        "date": "2026-10-14",
+        "close": 25.5
       }
     ],
     "FRO": [
@@ -52021,12 +52081,16 @@
       {
         "date": "2026-10-13",
         "close": 111.18
+      },
+      {
+        "date": "2026-10-14",
+        "close": 111.18
       }
     ]
   },
   "gulf": {
-    "ships": 22,
+    "ships": 19,
     "tankers": 0,
-    "sampled_at": "2026-10-14T05:57:26Z"
+    "sampled_at": "2026-10-14T11:39:40Z"
   }
 }
