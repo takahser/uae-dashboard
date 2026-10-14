@@ -1,29 +1,29 @@
 {
-  "updated": "2026-10-13T21:28:02Z",
+  "updated": "2026-10-14T00:33:23Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 106.36,
-      "change": -0.29,
-      "changePercent": -0.27,
-      "previousClose": 106.65
+      "price": 106.51,
+      "change": 0.82,
+      "changePercent": 0.78,
+      "previousClose": 105.69
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 94.79,
-      "change": 1.05,
-      "changePercent": 1.12,
-      "previousClose": 93.74
+      "price": 94.87,
+      "change": 0.73,
+      "changePercent": 0.78,
+      "previousClose": 94.14
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
       "price": 3.32,
-      "change": 0.15,
-      "changePercent": 4.74,
-      "previousClose": 3.17
+      "change": 0.04,
+      "changePercent": 1.22,
+      "previousClose": 3.28
     },
     "2222.SR": {
       "symbol": "2222.SR",
@@ -23383,6 +23383,22 @@
       {
         "date": "2026-10-13T20:59",
         "close": 106.36
+      },
+      {
+        "date": "2026-10-13T22:00",
+        "close": 106.23
+      },
+      {
+        "date": "2026-10-13T23:00",
+        "close": 106.32
+      },
+      {
+        "date": "2026-10-14T00:00",
+        "close": 106.51
+      },
+      {
+        "date": "2026-10-14T00:22",
+        "close": 106.51
       }
     ],
     "CL=F": [
@@ -46773,6 +46789,22 @@
       {
         "date": "2026-10-13T20:59",
         "close": 94.79
+      },
+      {
+        "date": "2026-10-13T22:00",
+        "close": 94.61
+      },
+      {
+        "date": "2026-10-13T23:00",
+        "close": 94.77
+      },
+      {
+        "date": "2026-10-14T00:00",
+        "close": 94.91
+      },
+      {
+        "date": "2026-10-14T00:23",
+        "close": 94.87
       }
     ],
     "NG=F": [
@@ -47482,6 +47514,10 @@
       },
       {
         "date": "2026-10-13",
+        "close": 3.32
+      },
+      {
+        "date": "2026-10-14",
         "close": 3.32
       }
     ],
@@ -51937,8 +51973,8 @@
     ]
   },
   "gulf": {
-    "ships": 25,
+    "ships": 15,
     "tankers": 0,
-    "sampled_at": "2026-10-13T21:27:48Z"
+    "sampled_at": "2026-10-14T00:33:07Z"
   }
 }
