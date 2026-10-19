@@ -1,28 +1,28 @@
 {
-  "updated": "2026-10-18T21:44:27Z",
+  "updated": "2026-10-19T00:01:33Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
       "name": "Brent Crude (EU)",
-      "price": 109.86,
-      "change": 0.0,
-      "changePercent": 0.0,
+      "price": 108.19,
+      "change": -1.67,
+      "changePercent": -1.52,
       "previousClose": 109.86
     },
     "CL=F": {
       "symbol": "CL=F",
       "name": "WTI Crude (US)",
-      "price": 99.02,
-      "change": 0.0,
-      "changePercent": 0.0,
+      "price": 97.77,
+      "change": -1.25,
+      "changePercent": -1.26,
       "previousClose": 99.02
     },
     "NG=F": {
       "symbol": "NG=F",
       "name": "Natural Gas",
-      "price": 3.12,
-      "change": 0.0,
-      "changePercent": 0.0,
+      "price": 3.05,
+      "change": -0.07,
+      "changePercent": -2.25,
       "previousClose": 3.12
     },
     "2222.SR": {
@@ -23727,6 +23727,18 @@
       {
         "date": "2026-10-16T20:59",
         "close": 109.86
+      },
+      {
+        "date": "2026-10-18T22:00",
+        "close": 108.79
+      },
+      {
+        "date": "2026-10-18T23:00",
+        "close": 108.19
+      },
+      {
+        "date": "2026-10-18T23:51",
+        "close": 108.19
       }
     ],
     "CL=F": [
@@ -47461,6 +47473,18 @@
       {
         "date": "2026-10-16T20:59",
         "close": 99.02
+      },
+      {
+        "date": "2026-10-18T22:00",
+        "close": 98.16
+      },
+      {
+        "date": "2026-10-18T23:00",
+        "close": 97.77
+      },
+      {
+        "date": "2026-10-18T23:51",
+        "close": 97.77
       }
     ],
     "NG=F": [
@@ -48183,6 +48207,10 @@
       {
         "date": "2026-10-16",
         "close": 3.12
+      },
+      {
+        "date": "2026-10-18",
+        "close": 3.05
       }
     ],
     "2222.SR": [
@@ -52725,8 +52753,8 @@
     ]
   },
   "gulf": {
-    "ships": 25,
+    "ships": 13,
     "tankers": 0,
-    "sampled_at": "2026-10-18T21:44:12Z"
+    "sampled_at": "2026-10-19T00:01:19Z"
   }
 }
