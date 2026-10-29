@@ -1,5 +1,12 @@
 [
   {
+    "timestamp": "2026-10-29T12:12:57Z",
+    "old_value": "5",
+    "new_value": "4.99",
+    "method": "treasury-boe-mof",
+    "source_url": "https://home.treasury.gov/"
+  },
+  {
     "timestamp": "2026-10-28T12:02:34Z",
     "old_value": "4.96",
     "new_value": "5",
@@ -619,13 +626,6 @@
     "timestamp": "2026-08-01T08:13:39Z",
     "old_value": "4.68",
     "new_value": "4.74",
-    "method": "treasury-boe-mof",
-    "source_url": "https://home.treasury.gov/"
-  },
-  {
-    "timestamp": "2026-07-31T08:43:34Z",
-    "old_value": "4.677",
-    "new_value": "4.654",
     "method": "treasury-boe-mof",
     "source_url": "https://home.treasury.gov/"
   }
