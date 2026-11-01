@@ -1,5 +1,12 @@
 [
   {
+    "timestamp": "2026-11-01T05:19:15Z",
+    "old_value": "111.95",
+    "new_value": "111.95",
+    "method": "cbonds-scrape",
+    "source_url": "https://cbonds.com/indexes/189217/"
+  },
+  {
     "timestamp": "2026-10-31T23:35:39Z",
     "old_value": "111.95",
     "new_value": "111.95",
@@ -619,13 +626,6 @@
     "timestamp": "2026-10-15T22:01:58Z",
     "old_value": "109.13",
     "new_value": "109.43",
-    "method": "cbonds-scrape",
-    "source_url": "https://cbonds.com/indexes/189217/"
-  },
-  {
-    "timestamp": "2026-10-15T18:32:30Z",
-    "old_value": "109.13",
-    "new_value": "109.13",
     "method": "cbonds-scrape",
     "source_url": "https://cbonds.com/indexes/189217/"
   }
