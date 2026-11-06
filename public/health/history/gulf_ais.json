@@ -1,5 +1,12 @@
 [
   {
+    "timestamp": "2026-11-06T00:55:12Z",
+    "old_value": "0",
+    "new_value": "1",
+    "method": "aisstream",
+    "source_url": "wss://stream.aisstream.io/v0/stream"
+  },
+  {
     "timestamp": "2026-11-05T19:52:48Z",
     "old_value": "0",
     "new_value": "0",
@@ -619,13 +626,6 @@
     "timestamp": "2026-10-18T16:45:44Z",
     "old_value": "0",
     "new_value": "14",
-    "method": "aisstream",
-    "source_url": "wss://stream.aisstream.io/v0/stream"
-  },
-  {
-    "timestamp": "2026-10-18T13:06:43Z",
-    "old_value": "0",
-    "new_value": "32",
     "method": "aisstream",
     "source_url": "wss://stream.aisstream.io/v0/stream"
   }
