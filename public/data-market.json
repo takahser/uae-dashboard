@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-08T09:24:04Z",
+  "updated": "2026-11-08T16:14:08Z",
   "quotes": {
     "BZ=F": {
       "symbol": "BZ=F",
@@ -21,16 +21,16 @@
       "symbol": "NG=F",
       "name": "Natural Gas",
       "price": 3.0,
-      "change": 0.05,
-      "changePercent": 1.7,
-      "previousClose": 2.95
+      "change": -0.53,
+      "changePercent": -15.0,
+      "previousClose": 3.53
     },
     "2222.SR": {
       "symbol": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 26.14,
-      "change": -0.02,
-      "changePercent": -0.08,
+      "price": 26.08,
+      "change": -0.08,
+      "changePercent": -0.31,
       "previousClose": 26.16
     },
     "FRO": {
@@ -52252,7 +52252,7 @@
       },
       {
         "date": "2026-11-08",
-        "close": 26.14
+        "close": 26.08
       }
     ],
     "FRO": [
@@ -56515,6 +56515,6 @@
   "gulf": {
     "ships": 0,
     "tankers": 0,
-    "sampled_at": "2026-11-08T09:23:49Z"
+    "sampled_at": "2026-11-08T16:13:53Z"
   }
 }
