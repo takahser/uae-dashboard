@@ -5,10 +5,10 @@
   "statusNote": "Operational with reduced traffic",
   "lastVerified": "2026-03-15",
   "source": "muscatairport.co.om",
-  "todayArrivals": 150,
-  "todayDepartures": 155,
-  "todayTotal": 305,
-  "todayFetched": "2026-11-16T17:44:07.545Z",
+  "todayArrivals": 148,
+  "todayDepartures": 154,
+  "todayTotal": 302,
+  "todayFetched": "2026-11-17T17:16:26.447Z",
   "daily": [
     {
       "date": "2026-02-15",
@@ -4212,6 +4212,21 @@
         "Europe": 12
       },
       "source": "muscatairport.co.om"
+    },
+    {
+      "date": "2026-11-17",
+      "departures": 154,
+      "arrivals": 148,
+      "total": 302,
+      "regions": {
+        "Europe": 10,
+        "Middle East": 76,
+        "Unknown": 47,
+        "South Asia": 48,
+        "Africa": 8,
+        "Asia-Pacific": 4
+      },
+      "source": "muscatairport.co.om"
     }
   ],
   "baselineDailyAvg": {
@@ -4227,6 +4242,6 @@
       "Africa": 9
     }
   },
-  "lastUpdated": "2026-11-16T17:43:52.739Z",
+  "lastUpdated": "2026-11-17T17:16:10.068Z",
   "preConflictAvg": 211
 }
